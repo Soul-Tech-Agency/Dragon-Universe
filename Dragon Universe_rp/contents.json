@@ -208,6 +208,9 @@
          "path" : "animations/player/player.dbe.animation.json"
       },
       {
+         "path" : "animations/player/oozaru_ui.animation.json"
+      },
+      {
          "path" : "animations/projectiles/ki_attack.animation.json"
       },
       {
