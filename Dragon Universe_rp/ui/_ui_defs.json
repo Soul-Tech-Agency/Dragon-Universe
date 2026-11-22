@@ -5,6 +5,8 @@
         "ui/du2/du2_common.json",
         "ui/du2/du2_statistics.json",
         "ui/du2/du2_select_race.json",
+        "ui/du2/du2_detail.json",
+        "ui/du2/du2_quests.json",
         "ui/du2/du2_transformations.json",
         "ui/du2/du2_skills.json",
         "ui/common/common_bar.json",

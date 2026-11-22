@@ -1102,6 +1102,68 @@ def transformations_content(mobile):
 tab_screen(tr, "transformations_form", transformations_content)
 
 
+def back_button(w, h):
+    """Voltar (índice 0, só quando o texto é ui.dbe.backButton)."""
+    def face(t):
+        return [bg(T + t), c("i", img(I + "back", [10, 10], "gold"))]
+    btn = form_button(0, [w, h], {"default": face("btn_secondary"), "hover": face("btn_secondary_hover"),
+                                  "pressed": face("btn_secondary_pressed")},
+                      vis="(#form_button_text = 'ui.dbe.backButton')")
+    return [pad(3), c("back", P([w, "100%"], [c("h", host("b@common.button", btn, [w, h]) | {
+        "anchor_from": "center", "anchor_to": "center"})]))]
+
+
+def action_button(idx, w, h, key_icons):
+    """Botão principal com ícone escolhido pela chave do texto."""
+    def face(t):
+        icons = [c("i_" + ic, img(I + ic, [10, 10], "dark", bindings=[coll_text(), view(f"(#form_button_text = '{k}')")]))
+                 for k, ic in key_icons]
+        return [bg(T + t), c("row", H(["100%", "100%"], [
+            pad(8), centered(12, P([12, 12], icons)), pad(4),
+            c("t", P(["fill", "100%"], [c("l", btn_label("dark", None, align="center", anchor_from="center",
+                                                         anchor_to="center"))], clips_children=True)),
+            pad(8),
+        ]))]
+    btn = form_button(idx, [w, h], {"default": face("btn_primary"), "hover": face("btn_primary_hover"),
+                                    "pressed": face("btn_primary_pressed")},
+                      vis="(not ((#form_button_text = '') or (#form_button_text = 'ui.dbe.backButton')))")
+    return host("b@common.button", btn, [w, h])
+
+
+def detail_screen(nsd, form_name, bottom):
+    """Tela sem abas: Voltar na barra de título, texto com rolagem e botões embaixo."""
+    screen_root(nsd, form_name)
+    for m, (size, mx, th, inset, bh) in {"pc": ([400, 240], ["100% - 8px", "100% - 8px"], 24, 12, 22),
+                                          "mobile": (["100% - 6px", "100% - 6px"], [480, 270], 20, 8, 22)}.items():
+        nsd[m] = frame(size, mx, th, [], 22 if m == "mobile" else 18, [
+            c("inner", V([f"100% - {inset}px", f"100% - {inset - 2}px"], [
+                c("scroll", P(["100%", "fill"], [scroll_area(nsd, "scroll_" + m, [body_label("text")])])),
+                pad("100%", 4),
+                c("bottom", H(["100%", bh], [c("fill", P(["fill", "100%"])), *bottom(m == "mobile")])),
+            ], anchor_from="center", anchor_to="center")),
+        ], left=back_button(24, th - 4 if th >= 24 else th))
+
+
+# ---- Missões (kC lista: 10+ = missões) e detalhe (kB missão / k9 conquista: 0 = Voltar, 1 = Iniciar/Reiniciar)
+qs = {"namespace": "du2_quests"}
+qs["row_pc"] = list_item(20)
+qs["row_mobile"] = list_item(22)
+
+
+def quests_content(mobile):
+    m = "mobile" if mobile else "pc"
+    return [c("scroll", P(["100%", "100%"], [scroll_area(qs, "scroll_" + m, [
+        c("list", factory_list("du2_quests.row_" + m))])]))]
+
+
+tab_screen(qs, "quest_list_form", quests_content)
+
+qd = {"namespace": "du2_detail"}
+detail_screen(qd, "detail_form", lambda mobile: [
+    c("action", action_button(1, 130, 22, [("ui.dbe.quest.button.start", "play"),
+                                          ("ui.dbe.quest.button.restart", "restart")]))])
+
+
 # --------------------------------------------------------------------------- escrita
 
 def fmt(v, ind=0):
@@ -1164,3 +1226,5 @@ write("du2_statistics.json", st)
 write("du2_select_race.json", rc)
 write("du2_skills.json", sk)
 write("du2_transformations.json", tr)
+write("du2_quests.json", qs)
+write("du2_detail.json", qd)

@@ -6283,6 +6283,12 @@
          "path" : "ui/du2/du2_statistics.json"
       },
       {
+         "path" : "ui/du2/du2_detail.json"
+      },
+      {
+         "path" : "ui/du2/du2_quests.json"
+      },
+      {
          "path" : "ui/du2/du2_transformations.json"
       },
       {
