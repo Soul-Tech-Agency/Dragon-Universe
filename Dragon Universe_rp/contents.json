@@ -6085,6 +6085,81 @@
          "path" : "textures/ui/du2/icons/tab_transformations.png"
       },
       {
+         "path" : "textures/ui/du2/icons/back.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/train_shadow.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/train_concentration.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/train_stop.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/play.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/restart.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/cust_antennas.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/cust_beard.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/cust_eye_color.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/cust_eyes.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/cust_face.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/cust_gender.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/cust_hair.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/cust_hair_color.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/cust_horns.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/cust_shoulder_pads.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/cust_skin.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/cust_skin_details.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/cust_tail_color.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/fuel.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/gravity.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/lock.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/palette.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/tail.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/train_weights.png"
+      },
+      {
          "path" : "textures/ui/du2/panel_dark.json"
       },
       {
