@@ -9990,7 +9990,7 @@ var k8 = new k6(),
       jZ.lastMenuId.set(sG.id, "achievement_list"), this.setTitle("ui.dbe.achievement_list.title");
       for (let sK of sI.getVisibleAchievements()) {
         let sL = sK.isCompleted ? this.getCompletedAchievementButtonText(sK) : this.getAchievementButtonText(sK);
-        this.addButton(sL, () => new k9(sG, sK).display());
+        this.addButton(sL, () => new k9(sG, sK).display(), { iconPatch: duAchievementIcon(sK) });
       }
     }
     getAchievementButtonText(sG) {
@@ -10055,7 +10055,7 @@ var k8 = new k6(),
           () => {
             sO && sI.currentValue ? sM.transform() : cj.displayForm(sG, "transformations");
           },
-          { iconPatch: sO ? "" : "textures/ui/icon_lock" },
+          { iconPatch: sO ? "" : DU_ICON + "lock" }, // 12b (CONTRATO §10.2)
         );
       }
     }
@@ -10351,6 +10351,23 @@ function kA(sG) {
     with: { rawtext: [{ ...aM.convertTimeToRawText(sG * 50) }] },
   };
 }
+// Item 12 da 1.7.18 (redesign/CONTRATO.md §10): ícones do du2, sempre "textures/ui/du2/icons/<nome>" sem extensão. A
+// cor é fixa por ícone e decidida no JSON, que compara o caminho: o script manda só o caminho exato.
+const DU_ICON = "textures/ui/du2/icons/";
+const DU_QUEST_TYPE_ICON = { main: "quest_main", mentor: "quest_mentor", side: "quest_side", challenge: "quest_challenge" };
+const DU_ACHIEVEMENT_ICON = { battle_power: "ach_battle_power", defeat_enemy: "ach_defeat", item: "ach_item",
+  learn_skill: "ach_skill", requirement: "ach_requirement" };
+// Prioridade (§10.1): bloqueada (não iniciada e o objetivo atual não pode começar) > concluída > tipo.
+function duQuestIcon(quest) {
+  const objective = quest.getInProgressObjective(),
+    name = !objective ? "quest_done" : !quest.isStarted && !objective.canStart ? "lock" : DU_QUEST_TYPE_ICON[quest.type];
+  return name ? DU_ICON + name : "";
+}
+// Concluída > categoria (o type da 1ª tarefa). Categoria sem ícone: "" (a linha fica sem ícone).
+function duAchievementIcon(achievement) {
+  const name = achievement.isCompleted ? "ach_done" : DU_ACHIEVEMENT_ICON[achievement.achievementData?.tasks?.[0]?.type];
+  return name ? DU_ICON + name : "";
+}
 var kB = class extends jY {
     constructor(sG, sH) {
       if ((super(sG), !sH)) throw new Error("A missão fornecida como parâmetro é inválida ou está ausente.");
@@ -10429,7 +10446,7 @@ var kB = class extends jY {
             },
           ],
         };
-        this.addButton(sL, () => new kB(this.initiator, sK).display());
+        this.addButton(sL, () => new kB(this.initiator, sK).display(), { iconPatch: duQuestIcon(sK) });
       }
     }
   },
