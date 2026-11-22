@@ -1,0 +1,291 @@
+{
+ "namespace": "du2_news",
+ "news_form@du2.root": {
+  "controls": [{"pc@du2_news.pc": {"ignored": "$du2_mobile"}}, {"mobile@du2_news.mobile": {"ignored": "$du2_pc"}}]
+ },
+ "scroll_pc": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": ["100%", "100%c"],
+  "controls": [
+   {
+    "body": {
+     "type": "label",
+     "text": "#form_text",
+     "size": ["100%", "default"],
+     "color": [0.902, 0.925, 0.969],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left"
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 6]}},
+   {
+    "items": {
+     "type": "panel",
+     "size": ["100%", 121],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/images/patron_items"}}]
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {
+    "chat": {
+     "type": "panel",
+     "size": ["100%", 47],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/images/patron_chat"}}]
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 2]}}
+  ]
+ },
+ "pc": {
+  "type": "panel",
+  "size": [450, 252],
+  "max_size": ["100% - 8px", "100% - 8px"],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "layer": 1,
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/panel_main", "size": ["100%", "100%"]}},
+   {
+    "col": {
+     "type": "stack_panel",
+     "orientation": "vertical",
+     "size": ["100%", "100%"],
+     "controls": [
+      {
+       "title": {
+        "type": "panel",
+        "size": ["100%", 24],
+        "controls": [
+         {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
+         {"row@du2_news.h1": {}}
+        ]
+       }
+      },
+      {"body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"row@du2_news.h2": {}}]}}
+     ]
+    }
+   }
+  ]
+ },
+ "scroll_mobile": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": ["100%", "100%c"],
+  "controls": [
+   {
+    "body": {
+     "type": "label",
+     "text": "#form_text",
+     "size": ["100%", "default"],
+     "color": [0.902, 0.925, 0.969],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left"
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 6]}},
+   {
+    "items": {
+     "type": "panel",
+     "size": ["100%", 121],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/images/patron_items"}}]
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {
+    "chat": {
+     "type": "panel",
+     "size": ["100%", 47],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/images/patron_chat"}}]
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 2]}}
+  ]
+ },
+ "mobile": {
+  "type": "panel",
+  "size": ["100% - 6px", "100% - 6px"],
+  "max_size": [480, 270],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "layer": 1,
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/panel_main", "size": ["100%", "100%"]}},
+   {
+    "col": {
+     "type": "stack_panel",
+     "orientation": "vertical",
+     "size": ["100%", "100%"],
+     "controls": [
+      {
+       "title": {
+        "type": "panel",
+        "size": ["100%", 20],
+        "controls": [
+         {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
+         {"row@du2_news.h3": {}}
+        ]
+       }
+      },
+      {
+       "body": {
+        "type": "panel",
+        "size": ["100%", "fill"],
+        "controls": [
+         {
+          "row": {
+           "type": "stack_panel",
+           "orientation": "horizontal",
+           "size": ["100%", "100%"],
+           "controls": [{"nav@du2.nav_mobile": {}}, {"content@du2_news.h4": {}}]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h1": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"pad": {"type": "panel", "size": [3, "100%"]}},
+   {"logo": {"type": "panel", "size": [24, "100%"], "controls": [{"logo@du2.logo": {}}]}},
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "title": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "clips_children": true,
+     "controls": [{"t@du2.title_label": {}}]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "close": {
+     "type": "panel",
+     "size": [18, "100%"],
+     "controls": [{"b@du2.close_button": {"size": [18, 18], "anchor_from": "center", "anchor_to": "center"}}]
+    }
+   },
+   {"pad": {"type": "panel", "size": [3, "100%"]}}
+  ]
+ },
+ "h2": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"nav@du2.nav_pc": {}},
+   {
+    "content": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "controls": [
+      {
+       "inner": {
+        "type": "panel",
+        "size": ["100% - 12px", "100% - 10px"],
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+         {
+          "scroll": {
+           "type": "panel",
+           "size": ["100%", "100%"],
+           "controls": [
+            {
+             "s@common.scrolling_panel": {
+              "anchor_to": "top_left",
+              "anchor_from": "top_left",
+              "size": ["100%", "100%"],
+              "$show_background": false,
+              "$scrolling_content": "du2_news.scroll_pc",
+              "$scroll_size": [4, "100% - 2px"],
+              "$scrolling_pane_size": ["100% - 6px", "100%"],
+              "$scrolling_pane_offset": [0, 0],
+              "$scroll_bar_right_padding_size": [0, 0]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h3": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"pad": {"type": "panel", "size": [3, "100%"]}},
+   {"logo": {"type": "panel", "size": [20, "100%"], "controls": [{"logo@du2.logo": {}}]}},
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "title": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "clips_children": true,
+     "controls": [{"t@du2.title_label": {}}]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "close": {
+     "type": "panel",
+     "size": [22, "100%"],
+     "controls": [{"b@du2.close_button": {"size": [22, 20], "anchor_from": "center", "anchor_to": "center"}}]
+    }
+   },
+   {"pad": {"type": "panel", "size": [3, "100%"]}}
+  ]
+ },
+ "h4": {
+  "type": "panel",
+  "size": ["fill", "100%"],
+  "controls": [
+   {
+    "inner": {
+     "type": "panel",
+     "size": ["100% - 8px", "100% - 6px"],
+     "anchor_from": "center",
+     "anchor_to": "center",
+     "controls": [
+      {
+       "scroll": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "controls": [
+         {
+          "s@common.scrolling_panel": {
+           "anchor_to": "top_left",
+           "anchor_from": "top_left",
+           "size": ["100%", "100%"],
+           "$show_background": false,
+           "$scrolling_content": "du2_news.scroll_mobile",
+           "$scroll_size": [4, "100% - 2px"],
+           "$scrolling_pane_size": ["100% - 6px", "100%"],
+           "$scrolling_pane_offset": [0, 0],
+           "$scroll_bar_right_padding_size": [0, 0]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

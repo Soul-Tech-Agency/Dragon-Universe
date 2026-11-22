@@ -6283,6 +6283,9 @@
          "path" : "ui/du2/du2_statistics.json"
       },
       {
+         "path" : "ui/du2/du2_news.json"
+      },
+      {
          "path" : "ui/du2/du2_achievements.json"
       },
       {

@@ -146,7 +146,7 @@
                 }
             },
             {
-                "news@news_form.news_form": {
+                "news@du2_news.news_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"

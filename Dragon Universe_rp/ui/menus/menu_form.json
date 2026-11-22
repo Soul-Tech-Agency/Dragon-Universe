@@ -141,7 +141,7 @@
             },
             {
                 "binding_type": "view",
-                "source_property_name": "(((#title_text = 'ui.dbe.statistics.title') and ((#form_text - 'du2;') = #form_text)) or (#title_text = 'ui.dbe.help.title') or (#title_text = 'ui.dbe.news.title'))",
+                "source_property_name": "(((#title_text = 'ui.dbe.statistics.title') and ((#form_text - 'du2;') = #form_text)) or (#title_text = 'ui.dbe.help.title'))",
                 "target_property_name": "#visible"
             }
         ]
