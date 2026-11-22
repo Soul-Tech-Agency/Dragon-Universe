@@ -203,3 +203,41 @@ Pontos a confirmar no jogo:
 | Teste no jogo: mundo novo, mundo com arena parcial, mundo com arena inteira, desempenho da chegada | Testador | — |
 
 **Total: M** (1–2 dias com a migração). Sem migração, só mundos novos: ~0,5–1 dia, mas um mundo com a arena parcialmente gerada fica misturado. Então **ou faz a migração, ou troca o id das peças** (`tp2_*` + `dbe:top_pieces` novo, recolocando a arena inteira só em mundos novos e deixando a antiga intacta nos velhos).
+
+---
+
+## Revisão da Aquarela para a 1.7.18 (dec. 34 e 35): paleta final, anel dourado e névoa
+
+### Paleta final (troca de `name` na `block_palette`, sem mudar `block_indices`)
+| Hoje | Novo | Observação |
+|---|---|---|
+| `white_terracotta`, `white_concrete` | `smooth_quartz` | placas claras (triângulos externos) |
+| `light_gray_concrete`, `light_gray_terracotta`, `blue_terracotta` | `polished_diorite` | |
+| `cyan_terracotta` | `calcite` | |
+| `brown_terracotta`, `brown_concrete`, `hardened_clay`, `purple_terracotta` | `smooth_stone` | `purple_terracotta` (~200, espalhado) entrou aqui |
+| `gray_concrete`, `gray_terracotta`, `red_terracotta` | `polished_andesite` | `gray_concrete` é o mais usado (23 mil) |
+| `green_terracotta`, `lime_terracotta` | `stone` | |
+| `black_concrete`, `black_terracotta` | `polished_deepslate` | linhas entre anéis |
+| `dark_prismarine` | `polished_deepslate` | anel externo (r 120–159); hoje lê como faixa verde-azulada |
+| `light_block_15` | `air` | ~1,34 milhão; testar a luz no jogo (§2.4.2) |
+| `quartz_block`, `yellow_carpet`, `border_block`, `barrier`, `obsidian` | sem mudança | arquibancada, borda e estrutura |
+
+### Anel dourado (dec. 34): não sai só da paleta
+- Medi a superfície de cada bloco do mosaico por distância ao centro: **todas as cores aparecem em todos os raios**, porque cada região é pontilhada com duas cores.
+- Logo, nenhuma troca de nome isola um anel. Ele precisa de uma **edição geométrica** na mesma ferramenta de regravação do Marco: acrescentar `gold_block` à paleta da peça e reapontar os índices dos blocos que formam o anel.
+- **Centro:** (2,5, 8) em coordenadas da arena. É o centro da torre (peças `tp_*_y2_*`/`y3`: x -13..18, z -8..25) e do disco claro.
+- **Faixa recomendada (A):** 21 ≤ r < 24, só no **bloco mais alto de cada coluna da camada do piso** (fora da torre, cujo raio é ~15). Fica justo na borda do disco central. Prévia em `planos/TP_ANEL_DOURADO.png`.
+  - **Opção B:** r 9–11, em volta do círculo claro. É mais discreta.
+- **Na migração em jogo (37a):** o anel é um `fillBlocks` por coluna nessa faixa, ou fica só nas peças regravadas. Se ficar caro, o anel entra só em mundos novos e no rebuild por comando.
+
+### Névoa (dec. 35): commit da Aquarela + 1 linha da Bússola
+- **RP (Aquarela):** três névoas novas para o teste de cor.
+  - `dbe:fog_tournament_of_power` (A, azul claro `#9FC4EA`, **recomendada**)
+  - `_b` (quase branco `#D3E2F1`)
+  - `_c` (azul mais fechado `#6F93C9`)
+  - Todas com névoa em fração da distância de renderização, começando em 25–35%.
+- **Teste já, sem script:** na arena, rodar `/fog @s push dbe:fog_tournament_of_power teste` (ou `_b` / `_c`) e, para voltar, `/fog @s remove teste`.
+- **BP (Bússola):** `space_arena.js` empilha sempre `dbe:fog_space`.
+  - Pedido: aceitar `cfg.fogId` (`const FOG_PUSH = "fog @s push " + (cfg.fogId || "dbe:fog_space") + " " + cfg.fogTag;`).
+  - E em `tournament_of_power.js`: `fogId: "dbe:fog_tournament_of_power"` (ou a variante que o usuário aprovar).
+- **Limite:** o céu acima continua preto. `sky_color` é do bioma `dbe:space`, compartilhado com as outras arenas. Se o usuário quiser o céu claro também, é preciso um bioma próprio para a dimensão do TP (BP `biomes` + `dimensions/tournament_of_power.json`, + RP `client_biome` da Aquarela). Fica como decisão nova.

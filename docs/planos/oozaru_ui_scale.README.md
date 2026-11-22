@@ -28,10 +28,11 @@ Build A = 1.7.18 sem o patch. Build B = com as partes 1 e 2. Em cada um, nas for
 4. Prévia do redesign du2: idem.
 5. No mundo, com o inventário aberto e a câmera em terceira pessoa: o Oozaru **não** encolhe.
 6. Forma base e SSJ: prévias iguais às do build A.
+7. Girar a prévia de 70x70 em Oozaru/Golden: a ponta da cauda (`tail4`, z=41 a 53 no modelo) pode sair da caixa. É aceitável; se incomodar, use escala 0,28 ou uma caixa maior.
 
 **Se no build B o Oozaru sumir de alguma prévia (como na 1.7.14):**
 - O renderer daquela tela não marca `v.is_paperdoll`.
-- Saída: fica só a parte 2 (UI), e o vazamento no inventário vanilla vira limitação conhecida.
+- Saída: reverter **as duas partes juntas** (`git revert 28fb62b 5ba9258`), voltando à 1.7.17 (prévia 22x22 nas telas do addon). **Não** deixar só a parte 2: com a prévia única de 70x70 sem a escala da parte 1, o Oozaru fica gigante e vaza também das telas do addon. O vazamento no inventário vanilla vira limitação conhecida.
 - Alternativa: trocar a condição por `v.is_oozaru && q.is_in_ui && !v.isLive`, testar de novo e anotar o resultado aqui.
 
 **Se o corpo aparecer desmontado (pernas, tronco e cabeça sobrepostos):**
