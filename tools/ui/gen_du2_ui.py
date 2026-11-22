@@ -1234,6 +1234,85 @@ def help_content(mobile):
 tab_screen(hp, "help_form", help_content)
 
 
+# ---- Customização (kv) e Barbeiro (kI): body = um nome de opção por linha; setas em pares
+cu = {"namespace": "du2_customization"}
+
+
+def arrow_pair_rows(first_idx, rows, row_h, arrow_w):
+    """Linhas com ◀ ▶ (índices first_idx + 2k e + 2k + 1) e o body por cima, uma linha de texto por linha."""
+    items = []
+    for k in range(rows):
+        a, b = first_idx + 2 * k, first_idx + 2 * k + 1
+        row_bg = img(T + "panel_row", ["100%", row_h - 2], collection_index=a,
+                     bindings=[coll_text(), view("(not (#form_button_text = ''))")])
+        items.append(c(f"row{k}", P(["100%", row_h], [
+            c("bg", P(["100%", "100%"], [c("i", row_bg)], collection_name=COL)),
+            c("arrows", H(["100%", row_h - 2], [
+                c("prev", host("b@common.button", arrow(a, "chevron_left", arrow_w, row_h - 2), [arrow_w, row_h - 2])),
+                c("fill", P(["fill", "100%"])),
+                c("next", host("b@common.button", arrow(b, "chevron_right", arrow_w, row_h - 2), [arrow_w, row_h - 2])),
+            ], layer=3)),
+        ])))
+    text = lbl("#form_text", ["100%", "default"], "text", None, "default", "center",
+               line_padding=row_h - 10, offset=[0, (row_h - 10) // 2 - 1],
+               anchor_from="top_middle", anchor_to="top_middle")
+    return P(["100%", rows * row_h], [
+        c("rows", V(["100%", "100%"], items)),
+        c("names", P([f"100% - {2 * arrow_w + 8}px", "100%"], [c("t", text)], layer=4, clips_children=True,
+                     anchor_from="top_middle", anchor_to="top_middle")),
+    ])
+
+
+def custom_preview(w, oozaru_marker=None, confirm=None):
+    if oozaru_marker:
+        renders = [
+            c("player@statistics_form.player_preview", {"size": [70, 70], "offset": [0, -6],
+                "$preview_visible": f"((#form_text - '{oozaru_marker}') = #form_text)"}),
+            c("oozaru@statistics_form.player_preview", {"size": [22, 22], "offset": [0, -6],
+                "$preview_visible": f"(not ((#form_text - '{oozaru_marker}') = #form_text))"}),
+        ]
+    else:
+        renders = [c("player", {"type": "custom", "renderer": "live_player_renderer", "size": [70, 70], "layer": 2,
+                                "anchor_from": "center", "anchor_to": "center", "offset": [0, -6],
+                                "property_bag": {"#look_at_cursor": True}})]
+    col = [c("preview", P(["100%", "fill"], [bg(T + "panel_preview"), *renders], clips_children=True))]
+    if confirm:
+        col += [pad("100%", 4), confirm]
+    return V([w, "100%"], col)
+
+
+def custom_screen(form_name, title_left, first_idx, rows, oozaru_marker, with_confirm):
+    for m in ("pc", "mobile"):
+        mobile = m == "mobile"
+        row_h, arrow_w = (20, 26) if mobile else (16, 20)
+        confirm = c("confirm", host("b@common.button", form_button(1, ["100%", 22], {
+            k: [bg(T + "btn_primary" + suf), c("row", H(["100%c", "100%"], [
+                centered(12, img(I + "check", [10, 10], "dark")), pad(4),
+                c("t", P([80, "100%"], [c("l", btn_label("dark", None, align="center", anchor_from="center",
+                                                         anchor_to="center"))], clips_children=True)),
+            ], anchor_from="center", anchor_to="center"))]
+            for k, suf in (("default", ""), ("hover", "_hover"), ("pressed", "_pressed"))}),
+            ["100%", 22])) if with_confirm else None
+        th = 20 if mobile else 24
+        body = [c("inner", H(["100% - 10px" if not mobile else "100% - 6px", "100% - 8px" if not mobile else "100% - 6px"], [
+            c("left", custom_preview(130 if not mobile else 118, oozaru_marker, confirm)),
+            pad(6),
+            c("right", P(["fill", "100%"], [c("opts", arrow_pair_rows(first_idx, rows, row_h, arrow_w) | {
+                "anchor_from": "top_middle", "anchor_to": "top_middle"})])),
+        ], anchor_from="center", anchor_to="center"))]
+        size, mx = ([400, 240], ["100% - 8px", "100% - 8px"]) if not mobile else (["100% - 6px", "100% - 6px"], [480, 270])
+        cu[form_name + "_" + m] = frame(size, mx, th, [], 22 if mobile else 18, body,
+                                        left=back_button(24, th - 4 if th >= 24 else th) if title_left else None)
+    cu[form_name + "@du2.root"] = {"controls": [
+        c("pc@du2_customization." + form_name + "_pc", {"ignored": "$du2_mobile"}),
+        c("mobile@du2_customization." + form_name + "_mobile", {"ignored": "$du2_pc"}),
+    ]}
+
+
+custom_screen("customization_form", True, 2, 8, None, True)
+custom_screen("select_hair_form", False, 0, 5, "\u00a7r\u00a7o\u00a7r", False)
+
+
 # --------------------------------------------------------------------------- escrita
 
 def fmt(v, ind=0):
@@ -1302,3 +1381,4 @@ write("du2_training.json", tn)
 write("du2_achievements.json", ac)
 write("du2_news.json", nw)
 write("du2_help.json", hp)
+write("du2_customization.json", cu)

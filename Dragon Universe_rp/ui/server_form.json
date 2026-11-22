@@ -104,7 +104,7 @@
                 }
             },
             {
-                "customization@customization_form.customization_form": {
+                "customization@du2_customization.customization_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
@@ -220,7 +220,7 @@
                 }
             },
             {
-                "select_hair@select_hair_form.select_hair_form": {
+                "select_hair@du2_customization.select_hair_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
