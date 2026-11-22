@@ -27,6 +27,7 @@ import { AIR_ONLY_FILL, airFilterWorks, distrustAirFilter, fillAirColumn, emptyC
 import * as mc from "@minecraft/server";
 import { travelTimer } from "./travel_timing.js"; // TEMPORARY test measurement, see travel_timing.js
 import { isSpaceDimension } from "./space_planets.js"; // loads the space system too (Kaioshin is a planet in orbit around the Orbital Station)
+import { every } from "./core/scheduler.js";
 
 const { world, system, BlockVolume } = mc;
 
@@ -1007,13 +1008,14 @@ try {
   // dimensions/kaioshin.json owns the native dimension definition, including its legacy dbe:kai ID.
 
   world.afterEvents.worldLoad.subscribe(() => {
-    system.runInterval(() => {
+    // O3-2: relógio único (core/scheduler.js), fase 1 (O3_DETALHE.md §2)
+    every(SCAN_TICKS, "kaioshin.scan", () => {
       try {
         scan();
       } catch (e) {
         console.warn("[Kaioshin] scan error: " + e);
       }
-    }, SCAN_TICKS);
+    }, { phase: 1 });
 
     system.afterEvents.scriptEventReceive.subscribe((ev) => {
       const src = ev.sourceEntity;
