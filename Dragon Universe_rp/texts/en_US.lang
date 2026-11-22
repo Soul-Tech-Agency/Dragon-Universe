@@ -1429,6 +1429,7 @@ ui.dbe.skills.text.empty=You do not have any skills available to upgrade at the 
 ui.dbe.skills.button.upgrade_skill=%s §uLevel %s
 ui.dbe.skills.button.maximized_skill=%s §uMaximized
 ui.dbe.skills.button.transformations=Transformations
+ui.dbe.skills.caption.points=Skill points
 ui.dbe.statistics.title=Stats
 ui.dbe.statistics.text=Level: §a%s§rAttribute Points: §a%s§rRace: §a%s§rForm: §a%s§rAlignment: §a%s§rMaster: §a%s§rAttributes:
 ui.dbe.statistics.button.amount=Amount %s

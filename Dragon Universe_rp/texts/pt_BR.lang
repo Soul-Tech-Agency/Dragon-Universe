@@ -1429,6 +1429,7 @@ ui.dbe.skills.text.empty=Você não possui habilidades disponíveis para atualiz
 ui.dbe.skills.button.upgrade_skill=%s §uNível %s
 ui.dbe.skills.button.maximized_skill=%s §uMaximizado
 ui.dbe.skills.button.transformations=Transformações
+ui.dbe.skills.caption.points=Pontos de habilidade
 ui.dbe.statistics.title=Estatísticas
 ui.dbe.statistics.text=Nível: §9%s§rPontos de Atributo: §9%s§rRaça: §9%s§rForma: §9%s§rAlinhamento: §9%s§rMentor: §9%s§rAtributos:
 ui.dbe.statistics.button.amount=Quantidade %s

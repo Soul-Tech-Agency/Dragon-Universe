@@ -10457,9 +10457,12 @@ var kB = class extends jY {
       jZ.lastMenuId.set(sG.id, "skills");
       let sI = [];
       for (let sK of sH.skills.getSkills()) sK.canBeUpgraded && sI.push(sK);
+      // 12e (CONTRATO §10.5): 10 = Transformações, 11 = pontos ("pts;<n>", só leitura, com ícone), 12+ = habilidades
       this.setTitle("ui.dbe.skills.title"),
         this.setBody(this.listInfo(sI)),
         this.addButton("ui.dbe.skills.button.transformations", () => cj.displayForm(sG, "transformations"));
+      this.addButton("pts;" + aO.shortenNumber(sH.pointsManager.get("skill_points")), () => cj.displayForm(sG, "skills"),
+        { iconPatch: DU_ICON + "skill_points" });
       for (let sL of sI) {
         let sM = sL.level >= sL.maxLevel,
           sN = {
@@ -10477,17 +10480,12 @@ var kB = class extends jY {
             sO.trySpend("skill_points", sL.upgradeCost) &&
             (sL.upgradeSkill(), sG.playSound("ui.upgrade")),
             cj.displayForm(sG, "skills");
-        });
+        }, { iconPatch: sM ? DU_ICON + "skill_max" : "" });
       }
     }
+    // Os pontos saíram do body (vão no slot 11); o body só avisa quando não há habilidade para melhorar.
     listInfo(sG) {
-      let { pointsManager: sH } = hO(this.initiator),
-        sI = [];
-      return (
-        sI.push({ translate: "ui.dbe.skills.text", with: [sH.get("skill_points") + "\n\n"] }),
-        sG.length || sI.push({ text: "\n" }, { translate: "ui.dbe.skills.text.empty" }),
-        { rawtext: sI }
-      );
+      return sG.length ? "" : { rawtext: [{ translate: "ui.dbe.skills.text.empty" }] };
     }
   },
   kE = new Map(),
