@@ -705,6 +705,8 @@ const skills_data = [
   {
     type: "toggle",
     id: "limiter",
+    // Decisão 20: só para administradores (/dbe:learn <jogador> limiter). Sem price e sem availableTrainers, não
+    // aparece na loja de nenhum mestre, nem em desejo ou missão.
     activationSound: "common.force",
     functionSlot: 12,
     canSwitchTier: true,
