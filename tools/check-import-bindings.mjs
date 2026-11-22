@@ -1,5 +1,6 @@
-// Confere que cada nome de import do index.js original (antes do O4.1) usado num arquivo do núcleo está ligado
-// nesse arquivo (import ou declaração de topo). Pega um import que ficou para trás num movimento do O4.
+// Confere que cada nome de topo do index.js original (antes do O4.1: os de import e os declarados) usado num arquivo
+// do núcleo está ligado nesse arquivo (import ou declaração de topo). Pega um import que ficou para trás num
+// movimento do O4, ou um nome de outro módulo que não foi importado.
 // Uso: node tools/check-import-bindings.mjs <revisão de referência> [arquivos...]
 import fs from "node:fs";
 import path from "node:path";
@@ -11,8 +12,11 @@ const ROOT = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), ".."
 const [rev, ...files] = process.argv.slice(2);
 const orig = execFileSync("git", ["show", `${rev}:Dragon Universe_bp/scripts/index.js`], { cwd: ROOT, encoding: "utf8", maxBuffer: 64 << 20 });
 const importNames = new Set();
-for (const st of acorn.parsers.acorn.parse(orig, {}).body)
+for (const st of acorn.parsers.acorn.parse(orig, {}).body) {
   if (st.type === "ImportDeclaration") for (const sp of st.specifiers) importNames.add(sp.local.name);
+  else if (st.type === "VariableDeclaration") st.declarations.forEach((d) => d.id.name && importNames.add(d.id.name));
+  else if (st.id?.name) importNames.add(st.id.name);
+}
 
 let bad = 0;
 for (const f of files) {
