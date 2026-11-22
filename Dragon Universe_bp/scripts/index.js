@@ -16105,7 +16105,7 @@ var k6 = class {
           return;
         }
         sL && cj.displayForm(sG, sL);
-      } else cj.displayForm(sG, "select_race");
+      } else duCustomizationOpen.has(sG.id) || cj.displayForm(sG, "select_race");
     }
   }
   afterPlayerDimensionChange({ fromDimension: sG, player: sH, toDimension: sI }) {
@@ -16429,6 +16429,8 @@ function kp(sG) {
   }
   return sL;
 }
+// Jogadores com o formulário de customização aberto (ver showCustomizationForm e afterItemUse).
+var duCustomizationOpen = new Set();
 var kq = class t8 extends jY {
     constructor(sG, sH = 1) {
       super(sG), (this.selectedRaceIndex = sH);
@@ -16475,12 +16477,22 @@ var kq = class t8 extends jY {
       new t8(this.initiator, sK).display();
     }
     async showCustomizationForm(sG) {
-      for (;;) {
-        let sH = await new kv(this.initiator).display(!0);
-        if (sH && Number(sH.selection) <= 1) {
-          sH.selection === 1 && this.confirmRaceSelection(sG);
-          break;
+      let sI = this.initiator.id;
+      // um laço por jogador: dois laços mostravam formulários com valores diferentes
+      if (duCustomizationOpen.has(sI)) return;
+      duCustomizationOpen.add(sI);
+      try {
+        for (; this.initiator.isValid; ) {
+          let sH = await new kv(this.initiator).display(!0);
+          if (sH && Number(sH.selection) <= 1) {
+            sH.selection === 1 && this.confirmRaceSelection(sG);
+            break;
+          }
+          // UserBusy (formulário anterior ainda fechando, chat aberto): espera em vez de recriar a cada tick (C20)
+          if (sH?.cancelationReason === "UserBusy") await new Promise((sK) => gU.runTimeout(sK, 5));
         }
+      } finally {
+        duCustomizationOpen.delete(sI);
       }
     }
   },
@@ -16499,8 +16511,9 @@ var kq = class t8 extends jY {
         sK = [];
       if (sH.hasGender) {
         sK.push({ translate: "customization.gender" }, { text: "\n" });
-        let sL = sG.gender === "male" ? "female" : "male";
-        this.addButton(" ", () => sG.setGender(sL)), this.addButton(" ", () => sG.setGender(sL));
+        // lê o gênero na hora do clique: um formulário reexibido não pode desfazer a escolha
+        let sL = () => sG.setGender(sG.gender === "male" ? "female" : "male");
+        this.addButton(" ", sL), this.addButton(" ", sL);
       }
       for (let sM in sH.options) {
         let sN = sG.getOption(sM);
@@ -16511,9 +16524,10 @@ var kq = class t8 extends jY {
         )
           continue;
         sK.push({ translate: "customization." + sM }, { text: "\n" });
-        let sO = sG.getOptionValue(sM);
-        this.addButton(" ", () => sG.setOptionValue(sM, sO - 1)),
-          this.addButton(" ", () => sG.setOptionValue(sM, sO + 1));
+        // valor atual lido no clique (antes: o valor de quando o formulário foi montado; um formulário
+        // reexibido ou atrasado aplicava "antigo ± 1" e a opção voltava para a anterior)
+        this.addButton(" ", () => sG.setOptionValue(sM, sG.getOptionValue(sM) - 1)),
+          this.addButton(" ", () => sG.setOptionValue(sM, sG.getOptionValue(sM) + 1));
       }
       return sK.length ? { rawtext: sK } : "";
     }
@@ -16896,9 +16910,8 @@ var kH = class extends jZ {
         )
           continue;
         sK.push({ translate: "customization." + sL }, { text: "\n" });
-        let sN = sG.getOptionValue(sL);
-        this.addButton(" ", () => sG.setOptionValue(sL, sN - 1)),
-          this.addButton(" ", () => sG.setOptionValue(sL, sN + 1));
+        this.addButton(" ", () => sG.setOptionValue(sL, sG.getOptionValue(sL) - 1)),
+          this.addButton(" ", () => sG.setOptionValue(sL, sG.getOptionValue(sL) + 1));
       }
       return sK.length ? { rawtext: sK } : "";
     }
