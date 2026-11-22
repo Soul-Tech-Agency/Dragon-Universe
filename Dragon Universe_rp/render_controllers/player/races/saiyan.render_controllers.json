@@ -1002,7 +1002,7 @@
                         /*ssjr          */ "Geometry.du_dmz_goku_ssj",
                         /*ssjbe         */ "Geometry.du_dmz_goku_ssj2",
                         /*ssjre         */ "Geometry.du_dmz_goku_ssj2",
-                        /*beast         */ "Geometry.du_dmz_goku_ssj3",
+                        /*beast         */ "Geometry.du_dmz_goku_beast",
                         /*ultra_ego     */ "Geometry.du_dmz_goku_ssj"
                     ],
                     "Array.du_dmz_trunks_geo": [
