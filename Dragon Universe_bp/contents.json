@@ -1918,6 +1918,9 @@
          "path" : "scripts/core/03_skill_base.js"
       },
       {
+         "path" : "scripts/core/04_tournament_dims.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
