@@ -113,6 +113,7 @@ function offsetsWithin(r) {
 }
 const OFFSETS_TERRAIN = offsetsWithin(TERRAIN_RADIUS);
 const OFFSETS_DECOR = offsetsWithin(DECOR_RADIUS);
+const OFFSETS_NEAR = offsetsWithin(1); // the 3x3 under a player: the only scan work while a trip is being prepared
 const NEIGHBOURS = offsetsWithin(1).filter((o) => o[0] !== 0 || o[1] !== 0);
 
 // ---------------------------------------------------------------- villages
@@ -433,8 +434,8 @@ function* decorateJob(dim, cx, cz) {
 
 let busy = false;
 const retryAt = new Map();
-// Trips being prepared right now (any player): while > 0 the scan starts no new job, so the arrival chunks of a second
-// traveller are not starved by the terrain generated around a player who already arrived (H10).
+// Trips being prepared right now (any player): while > 0 the scan keeps to the 3x3 under each player, so the arrival
+// chunks of a second traveller are not starved by the terrain generated around a player who already arrived (H10).
 let travelPreparing = 0;
 let jobsFinished = 0;
 let unloadedScanJobs = 0; // scan jobs whose chunk unloaded mid-job (diagnostic count)
@@ -563,7 +564,7 @@ function scan() {
     }
   }
 
-  if (busy || travelPreparing > 0) return;
+  if (busy) return;
   let dim;
   try {
     dim = world.getDimension(DIM_ID);
@@ -587,7 +588,7 @@ function scan() {
     const pcx = chunkOf(x);
     const pcz = chunkOf(z);
 
-    for (const [dx, dz] of OFFSETS_TERRAIN) {
+    for (const [dx, dz] of travelPreparing > 0 ? OFFSETS_NEAR : OFFSETS_TERRAIN) {
       const cx = pcx + dx;
       const cz = pcz + dz;
       const k = cx + "," + cz;
@@ -597,7 +598,7 @@ function scan() {
         return;
       }
     }
-    for (const [dx, dz] of OFFSETS_DECOR) {
+    for (const [dx, dz] of travelPreparing > 0 ? OFFSETS_NEAR : OFFSETS_DECOR) {
       const cx = pcx + dx;
       const cz = pcz + dz;
       const k = cx + "," + cz;

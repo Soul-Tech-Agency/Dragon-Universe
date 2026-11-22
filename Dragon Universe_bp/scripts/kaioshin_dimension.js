@@ -202,6 +202,7 @@ function offsetsWithin(r) {
 }
 const OFFSETS_TERRAIN = offsetsWithin(TERRAIN_RADIUS);
 const OFFSETS_DECOR = offsetsWithin(DECOR_RADIUS);
+const OFFSETS_NEAR = offsetsWithin(1); // the 3x3 under a player: the only scan work while a trip is being prepared
 const NEIGHBOURS = offsetsWithin(1).filter((o) => o[0] !== 0 || o[1] !== 0);
 
 // ---------------------------------------------------------------- spawn point
@@ -577,8 +578,8 @@ function* decorateJob(dim, cx, cz) {
 let busy = false;
 let repairing = false;
 const retryAt = new Map();
-// Trips being prepared right now (any player): while > 0 the scan starts no new job, so the arrival chunks of a second
-// traveller are not starved by the terrain generated around a player who already arrived (H10).
+// Trips being prepared right now (any player): while > 0 the scan keeps to the 3x3 under each player, so the arrival
+// chunks of a second traveller are not starved by the terrain generated around a player who already arrived (H10).
 let travelPreparing = 0;
 let jobsFinished = 0;
 
@@ -661,7 +662,7 @@ function scan() {
     }
   }
 
-  if (busy || repairing || travelPreparing > 0) return;
+  if (busy || repairing) return;
   let dim;
   try {
     dim = world.getDimension(DIM_ID);
@@ -685,7 +686,7 @@ function scan() {
     const pcx = chunkOf(x);
     const pcz = chunkOf(z);
 
-    for (const [dx, dz] of OFFSETS_TERRAIN) {
+    for (const [dx, dz] of travelPreparing > 0 ? OFFSETS_NEAR : OFFSETS_TERRAIN) {
       const cx = pcx + dx;
       const cz = pcz + dz;
       const k = cx + "," + cz;
@@ -697,7 +698,7 @@ function scan() {
         return;
       }
     }
-    for (const [dx, dz] of OFFSETS_DECOR) {
+    for (const [dx, dz] of travelPreparing > 0 ? OFFSETS_NEAR : OFFSETS_DECOR) {
       const cx = pcx + dx;
       const cz = pcz + dz;
       const k = cx + "," + cz;
@@ -892,6 +893,7 @@ async function prepareArea(dim, cx, cz, timing) {
 
 const travelling = new Set();
 const lastUse = new Map();
+const busyNoticeAt = new Map(); // player id -> tick of the last travel_busy notice
 
 /** Remembers where (dimension, exact position, facing) the player left for Kaioshin. Saved with the player. */
 const SPACE_ORIGIN_PROP = "dbe:namek_origin"; // "where you left Earth from", kept by the space system
@@ -918,8 +920,12 @@ function rememberOrigin(player) {
 
 async function sendToKaioshin(player) {
   if (travelling.has(player.id)) {
-    // Say so instead of ignoring a second request while the destination is still being prepared.
-    try { player.sendMessage({ translate: "dbe.space.travel_busy" }); } catch (e) { /* player left */ }
+    // Say so instead of ignoring a second request while the destination is still being prepared (once per tick:
+    // the Navigator and the scriptevent can both fire in the same tick).
+    if (busyNoticeAt.get(player.id) !== system.currentTick) {
+      busyNoticeAt.set(player.id, system.currentTick);
+      try { player.sendMessage({ translate: "dbe.space.travel_busy" }); } catch (e) { /* player left */ }
+    }
     return;
   }
   if (system.currentTick - (lastUse.get(player.id) ?? -1000) < 100) return;

@@ -1222,8 +1222,8 @@ function* spaceJob(dim, cx, cz) {
 
 let busy = false;
 let busyActivity, repairing = false;
-// Trips being prepared right now (any player). While > 0 the scan starts no new background job, so a second player's
-// arrival chunks are not starved by the terrain generated around a player who already arrived (H10).
+// Trips being prepared right now (any player). While > 0 the scan keeps to the 3x3 under each player (like landmarkPrep),
+// so a second player's arrival chunks are not starved by the terrain generated around a player who already arrived (H10).
 let travelPreparing = 0;
 const retryAt = new Map();
 const chunkJobs = new Map();
@@ -1881,7 +1881,7 @@ function scan() {
     }
   }
 
-  if (busy || repairing || travelPreparing > 0) return;
+  if (busy || repairing) return;
 
   for (const p of players) {
     const W = BY_DIM.get(p.dimension.id);
@@ -1907,9 +1907,9 @@ function scan() {
       continue;
     }
     // Planets: the 3x3 under the player first, terrain then decoration (the landing pad, when the trip only generated
-    // the chunks under the landing point), then the rest. While a landmark prepares its ground (landmarkPrep), only the
-    // 3x3 under the player competes with it for the single writer.
-    const rings = landmarkPrep > 0 ? [[1, 1]] : [[1, 1], [W.radius, W.decorRadius]];
+    // the chunks under the landing point), then the rest. While a landmark prepares its ground (landmarkPrep) or a trip
+    // is being prepared (travelPreparing), only the 3x3 under the player competes with it for the single writer.
+    const rings = landmarkPrep > 0 || travelPreparing > 0 ? [[1, 1]] : [[1, 1], [W.radius, W.decorRadius]];
     for (const [terrainRadius, decorRadius] of rings) {
       if (planetTerrainStep(W, dim, pcx, pcz, terrainRadius) || planetDecorationStep(W, dim, pcx, pcz, decorRadius)) return;
     }
