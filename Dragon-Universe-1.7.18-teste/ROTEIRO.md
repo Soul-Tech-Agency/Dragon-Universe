@@ -191,6 +191,12 @@ Compare com a 1.7.17, lado a lado, em Missões, Conquistas, Treino, Transformaç
 - [ ] 👥 60 min com 2 jogadores entrando e saindo: sem crescimento de lag
 - [ ] (se CUSTOM_CHAT estiver ligado) mensagem do servidor a cada 3 min
 
+## 9b. Cabelos (decisão 30)
+- [ ] Vegeta e Trunks DMZ em SSJ3: juba nas costas de frente, de lado e de trás; correndo balança e não atravessa o corpo
+- [ ] Beast do Vegeta igual ao de antes
+- [ ] Beast Flare A sem os cubinhos, com a forma geral igual
+- [ ] SSJ/SSJ2/Blue do Flare A e SSJ/SSJ2 do Vegeta e do Trunks sem mudança
+
 ## 10. Enviar
 - [ ] Este roteiro marcado + Content Log (PC e celular) + prints e vídeos numa pasta "Testes" (vídeos de preferência em .mp4)
 - [ ] Os reports da sonda copiados, com a versão (1.7.17 ou 1.7.18) e o lugar onde foram medidos

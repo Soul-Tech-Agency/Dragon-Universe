@@ -4,9 +4,9 @@
 
 | Item | Valor |
 |---|---|
-| Arquivo | `Dragon-Universe-1.7.18.mcaddon` (21.891.348 bytes, 3278 arquivos) |
-| SHA-256 | `9cd582898d3a3f54d11a586b31f5259a88b33137226b90447fdc3e8b2943aa04` |
-| Fonte | commit `aaf840e` (branch `integration/1.7.18`): 1.7.17 com as frentes de núcleo e habilidades, construções e moradores (sem o Palácio do Bills), menus e visual |
+| Arquivo | `Dragon-Universe-1.7.18.mcaddon` (21.897.748 bytes, 3280 arquivos) |
+| SHA-256 | `38b8640ed61061bd1b902b90c883fb36685f3e72538e0ddb72283e2dec5f5cae` |
+| Fonte | commit `f510b0f` (branch `integration/1.7.18`): 1.7.17 com as frentes de núcleo e habilidades, construções e moradores (sem o Palácio do Bills), menus, visual e a decisão 30 (SSJ3 comprido do Vegeta e do Trunks, Beast Flare A sem os cubinhos) |
 | Alvo | Minecraft Bedrock 26.60, PC (Windows) e Android |
 | Versão dos packs | BP e RP `[1,7,18]`, `min_engine_version` `[1,26,50]`, UUIDs iguais aos da 1.7.11 |
 
@@ -38,6 +38,8 @@ Antes de instalar, confira o hash com `sha256sum Dragon-Universe-1.7.18.mcaddon`
 - Customização e barbeiro com ícone, nome e valor atual ("3/8") em cada linha.
 - Habilidades com os pontos num cabeçalho e um ícone dourado na habilidade que já está no máximo.
 - Oozaru e Golden Oozaru cabem nas prévias: inventário, Estatísticas, customização e barbeiro.
+- SSJ3 do Vegeta e do Trunks com cabelo comprido, como o do Goku (o Beast do Vegeta não muda).
+- Beast do estilo Flare A sem os 14 cubinhos finos nas pontas.
 
 **Habilidades**
 - Poder de Cura: +25% de regeneração de vida.
