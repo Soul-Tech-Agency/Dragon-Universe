@@ -338,7 +338,7 @@
                 }
             },
             {
-                "training@training_form.training_form": {
+                "training@du2_training.training_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"

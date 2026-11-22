@@ -1164,6 +1164,24 @@ detail_screen(qd, "detail_form", lambda mobile: [
                                           ("ui.dbe.quest.button.restart", "restart")]))])
 
 
+# ---- Treino (kH): 10+ = sombra / concentração / parar (ícone pela chave do texto)
+tn = {"namespace": "du2_training"}
+TRAIN_ICONS = [("ui.dbe.training.button.shadow_dummy", "train_shadow", "cyan"),
+               ("ui.dbe.training.button.concentration", "train_concentration", "gold"),
+               ("ui.dbe.training.button.stop_concentration", "train_stop", "red")]
+tn["row_pc"] = list_item(24, key_icons=TRAIN_ICONS)
+tn["row_mobile"] = list_item(26, key_icons=TRAIN_ICONS)
+
+
+def training_content(mobile):
+    m = "mobile" if mobile else "pc"
+    return [c("scroll", P(["100%", "100%"], [scroll_area(tn, "scroll_" + m, [
+        c("list", factory_list("du2_training.row_" + m))])]))]
+
+
+tab_screen(tn, "training_form", training_content)
+
+
 # --------------------------------------------------------------------------- escrita
 
 def fmt(v, ind=0):
@@ -1228,3 +1246,4 @@ write("du2_skills.json", sk)
 write("du2_transformations.json", tr)
 write("du2_quests.json", qs)
 write("du2_detail.json", qd)
+write("du2_training.json", tn)
