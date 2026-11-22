@@ -42,6 +42,7 @@ import { ActionFormData } from "@minecraft/server-ui";
 import { initVillages } from "./planet_villages.js";
 import { travelTimer } from "./travel_timing.js"; // TEMPORARY test measurement, see travel_timing.js
 import { navigatorExtras } from "./navigator_extras.js"; // extra buttons (constructions list of world_structures.js)
+import { every } from "./core/scheduler.js";
 
 const { world, system, BlockVolume } = mc;
 
@@ -2317,13 +2318,14 @@ try {
       if (initialSpawn || !player.hasTag(DEAD_TAG)) return;
       rescueUntil.set(player.id, system.currentTick + 600);
     });
-    system.runInterval(() => {
+    // O3-1: relógio único (core/scheduler.js), fase 0 (O3_DETALHE.md §2)
+    every(SCAN_TICKS, "space.scan", () => {
       try {
         scan();
       } catch (e) {
         console.warn("[Space] scan error: " + e);
       }
-    }, SCAN_TICKS);
+    }, { phase: 0 });
 
     const lastUse = new Map();
     world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
