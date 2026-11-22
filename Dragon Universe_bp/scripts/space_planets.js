@@ -1222,6 +1222,9 @@ function* spaceJob(dim, cx, cz) {
 
 let busy = false;
 let busyActivity, repairing = false;
+// Trips being prepared right now (any player). While > 0 the scan starts no new background job, so a second player's
+// arrival chunks are not starved by the terrain generated around a player who already arrived (H10).
+let travelPreparing = 0;
 const retryAt = new Map();
 const chunkJobs = new Map();
 
@@ -1878,7 +1881,7 @@ function scan() {
     }
   }
 
-  if (busy || repairing) return;
+  if (busy || repairing || travelPreparing > 0) return;
 
   for (const p of players) {
     const W = BY_DIM.get(p.dimension.id);
@@ -2163,7 +2166,15 @@ async function travelTo(player, key, opts = {}) {
       const s = findSpawn(W);
       target = { x: s.x + 0.5, y: s.y + 1, z: s.z + 0.5 };
     }
-    areaId = await prepareArea(W, dim, chunkOf(target.x), chunkOf(target.z), player, timing, target);
+    // Another trip (same or other destination) holds the terrain queue: say so; this one follows right after it,
+    // sharing the chunk jobs when both go to the same place.
+    if (travelPreparing > 0) player.sendMessage(tr("dbe.space.travel_queued"));
+    travelPreparing++;
+    try {
+      areaId = await prepareArea(W, dim, chunkOf(target.x), chunkOf(target.z), player, timing, target);
+    } finally {
+      travelPreparing--;
+    }
     if (W.kind === "planet") {
       const { state, buffer, progress } = planetProvenance(W, chunkOf(target.x), chunkOf(target.z));
       if (["inspecting", "building"].includes(state) || progress !== undefined || ["building", "ready", "converting"].includes(buffer)) throw new Error(W.key + " arrival terrain remains incomplete; the player was kept at the origin. Review generation diagnostics before retrying");
