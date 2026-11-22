@@ -6364,6 +6364,12 @@
          "path" : "ui/du2/du2_statistics.json"
       },
       {
+         "path" : "ui/du2/du2_mental.json"
+      },
+      {
+         "path" : "ui/du2/du2_training_hud.json"
+      },
+      {
          "path" : "ui/du2/du2_statistics_view.json"
       },
       {
