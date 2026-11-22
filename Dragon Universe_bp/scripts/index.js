@@ -3558,7 +3558,16 @@ var eT = class {
         ? this.getToggleSkill("hakai")?.disable()
         : duRestorePassive(this.getToggleSkill("hakai")), // Hakai preso desligado por versões antigas
       this.dbeEntity.trySetProperty("dbe:charging_attack", 0),
-      this.dbeEntity.runInterval(() => {
+      (this.initialized = !0),
+      this.skillsMap.size && this.startSkillTicker();
+  }
+  // O2d (decisão O2d-1, opção a): o intervalo de 1 tick das habilidades só existe para quem tem pelo menos uma
+  // habilidade. Com 0 habilidades o corpo não fazia nada; agora nem é criado. Nasce no init (se já houver
+  // habilidade) ou quando a primeira habilidade entra depois do init (loadSkill). Quem fica sem habilidade
+  // mantém o intervalo, como antes.
+  startSkillTicker() {
+    this.skillTickerRunId === void 0 &&
+      (this.skillTickerRunId = this.dbeEntity.runInterval(() => {
         let { attributes: sG, masteries: sH } = this.dbeEntity,
           { currentTick: sI } = eS,
           sK = this.getSkills(),
@@ -3569,7 +3578,7 @@ var eT = class {
             sN && sO?.hasDecay && (sH.getMastery(sM.id)?.removePercentage(1), (sL = !0));
           }
         sL && sG.updateStats();
-      });
+      }));
   }
   removeSkill(sG) {
     if (this.hasSkill(sG)) {
@@ -3617,7 +3626,7 @@ var eT = class {
     let sH = cG.get(sG.id);
     if (!sH) throw new Error("A habilidade '" + sG.id + "' não está registrada.");
     let sI = new sH(this.dbeEntity, sG);
-    return this.skillsMap.set(sG.id, sI), sI;
+    return this.skillsMap.set(sG.id, sI), this.initialized && this.startSkillTicker(), sI;
   }
 };
 bM.on("entity_died", ({ dbeEntity: sG }) => {
