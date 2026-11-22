@@ -31,7 +31,7 @@ for (const f of fs.readdirSync(dir, { recursive: true })) {
   fs.writeFileSync(p.replace(/\.js$/, ".mjs"), s);
 }
 
-const { log, callbacks, mc } = await import(stub);
+const { log, callbacks, mc, clock } = await import(stub);
 try {
   await import(url.pathToFileURL(path.join(dir, "index.mjs")).href);
 } catch (e) {
@@ -40,6 +40,7 @@ try {
 let ran = 0;
 for (let round = 0; round < ROUNDS; round++) {
   for (const [where, fn] of callbacks.splice(0)) {
+    clock.tick++;
     log.push("== callback de " + where);
     try {
       const r = fn(mc.event, mc.event2);
