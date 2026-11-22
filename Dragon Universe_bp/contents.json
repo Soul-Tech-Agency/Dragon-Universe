@@ -1942,10 +1942,7 @@
          "path" : "scripts/universe_6_dimension.js"
       },
       {
-         "path" : "scripts/vendor/vanilla_data_a.js"
-      },
-      {
-         "path" : "scripts/vendor/vanilla_data_b.js"
+         "path" : "scripts/vendor/vanilla_data.js"
       },
       {
          "path" : "scripts/world_landmarks.js"

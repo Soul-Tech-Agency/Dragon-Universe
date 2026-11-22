@@ -1,6 +1,7 @@
-// Enums do @minecraft/vanilla-data (cópia B), que o bundler embutiu no núcleo. Movidos do index.js (linhas 4445-7645)
-// COMO ESTAVAM, sem mudar nada (fatia O1, passo 1 de planos/ARQUITETURA_OTIMIZACAO.md). São dados puros: não
-// chamam o jogo. Há duas cópias (A e B) de versões diferentes do pacote; unificar é o passo 2, que espera decisão.
+// Enums do @minecraft/vanilla-data, que o bundler embutiu no núcleo. Movidos do index.js (linhas 4445-7645)
+// COMO ESTAVAM (fatia O1 de planos/ARQUITETURA_OTIMIZACAO.md). São dados puros: não chamam o jogo. O núcleo tinha duas
+// cópias (A e B); esta é a B, que contém a A inteira (mais GoldenDandelion). O passo 2 deixou só ela; o index.js
+// importa os nomes antigos da A como apelidos (planos/O1_PASSO2.md, opção 2a).
 var bZ = ((sG) => (
     (sG.BambooJungle = "minecraft:bamboo_jungle"),
     (sG.BambooJungleHills = "minecraft:bamboo_jungle_hills"),

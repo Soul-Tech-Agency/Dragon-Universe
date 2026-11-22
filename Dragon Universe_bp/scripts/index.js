@@ -57,7 +57,7 @@ import { MolangVariableMap as ap, world as aq } from "@minecraft/server";
 import { world as av } from "@minecraft/server";
 import { EquipmentSlot as aw, GameMode as ax } from "@minecraft/server";
 import { Entity as ay, system as az, World as aA } from "@minecraft/server";
-import { aT, aU, aV, aW, aX, aY, aZ, b0, b1, b2, b3, b4 } from "./vendor/vanilla_data_a.js"; // vanilla-data, cópia A (O1)
+import { bZ as aT, c0 as aU, c1 as aV, c2 as aW, c3 as aX, c4 as aY, c5 as aZ, c6 as b0, c7 as b1, c8 as b2, c9 as b3, cb as b4 } from "./vendor/vanilla_data.js"; // vanilla-data: nomes da antiga cópia A, agora apelidos da B (O1 passo 2)
 function aB(sG, sH, sI) {
   return Math.min(Math.max(sG, sH), sI);
 }
@@ -1244,7 +1244,7 @@ import {
   system as bX,
   world as bY,
 } from "@minecraft/server";
-import { bZ, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, cb } from "./vendor/vanilla_data_b.js"; // vanilla-data, cópia B (O1)
+import { bZ, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, cb } from "./vendor/vanilla_data.js"; // vanilla-data, cópia única (O1 passo 2)
 var cf = class {
     registeredForms = new Map();
     async displayForm(sG, sH, sI = !1, ...sK) {
