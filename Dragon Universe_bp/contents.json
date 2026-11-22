@@ -1951,6 +1951,9 @@
          "path" : "scripts/core/14_player.js"
       },
       {
+         "path" : "scripts/core/15_entities.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
