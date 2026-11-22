@@ -5020,6 +5020,12 @@
          "path" : "textures/items/tournament_invitation.png"
       },
       {
+         "path" : "textures/items/bills_invitation.png"
+      },
+      {
+         "path" : "textures/items/power_tournament_invitation.png"
+      },
+      {
          "path" : "textures/items/z_sword.png"
       },
       {
