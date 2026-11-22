@@ -1388,7 +1388,9 @@ var cF = class {
       this.maxLevel > 0 &&
         (this.canSwitchTier || (this.entitySkillData.state.selectedTierIndex = Math.max(sG - 1, 0)),
         (this.entitySkillData.level = Math.min(this.maxLevel, sG)),
-        this.saveState());
+        this.saveState(),
+        // o bônus do novo nível vale na hora (ex.: Desbloqueio de Potencial, decisão 18), não só no próximo recálculo
+        this.isEnabled && this.multipliers && this.dbeEntity.attributes.updateStats());
     }
     upgradeSkill() {
       return this.level < this.maxLevel ? (this.setLevel(this.level + 1), !0) : !1;
