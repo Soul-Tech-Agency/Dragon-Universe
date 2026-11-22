@@ -17,7 +17,7 @@
  *            /scriptevent dbe:landmarks_retry key  -> unlocks a spot that gave up
  */
 import * as mc from "@minecraft/server";
-import { acquireLoadedArea, releaseLoadedArea, isSafeStanding } from "./travel_safety.js";
+import { acquireLoadedArea, releaseLoadedArea, isSafeStanding, areaReady } from "./travel_safety.js";
 import { friezaLandmarkEnv } from "./space_planets.js";
 import { namekLandmarkEnv } from "./namek_dimension.js";
 import { tournaments_data } from "./data/tournaments_data.js";
@@ -937,9 +937,58 @@ async function finishFollowUp(dim, spec, spot, plan) {
   }
 }
 
+// ---------------------------------------------------------------- Bills and Whis leave Kami's Lookout
+// They live on Bills' planet now (residents of world_residents.js). lookout.mcstructure no longer has them; in worlds where
+// the old Lookout was already placed (index.js sets lookoutLoaded before placing it), the two saved there are removed once,
+// with the area loaded and a player near. plan.lookoutMoved = 1 records that it is done (also with 0 found).
+const LOOKOUT_BW = {
+  center: { x: 141.5, y: 299, z: 178 }, // between Whis (140.5, 299, 177.5) and Beerus (142.5, 299, 178.5), from the NBT
+  from: { x: 110, y: 280, z: 150 },
+  to: { x: 170, y: 310, z: 205 },
+  near: 96,
+  radius: 48,
+  settle: 60, // ticks of ready area before looking: entities of a chunk may show up after its blocks
+};
+let lookoutReadySince;
+
+function moveLookoutResidents(plan) {
+  if (plan.lookoutMoved) return;
+  if (world.getDynamicProperty("lookoutLoaded") !== true) {
+    plan.lookoutMoved = 1; // not placed yet: the new Lookout comes without them
+    savePlan(plan);
+    return;
+  }
+  const dim = world.getDimension(OVERWORLD);
+  const { center } = LOOKOUT_BW;
+  if (!dim.getPlayers().some((p) => Math.hypot(p.location.x - center.x, p.location.z - center.z) <= LOOKOUT_BW.near) ||
+      !areaReady(dim, LOOKOUT_BW.from, LOOKOUT_BW.to)) {
+    lookoutReadySince = undefined;
+    return;
+  }
+  lookoutReadySince ??= system.currentTick;
+  if (system.currentTick - lookoutReadySince < LOOKOUT_BW.settle) return;
+  const counts = {};
+  for (const type of ["dbe:beerus", "dbe:whis"]) {
+    counts[type] = 0;
+    for (const entity of dim.getEntities({ type, location: center, maxDistance: LOOKOUT_BW.radius })) {
+      if (entity.getTags().some((t) => t.startsWith("dbe_resident:")) || entity.getDynamicProperty("dbe:spawned_by") !== undefined) continue;
+      entity.remove();
+      counts[type]++;
+    }
+  }
+  plan.lookoutMoved = 1;
+  savePlan(plan);
+  console.warn("[Landmarks] Lookout: Beerus x" + counts["dbe:beerus"] + ", Whis x" + counts["dbe:whis"] + " moved to Bills' planet");
+}
+
 function scan() {
   if (busy) return;
   const plan = loadPlan();
+  try {
+    moveLookoutResidents(plan);
+  } catch (e) {
+    console.warn("[Landmarks] Lookout move: " + e);
+  }
 
   // Spots with a player near. Those already checked (level known, or a follow-up) go first: one landmark still looking for
   // ground (nearby draws, one per scan) never holds back one that only has to be written.

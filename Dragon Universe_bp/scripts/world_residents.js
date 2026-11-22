@@ -22,6 +22,7 @@ const PER_CALL = 2; // residents processed per call, in turns
 const AFTER_SPAWN = 200; // ticks before a resident just created is looked at again (the core sets it up 20 ticks after the spawn)
 const BRAKE_COUNT = 5; // more creations than this of the same resident inside BRAKE_WINDOW stop the creations until it empties
 const BRAKE_WINDOW = 12000; // 10 min
+const SETTLE = 60; // ticks the area must stay ready, with a player near, before a missing resident is created
 const DRIFT = 3; // blocks away from its place before a resident is moved back
 
 /**
@@ -35,7 +36,7 @@ const BILLS_SPOTS = {
 
 const residents = [];
 const types = new Set();
-const states = new Map(); // id -> { streak, waitUntil, status, spawns: [tick], created: [entity id] }
+const states = new Map(); // id -> { readySince, waitUntil, status, spawns: [tick], created: [entity id] }
 const urgent = new Set(); // ids whose copy just loaded: looked at first
 let turn = 0;
 
@@ -53,14 +54,14 @@ export function addResident(def) {
 
 const stateOf = (id) => {
   let st = states.get(id);
-  if (!st) states.set(id, (st = { streak: 0, waitUntil: 0, status: "waiting", spawns: [], created: [] }));
+  if (!st) states.set(id, (st = { readySince: undefined, waitUntil: 0, status: "waiting", spawns: [], created: [] }));
   return st;
 };
 
 const placeOf = (r) => (typeof r.at === "function" ? r.at() : r.at);
 
 function idle(st, status) {
-  st.streak = 0;
+  st.readySince = undefined;
   st.status = status;
 }
 
@@ -112,7 +113,7 @@ function step(r, players) {
     return idle(st, "not loaded");
   const floor = dim.getBlock({ x: Math.floor(at.x), y: Math.floor(at.y) - 1, z: Math.floor(at.z) });
   if (!floor?.isSolid) return idle(st, "no floor");
-  st.streak++;
+  st.readySince ??= now;
 
   const copies = copiesOf(dim, r);
   let entity;
@@ -122,9 +123,9 @@ function step(r, players) {
       entity.addTag(TAG + r.id);
       console.warn("[Residents] " + r.id + ": adopted the " + r.type + " already there");
     } else {
-      // entities of a chunk may show up some ticks after its blocks: a second ready cycle before creating avoids a copy
-      // next to the saved one on arrival
-      if (st.streak < 2) return void (st.status = "waiting");
+      // entities of a chunk may show up some ticks after its blocks: waiting SETTLE ticks of ready area before creating
+      // avoids a copy next to the saved one on arrival
+      if (now - st.readySince < SETTLE) return void (st.status = "waiting");
       st.spawns = st.spawns.filter((t) => now - t < BRAKE_WINDOW);
       if (st.spawns.length >= BRAKE_COUNT) {
         if (st.status !== "stopped") console.warn("[Residents] " + r.id + ": created " + st.spawns.length + "x in 10 min; creation stopped for now");
