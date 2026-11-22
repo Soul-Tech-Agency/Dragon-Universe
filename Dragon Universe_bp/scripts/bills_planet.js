@@ -48,7 +48,11 @@ createSpaceArena({
   stateProp: "dbe:bills_planet_pieces",
   fallY: 20,
   migration: { prop: "dbe:bills_planet_version", version: 2, piece: removeTree },
-  pieces: [piece(1, 0, 0, 64, 64), piece(2, 0, 64, 64, 42), piece(3, 64, 0, 64, 64), piece(4, 64, 64, 64, 42), piece(5, 128, 0, 10, 64)],
+  pieces: [piece(1, 0, 0, 64, 64), piece(2, 0, 64, 64, 42), piece(3, 64, 0, 64, 64), piece(4, 64, 64, 64, 42), piece(5, 128, 0, 10, 64),
+    // 1.7.19 palace (tools/bills-palace.mjs palace): plaza, terrace and pond, then the palace with the stairs down to the
+    // dining room. Only after the tree migration and the whole island (afterMigration), so it never goes down cut.
+    { id: "dbe:bills_planet/bills_palace_b", x: -24, y: 140, z: -22, sx: 47, sy: 3, sz: 50, afterMigration: true },
+    { id: "dbe:bills_planet/bills_palace_a", x: -15, y: 130, z: -15, sx: 31, sy: 58, sz: 31, afterMigration: true }],
   arrivalRadius: 1000,
   rebuildWarning: "the whole planet is placed again: whatever players built, broke or changed on it goes back to the original (built blocks are lost).",
   loadRadius: 1000,

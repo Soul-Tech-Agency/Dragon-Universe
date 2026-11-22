@@ -2053,6 +2053,12 @@
          "path" : "structures/dbe/bills_planet/bills_5.mcstructure"
       },
       {
+         "path" : "structures/dbe/bills_planet/bills_palace_a.mcstructure"
+      },
+      {
+         "path" : "structures/dbe/bills_planet/bills_palace_b.mcstructure"
+      },
+      {
          "path" : "structures/dbe/bills_planet/prop_cushion_1.mcstructure"
       },
       {
