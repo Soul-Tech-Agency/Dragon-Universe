@@ -945,7 +945,7 @@
                         /*ssjr          */ "Geometry.du_dmz_vegeta",
                         /*ssjbe         */ "Geometry.du_dmz_vegeta",
                         /*ssjre         */ "Geometry.du_dmz_vegeta",
-                        /*beast         */ "Geometry.du_dmz_vegeta_ssj3",
+                        /*beast         */ "Geometry.du_dmz_vegeta_beast",
                         /*ultra_ego     */ "Geometry.du_dmz_vegeta"
                     ],
                     "Array.du_dmz_gohan_jovem_geo": [
