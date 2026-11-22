@@ -10,10 +10,24 @@
 //     ordem de avaliação pode mudar; `class`/`let`/`const` dão TDZ e `var` vale undefined. Funções declaradas
 //     (`function f`) são içadas e não contam.
 // Também lista os imports usados fora do segmento que os declara (o módulo novo terá de importar de novo).
-// Limite: chamadas de topo a funções do próprio arquivo executam o corpo delas na carga; o corpo não é seguido.
+// Chamadas f() e new X() feitas na carga são seguidas até o corpo da função / o construtor (e campos de instância,
+// e a superclasse): o que roda lá conta como carga. Chamadas de método (X.m()) não são seguidas.
 //
 // Uso: node tools/core-split-report.mjs [arquivo] [--json] [--only-problems] [--segment=N | --lines=A-B]
+//      node tools/core-split-report.mjs [arquivo] --plan=<plano.json>
 //   arquivo padrão: Dragon Universe_bp/scripts/index.js
+//
+// --plan: simula a divisão. O plano é um JSON { "core/util.js": ["1", "3-5"], ... } (arquivo novo → segmentos); os
+// segmentos fora do plano ficam no arquivo original. Cada módulo novo importa os módulos dos quais usa nomes (em
+// ordem do primeiro segmento) e o arquivo original importa todos os módulos novos (os imports sobem para o topo).
+// A ordem de avaliação ES (busca em profundidade, cada módulo depois das dependências, ciclos cortados) é
+// comparada com a de hoje (instruções em sequência). Acusa:
+//   - NÃO AVALIADO: referência em tempo de carga (incluindo dentro de f()/new X() seguidos) a nome cuja declaração
+//     ainda não rodou na ordem nova (var = undefined, let/const/class = erro). Funções declaradas não contam;
+//   - ORDEM DE EFEITOS: instruções de topo com efeito (chamada, new, atribuição a membro: inscrições em eventos,
+//     registros, intervalos) que trocam de ordem relativa;
+//   - ATRIBUIÇÃO entre módulos (import é somente leitura).
+// Sai com código 1 se houver qualquer problema.
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
@@ -26,6 +40,7 @@ const json = args.includes("--json");
 const onlyProblems = args.includes("--only-problems");
 const segArg = args.find((a) => a.startsWith("--segment="))?.slice(10);
 const linesArg = args.find((a) => a.startsWith("--lines="))?.slice(8);
+const planArg = args.find((a) => a.startsWith("--plan="))?.slice(7);
 
 const source = fs.readFileSync(file, "utf8");
 const ast = acorn.parsers.acorn.parse(source, {});
@@ -44,22 +59,40 @@ ast.body.forEach((stmt, i) => {
   seg.to = stmt.loc.end.line;
 });
 
-/** nome de topo → { segment, kind: import|var|let|const|class|function, line } */
+/** nome de topo → { segment, stmt (índice da instrução de topo), kind: import|var|let|const|class|function, line } */
 const top = new Map();
+/** nome de topo → corpo que roda quando é chamado/instanciado: { kind: "fn"|"class", node } */
+const defs = new Map();
+const stmtIndex = new Map(ast.body.map((s, i) => [s, i]));
+const stmtSegment = new Map();
+let declaringStmt = 0;
 const declare = (name, seg, kind, node) => {
-  if (!top.has(name)) top.set(name, { segment: seg.index, kind, line: line(node) });
+  if (!top.has(name)) top.set(name, { segment: seg.index, stmt: declaringStmt, kind, line: line(node) });
   seg.declared.push(name);
 };
 for (const seg of segments) {
   for (const stmt of seg.statements) {
+    declaringStmt = stmtIndex.get(stmt);
+    stmtSegment.set(declaringStmt, seg.index);
     const decl = stmt.type.startsWith("Export") && stmt.declaration ? stmt.declaration : stmt;
     if (decl.type === "ImportDeclaration") {
       seg.imports.add(decl.source.value);
       for (const s of decl.specifiers) declare(s.local.name, seg, "import", s);
     } else if (decl.type === "VariableDeclaration") {
-      for (const d of decl.declarations) for (const n of patternNames(d.id)) declare(n, seg, decl.kind, d);
-    } else if (decl.type === "FunctionDeclaration" && decl.id) declare(decl.id.name, seg, "function", decl);
-    else if (decl.type === "ClassDeclaration" && decl.id) declare(decl.id.name, seg, "class", decl);
+      for (const d of decl.declarations) {
+        for (const n of patternNames(d.id)) declare(n, seg, decl.kind, d);
+        if (d.id.type === "Identifier" && d.init) {
+          if (/^(FunctionExpression|ArrowFunctionExpression)$/.test(d.init.type)) defs.set(d.id.name, { kind: "fn", node: d.init });
+          else if (d.init.type === "ClassExpression") defs.set(d.id.name, { kind: "class", node: d.init });
+        }
+      }
+    } else if (decl.type === "FunctionDeclaration" && decl.id) {
+      declare(decl.id.name, seg, "function", decl);
+      defs.set(decl.id.name, { kind: "fn", node: decl });
+    } else if (decl.type === "ClassDeclaration" && decl.id) {
+      declare(decl.id.name, seg, "class", decl);
+      defs.set(decl.id.name, { kind: "class", node: decl });
+    }
   }
 }
 
@@ -106,12 +139,39 @@ function blockNames(statements) {
   return out;
 }
 
+/**
+ * Referências a nomes de topo, por instrução de topo do segmento. Em tempo de carga (evalTime), chamadas f() e
+ * new X() a funções/classes de topo deste arquivo são seguidas: o corpo da função, ou o construtor e os campos de
+ * instância da classe (e da superclasse), também roda na carga; as referências achadas lá ganham `via`.
+ * Não segue chamadas de método (X.m()). `effects` = instruções de topo com efeito na carga (chamada, new, atribuição
+ * a membro), cuja ordem relativa importa.
+ */
 function analyse(seg) {
-  const refs = []; // { name, line, write, evalTime }
-  const scopes = []; // pilha de Set
+  const refs = []; // { name, line, write, evalTime, stmt, via }
+  const effects = new Set();
+  let scopes = []; // pilha de Set
+  let curStmt = 0, via, following = 0, followSeen = new Set();
   const isLocal = (name) => scopes.some((s) => s.has(name));
   const ref = (id, write, evalTime) => {
-    if (!isLocal(id.name) && top.has(id.name)) refs.push({ name: id.name, line: line(id), write, evalTime });
+    if (!isLocal(id.name) && top.has(id.name)) refs.push({ name: id.name, line: line(id), write, evalTime, stmt: curStmt, via });
+  };
+  const follow = (name) => {
+    const def = defs.get(name);
+    if (!def || followSeen.has(name)) return;
+    followSeen.add(name);
+    const saved = scopes;
+    const savedVia = via;
+    scopes = [];
+    via = via ?? name;
+    following++;
+    try {
+      if (def.kind === "fn") fn(def.node, true);
+      else cls(def.node, false, true);
+    } finally {
+      following--;
+      scopes = saved;
+      via = savedVia;
+    }
   };
   const withScope = (names, fn) => {
     scopes.push(names);
@@ -160,21 +220,32 @@ function analyse(seg) {
     }
   };
 
-  const fn = (n) => {
+  // bodyEval: o corpo roda agora (função chamada na carga)
+  const fn = (n, bodyEval = false) => {
     const names = new Set(["arguments"]);
     if (n.type === "FunctionExpression" && n.id) names.add(n.id.name);
     for (const p of n.params) patternNames(p).forEach((x) => names.add(x));
     if (n.body.type === "BlockStatement") hoisted(n.body).forEach((x) => names.add(x));
     withScope(names, () => {
-      for (const p of n.params) declPattern(p, false);
-      if (n.body.type === "BlockStatement") withScope(blockNames(n.body.body), () => n.body.body.forEach((s) => visit(s, false)));
-      else visit(n.body, false);
+      for (const p of n.params) declPattern(p, bodyEval);
+      if (n.body.type === "BlockStatement") withScope(blockNames(n.body.body), () => n.body.body.forEach((s) => visit(s, bodyEval)));
+      else visit(n.body, bodyEval);
     });
   };
 
-  const cls = (n, evalTime) => {
+  // construct: a classe está sendo instanciada na carga (new X()): construtor e campos de instância rodam agora;
+  // a definição em si (extends, campos estáticos) já foi visitada onde a classe é declarada.
+  const cls = (n, evalTime, construct = false) => {
     const names = new Set(n.type === "ClassExpression" && n.id ? [n.id.name] : []);
     withScope(names, () => {
+      if (construct) {
+        if (n.superClass?.type === "Identifier" && !isLocal(n.superClass.name)) follow(n.superClass.name);
+        for (const m of n.body.body) {
+          if (m.type === "PropertyDefinition" && !m.static && m.value) visit(m.value, true);
+          else if (m.type === "MethodDefinition" && m.kind === "constructor") fn(m.value, true);
+        }
+        return;
+      }
       if (n.superClass) visit(n.superClass, evalTime);
       for (const m of n.body.body) {
         if (m.computed) visit(m.key, evalTime);
@@ -231,7 +302,16 @@ function analyse(seg) {
       case "ClassDeclaration":
       case "ClassExpression":
         return cls(n, evalTime);
+      case "CallExpression":
+      case "NewExpression":
+        if (evalTime) {
+          if (!following) effects.add(curStmt);
+          if (n.callee.type === "Identifier" && !isLocal(n.callee.name)) follow(n.callee.name);
+        }
+        visit(n.callee, evalTime);
+        return n.arguments.forEach((a) => visit(a, evalTime));
       case "AssignmentExpression":
+        if (evalTime && !following && n.left.type === "MemberExpression") effects.add(curStmt);
         assignPattern(n.left, evalTime);
         return visit(n.right, evalTime);
       case "UpdateExpression":
@@ -275,8 +355,12 @@ function analyse(seg) {
     }
   }
 
-  for (const stmt of seg.statements) visit(stmt, true);
-  return refs;
+  for (const stmt of seg.statements) {
+    curStmt = stmtIndex.get(stmt);
+    followSeen = new Set();
+    visit(stmt, true);
+  }
+  return { refs, effects };
 }
 
 // ---------------------------------------------------------------- relatório
@@ -290,8 +374,14 @@ const pick = segments.filter((s) => {
   return true;
 });
 
+const analysed = new Map(); // segmento → { refs, effects }
+const analysis = (seg) => {
+  if (!analysed.has(seg.index)) analysed.set(seg.index, analyse(seg));
+  return analysed.get(seg.index);
+};
+
 const results = pick.map((seg) => {
-  const refs = analyse(seg);
+  const { refs } = analysis(seg);
   const uses = new Map(); // segmento → Set(nomes)
   const borrowedImports = new Set();
   const writes = [], forward = [];
@@ -306,7 +396,7 @@ const results = pick.map((seg) => {
     uses.get(d.segment).add(r.name);
     if (r.write) writes.push({ name: r.name, line: r.line, declaredIn: d.segment, declaredLine: d.line });
     if (r.evalTime && d.segment > seg.index && d.kind !== "function")
-      forward.push({ name: r.name, line: r.line, declaredIn: d.segment, kind: d.kind, declaredLine: d.line });
+      forward.push({ name: r.name, line: r.line, declaredIn: d.segment, kind: d.kind, declaredLine: d.line, via: r.via });
   }
   return {
     segment: seg.index,
@@ -330,7 +420,9 @@ function dedupe(list) {
   });
 }
 
-if (json) {
+if (planArg) {
+  process.exitCode = simulatePlan(JSON.parse(fs.readFileSync(path.resolve(planArg), "utf8")));
+} else if (json) {
   console.log(JSON.stringify({ file: shown, segments: segments.length, topLevelNames: top.size, results }, null, 2));
 } else {
   const writes = results.reduce((n, r) => n + r.crossWrites.length, 0);
@@ -347,6 +439,102 @@ if (json) {
       if (r.borrowedImports.length) console.log("    imports de outro segmento: " + r.borrowedImports.join(", "));
     }
     for (const w of r.crossWrites) console.log(`    ATRIBUIÇÃO  linha ${w.line}: ${w.name} (declarado no #${w.declaredIn}, linha ${w.declaredLine})`);
-    for (const f of r.forwardEvalRefs) console.log(`    ADIANTADA   linha ${f.line}: ${f.name} (${f.kind} do #${f.declaredIn}, linha ${f.declaredLine})`);
+    for (const f of r.forwardEvalRefs) console.log(`    ADIANTADA   linha ${f.line}: ${f.name} (${f.kind} do #${f.declaredIn}, linha ${f.declaredLine})${f.via ? " [na carga, via " + f.via + "()]" : ""}`);
   }
+}
+
+// ---------------------------------------------------------------- --plan: simulação da divisão
+
+function simulatePlan(plan) {
+  const original = path.basename(file);
+  const moduleOf = new Map(); // segmento → arquivo
+  for (const [target, specs] of Object.entries(plan))
+    for (const spec of [].concat(specs)) {
+      const [a, b = a] = String(spec).split("-").map(Number);
+      for (let i = a; i <= b; i++) {
+        if (!segments[i]) throw new Error(`plano: segmento ${i} não existe (há ${segments.length})`);
+        if (moduleOf.has(i)) throw new Error(`plano: segmento ${i} está em ${moduleOf.get(i)} e em ${target}`);
+        moduleOf.set(i, target);
+      }
+    }
+  for (const seg of segments) if (!moduleOf.has(seg.index)) moduleOf.set(seg.index, original);
+  const modules = new Map(); // arquivo → { segments: [], deps: Set }
+  for (const seg of segments) {
+    const m = moduleOf.get(seg.index);
+    if (!modules.has(m)) modules.set(m, { segments: [], deps: new Set() });
+    modules.get(m).segments.push(seg.index);
+  }
+
+  // dependências: qualquer uso (carga ou chamada) de nome declarado em outro módulo; imports externos não contam
+  const problems = { notEvaluated: [], effects: [], writes: [] };
+  const allRefs = [];
+  for (const seg of segments) {
+    const { refs } = analysis(seg);
+    const from = moduleOf.get(seg.index);
+    for (const r of refs) {
+      const d = top.get(r.name);
+      if (d.kind === "import") continue;
+      const to = moduleOf.get(d.segment);
+      if (to !== from) {
+        modules.get(from).deps.add(to);
+        if (r.write) problems.writes.push({ ...r, from, to, declaredLine: d.line });
+      }
+      allRefs.push({ ...r, decl: d });
+    }
+  }
+  const firstSeg = (m) => modules.get(m).segments[0];
+  for (const [m, info] of modules) if (m === original) for (const other of modules.keys()) if (other !== m) info.deps.add(other);
+
+  // ordem de avaliação ES: DFS a partir do arquivo original; imports em ordem do primeiro segmento do módulo
+  const state = new Map(), order = [];
+  const visitModule = (m) => {
+    if (state.has(m)) return;
+    state.set(m, "visiting");
+    for (const d of [...modules.get(m).deps].sort((x, y) => firstSeg(x) - firstSeg(y))) visitModule(d);
+    state.set(m, "done");
+    order.push(m);
+  };
+  visitModule(original);
+  const stmtOrder = []; // instruções de topo na ordem nova
+  for (const m of order) for (const si of modules.get(m).segments) for (const st of segments[si].statements) stmtOrder.push(stmtIndex.get(st));
+  const pos = new Map(stmtOrder.map((s, i) => [s, i]));
+
+  // 1. referências em tempo de carga a declarações que ainda não rodaram
+  const seen = new Set();
+  for (const r of allRefs) {
+    if (!r.evalTime || r.decl.kind === "function") continue;
+    if (pos.get(r.decl.stmt) < pos.get(r.stmt) || (r.decl.stmt === r.stmt && !r.via)) continue;
+    if (r.decl.stmt === r.stmt) continue; // dentro da própria declaração (ex.: X = (…)(X || {}))
+    const k = r.name + "@" + r.line;
+    if (seen.has(k)) continue;
+    seen.add(k);
+    // já quebrado hoje (a declaração vem depois mesmo sem dividir): aparece à parte e não conta como causado pelo plano
+    const preexisting = r.decl.stmt > r.stmt;
+    problems.notEvaluated.push({ ...r, preexisting, module: moduleOf.get(stmtSegment.get(r.stmt)), declModule: moduleOf.get(r.decl.segment) });
+  }
+  // 2. ordem relativa das instruções com efeito
+  const effectful = [];
+  for (const seg of segments) for (const st of analysis(seg).effects) effectful.push(st);
+  effectful.sort((a, b) => a - b);
+  for (let i = 1; i < effectful.length; i++) {
+    const a = effectful[i - 1], b = effectful[i];
+    if (pos.get(a) > pos.get(b)) problems.effects.push({ before: a, after: b });
+  }
+
+  const where = (st) => `linha ${ast.body[st].loc.start.line} (#${stmtSegment.get(st)}, ${moduleOf.get(stmtSegment.get(st))})`;
+  const caused = problems.notEvaluated.filter((r) => !r.preexisting);
+  const total = caused.length + problems.effects.length + problems.writes.length;
+  if (json) {
+    console.log(JSON.stringify({ plan, evaluationOrder: order, problems }, null, 2));
+    return total ? 1 : 0;
+  }
+  console.log(`Plano: ${modules.size - 1} módulo(s) novo(s), ${segments.filter((s) => moduleOf.get(s.index) !== original).length} de ${segments.length} segmentos movidos.`);
+  console.log("Ordem de avaliação ES simulada: " + order.join(" → "));
+  console.log(`Problemas causados pelo plano: ${caused.length} não avaliado(s), ${problems.effects.length} troca(s) de ordem de efeitos, ${problems.writes.length} atribuição(ões) entre módulos.\n`);
+  for (const r of problems.notEvaluated.slice(0, 40))
+    console.log(`  ${r.preexisting ? "JÁ HOJE     " : "NÃO AVALIADO"}  linha ${r.line} (${r.module}): ${r.name} (${r.decl.kind}, linha ${r.decl.line}, ${r.declModule})${r.via ? " [via " + r.via + "()]" : ""}`);
+  for (const e of problems.effects.slice(0, 40)) console.log(`  ORDEM DE EFEITOS  ${where(e.before)} passa a rodar depois de ${where(e.after)}`);
+  for (const w of problems.writes.slice(0, 40)) console.log(`  ATRIBUIÇÃO  linha ${w.line} (${w.from}): ${w.name} (declarado em ${w.to}, linha ${w.declaredLine})`);
+  if (!total) console.log("Nenhum problema: a divisão mantém a ordem de avaliação e de efeitos.");
+  return total ? 1 : 0;
 }
