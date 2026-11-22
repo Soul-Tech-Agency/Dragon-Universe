@@ -172,9 +172,12 @@ const ICONS = {
   race_bio_android: 'bio', race_glind: 'glind',
   plus: 'plus', close: 'close', chevron_left: 'chevron_left', chevron_right: 'chevron_right', random: 'random', check: 'check', info: 'info'
 };
+// ajuste óptico (unidades do viewBox 24): centro de massa no meio do 32x32
+const NUDGE = { stat_damage: [0.32, 0.32] };
 for (const [name, key] of Object.entries(ICONS)) {
   // viewBox 24 com 1 un. de respiro -> escala 32/26; traço 2.4 -> ~3 px
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="-1 -1 26 26"><path d="${P[key]}" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  const [nx, ny] = NUDGE[name] || [0, 0];
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="${-1 - nx} ${-1 - ny} 26 26"><path d="${P[key]}" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   save(`icons/${name}.png`, render(svg, 32, 32));
   made.push({ name: `icons/${name}`, rel: `icons/${name}.png`, w: 32, h: 32, ns: 0, group: 'icon' });
 }

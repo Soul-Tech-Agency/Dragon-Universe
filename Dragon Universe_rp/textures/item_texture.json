@@ -482,6 +482,12 @@
         "tournament_invitation": {
             "textures": "textures/items/tournament_invitation"
         },
+        "bills_invitation": {
+            "textures": "textures/items/bills_invitation"
+        },
+        "power_tournament_invitation": {
+            "textures": "textures/items/power_tournament_invitation"
+        },
         "saibaman_seed": {
             "textures": "textures/items/saibaman_seed"
         },

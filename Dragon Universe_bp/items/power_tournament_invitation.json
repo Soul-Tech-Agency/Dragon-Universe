@@ -8,7 +8,7 @@
             }
         },
         "components": {
-            "minecraft:icon": "tournament_invitation",
+            "minecraft:icon": "power_tournament_invitation",
             "minecraft:max_stack_size": 1
         }
     }
