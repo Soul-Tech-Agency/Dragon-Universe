@@ -3,6 +3,7 @@
 // código formatado, sem mudança de lógica. Os nomes curtos de variáveis vêm do ofuscador e não puderam ser recuperados.
 import "./core/perf.js"; // primeiro import: a sonda (CONFIG.DEBUG_PERF) envolve os agendadores antes dos módulos
 import { every } from "./core/scheduler.js"; // relógio único das tarefas gerais (O3-12: G1-G6)
+import { late, bindLate } from "./core/late.js"; // ligação tardia (O4.0)
 import "./kaioshin_dimension.js";
 import "./other_world_kai.js";
 import "./world_structures.js";
@@ -15,18 +16,7 @@ import { safeTeleport as duSafeTeleport, isTravelPending as duIsTravelPending,
   physicalDestinationId as duPhysicalDestinationId, isSafeStanding as duIsSafeStanding,
   reportTravelFailure as duReportTravelFailure } from "./travel_safety.js";
 import { initializeFutureTerrain, prepareFutureCity } from "./future_terrain.js";
-async function duTravel(entity, location, options = {}) {
-  try {
-    const dimension = options.dimension ?? entity.dimension;
-    if (dimension.id === "minecraft:overworld" && entity.dimension.id !== dimension.id)
-      await duSafeReturnToEarth(entity, { ...options, savedOrigin: { ...location, d: dimension.id } });
-    else await duSafeTeleport(entity, location, options);
-    return !0;
-  } catch (error) {
-    duReportTravelFailure(entity, options?.label ?? "destination", error);
-    return !1;
-  }
-}
+import { duTravel } from "./core/du_travel.js"; // O4.0-1: movido do segmento 0, como estava
 import { namekDragonBallSpot as __nbl } from "./namek_dimension.js";
 import { raceInfo as duRaceInfo, firstFormsRawtext as duFirstFormsRawtext } from "./race_info.js";
 import { dragonBallsData as d } from "./data/dragon_balls_data.js";

@@ -1834,6 +1834,12 @@
          "path" : "scripts/config/config.js"
       },
       {
+         "path" : "scripts/core/du_travel.js"
+      },
+      {
+         "path" : "scripts/core/late.js"
+      },
+      {
          "path" : "scripts/core/perf.js"
       },
       {
