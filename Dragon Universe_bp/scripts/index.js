@@ -8073,8 +8073,10 @@ var hX = class {
         near.length > 1 && near.sort((x, y) => x.d - y.d);
         for (let { o } of near)
           if (me.atk !== o.atk && me.atk.damage > o.atk.damage) {
-            o.atk.entity.tryTeleport(me.loc, { keepVelocity: !0 });
-            try { o.loc = o.atk.entity.location; } catch {}
+            try {
+              o.atk.entity.tryTeleport(me.loc, { keepVelocity: !0 });
+              o.loc = o.atk.entity.location;
+            } catch {} // ataque que sumiu no meio do tick: não aborta o hub (nem o updateBalls depois dele)
           }
       }
     }
@@ -8799,8 +8801,8 @@ var j1 = class t5 {
       t1 && (t1.applyImpulse({ x: 0, y: -100, z: 0 }), (sK[sR] = t1));
     }
     await j0.waitTicks(1);
-    // a cápsula pode ter sumido nesse tick (ou um sensor não ter nascido): os sensores saem de qualquer jeito
-    if (!this.entity.isValid || Object.keys(sK).length < 5) {
+    // a cápsula pode ter sumido nesse tick (ou um sensor não ter nascido ou ter sumido): os sensores válidos saem
+    if (!this.entity.isValid || Object.keys(sK).length < 5 || !Object.values(sK).every((t2) => t2.isValid)) {
       for (let t2 of Object.values(sK)) t2.isValid && t2.remove();
       return;
     }
