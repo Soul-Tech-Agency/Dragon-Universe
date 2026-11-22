@@ -16431,6 +16431,8 @@ function kp(sG) {
 }
 // Jogadores com o formulário de customização aberto (ver showCustomizationForm e afterItemUse).
 var duCustomizationOpen = new Set();
+// Quem sai com a customização aberta não pode voltar "travado" (sem abrir a seleção de raça).
+o.afterEvents.playerLeave.subscribe(({ playerId: sG }) => duCustomizationOpen.delete(sG));
 var kq = class t8 extends jY {
     constructor(sG, sH = 1) {
       super(sG), (this.selectedRaceIndex = sH);

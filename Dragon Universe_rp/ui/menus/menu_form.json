@@ -107,6 +107,7 @@
     "du_icon_overlay": {
         "type": "panel",
         "size": [ "100%", "50% - 92px" ],
+        "min_size": [ "100%", 0 ],
         "anchor_from": "top_middle",
         "anchor_to": "top_middle",
         "layer": 50,
@@ -117,6 +118,7 @@
                     "texture": "textures/ui/images/du_icon",
                     "size": [ "100%y", "100%" ],
                     "max_size": [ 21, 21 ],
+                    "min_size": [ 0, 0 ],
                     "anchor_from": "bottom_middle",
                     "anchor_to": "bottom_middle"
                 }
