@@ -27,6 +27,12 @@ let wrapTask = (name, fn) => fn;
 export function perfTask(name, fn) {
   return wrapTask(name, fn);
 }
+// O intervalo do próprio relógio (core/scheduler.js) não passa pela medição: o tempo dele é a soma das tarefas, que já
+// aparecem uma por uma como "every <nome>". Com a sonda desligada é o system.runInterval normal.
+let clockInterval = (fn, ticks) => system.runInterval(fn, ticks);
+export function schedulerInterval(fn, ticks) {
+  return clockInterval(fn, ticks);
+}
 
 if (CONFIG.DEBUG_PERF) install();
 
@@ -134,7 +140,9 @@ function install() {
   countProto(mc.Dimension, "getEntities", () => getEntitiesCalls++);
   countProto(mc.World, "getPlayers", () => getPlayersCalls++);
   countProto(mc.World, "getAllPlayers", () => getPlayersCalls++);
+  countProto(mc.Dimension, "getPlayers", () => getPlayersCalls++);
   wrapTask = (name, fn) => timed("every " + name, fn);
+  clockInterval = rawInterval;
 
   // duração real de cada tick (intervalo de 1 tick próprio, fora da contagem de tarefas)
   rawInterval(() => {
@@ -184,7 +192,7 @@ function install() {
     const lines = [
       `§e[perf] ${ticks} ticks em ${fmt(seconds)} s (${running ? "medindo" : "parado"}). Tick: média ${fmt(tickGaps.reduce((a, b) => a + b, 0) / Math.max(1, tickGaps.length))} ms, p95 ${p95(tickGaps)} ms.`,
       `§e[perf] intervalos vivos ${liveIntervals.size}; setProperty ${fmt(setProperties / seconds)}/s; getEntities ${fmt(getEntitiesCalls / seconds)}/s; getPlayers ${fmt(getPlayersCalls / seconds)}/s; entidades dbe: ${dbe}, jogadores ${players}.`,
-      `§e[perf] tarefas (top ${rows.length} por tempo total): chamadas · média · p95 · máx (ms) · ms/tick`,
+      `§e[perf] tarefas (top ${rows.length} por tempo total): chamadas · média · p95 · máx (ms) · ms/tick. O relógio do O3 não entra nos intervalos: as tarefas dele são as linhas "every".`,
       ...rows.map(([k, t]) => `  ${k}: ${t.calls} · ${fmt(t.total / t.calls)} · ${p95(t.samples)} · ${t.max} · ${fmt(t.total / ticks)}`),
     ];
     if (failures.length) lines.push("§c[perf] não instrumentado: " + failures.join("; "));

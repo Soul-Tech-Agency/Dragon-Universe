@@ -2,6 +2,7 @@
 // Gerado por tools/deobfuscate-core.mjs a partir da versão ofuscada (commit 2d4f628): textos decodificados e
 // código formatado, sem mudança de lógica. Os nomes curtos de variáveis vêm do ofuscador e não puderam ser recuperados.
 import "./core/perf.js"; // primeiro import: a sonda (CONFIG.DEBUG_PERF) envolve os agendadores antes dos módulos
+import { every } from "./core/scheduler.js"; // relógio único das tarefas gerais (O3-12: G1-G6)
 import "./kaioshin_dimension.js";
 import "./other_world_kai.js";
 import "./world_structures.js";
@@ -991,7 +992,7 @@ function bG(sG, sH) {
   if (sI instanceof bF) return sI;
   throw new Error("Instância de DynamicDatabase não encontrada para o provedor fornecido.");
 }
-az.beforeEvents.shutdown.subscribe(() => bF.saveAllInstances()), az.runInterval(() => bF.cleanup(), 1200);
+az.beforeEvents.shutdown.subscribe(() => bF.saveAllInstances()), every(1200, "core.data_cleanup", () => bF.cleanup(), { phase: 101 }); // G1
 var bH = {
     "solariscore:crop": b9,
     "solariscore:door": bj,
@@ -2014,7 +2015,7 @@ function dj(sG) {
   if (sH instanceof df) return sH;
   throw new Error("Instância de CooldownManager não encontrada para DynamicDatabase fornecido.");
 }
-d7.runInterval(() => df.cleanup(), 1200);
+every(1200, "core.cooldown_cleanup", () => df.cleanup(), { phase: 401 }); // G2
 var dk = class {
     constructor(sG, sH, sI) {
       (this.masteryId = sG), (this.initialValue = sH), (this.masteryManager = sI), (this.masteryPercent = sH);
@@ -3487,9 +3488,9 @@ function eO(sG) {
   throw new Error("Instância de RegionManager não encontrada para a dimensão fornecida.");
 }
 var eP = new eN();
-dz.runInterval(() => {
+every(1200, "core.region_cleanup", () => { // G3
   for (let sG of eM.getDimensionRegionManagers()) sG.cleanup();
-}, 1200);
+}, { phase: 701 });
 import { skills_data as eQ } from "./data/skills_data.js";
 import { Player as eR, system as eS } from "@minecraft/server";
 var eT = class {
@@ -12175,7 +12176,7 @@ var pH = class {
     isGenerating = !1;
     queueMap = new Map();
     constructor() {
-      pF.runInterval(() => {
+      every(30, "core.terrain_queue", () => { // G4
         let sG = new Set();
         for (let sH of this.generatorMap.values()) {
           let { dimension: sI } = sH;
@@ -12185,7 +12186,7 @@ var pH = class {
             sG.has(sM) || (sG.add(sM), this.addToQueue(sH, sL));
           }
         }
-      }, 30);
+      }, { phase: 17 });
     }
     register(sG) {
       let sH = this.getGenerator(sG);
@@ -14291,13 +14292,14 @@ var sf = 18000,
       if (!this.initialized) {
         this.initialized = !0;
         let sG = sf;
-        s9.runInterval(() => {
+        // G5: período ausente = 1 tick (o every repassa sem período na prova, como antes)
+        every(undefined, "core.clear_lag", () => {
           if ((sj.includes(sG) && this.sendWarn(sG), sG <= 0)) {
             this.clearEntities(), (sG = sf);
             return;
           }
           sG--;
-        });
+        }, { phase: 0 });
       }
     }
     sendWarn(sG) {
@@ -14309,10 +14311,10 @@ import { system as sv, world as sw } from "@minecraft/server";
 var sx = class {
     currentIndex = 0;
     init() {
-      sv.runInterval(() => {
+      every(3600, "core.server_messages", () => { // G6
         let sG = this.getNextMessageLocalizationKey();
         sw.sendMessage({ translate: sG }), (this.currentIndex = ++this.currentIndex % 10);
-      }, 3600);
+      }, { phase: 1801 });
     }
     getNextMessageLocalizationKey() {
       return "server.message." + (this.currentIndex + 1);
