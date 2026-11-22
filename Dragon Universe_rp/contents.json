@@ -5479,18 +5479,6 @@
          "path" : "textures/ui/backgrounds/shop_item_background.png"
       },
       {
-         "path" : "textures/ui/buttons/achievements_button.json"
-      },
-      {
-         "path" : "textures/ui/buttons/achievements_button.png"
-      },
-      {
-         "path" : "textures/ui/buttons/achievements_button_hover.json"
-      },
-      {
-         "path" : "textures/ui/buttons/achievements_button_hover.png"
-      },
-      {
          "path" : "textures/ui/buttons/back_button.json"
       },
       {
@@ -5551,18 +5539,6 @@
          "path" : "textures/ui/buttons/gravity_machine_button_hover.png"
       },
       {
-         "path" : "textures/ui/buttons/help_button.json"
-      },
-      {
-         "path" : "textures/ui/buttons/help_button.png"
-      },
-      {
-         "path" : "textures/ui/buttons/help_button_hover.json"
-      },
-      {
-         "path" : "textures/ui/buttons/help_button_hover.png"
-      },
-      {
          "path" : "textures/ui/buttons/menu_button.json"
       },
       {
@@ -5575,66 +5551,6 @@
          "path" : "textures/ui/buttons/menu_button_hover.png"
       },
       {
-         "path" : "textures/ui/buttons/news_button.json"
-      },
-      {
-         "path" : "textures/ui/buttons/news_button.png"
-      },
-      {
-         "path" : "textures/ui/buttons/news_button_hover.json"
-      },
-      {
-         "path" : "textures/ui/buttons/news_button_hover.png"
-      },
-      {
-         "path" : "textures/ui/buttons/next_button.json"
-      },
-      {
-         "path" : "textures/ui/buttons/next_button.png"
-      },
-      {
-         "path" : "textures/ui/buttons/next_button_hover.json"
-      },
-      {
-         "path" : "textures/ui/buttons/next_button_hover.png"
-      },
-      {
-         "path" : "textures/ui/buttons/previous_button.json"
-      },
-      {
-         "path" : "textures/ui/buttons/previous_button.png"
-      },
-      {
-         "path" : "textures/ui/buttons/previous_button_hover.json"
-      },
-      {
-         "path" : "textures/ui/buttons/previous_button_hover.png"
-      },
-      {
-         "path" : "textures/ui/buttons/quest_button.json"
-      },
-      {
-         "path" : "textures/ui/buttons/quest_button.png"
-      },
-      {
-         "path" : "textures/ui/buttons/quest_button_hover.json"
-      },
-      {
-         "path" : "textures/ui/buttons/quest_button_hover.png"
-      },
-      {
-         "path" : "textures/ui/buttons/quests_button.json"
-      },
-      {
-         "path" : "textures/ui/buttons/quests_button.png"
-      },
-      {
-         "path" : "textures/ui/buttons/quests_button_hover.json"
-      },
-      {
-         "path" : "textures/ui/buttons/quests_button_hover.png"
-      },
-      {
          "path" : "textures/ui/buttons/shop_item_button.json"
       },
       {
@@ -5645,54 +5561,6 @@
       },
       {
          "path" : "textures/ui/buttons/shop_item_button_hover.png"
-      },
-      {
-         "path" : "textures/ui/buttons/skills_button.json"
-      },
-      {
-         "path" : "textures/ui/buttons/skills_button.png"
-      },
-      {
-         "path" : "textures/ui/buttons/skills_button_hover.json"
-      },
-      {
-         "path" : "textures/ui/buttons/skills_button_hover.png"
-      },
-      {
-         "path" : "textures/ui/buttons/statistics_button.json"
-      },
-      {
-         "path" : "textures/ui/buttons/statistics_button.png"
-      },
-      {
-         "path" : "textures/ui/buttons/statistics_button_hover.json"
-      },
-      {
-         "path" : "textures/ui/buttons/statistics_button_hover.png"
-      },
-      {
-         "path" : "textures/ui/buttons/training_button.json"
-      },
-      {
-         "path" : "textures/ui/buttons/training_button.png"
-      },
-      {
-         "path" : "textures/ui/buttons/training_button_hover.json"
-      },
-      {
-         "path" : "textures/ui/buttons/training_button_hover.png"
-      },
-      {
-         "path" : "textures/ui/buttons/up_button.json"
-      },
-      {
-         "path" : "textures/ui/buttons/up_button.png"
-      },
-      {
-         "path" : "textures/ui/buttons/up_button_hover.json"
-      },
-      {
-         "path" : "textures/ui/buttons/up_button_hover.png"
       },
       {
          "path" : "textures/ui/charge_bar.png"
@@ -5744,9 +5612,6 @@
       },
       {
          "path" : "textures/ui/images/christmas.png"
-      },
-      {
-         "path" : "textures/ui/images/du_icon.png"
       },
       {
          "path" : "textures/ui/images/patron_chat.png"
@@ -6421,28 +6286,16 @@
          "path" : "ui/hud_screen/zeni_indicator.json"
       },
       {
-         "path" : "ui/menus/achievement_list_form.json"
-      },
-      {
          "path" : "ui/menus/alignment_question_form.json"
       },
       {
          "path" : "ui/menus/christmas_form.json"
       },
       {
-         "path" : "ui/menus/customization_form.json"
-      },
-      {
          "path" : "ui/menus/functions_form.json"
       },
       {
          "path" : "ui/menus/gravity_machine_form.json"
-      },
-      {
-         "path" : "ui/menus/menu_form.json"
-      },
-      {
-         "path" : "ui/menus/news_form.json"
       },
       {
          "path" : "ui/menus/npcs/npc_dialog_form.json"
@@ -6454,31 +6307,7 @@
          "path" : "ui/menus/npcs/shenron_form.json"
       },
       {
-         "path" : "ui/menus/quest_form.json"
-      },
-      {
-         "path" : "ui/menus/quest_list_form.json"
-      },
-      {
-         "path" : "ui/menus/select_hair_form.json"
-      },
-      {
-         "path" : "ui/menus/select_race_form.json"
-      },
-      {
          "path" : "ui/menus/shop_form.json"
-      },
-      {
-         "path" : "ui/menus/skills_form.json"
-      },
-      {
-         "path" : "ui/menus/statistics_form.json"
-      },
-      {
-         "path" : "ui/menus/training_form.json"
-      },
-      {
-         "path" : "ui/menus/transformations_form.json"
       },
       {
          "path" : "ui/server_form.json"
