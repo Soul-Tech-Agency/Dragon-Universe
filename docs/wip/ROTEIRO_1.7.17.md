@@ -13,12 +13,12 @@ Nada aqui foi testado no Minecraft pela equipe.
 - [ ] O mundo carrega · auditoria `10/10` · primeiro erro do log: ____
 
 ## 2. Viagens
-- [ ] 1ª chegada a cada planeta: o jogador nasce em cima da plataforma
-- [ ] Cair da plataforma (ou se afastar e voltar): volta para ela / ela continua lá
+- [ ] Na 1ª chegada a plataforma já está lá
+- [ ] Sair andando da plataforma nos primeiros 20 s: quem cai, ou fica abaixo do chão ainda não gerado, volta para ela, sem sufocar
 - [ ] Tempos da 1ª viagem a Vegeta, Freeza e Yardrat: ____ / ____ / ____ · copiar as linhas `[Timing]`
 - [ ] Base do Freeza aparece em `/scriptevent dbe:landmarks` em ~2 min no planeta Freeza
-- [ ] Planetas sem `gold_ore` nem `lapis_ore` à vista no terreno
-- [ ] Namek: ida e volta 3 vezes sem `UnloadedChunksError` (nem `LocationInUnloadedChunkError`) no log
+- [ ] ContentLog sem `PlanetPreservationError` (`gold_ore`/`lapis_ore`) e sem `[Namek] UnloadedChunksError`
+- [ ] Namek: ida e volta 3 vezes sem `LocationInUnloadedChunkError` no log
 - [ ] **2 jogadores viajando juntos (H10, sem teste na 1.7.15):** os dois chegam? O que aparece para cada um? ____
 
 ## 3. Construções do mundo normal
@@ -48,6 +48,8 @@ Nada aqui foi testado no Minecraft pela equipe.
 - [ ] Ícone DU nos 7 painéis, **no PC e no celular** (print de cada): centralizado, sem corte e sem cobrir botão ou texto
 - [ ] Setas da customização funcionam nos dois sentidos
 - [ ] Setas do barbeiro funcionam nos dois sentidos
+- [ ] Barbeiro em Oozaru e Golden Oozaru: corpo inteiro na prévia, nada estranho no fim do texto
+- [ ] Barbeiro na forma base: prévia do mesmo tamanho de antes
 - [ ] Sair do mundo com a customização aberta, entrar de novo: sem trava nem dado perdido
 - [ ] Prévia do Oozaru na customização aparece certa
 
