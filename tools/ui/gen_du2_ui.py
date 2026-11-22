@@ -1021,8 +1021,13 @@ def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1, key_ic
                 coll_text(), view(f"(#form_button_text = '{key}')")])) for key, ic, col in key_icons])), pad(5)]
         if tints:
             top = "left_middle" if lines == 1 else "top_left"
+            # coluna do ícone só quando o botão traz ícone (script antigo: texto no lugar de antes)
+            has = [{"binding_type": "collection", "binding_collection_name": COL, "binding_name": "#form_button_texture"},
+                   view("(not (#form_button_texture = ''))")]
             row += [c("icon", P([14, "100%"], [c("ic", tinted_icon([12, 12], tints, anchor_from=top, anchor_to=top,
-                                                                 offset=[0, 0] if lines == 1 else [1, 4]))])), pad(5)]
+                                                                 offset=[0, 0] if lines == 1 else [1, 4]))],
+                                bindings=has)),
+                    c("icon_gap", P([5, "100%"], bindings=has))]
         label = btn_label("text", None, size=["100%", 10 if lines == 1 else "default"], align="left",
                           anchor_from=anchor, anchor_to=anchor)
         if lines > 1:
@@ -1098,8 +1103,8 @@ def tab_screen(nsd, form_name, content):
     ])
 
 
-def scroll_area(nsd, name, controls):
-    nsd[name] = V(["100%", "100%c"], controls)
+def scroll_area(nsd, name, controls, collection=None):
+    nsd[name] = V(["100%", "100%c"], controls, **({"collection_name": collection} if collection else {}))
     return c("s@common.scrolling_panel", scroll(nsd["namespace"] + "." + name))
 
 
@@ -1185,6 +1190,78 @@ def action_button(idx, w, h, key_icons):
     return host("b@common.button", btn, [w, h])
 
 
+REWARD_TINTS = [("ach_item", "orange"), ("skill_points", "gold"), ("reward_zeni", "gold")]
+
+
+def tex_icon_at(idx, size, tints):
+    """Ícone do botão idx (tingido pela tabela), dentro de uma linha que é de outro índice."""
+    return P(size, [c("s", P(size, [c("i", tinted_icon(size, tints))], collection_index=idx))], collection_name=COL)
+
+
+def qrow(idx, vis, children, gap_after=2, name=None):
+    """Linha do detalhe (filha direta do stack com collection_name): some quando vis é falso."""
+    return c(name or f"slot{idx}", V(["100%", "100%c"], [c("row", H(["100%", "100%c"], children)),
+                                                             pad("100%", gap_after)],
+                                        collection_index=idx, bindings=[coll_text(), view(vis)]))
+
+
+def wrap_label(color, prefix_strip="*"):
+    return c("t", lbl("#du2_text", ["fill", "default"], color, None, "smooth", "left",
+                      bindings=[coll_text(), view(f"(#form_button_text - '{prefix_strip}')", "#du2_text")]))
+
+
+NONEMPTY = "(not (#form_button_text = ''))"
+
+
+def quest_detail_rows():
+    """Detalhe de missão em slots (CONTRATO.md §10.3). Slot 2 vazio (script antigo ou detalhe de conquista):
+    só o body, como antes."""
+    def cap(idx, key):
+        return qrow(idx, NONEMPTY, [c("c", lbl(key, ["fill", 10], "gold", None, "smooth", "left"))], 1, f"cap{idx}")
+
+    def bullet(idx, color="desc", done_check=False):
+        icon = [c("dot", img(I + "chevron_right", [6, 6], "weak", offset=[0, 2],
+                             bindings=[coll_text(), view(INACTIVE)] if done_check else None))]
+        if done_check:
+            icon.append(c("ok", img(I + "check", [8, 8], "green", offset=[0, 1], bindings=[coll_text(), view(ACTIVE)])))
+        for ic in icon:
+            ic[next(iter(ic))]["anchor_from"] = ic[next(iter(ic))]["anchor_to"] = "top_middle"
+            if ic[next(iter(ic))].get("bindings") is None:
+                del ic[next(iter(ic))]["bindings"]
+        return qrow(idx, NONEMPTY, [pad(4, 10), c("b", P([10, 10], icon)), pad(3, 10), wrap_label(color)])
+
+    rows = [
+        # cabeçalho: ícone do tipo (slot 3) + título (slot 2)
+        qrow(2, NONEMPTY, [c("ic", tex_icon_at(3, [12, 12], QUEST_TINTS)), pad(4, 12),
+                           c("t", lbl("#du2_text", ["fill", "default"], "gold", None, "smooth", "left",
+                                      bindings=text_shown()))], 1, "head"),
+        # tipo (slot 3) e nível recomendado (slot 4)
+        qrow(3, NONEMPTY, [pad(16, 10), c("t", lbl("#du2_text", ["fill", 10], "weak", None, "smooth", "left",
+                                                   bindings=text_shown()))], 0),
+        qrow(4, NONEMPTY, [pad(16, 10), c("c", lbl("ui.dbe.quest.caption.level", ["default", 10], "weak", None,
+                                                   "smooth", "left")), pad(4, 10),
+                           c("v", lbl("#du2_text", ["default", 10], "value", None, "smooth", "left",
+                                      bindings=text_shown()))], 6),
+        qrow(5, NONEMPTY, [wrap_label("desc")], 6),
+        cap(2, "ui.dbe.quest.caption.objectives"),
+        *[bullet(i, "text", done_check=True) for i in range(6, 14)],
+        c("gap_req", pad("100%", 4)),
+        cap(14, "ui.dbe.quest.caption.requirements"),
+        *[bullet(i, "desc") for i in range(14, 18)],
+        c("gap_rew", pad("100%", 4)),
+        cap(18, "ui.dbe.quest.caption.rewards"),
+        *[qrow(i, NONEMPTY, [pad(4, 10), c("ic", tex_icon_at(i, [10, 10], REWARD_TINTS)), pad(4, 10),
+                             wrap_label("text")]) for i in range(18, 26)],
+        c("gap_end", pad("100%", 4)),
+        qrow(26, NONEMPTY, [wrap_label("weak")]),
+        qrow(27, NONEMPTY, [wrap_label("red")]),
+        # script antigo / conquista: body inteiro
+        qrow(2, "(#form_button_text = '')", [c("body", lbl("#form_text", ["fill", "default"], "text", None,
+                                                            "smooth", "left"))], 0, "old_body"),
+    ]
+    return rows
+
+
 def detail_screen(nsd, form_name, bottom):
     """Tela sem abas: Voltar na barra de título, texto com rolagem e botões embaixo."""
     screen_root(nsd, form_name)
@@ -1192,7 +1269,7 @@ def detail_screen(nsd, form_name, bottom):
                                           "mobile": (["100% - 6px", "100% - 6px"], [480, 270], 20, 8, 22)}.items():
         nsd[m] = frame(size, mx, th, [], 22 if m == "mobile" else 18, [
             c("inner", V([f"100% - {inset}px", f"100% - {inset - 2}px"], [
-                c("scroll", P(["100%", "fill"], [scroll_area(nsd, "scroll_" + m, [body_label("text")])])),
+                c("scroll", P(["100%", "fill"], [scroll_area(nsd, "scroll_" + m, quest_detail_rows(), COL)])),
                 pad("100%", 4),
                 c("bottom", H(["100%", bh], [c("fill", P(["fill", "100%"])), *bottom(m == "mobile")])),
             ], anchor_from="center", anchor_to="center")),

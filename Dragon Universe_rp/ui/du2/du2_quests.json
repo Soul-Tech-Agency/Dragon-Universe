@@ -31,7 +31,7 @@
         "size": ["100%", "100%"],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}},
-         {"row@du2_quests.h8": {}}
+         {"row@du2_quests.h9": {}}
         ]
        }
       },
@@ -41,7 +41,7 @@
         "size": ["100%", "100%"],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
-         {"row@du2_quests.h8": {}}
+         {"row@du2_quests.h9": {}}
         ]
        }
       },
@@ -53,7 +53,7 @@
          {
           "bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}
          },
-         {"row@du2_quests.h8": {}}
+         {"row@du2_quests.h9": {}}
         ]
        }
       }
@@ -96,7 +96,7 @@
         "size": ["100%", "100%"],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}},
-         {"row@du2_quests.h8": {}}
+         {"row@du2_quests.h9": {}}
         ]
        }
       },
@@ -106,7 +106,7 @@
         "size": ["100%", "100%"],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
-         {"row@du2_quests.h8": {}}
+         {"row@du2_quests.h9": {}}
         ]
        }
       },
@@ -118,7 +118,7 @@
          {
           "bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}
          },
-         {"row@du2_quests.h8": {}}
+         {"row@du2_quests.h9": {}}
         ]
        }
       }
@@ -171,7 +171,7 @@
         "size": ["100%", 24],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_quests.h9": {}}
+         {"row@du2_quests.h10": {}}
         ]
        }
       },
@@ -185,7 +185,7 @@
            "type": "stack_panel",
            "orientation": "horizontal",
            "size": ["100%", "100%"],
-           "controls": [{"nav@du2.nav_pc": {}}, {"content@du2_quests.h10": {}}]
+           "controls": [{"nav@du2.nav_pc": {}}, {"content@du2_quests.h11": {}}]
           }
          }
         ]
@@ -234,7 +234,7 @@
         "size": ["100%", 20],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_quests.h11": {}}
+         {"row@du2_quests.h12": {}}
         ]
        }
       },
@@ -248,7 +248,7 @@
            "type": "stack_panel",
            "orientation": "horizontal",
            "size": ["100%", "100%"],
-           "controls": [{"nav@du2.nav_mobile": {}}, {"content@du2_quests.h12": {}}]
+           "controls": [{"nav@du2.nav_mobile": {}}, {"content@du2_quests.h13": {}}]
           }
          }
         ]
@@ -470,38 +470,66 @@
   ]
  },
  "h8": {
+  "type": "panel",
+  "size": [14, "100%"],
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(not (#form_button_texture = ''))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "ic": {
+     "type": "panel",
+     "size": [12, 12],
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "offset": [0, 0],
+     "controls": [
+      {"i_lock@du2_quests.h1": {}},
+      {"i_quest_done@du2_quests.h2": {}},
+      {"i_quest_main@du2_quests.h3": {}},
+      {"i_quest_side@du2_quests.h4": {}},
+      {"i_quest_challenge@du2_quests.h5": {}},
+      {"i_quest_mentor@du2_quests.h6": {}},
+      {"i_other@du2_quests.h7": {}}
+     ]
+    }
+   }
+  ]
+ },
+ "h9": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
   "controls": [
    {"pad": {"type": "panel", "size": [6, "100%"]}},
+   {"icon@du2_quests.h8": {}},
    {
-    "icon": {
+    "icon_gap": {
      "type": "panel",
-     "size": [14, "100%"],
-     "controls": [
+     "size": [5, "100%"],
+     "bindings": [
       {
-       "ic": {
-        "type": "panel",
-        "size": [12, 12],
-        "anchor_from": "left_middle",
-        "anchor_to": "left_middle",
-        "offset": [0, 0],
-        "controls": [
-         {"i_lock@du2_quests.h1": {}},
-         {"i_quest_done@du2_quests.h2": {}},
-         {"i_quest_main@du2_quests.h3": {}},
-         {"i_quest_side@du2_quests.h4": {}},
-         {"i_quest_challenge@du2_quests.h5": {}},
-         {"i_quest_mentor@du2_quests.h6": {}},
-         {"i_other@du2_quests.h7": {}}
-        ]
-       }
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_texture"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#form_button_texture = ''))",
+       "target_property_name": "#visible"
       }
      ]
     }
    },
-   {"pad": {"type": "panel", "size": [5, "100%"]}},
    {
     "t": {
      "type": "panel",
@@ -539,7 +567,7 @@
    {"pad": {"type": "panel", "size": [5, "100%"]}}
   ]
  },
- "h9": {
+ "h10": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -566,7 +594,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h10": {
+ "h11": {
   "type": "panel",
   "size": ["fill", "100%"],
   "controls": [
@@ -603,7 +631,7 @@
    }
   ]
  },
- "h11": {
+ "h12": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -630,7 +658,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h12": {
+ "h13": {
   "type": "panel",
   "size": ["fill", "100%"],
   "controls": [
