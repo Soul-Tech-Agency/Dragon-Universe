@@ -1028,7 +1028,7 @@ def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1, key_ic
             label["offset"] = [0, 4]
         row += [c("t", P(["fill", "100%"], [c("l", label)], clips_children=True))]
         if icon:
-            row += [pad(4), centered(16, btn_icon([16, 16], None))]
+            row += [pad(4), centered(16, tinted_icon([16, 16], LOCK_TINTS))]
         if plus:
             maxed = "(not ((#form_button_text - 'maximized_skill') = #form_button_text))"
             row += [pad(4), centered(20, P([20, h - 6], [bg(T + plus_tex), c("i", img(I + "plus", [8, 8], "gold"))],
