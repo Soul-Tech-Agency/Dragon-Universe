@@ -330,6 +330,9 @@
                         }
                     ]
                 }
+            },
+            {
+                "du_icon_overlay@menu_form.du_icon_overlay": { }
             }
         ]
     }
