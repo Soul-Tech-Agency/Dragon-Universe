@@ -1269,8 +1269,28 @@ tab_screen(hp, "help_form", help_content)
 cu = {"namespace": "du2_customization"}
 
 
-def arrow_pair_rows(first_idx, rows, row_h, arrow_w):
-    """Linhas com ◀ ▶ (índices first_idx + 2k e + 2k + 1) e o body por cima, uma linha de texto por linha."""
+CUST_TINT = "gold"
+
+
+def cust_row_slots(name_idx, val_idx, h):
+    """Meio da linha (CONTRATO.md §10.4): ícone cust_* do slot do nome, nome e valor "n/total"."""
+    icon = img("", [10, 10], CUST_TINT, collection_index=name_idx,
+               bindings=coll_tex() + [coll_text(), view("(not (#form_button_text = ''))")])
+    return H(["fill", h], [
+        pad(3),
+        centered(10, P([10, 10], [c("i", icon)], collection_name=COL)),
+        pad(4),
+        c("name", slot(name_idx, ["fill", "100%"], "text")),
+        pad(3),
+        c("val", slot(val_idx, [34, "100%"], "value", align="right", anchor="right_middle")),
+        pad(3),
+    ])
+
+
+def arrow_pair_rows(first_idx, rows, row_h, arrow_w, name_idx0):
+    """Linhas com ◀ ▶ (índices first_idx + 2k e + 2k + 1) e, no meio, os slots da linha
+    (nome = name_idx0 + k, valor = name_idx0 + rows + k). Script antigo (slot do 1º nome vazio):
+    o body por cima, uma linha de texto por linha, como antes."""
     items = []
     for k in range(rows):
         a, b = first_idx + 2 * k, first_idx + 2 * k + 1
@@ -1280,17 +1300,19 @@ def arrow_pair_rows(first_idx, rows, row_h, arrow_w):
             c("bg", P(["100%", "100%"], [c("i", row_bg)], collection_name=COL)),
             c("arrows", H(["100%", row_h - 2], [
                 c("prev", host("b@common.button", arrow(a, "chevron_left", arrow_w, row_h - 2), [arrow_w, row_h - 2])),
-                c("fill", P(["fill", "100%"])),
+                c("mid", cust_row_slots(name_idx0 + k, name_idx0 + rows + k, row_h - 2)),
                 c("next", host("b@common.button", arrow(b, "chevron_right", arrow_w, row_h - 2), [arrow_w, row_h - 2])),
             ], layer=3)),
         ])))
     text = lbl("#form_text", ["100%", "default"], "text", None, "default", "center",
                line_padding=row_h - 10, offset=[0, (row_h - 10) // 2 - 1],
                anchor_from="top_middle", anchor_to="top_middle")
+    old_body = P(["100%", "100%"], [c("t", text)], collection_index=name_idx0,
+                 bindings=[coll_text(), view("(#form_button_text = '')")])
     return P(["100%", rows * row_h], [
         c("rows", V(["100%", "100%"], items)),
-        c("names", P([f"100% - {2 * arrow_w + 8}px", "100%"], [c("t", text)], layer=4, clips_children=True,
-                     anchor_from="top_middle", anchor_to="top_middle")),
+        c("names", P([f"100% - {2 * arrow_w + 8}px", "100%"], [c("old", old_body)], layer=4, clips_children=True,
+                     collection_name=COL, anchor_from="top_middle", anchor_to="top_middle")),
     ])
 
 
@@ -1326,7 +1348,7 @@ def custom_screen(form_name, title_left, first_idx, rows, with_confirm):
             c("left", custom_preview(130 if not mobile else 118, confirm)),
             pad(6),
             c("right", P(["fill", "100%"], [options_area(form_name + "_opts_" + m,
-                                                         arrow_pair_rows(first_idx, rows, row_h, arrow_w), mobile)])),
+                                                         arrow_pair_rows(first_idx, rows, row_h, arrow_w, first_idx + 2 * rows), mobile)])),
         ], anchor_from="center", anchor_to="center"))]
         size, mx = ([400, 240], ["100% - 8px", "100% - 8px"]) if not mobile else (["100% - 6px", "100% - 6px"], [480, 270])
         cu[form_name + "_" + m] = frame(size, mx, th, [], 22 if mobile else 18, body,
