@@ -42,13 +42,13 @@ let turn = 0;
 
 /**
  * Registers a resident (on module load; the order does not matter).
- * { id, formerIds?, type, dim, at: pos | () => pos | undefined, yaw?, radius?, near?, adopt?, enabled?, onPresent? }
+ * { id, formerIds?, type, dim, at: pos | () => pos | undefined, yaw?, radius?, near?, drift?, adopt?, enabled?, onPresent? }
  * at as a function: a place that depends on a landmark spot (undefined = not there yet).
  * adopt: an entity of the same type without the tag inside the radius becomes the resident instead of a new one.
  */
 export function addResident(def) {
   if (residents.some((r) => r.id === def.id)) throw new Error("[Residents] duplicate id " + def.id);
-  residents.push({ formerIds: [], yaw: 0, radius: 24, near: 48, adopt: false, ...def });
+  residents.push({ formerIds: [], yaw: 0, radius: 24, near: 48, drift: DRIFT, adopt: false, ...def });
   types.add(def.type);
 }
 
@@ -156,7 +156,7 @@ function step(r, players) {
     for (const e of extra) e.remove();
     if (extra.length) console.warn("[Residents] " + r.id + ": removed duplicate x" + extra.length);
   }
-  if (distance(entity.location, at) > DRIFT) entity.teleport(at, { rotation: { x: 0, y: r.yaw } });
+  if (distance(entity.location, at) > r.drift) entity.teleport(at, { rotation: { x: 0, y: r.yaw } });
   st.status = "ok";
   r.onPresent?.(entity);
 }
@@ -224,6 +224,20 @@ function report(player) {
 
 addResident({ id: "bills_beerus", type: "dbe:beerus", dim: "dbe:bills_planet", at: BILLS_SPOTS.beerus, yaw: BILLS_SPOTS.beerus.yaw });
 addResident({ id: "bills_whis", type: "dbe:whis", dim: "dbe:bills_planet", at: BILLS_SPOTS.whis, yaw: BILLS_SPOTS.whis.yaw });
+
+// The fish of the aquarium next to the dining room (water at x -5..-3, z -21..-18, y 131..133; bills_1/bills_3). They were
+// saved in bills_3 and doubled on every rebuild; now they are residents. adopt: in older worlds the fish already in the
+// tank are adopted instead of new ones being created (radius 4 keeps it to the tank). drift: they swim, so only one that
+// left the tank is put back.
+const AQUARIUM = [
+  ["bills_fish_tropical_1", "minecraft:tropicalfish", -4.5, -20.5],
+  ["bills_fish_tropical_2", "minecraft:tropicalfish", -4.5, -18.5],
+  ["bills_fish_tropical_3", "minecraft:tropicalfish", -2.5, -20.5],
+  ["bills_fish_puffer", "minecraft:pufferfish", -3.5, -19.5],
+  ["bills_fish_oracle", "dbe:giant_fish", -6.5, -19.5],
+];
+for (const [id, type, x, z] of AQUARIUM)
+  addResident({ id, type, dim: "dbe:bills_planet", at: { x, y: 131, z }, radius: 4, drift: 5, adopt: true });
 
 world.afterEvents.entityLoad.subscribe(({ entity }) => {
   try {
