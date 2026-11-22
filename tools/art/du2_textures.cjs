@@ -158,9 +158,7 @@ const P = {
   frost: 'M12 2v20M3.3 7l17.4 10M20.7 7 3.3 17M9 4l3 2 3-2M9 20l3-2 3 2',
   majin: 'M12 3c4 5 7 8 7 12a7 7 0 0 1-14 0c0-4 3-7 7-12z',
   bio: 'M12 2l9 5v10l-9 5-9-5V7l9-5zM12 8l4 2v4l-4 2-4-2v-4z',
-  glind: 'M5 3c0 5 2 8 5 9M19 3c0 5-2 8-5 9M12 21a5 5 0 0 0 5-5v-2H7v2a5 5 0 0 0 5 5z',
-  // sem mockup: chip de circuito (Androide)
-  android: 'M7 7h10v10H7zM10.5 10.5h3v3h-3zM10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4'
+  glind: 'M5 3c0 5 2 8 5 9M19 3c0 5-2 8-5 9M12 21a5 5 0 0 0 5-5v-2H7v2a5 5 0 0 0 5 5z'
 };
 const ICONS = {
   tab_statistics: 'stats', tab_skills: 'skills', tab_transformations: 'bolt', tab_quests: 'missions', tab_training: 'training',
@@ -170,7 +168,7 @@ const ICONS = {
   stat_damage: 'sword', stat_defense: 'shield', stat_energy: 'bolt', stat_bp: 'bolt',
   fact_regen: 'regen', fact_forms: 'bolt', fact_gender: 'person',
   race_earthling: 'globe', race_saiyan: 'spikes', race_namekian: 'namek', race_frost_demon: 'frost', race_majin: 'majin',
-  race_bio_android: 'bio', race_glind: 'glind', race_android: 'android',
+  race_bio_android: 'bio', race_glind: 'glind',
   plus: 'plus', close: 'close', chevron_left: 'chevron_left', chevron_right: 'chevron_right', random: 'random', check: 'check', info: 'info'
 };
 for (const [name, key] of Object.entries(ICONS)) {
