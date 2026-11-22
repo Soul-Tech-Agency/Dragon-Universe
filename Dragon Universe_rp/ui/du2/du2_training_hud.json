@@ -135,6 +135,173 @@
    }
   ]
  },
+ "physical": {
+  "type": "panel",
+  "size": [136, 86],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'train_hud:phys;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/panel_dark", "size": ["100%", "100%"]}},
+   {
+    "inner": {
+     "type": "stack_panel",
+     "orientation": "vertical",
+     "size": [126, 78],
+     "anchor_from": "center",
+     "anchor_to": "center",
+     "controls": [
+      {"head@du2_training_hud.h23": {}},
+      {"pad": {"type": "panel", "size": ["100%", 3]}},
+      {"cue@du2_training_hud.h24": {}},
+      {"pad": {"type": "panel", "size": ["100%", 3]}},
+      {
+       "vals": {
+        "type": "stack_panel",
+        "orientation": "horizontal",
+        "size": [126, 30],
+        "controls": [
+         {"caps@du2_training_hud.h25": {}},
+         {
+          "vals": {
+           "type": "panel",
+           "size": [56, "100%"],
+           "clips_children": true,
+           "controls": [
+            {
+             "v@templates.preserved_title_display": {
+              "$update_string": "train_vals:",
+              "size": ["100%", "default"],
+              "color": [0.333, 1.0, 1.0],
+              "font_type": "default",
+              "text_alignment": "right",
+              "shadow": true,
+              "anchor_from": "top_right",
+              "anchor_to": "top_right"
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {"pad": {"type": "panel", "size": ["100%", 4]}},
+      {
+       "stamina": {
+        "type": "stack_panel",
+        "orientation": "horizontal",
+        "size": ["100%", 10],
+        "controls": [
+         {
+          "cap": {
+           "type": "label",
+           "text": "ui.dbe.du2.stamina",
+           "size": [44, 10],
+           "color": [0.561, 0.627, 0.749],
+           "font_type": "default",
+           "shadow": true,
+           "text_alignment": "left"
+          }
+         },
+         {"bar": {"type": "panel", "size": ["fill", "100%"], "controls": [{"b@du2_training_hud.h34": {}}]}}
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "count": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "layer": 5,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "((not ((#hud_title_text_string - 'train_count:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:2;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:1;') = #hud_title_text_string)))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"dim": {"type": "image", "texture": "textures/ui/du2/panel_overlay", "size": ["100%", "100%"]}},
+      {
+       "n3": {
+        "type": "label",
+        "text": "3",
+        "size": ["100%", "default"],
+        "color": [0.965, 0.725, 0.263],
+        "font_type": "MinecraftTen",
+        "shadow": true,
+        "text_alignment": "center",
+        "font_scale_factor": 2.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "(not ((#hud_title_text_string - 'train_count:3;') = #hud_title_text_string))",
+          "target_property_name": "#visible"
+         }
+        ]
+       }
+      },
+      {
+       "n2": {
+        "type": "label",
+        "text": "2",
+        "size": ["100%", "default"],
+        "color": [0.965, 0.725, 0.263],
+        "font_type": "MinecraftTen",
+        "shadow": true,
+        "text_alignment": "center",
+        "font_scale_factor": 2.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "(not ((#hud_title_text_string - 'train_count:2;') = #hud_title_text_string))",
+          "target_property_name": "#visible"
+         }
+        ]
+       }
+      },
+      {
+       "n1": {
+        "type": "label",
+        "text": "1",
+        "size": ["100%", "default"],
+        "color": [0.965, 0.725, 0.263],
+        "font_type": "MinecraftTen",
+        "shadow": true,
+        "text_alignment": "center",
+        "font_scale_factor": 2.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "(not ((#hud_title_text_string - 'train_count:1;') = #hud_title_text_string))",
+          "target_property_name": "#visible"
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
  "panel": {
   "type": "panel",
   "size": [136, "100%c"],
@@ -150,7 +317,7 @@
     "target_property_name": "#visible"
    }
   ],
-  "controls": [{"concentration@du2_training_hud.concentration": {}}]
+  "controls": [{"concentration@du2_training_hud.concentration": {}}, {"physical@du2_training_hud.physical": {}}]
  },
  "h1": {
   "type": "stack_panel",
@@ -1259,6 +1426,406 @@
          {
           "binding_type": "view",
           "source_property_name": "((not ((#hud_title_text_string - 'conc_pace:10;') = #hud_title_text_string)))",
+          "target_property_name": "#visible"
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h23": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 12],
+  "controls": [
+   {
+    "cell": {
+     "type": "panel",
+     "size": [12, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/tab_training",
+        "size": [10, 10],
+        "color": [0.965, 0.725, 0.263],
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "t": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "clips_children": true,
+     "controls": [
+      {
+       "l": {
+        "type": "label",
+        "text": "ui.dbe.training.physical.title",
+        "size": ["100%", 10],
+        "color": [0.965, 0.725, 0.263],
+        "font_type": "default",
+        "shadow": true,
+        "text_alignment": "left",
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h24": {
+  "type": "panel",
+  "size": ["100%", 16],
+  "clips_children": true,
+  "controls": [
+   {
+    "cue_down": {
+     "type": "label",
+     "text": "ui.dbe.training.physical.down",
+     "size": ["100%", "default"],
+     "color": [0.965, 0.725, 0.263],
+     "font_type": "MinecraftTen",
+     "shadow": true,
+     "text_alignment": "center",
+     "font_scale_factor": 1.5,
+     "anchor_from": "center",
+     "anchor_to": "center",
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'phys_cue:down;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "cue_up": {
+     "type": "label",
+     "text": "ui.dbe.training.physical.up",
+     "size": ["100%", "default"],
+     "color": [0.137, 0.843, 1.0],
+     "font_type": "MinecraftTen",
+     "shadow": true,
+     "text_alignment": "center",
+     "font_scale_factor": 1.5,
+     "anchor_from": "center",
+     "anchor_to": "center",
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'phys_cue:up;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "cue_wait": {
+     "type": "label",
+     "text": "...",
+     "size": ["100%", "default"],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "MinecraftTen",
+     "shadow": true,
+     "text_alignment": "center",
+     "font_scale_factor": 1.5,
+     "anchor_from": "center",
+     "anchor_to": "center",
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'phys_cue:wait;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h25": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": [70, "100%"],
+  "controls": [
+   {
+    "c0": {
+     "type": "label",
+     "text": "ui.dbe.du2.reps",
+     "size": ["100%", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "left"
+    }
+   },
+   {
+    "c1": {
+     "type": "label",
+     "text": "ui.dbe.du2.series",
+     "size": ["100%", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "left"
+    }
+   },
+   {
+    "c2": {
+     "type": "label",
+     "text": "ui.dbe.du2.afk",
+     "size": ["100%", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "left"
+    }
+   }
+  ]
+ },
+ "h26": {
+  "type": "image",
+  "texture": "textures/ui/du2/xp_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'phys_stamina:1;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:2;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:4;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:5;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h27": {
+  "type": "image",
+  "texture": "textures/ui/du2/xp_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'phys_stamina:2;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:4;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:5;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h28": {
+  "type": "image",
+  "texture": "textures/ui/du2/xp_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'phys_stamina:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:4;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:5;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h29": {
+  "type": "image",
+  "texture": "textures/ui/du2/xp_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'phys_stamina:4;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:5;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h30": {
+  "type": "image",
+  "texture": "textures/ui/du2/xp_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'phys_stamina:5;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h31": {
+  "type": "image",
+  "texture": "textures/ui/du2/xp_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'phys_stamina:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h32": {
+  "type": "panel",
+  "size": ["10%", "100%"],
+  "controls": [
+   {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+   {
+    "on": {
+     "type": "image",
+     "texture": "textures/ui/du2/xp_on",
+     "size": ["100% - 1px", 5],
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "((not ((#hud_title_text_string - 'phys_stamina:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:10;') = #hud_title_text_string)))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h33": {
+  "type": "panel",
+  "size": ["10%", "100%"],
+  "controls": [
+   {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+   {
+    "on": {
+     "type": "image",
+     "texture": "textures/ui/du2/xp_on",
+     "size": ["100% - 1px", 5],
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "((not ((#hud_title_text_string - 'phys_stamina:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:10;') = #hud_title_text_string)))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h34": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["fill", 5],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h26": {}}
+     ]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h27": {}}
+     ]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h28": {}}
+     ]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h29": {}}
+     ]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h30": {}}
+     ]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h31": {}}
+     ]
+    }
+   },
+   {"seg7@du2_training_hud.h32": {}},
+   {"seg8@du2_training_hud.h33": {}},
+   {
+    "seg9": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {
+       "on": {
+        "type": "image",
+        "texture": "textures/ui/du2/xp_on",
+        "size": ["100% - 1px", 5],
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "((not ((#hud_title_text_string - 'phys_stamina:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'phys_stamina:10;') = #hud_title_text_string)))",
+          "target_property_name": "#visible"
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "seg10": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {
+       "on": {
+        "type": "image",
+        "texture": "textures/ui/du2/xp_on",
+        "size": ["100% - 1px", 5],
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "((not ((#hud_title_text_string - 'phys_stamina:10;') = #hud_title_text_string)))",
           "target_property_name": "#visible"
          }
         ]

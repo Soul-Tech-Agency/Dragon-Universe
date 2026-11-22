@@ -1646,8 +1646,32 @@ th["concentration"] = hud_card("conc", 92, [
     c("pace", hud_bar_row("ui.dbe.du2.pace", "conc_pace")),
 ])
 
+PHYS_ICON = "tab_training"  # troca por train_physical quando a Aquarela entregar (CONTRATO.md §11.6)
+
+
+def phys_cue():
+    """Pedido grande: DESÇA (dourado), SUBA (ciano), … (cinza), por phys_cue:down;/up;/wait;."""
+    cues = [("down", "ui.dbe.training.physical.down", "gold"), ("up", "ui.dbe.training.physical.up", "cyan"),
+            ("wait", "...", "weak")]
+    return P(["100%", 16], [c("cue_" + k, lbl(key, ["100%", "default"], col, 1.5, "MinecraftTen", "center",
+                                               shadow=True, anchor_from="center", anchor_to="center",
+                                               bindings=has_token(f"phys_cue:{k};")))
+                            for k, key, col in cues], clips_children=True)
+
+
+th["physical"] = hud_card("phys", 86, [
+    c("head", hud_header(PHYS_ICON, "gold", "ui.dbe.training.physical.title")),
+    pad("100%", 3),
+    c("cue", phys_cue()),
+    pad("100%", 3),
+    c("vals", hud_values(["ui.dbe.du2.reps", "ui.dbe.du2.series", "ui.dbe.du2.afk"], 70, HUD_W - 10 - 70)),
+    pad("100%", 4),
+    c("stamina", hud_bar_row("ui.dbe.du2.stamina", "phys_stamina")),
+])
+
 th["panel"] = P([HUD_W, "100%c"], [
     c("concentration@du2_training_hud.concentration", {}),
+    c("physical@du2_training_hud.physical", {}),
 ], anchor_from="top_right", anchor_to="top_right", offset=[-24, 34], layer=10,
     bindings=has_token("train_hud:"))
 
