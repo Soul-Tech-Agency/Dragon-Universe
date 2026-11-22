@@ -2,7 +2,7 @@
  "namespace": "du2_transformations",
  "row_pc": {
   "type": "panel",
-  "size": ["100%", 74],
+  "size": ["100%", 82],
   "bindings": [
    {"binding_type": "collection_details", "binding_collection_name": "form_buttons"},
    {
@@ -19,7 +19,7 @@
   "controls": [
    {
     "b@common.button": {
-     "size": ["100%", 72],
+     "size": ["100%", 80],
      "$pressed_button_name": "button.form_button_click",
      "default_control": "default",
      "hover_control": "hover",
@@ -67,7 +67,7 @@
  },
  "row_mobile": {
   "type": "panel",
-  "size": ["100%", 78],
+  "size": ["100%", 86],
   "bindings": [
    {"binding_type": "collection_details", "binding_collection_name": "form_buttons"},
    {
@@ -84,7 +84,7 @@
   "controls": [
    {
     "b@common.button": {
-     "size": ["100%", 76],
+     "size": ["100%", 84],
      "$pressed_button_name": "button.form_button_click",
      "default_control": "default",
      "hover_control": "hover",

@@ -2,7 +2,7 @@
  "namespace": "du2_achievements",
  "row_pc": {
   "type": "panel",
-  "size": ["100%", 34],
+  "size": ["100%", 46],
   "bindings": [
    {"binding_type": "collection_details", "binding_collection_name": "form_buttons"},
    {
@@ -19,7 +19,7 @@
   "controls": [
    {
     "b@common.button": {
-     "size": ["100%", 32],
+     "size": ["100%", 44],
      "$pressed_button_name": "button.form_button_click",
      "default_control": "default",
      "hover_control": "hover",
@@ -67,7 +67,7 @@
  },
  "row_mobile": {
   "type": "panel",
-  "size": ["100%", 36],
+  "size": ["100%", 48],
   "bindings": [
    {"binding_type": "collection_details", "binding_collection_name": "form_buttons"},
    {
@@ -84,7 +84,7 @@
   "controls": [
    {
     "b@common.button": {
-     "size": ["100%", 34],
+     "size": ["100%", 46],
      "$pressed_button_name": "button.form_button_click",
      "default_control": "default",
      "hover_control": "hover",

@@ -1089,8 +1089,8 @@ tab_screen(sk, "skills_form", skills_content)
 
 # ---- Transformações (kj): 10+ = formas (texto com requisitos; ícone = cadeado do script)
 tr = {"namespace": "du2_transformations"}
-tr["row_pc"] = list_item(72, icon=True, lines=6)
-tr["row_mobile"] = list_item(76, icon=True, lines=6)
+tr["row_pc"] = list_item(80, icon=True, lines=7)
+tr["row_mobile"] = list_item(84, icon=True, lines=7)
 
 
 def transformations_content(mobile):
@@ -1184,8 +1184,8 @@ tab_screen(tn, "training_form", training_content)
 
 # ---- Conquistas (kb): 10+ = conquistas (título + progresso, descrição na 2ª linha)
 ac = {"namespace": "du2_achievements"}
-ac["row_pc"] = list_item(32, lines=2)
-ac["row_mobile"] = list_item(34, lines=2)
+ac["row_pc"] = list_item(44, lines=3)
+ac["row_mobile"] = list_item(46, lines=3)
 
 
 def achievements_content(mobile):
@@ -1281,10 +1281,17 @@ def custom_preview(w, oozaru_marker=None, confirm=None):
     return V([w, "100%"], col)
 
 
+def options_area(name, rows_panel, mobile):
+    """PC: linhas fixas. Celular: linhas de 22 com rolagem (8 linhas não cabem em 195 de altura)."""
+    if not mobile:
+        return c("opts", rows_panel | {"anchor_from": "top_middle", "anchor_to": "top_middle"})
+    return scroll_area(cu, name, [c("opts", rows_panel)])
+
+
 def custom_screen(form_name, title_left, first_idx, rows, oozaru_marker, with_confirm):
     for m in ("pc", "mobile"):
         mobile = m == "mobile"
-        row_h, arrow_w = (20, 26) if mobile else (16, 20)
+        row_h, arrow_w = (22, 26) if mobile else (16, 20)
         confirm = c("confirm", host("b@common.button", form_button(1, ["100%", 22], {
             k: [bg(T + "btn_primary" + suf), c("row", H(["100%c", "100%"], [
                 centered(12, img(I + "check", [10, 10], "dark")), pad(4),
@@ -1297,8 +1304,8 @@ def custom_screen(form_name, title_left, first_idx, rows, oozaru_marker, with_co
         body = [c("inner", H(["100% - 10px" if not mobile else "100% - 6px", "100% - 8px" if not mobile else "100% - 6px"], [
             c("left", custom_preview(130 if not mobile else 118, oozaru_marker, confirm)),
             pad(6),
-            c("right", P(["fill", "100%"], [c("opts", arrow_pair_rows(first_idx, rows, row_h, arrow_w) | {
-                "anchor_from": "top_middle", "anchor_to": "top_middle"})])),
+            c("right", P(["fill", "100%"], [options_area(form_name + "_opts_" + m,
+                                                         arrow_pair_rows(first_idx, rows, row_h, arrow_w), mobile)])),
         ], anchor_from="center", anchor_to="center"))]
         size, mx = ([400, 240], ["100% - 8px", "100% - 8px"]) if not mobile else (["100% - 6px", "100% - 6px"], [480, 270])
         cu[form_name + "_" + m] = frame(size, mx, th, [], 22 if mobile else 18, body,
