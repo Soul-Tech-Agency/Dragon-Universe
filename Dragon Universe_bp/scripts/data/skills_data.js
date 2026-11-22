@@ -287,6 +287,9 @@ const skills_data = [
       // "dbe:king_kai"
     ],
     tiers: [],
+    // Passo A (decisões 16-17): +25% de regeneração de vida (stat regen_rate). A cura ativa e de aliados (passo B)
+    // fica para depois da separação das habilidades.
+    multipliers: { regen_rate: 1.25 },
   },
   {
     type: "toggle",
