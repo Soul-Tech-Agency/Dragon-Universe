@@ -1909,6 +1909,9 @@
          "path" : "scripts/hell_terrain.js"
       },
       {
+         "path" : "scripts/core/01_util.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
