@@ -8,7 +8,8 @@
 //   /scriptevent dbe:perf report  mostra, por tarefa (arquivo:linha de quem agendou), chamadas, ms médio/p95/máx
 //                                 e ms por tick; mais duração dos ticks, intervalos vivos, setProperty/s,
 //                                 getEntities/s e entidades dbe: carregadas.
-// Precisa ser o PRIMEIRO import do index.js, para envolver os agendadores antes de os módulos os usarem.
+// Precisa ser o PRIMEIRO import do index.js, para envolver os agendadores antes de os módulos os usarem. Por isso
+// ligar a sonda = CONFIG.DEBUG_PERF = true E reabrir o mundo (o /reload também recarrega os scripts).
 // O tempo vem de Date.now() (resolução de 1 ms): tarefas rápidas aparecem como 0 ms e contam pelas chamadas.
 // O local (arquivo:linha) só é calculado com a medição ligada: com a flag ligada e sem start, a sonda quase não custa.
 import * as mc from "@minecraft/server";
@@ -29,17 +30,22 @@ function install() {
   const tickGaps = [];
   let lastTickMs = 0;
 
-  // primeiro quadro da pilha fora deste arquivo: quem chamou o agendador. Só com a medição ligada (montar a pilha
-  // custa); o que foi agendado antes do start fica agrupado como "antes do start" (tipo e período continuam no nome).
+  // Quem agendou: os 2 primeiros quadros da pilha fora deste arquivo. Se o 1º é um embrulho de agendamento do núcleo
+  // (o runInterval/runTimeout das entidades, index.js, que repassa para o system), a tarefa é atribuída ao 2º,
+  // "local (via embrulho)"; senão ao 1º. Só com a medição ligada (montar a pilha custa); o que foi agendado antes do
+  // start fica agrupado como "antes do start" (tipo e período continuam no nome).
   const site = () => {
     if (!running) return "antes do start";
-    const frames = String(new Error().stack ?? "").split("\n");
-    for (const f of frames) {
+    const frames = [];
+    for (const f of String(new Error().stack ?? "").split("\n")) {
       if (/perf\.m?js/.test(f)) continue;
       const m = /([\w./-]+\.m?js):(\d+)/.exec(f);
-      if (m) return m[1].split("/").pop() + ":" + m[2];
+      if (m) frames.push({ at: m[1].split("/").pop() + ":" + m[2], wrapper: /\b(runInterval|runTimeout)\b/.test(f) });
+      if (frames.length === 2) break;
     }
-    return "?";
+    if (!frames.length) return "?";
+    if (frames[0].wrapper && frames[1]) return frames[1].at + " (via " + frames[0].at + ")";
+    return frames[0].at;
   };
   const record = (key, ms) => {
     let t = tasks.get(key);
@@ -80,11 +86,13 @@ function install() {
     liveIntervals.set(id, where);
     return id;
   });
+  // run/runTimeout são de uso único: só embrulha (e monta a pilha) com a medição ligada. runInterval e runJob ficam
+  // embrulhados sempre, porque uma tarefa agendada antes do start continua rodando durante a medição.
   patch(system, "runTimeout", (orig) => function (fn, ticks) {
-    return orig.call(system, timed("timeout " + site(), fn), ticks);
+    return orig.call(system, running ? timed("timeout " + site(), fn) : fn, ticks);
   });
   patch(system, "run", (orig) => function (fn) {
-    return orig.call(system, timed("run " + site(), fn));
+    return orig.call(system, running ? timed("run " + site(), fn) : fn);
   });
   patch(system, "clearRun", (orig) => function (id) {
     liveIntervals.delete(id);
