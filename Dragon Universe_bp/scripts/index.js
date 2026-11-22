@@ -5065,9 +5065,11 @@ var fP = class extends Error {
     // (outro caminho, como setProperty direto, eventos do JSON ou o respawn, pode tê-lo mudado), sem cache.
     trySetProperty(sG, sH) {
       const pending = (this.pendingProperties ??= new Map());
-      const scheduled = pending.has(sG);
-      pending.set(sG, sH);
-      if (scheduled) return;
+      if (pending.has(sG)) {
+        pending.set(sG, sH);
+        return;
+      }
+      // o pedido só entra no pending depois de agendado: se cw.run falhar, os próximos pedidos não se perdem
       cw.run(() => {
         const value = pending.get(sG);
         pending.delete(sG);
@@ -5078,6 +5080,7 @@ var fP = class extends Error {
             if (current === void 0 || current !== value) this.entity.setProperty(sG, value);
           } catch {}
       });
+      pending.set(sG, sH);
     }
     async trySpread(sG, sH) {
       try {
@@ -8038,6 +8041,34 @@ var hX = class {
     getNearbyKiAttacks(sG, sH, sI) {
       return i3.getKiAttackEntities(sG, { location: sH, maxDistance: sI });
     }
+    // O2e: a mesma regra de testCollision para todos os ataques do tick, sem K² chamadas nativas. Lê dimensão e
+    // posição de cada ataque uma vez; os vizinhos (mesma dimensão, distância <= baseScale * 2, do mais perto ao mais
+    // longe, na ordem do mapa) são achados em JS. Depois de um tryTeleport a posição do teleportado é relida, para os
+    // testes seguintes do tick verem o mesmo que o matches() via antes. Ataque inválido fica fora (antes dava erro e
+    // interrompia o resto do tick).
+    testAllCollisions(sG) {
+      let snap = [];
+      for (let atk of sG)
+        try {
+          let { entity: e } = atk;
+          snap.push({ atk, dim: e.dimension.id, loc: e.location });
+        } catch {}
+      for (let me of snap) {
+        let max = me.atk.baseScale * 2,
+          near = [];
+        for (let o of snap) {
+          if (o.dim !== me.dim) continue;
+          let d = bO.distance(me.loc, o.loc);
+          d <= max && near.push({ o, d });
+        }
+        near.length > 1 && near.sort((x, y) => x.d - y.d);
+        for (let { o } of near)
+          if (me.atk !== o.atk && me.atk.damage > o.atk.damage) {
+            o.atk.entity.tryTeleport(me.loc, { keepVelocity: !0 });
+            try { o.loc = o.atk.entity.location; } catch {}
+          }
+      }
+    }
   },
   hZ = new hY(),
   i0 = new Map(),
@@ -9919,7 +9950,7 @@ var k6 = class {
             sR?.isExpired() && sL.addTail();
         }
       }
-    for (let sS of i3.getKiAttackEntities()) hZ.testCollision(sS);
+    hZ.testAllCollisions(i3.getKiAttackEntities());
     sI && iH.updateBalls();
   }
 };
