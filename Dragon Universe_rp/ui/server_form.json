@@ -62,7 +62,7 @@
                 }
             },
             {
-                "achievement_list@achievement_list_form.achievement_list_form": {
+                "achievement_list@du2_achievements.achievement_list_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"

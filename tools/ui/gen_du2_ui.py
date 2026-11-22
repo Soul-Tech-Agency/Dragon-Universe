@@ -1182,6 +1182,21 @@ def training_content(mobile):
 tab_screen(tn, "training_form", training_content)
 
 
+# ---- Conquistas (kb): 10+ = conquistas (título + progresso, descrição na 2ª linha)
+ac = {"namespace": "du2_achievements"}
+ac["row_pc"] = list_item(32, lines=2)
+ac["row_mobile"] = list_item(34, lines=2)
+
+
+def achievements_content(mobile):
+    m = "mobile" if mobile else "pc"
+    return [c("scroll", P(["100%", "100%"], [scroll_area(ac, "scroll_" + m, [
+        c("list", factory_list("du2_achievements.row_" + m))])]))]
+
+
+tab_screen(ac, "achievement_list_form", achievements_content)
+
+
 # --------------------------------------------------------------------------- escrita
 
 def fmt(v, ind=0):
@@ -1247,3 +1262,4 @@ write("du2_transformations.json", tr)
 write("du2_quests.json", qs)
 write("du2_detail.json", qd)
 write("du2_training.json", tn)
+write("du2_achievements.json", ac)
