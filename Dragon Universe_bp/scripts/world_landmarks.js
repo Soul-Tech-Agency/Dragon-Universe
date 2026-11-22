@@ -21,6 +21,7 @@ import { acquireLoadedArea, releaseLoadedArea, isSafeStanding } from "./travel_s
 import { friezaLandmarkEnv } from "./space_planets.js";
 import { namekLandmarkEnv } from "./namek_dimension.js";
 import { tournaments_data } from "./data/tournaments_data.js";
+import { addResident } from "./world_residents.js";
 
 const { world, system, BlockVolume } = mc;
 

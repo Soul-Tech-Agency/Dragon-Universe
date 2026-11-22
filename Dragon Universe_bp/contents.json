@@ -1942,6 +1942,9 @@
          "path" : "scripts/world_landmarks.js"
       },
       {
+         "path" : "scripts/world_residents.js"
+      },
+      {
          "path" : "scripts/world_spawn_policy.js"
       },
       {
