@@ -142,7 +142,8 @@ const P = {
   fist: 'M6 11V7a2 2 0 0 1 4 0v4M10 10V6a2 2 0 0 1 4 0v4M14 10V7a2 2 0 0 1 4 0v6a7 7 0 0 1-7 7h-1a6 6 0 0 1-6-6v-2a2 2 0 0 1 4 0',
   burst: 'M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M5 19l3-3M16 8l3-3M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z',
   size: 'M4 20 20 4M14 4h6v6M10 20H4v-6',
-  sword: 'M14 4h6v6L9 21l-6-6L14 4zM5 13l6 6',
+  // espada: lâmina diagonal com ponta, guarda e cabo
+  sword: 'M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2',
   shield: 'M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6l8-3z',
   regen: 'M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-3 4.5 4.5 0 0 1 8 3c0 6-8 11-8 11zM12 9v6M9 12h6',
   plus: 'M12 5v14M5 12h14',
