@@ -1,7 +1,10 @@
 // Relatório para dividir o núcleo (index.js) em módulos (fatia O0/O4 de planos/ARQUITETURA_OTIMIZACAO.md).
 //
 // O bundler emitiu os módulos-fonte em sequência e deixou os `import` de cada um no meio do arquivo. Cada bloco de
-// imports que vem depois de código abre um "segmento" (a costura natural para cortar). Para cada segmento o relatório
+// imports que vem depois de código abre um "segmento" (a costura natural para cortar). O segmento 0 é só o bloco de
+// imports do topo (o cabeçalho, que fica no arquivo original): o primeiro código depois dele já abre o segmento 1.
+// Assim, tirar o código que separava dois blocos de imports do topo (ex.: o duTravel no O4.0-1) não gruda o
+// segmento seguinte no cabeçalho. Para cada segmento o relatório
 // lista os nomes de topo declarados, de quais segmentos ele usa nomes, e os dois problemas que impedem mover o
 // segmento para um módulo ES sem mudar o código antes:
 //   - ATRIBUIÇÃO a um nome de topo declarado em outro segmento (ex.: `kE = 10`): um import é somente leitura;
@@ -56,7 +59,8 @@ const shown = path.relative(ROOT, file).startsWith("..") ? file : path.relative(
 const segments = [];
 ast.body.forEach((stmt, i) => {
   const prev = ast.body[i - 1];
-  if (!segments.length || (stmt.type === "ImportDeclaration" && prev && prev.type !== "ImportDeclaration"))
+  const headerEnds = segments.length === 1 && stmt.type !== "ImportDeclaration" && segments[0].statements.every((st) => st.type === "ImportDeclaration");
+  if (!segments.length || headerEnds || (stmt.type === "ImportDeclaration" && prev && prev.type !== "ImportDeclaration"))
     segments.push({ index: segments.length, statements: [], from: line(stmt), to: line(stmt), declared: [], imports: new Set() });
   const seg = segments.at(-1);
   seg.statements.push(stmt);
@@ -469,7 +473,7 @@ function simulatePlan(plan) {
         moduleOf.set(i, target);
       }
     }
-  // Regra do O4 (ARQUITETURA_OTIMIZACAO.md §8): o segmento 0 (imports do topo e cabeçalho) fica no arquivo original,
+  // Regra do O4 (ARQUITETURA_OTIMIZACAO.md §8): o segmento 0 (o bloco de imports do topo) fica no arquivo original,
   // que é o ponto de entrada. Um plano que o move (ou move tudo) não tem entrada: erro claro em vez de exceção.
   if (moduleOf.has(0)) {
     console.error(`plano inválido: o segmento 0 está em ${moduleOf.get(0)}; ele fica em ${original} (ponto de entrada, regra do O4).` +
