@@ -7710,6 +7710,12 @@ var cA = class {
 import { skills_data as cC } from "./data/skills_data.js";
 import { system as cD } from "@minecraft/server";
 import { skills_data as cE } from "./data/skills_data.js";
+// Religa uma skill passiva desligada (hoje só o Hakai, ver cH.disable e o init das skills), sem som nem mensagem.
+function duRestorePassive(skill) {
+  if (!skill || !skill.isPassive || skill.isEnabled) return;
+  skill.entitySkillData.state.enabled = !0;
+  skill.saveState();
+}
 var cF = class {
     constructor(sG, sH) {
       (this.dbeEntity = sG), (this.entitySkillData = sH);
@@ -7864,9 +7870,13 @@ var cF = class {
       return this.skillData.wilDamage ?? 0;
     }
     disable() {
+      const wasEnabled = this.isEnabled;
       this.propertyId && this.dbeEntity.trySetProperty(this.propertyId, !1),
         (this.entitySkillData.state.enabled = !1),
         this.saveState();
+      // O Hakai (passivo, sem botão) é desligado quando o Instinto Superior liga; volta quando o Instinto termina.
+      // wasEnabled evita o laço: hakai.enable() desliga um Instinto que já está desligado.
+      if (this.id === "ultra_instinct" && wasEnabled) duRestorePassive(this.dbeEntity.skills.getToggleSkill("hakai"));
     }
     enable() {
       if ((this.id === "ultra_instinct" || this.id === "hakai") &&
@@ -9941,8 +9951,9 @@ var eT = class {
   }
   init() {
     this.loadAllSkills(),
-      this.isSkillActive("ultra_instinct") &&
-        this.getToggleSkill("hakai")?.disable(),
+      this.isSkillActive("ultra_instinct")
+        ? this.getToggleSkill("hakai")?.disable()
+        : duRestorePassive(this.getToggleSkill("hakai")), // Hakai preso desligado por versões antigas
       this.dbeEntity.trySetProperty("dbe:charging_attack", 0),
       this.dbeEntity.runInterval(() => {
         let { attributes: sG, masteries: sH } = this.dbeEntity,
@@ -14634,9 +14645,11 @@ var i9 = class {
     processOnHitTriggers(sG) {
       let { attributes: sH, ki: sI, masteries: sK, skills: sL } = sG,
         sM = !1;
+      // Só skills ligadas: ki_fist/ki_scythe desligadas cobravam ki a cada golpe (o on_damage já checava isEnabled).
       for (let sN of sL.getSkillsByType("toggle"))
-        sN.kiDrainTrigger === "on_hit" && (sI.currentValue >= sN.kiDrain ? sI.removeCurrent(sN.kiDrain) : sN.disable()),
-          sN.masteryOptions?.grantTrigger === "on_hit" && sK.getMastery(sN.id)?.addPercentage(1);
+        sN.isEnabled &&
+          (sN.kiDrainTrigger === "on_hit" && (sI.currentValue >= sN.kiDrain ? sI.removeCurrent(sN.kiDrain) : sN.disable()),
+          sN.masteryOptions?.grantTrigger === "on_hit" && sK.getMastery(sN.id)?.addPercentage(1));
       sM && sH.updateStats();
     }
   },
