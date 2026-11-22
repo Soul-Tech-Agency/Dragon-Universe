@@ -337,12 +337,22 @@ export function createSpaceArena(cfg) {
     const asked = rebuildAsked.get(player.id);
     if (asked === undefined || system.currentTick - asked > REBUILD_CONFIRM_TICKS) {
       rebuildAsked.set(player.id, system.currentTick);
-      const warning = cfg.rebuildWarning ?? "the build's blocks are placed again: whatever players broke or changed in it goes back to the original.";
+      const warning = (cfg.rebuildWarning ?? "the build's blocks are placed again: whatever players broke or changed in it goes back to the original.") +
+        " Everyone in this dimension is first moved to the arrival point.";
       return player.sendMessage("§e[" + cfg.label + "] " + warning + " §fRun the same command again within 10 s to confirm.");
     }
     rebuildAsked.delete(player.id);
     // the migration queue, if any, stays: the pieces are placed again and the queue still clears what the new files skip
     player.sendMessage("§a[" + cfg.label + "] placing the build again.");
+    // nobody inside a piece while it is placed again (suffocating) or over a gap (falling): all to the arrival point first
+    for (const p of world.getDimension(cfg.dimId).getPlayers()) {
+      try {
+        p.teleport(cfg.spawn, { rotation: cfg.rotation ?? { x: 0, y: 0 } });
+        if (p.id !== player.id) p.sendMessage("§e[" + cfg.label + "] the build is being placed again: you were moved to the arrival point.");
+      } catch (e) {
+        console.warn("[" + cfg.label + "] rebuild: could not move " + p.name + ": " + e);
+      }
+    }
     loadPlaced().clear();
     savePlaced();
     retry.clear();
