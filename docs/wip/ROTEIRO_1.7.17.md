@@ -58,6 +58,11 @@ Nada aqui foi testado no Minecraft pela equipe.
 - [ ] Golden Oozaru: o mesmo
 - [ ] Vegeta Oozaru inimigo: o mesmo
 - [ ] SSJ3 do Goku: cabelo **comprido e opaco** (sem partes transparentes)
+- [ ] Goku SSJ3 com a aura desligada: cabelo dourado e opaco, caindo nas costas até a cintura (de frente, de lado e de trás)
+- [ ] Correndo e parado: a juba balança e não atravessa o corpo
+- [ ] Gohan jovem e adulto SSJ3: igual
+- [ ] Vegeta e Trunks SSJ3 (DMZ): dourados, ainda curtos
+- [ ] SSJ, SSJ2 e Beast desses estilos sem mudança
 
 ## 8. Mundo salvo antigo (CÓPIA; sem teste na 1.7.15)
 - [ ] Mundo da 1.7.14: log com `plan updated to v2` · construções já geradas continuam `placed`, **sem segunda cópia**
