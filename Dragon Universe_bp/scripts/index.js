@@ -1603,7 +1603,7 @@ var cF = class {
       return sL;
     }
     isValidOpponent(sG) {
-      return sG instanceof hN ? !0 : i3.getDBEEntity(sG)?.advancedCombat === !0;
+      return sG instanceof hN ? !0 : late.i3.getDBEEntity(sG)?.advancedCombat === !0;
     }
   };
 import { Player as cJ, system as cK, world as cL } from "@minecraft/server";
@@ -1673,13 +1673,13 @@ var cP = class {
       return !!(this.entity.isValid && this.entity.getComponent("minecraft:health")?.currentValue);
     }
     get isValidParticipant() {
-      let sG = i3.getDBEEntity(this.entity)?.isKnockedOut ?? !1,
+      let sG = late.i3.getDBEEntity(this.entity)?.isKnockedOut ?? !1,
         sH = this.tournament.dimension === this.entity.dimension;
       return this.isAlive && !sG && sH;
     }
     recoverConstitution() {
       if (this.entity.isValid) {
-        let sG = i3.getDBEEntity(this.entity);
+        let sG = late.i3.getDBEEntity(this.entity);
         sG && sG.recoverConstitution();
       }
     }
@@ -2674,7 +2674,7 @@ var eb = class {
       this.modifiers.applyModifiers(), this.stats.updateStats(), this.updateBattlePower();
     }
     static getAttributesFromEntity(sG) {
-      let sH = i3.getDBEEntity(sG);
+      let sH = late.i3.getDBEEntity(sG);
       return sH ? sH.attributes.getAttributeValues() : this.getVanillaEntityAttributes(sG);
     }
     static getVanillaEntityAttributes(sG) {
@@ -3377,7 +3377,7 @@ var eH = class {
     }
     addEntityToRegion(sG, sH) {
       dz.run(() => {
-        let sI = i3.getDBEEntity(sH);
+        let sI = late.i3.getDBEEntity(sH);
         if (sI) {
           if (!sG.canEnter(sI)) {
             sG.teleportToFallbackLocation(sH),
@@ -3430,7 +3430,7 @@ var eH = class {
     }
     removeEntityFromRegion(sG, sH) {
       dz.run(() => {
-        sG.gravity && i3.getDBEEntity(sH)?.attributes.updateStats(),
+        sG.gravity && late.i3.getDBEEntity(sH)?.attributes.updateStats(),
           sH instanceof dx &&
             !sG.allowPvP &&
             sH.sendMessage({
@@ -3789,7 +3789,7 @@ var f1 = class {
       this.comboMultiplier++, (this.lastComboTicks = sG);
     }
     async onHit(sG) {
-      let sH = i3.getDBEEntity(sG),
+      let sH = late.i3.getDBEEntity(sG),
         { dimension: sI, location: sK } = sG,
         sL = sG.getHeadLocation();
       if (
@@ -3918,7 +3918,7 @@ var fj = class {
     }
     applyDamage(sG, sH) {
       if (this.dbeEntity instanceof hN && !this.dbeEntity.isInActiveMode) return 0;
-      let sI = sH ? i3.getDBEEntity(sH) : void 0,
+      let sI = sH ? late.i3.getDBEEntity(sH) : void 0,
         sK = sI?.isFriendlyDamage,
         sL = Math.floor(sG - this.getDamageReduction(sG)),
         sM = this.currentValue - sL,
@@ -4841,7 +4841,7 @@ var fP = class extends Error {
       return Math.random() < sN;
     }
     tryBreakGuard(sG) {
-      let sH = i3.getDBEEntity(sG);
+      let sH = late.i3.getDBEEntity(sG);
       if (sH) {
         let { entity: sI, stamina: sK } = this.dbeEntity,
           sL = (sH.attributes.stats.getStat("melee_damage")?.value ?? 1) * 25;
@@ -4867,7 +4867,7 @@ var fP = class extends Error {
         sH.playSound("common.guard", sI);
     }
     getOpponentDexterity(sG) {
-      let sH = i3.getDBEEntity(sG);
+      let sH = late.i3.getDBEEntity(sG);
       if (sH) {
         let { attributes: sI } = sH;
         return sI.getAttribute("dexterity")?.modifiedValue ?? 1;
@@ -5940,9 +5940,9 @@ var gQ = class extends gN {
     async startTaskCheckLoop() {
       let { player: sG } = this.dbePlayer;
       await gJ.waitTicks(1);
-      for (; sG.isValid && i0.get(sG.id) === this.dbePlayer; ) {
+      for (; sG.isValid && late.i0.get(sG.id) === this.dbePlayer; ) {
         for (let sH of this.getActiveTasks())
-          if (sH.updateProgress?.() && (await gJ.waitTicks(1), !sG.isValid || i0.get(sG.id) !== this.dbePlayer)) return;
+          if (sH.updateProgress?.() && (await gJ.waitTicks(1), !sG.isValid || late.i0.get(sG.id) !== this.dbePlayer)) return;
         await gJ.waitTicks(20);
       }
     }
@@ -6388,7 +6388,7 @@ var h3 = class extends gN {
         let sN;
         if (sK) sN = this.dbePlayer.trySpawnShadowDummy(sM);
         else if (this.entityTypeId.startsWith("dbe:")) {
-          let sO = i3.trySpawnDBEEntity(this.entityTypeId, sH, sM, { entityDefinitions: this.entityDefinitions });
+          let sO = late.i3.trySpawnDBEEntity(this.entityTypeId, sH, sM, { entityDefinitions: this.entityDefinitions });
           sN = sO?.entity;
         } else sN = d4(this.entityTypeId, sH, sM);
         if (!sN) {
@@ -6421,7 +6421,7 @@ var h4 = class {
         ((this.progress = { id: sH.id, started: sI?.started ?? !1, objectives: sI?.objectives || [] }),
         gW.run(() => {
           this.loadObjectives(), this.loadRewards();
-          if (this.id === "fetch_bulma_outfit" && sG.entity.isValid && i0.get(sG.entity.id) === sG &&
+          if (this.id === "fetch_bulma_outfit" && sG.entity.isValid && late.i0.get(sG.entity.id) === sG &&
               sG.quests.questsMap.get(this.id) === this) sG.claimBulmaStaffReward();
         }));
     }
@@ -6678,7 +6678,7 @@ var h4 = class {
       (this.dbePlayer = sG),
         ((this.questsInfo = sG.data.get("quests_info") || { quests: [], completedQuests: [], mainSagaRestartCount: 0 }),
         gU.run(() => {
-          if (sG.entity.isValid && i0.get(sG.entity.id) === sG) this.loadQuests();
+          if (sG.entity.isValid && late.i0.get(sG.entity.id) === sG) this.loadQuests();
         }));
     }
     questsInfo;
@@ -6843,7 +6843,7 @@ var hj = class extends cF {
       if (!sH) return;
       sH.setDynamicProperty("ki_attack_id", this.id);
       let sI = sH.getComponent("minecraft:projectile"),
-        sK = i3.getKiAttackEntity(sH);
+        sK = late.i3.getKiAttackEntity(sH);
       if (sK && sI) {
         (sI.gravity = 0),
           (sI.airInertia = 1),
@@ -7051,7 +7051,7 @@ var hz = 24000,
         sI = hy.currentTick;
       for (let [sL, sM] of this.scannedEntities) sI - sM > hz && this.scannedEntities.delete(sL);
       let sK = { location: this.dbePlayer.player.location, maxDistance: this.kiSenseLevel * 25.6 };
-      for (let sN of i3.getDBEEntities(this.dbePlayer.player.dimension, sK)) {
+      for (let sN of late.i3.getDBEEntities(this.dbePlayer.player.dimension, sK)) {
         let { entity: sO } = sN;
         if (!sN.hasAttributesDefined || sN === this.dbePlayer || (sN instanceof hN && sN.isActionBlocked)) continue;
         let { battlePower: sP } = sN.attributes;
@@ -7423,7 +7423,7 @@ var hJ = 1,
       return ex.isFused(this);
     }
     despawnShadowDummies() {
-      for (let sG of i3.getDBEEntities())
+      for (let sG of late.i3.getDBEEntities())
         sG.entity.typeId === "dbe:shadow_dummy" && sG.data.get("owner_id") === this.player.id && sG.entity.remove();
     }
     getCurrentFusion() {
@@ -7442,7 +7442,7 @@ var hJ = 1,
     }
     reset() {
       return new Promise((resolve) => bX.run(() => {
-        if (!this.player.isValid || i0.get(this.player.id) !== this) return resolve(!1);
+        if (!this.player.isValid || late.i0.get(this.player.id) !== this) return resolve(!1);
         let sG = [
           "dbe:color_0",
           "dbe:color_1",
@@ -7493,7 +7493,7 @@ var hJ = 1,
           this.data.clear();
           this.data.save();
           if (this.data.dirty) throw new Error("Character reset could not be persisted");
-          this.clearAllRuns(), i3.deleteEntity(this.player);
+          this.clearAllRuns(), late.i3.deleteEntity(this.player);
           resolve(!0);
         } catch (error) {
           console.warn("[Afterlife] character reset failed; restoring saved state: " + (error?.stack ?? error));
@@ -7531,7 +7531,7 @@ var hJ = 1,
     trySpawnShadowDummy(sG) {
       let sH = d4("dbe:shadow_dummy", this.player.dimension, sG);
       if (!sH) return;
-      let sI = i3.getDBEEntity(sH);
+      let sI = late.i3.getDBEEntity(sH);
       if (!sI) return;
       let sK = this.ki.getCurrentAuraProperties();
       sI.ki.setCurrentAura(sK), sI.data.set("owner_id", this.player.id), (sH.nameTag = this.player.nameTag);
@@ -7553,7 +7553,7 @@ var hJ = 1,
     async teleportToSpawnPoint(options = {}) {
       try {
         await duSafeReturnToEarth(this.player, { ...options, label: "return to Earth" });
-        return this.player.isValid && i0.get(this.player.id) === this &&
+        return this.player.isValid && late.i0.get(this.player.id) === this &&
           this.player.dimension.id === "minecraft:overworld" && duIsSafeStanding(this.player.dimension, this.player.location);
       } catch (error) {
         duReportTravelFailure(this.player, "return to Earth", error);
@@ -7574,7 +7574,7 @@ var hJ = 1,
     }
     async returnFromAfterlife(kind) {
       if (!["revive", "reincarnate"].includes(kind) || this.afterlifeReturnPending) return !1;
-      const current = () => this.player.isValid && i0.get(this.player.id) === this;
+      const current = () => this.player.isValid && late.i0.get(this.player.id) === this;
       if (!current()) return !1;
       if (!this.data.get("afterlife_return") && !this.isDeath && this.player.dimension.id !== "dbe:other_world") return !1;
       this.afterlifeReturnPending = !0;
@@ -7635,7 +7635,7 @@ var hJ = 1,
     }
     prepareBulmaStaffReward() {
       try {
-        if (!this.player.isValid || i0.get(this.player.id) !== this) return !1;
+        if (!this.player.isValid || late.i0.get(this.player.id) !== this) return !1;
         if (!this.data.get("bulma_staff_reward")) {
           this.persistBulmaStaffReceipt({ quest: "fetch_bulma_outfit", token: this.player.id + ":fetch_bulma_outfit", state: "pending" });
           this.notifyBulmaStaff("pending");
@@ -7647,7 +7647,7 @@ var hJ = 1,
       }
     }
     claimBulmaStaffReward() {
-      if (this.staffClaiming || !this.player.isValid || i0.get(this.player.id) !== this) return !1;
+      if (this.staffClaiming || !this.player.isValid || late.i0.get(this.player.id) !== this) return !1;
       if (!this.quests.getCompletedQuestIds().includes("fetch_bulma_outfit")) {
         const quest = this.quests.questsMap?.get("fetch_bulma_outfit"), defined = quest?.getDefinedObjectives();
         if (this.staffQuestResuming || !quest?.isStarted || quest._isCompleted || !defined?.length ||
@@ -7691,7 +7691,7 @@ var hJ = 1,
         if (!container?.emptySlotsCount) { this.notifyBulmaStaff("full"); return !1; }
         this.persistBulmaStaffReceipt({ ...receipt, state: "delivering" });
         snapshot = Array.from({ length: container.size }, (_, slot) => container.getItem(slot));
-        const reward = new qM({ type: "item", item: "dbe:power_pole", amount: 1 });
+        const reward = new late.qM({ type: "item", item: "dbe:power_pole", amount: 1 });
         const accepted = reward.grantReward(this, { inventoryOnly: !0, token: receipt.token });
         const inserted = hasToken();
         if (!accepted || !inserted) throw new Error("Staff insertion was not confirmed in the inventory");
@@ -7747,11 +7747,11 @@ var hJ = 1,
         }, 100);
       if (this.data.get("afterlife_return")) bX.runTimeout(() => {
         const intent = this.data.get("afterlife_return");
-        if (this.player.isValid && i0.get(this.player.id) === this && intent)
+        if (this.player.isValid && late.i0.get(this.player.id) === this && intent)
           this.returnFromAfterlife(intent.kind);
       }, 50);
       if (this.data.get("bulma_staff_reward") || this.quests?.questsInfo?.quests?.some(quest => quest.id === "fetch_bulma_outfit")) bX.runTimeout(() => {
-        if (this.player.isValid && i0.get(this.player.id) === this) this.claimBulmaStaffReward();
+        if (this.player.isValid && late.i0.get(this.player.id) === this) this.claimBulmaStaffReward();
       }, 60);
     }
     processQueueMessages() {
@@ -7780,7 +7780,7 @@ var hJ = 1,
     }
   };
 function hO(sG) {
-  let sH = i3.getDBEEntity(sG);
+  let sH = late.i3.getDBEEntity(sG);
   if (sH instanceof hN) return sH;
   throw new Error("Instância de DBEPlayer não encontrada para o jogador fornecido.");
 }
@@ -7816,7 +7816,7 @@ var hP = class extends cA {
         if (this.dbeEntity.transformations.currentTransformation.isOozaru) return;
         let { distanceToTarget: sG } = this;
         if (sG > 48) return;
-        let sH = i3.getDBEEntity(target)?.isLoadingAttack ?? !1,
+        let sH = late.i3.getDBEEntity(target)?.isLoadingAttack ?? !1,
           sI = target.getBlockFromViewDirection({ maxDistance: 32 })?.block.location;
         if (sI) { await this.dbeEntity.trySpread(sI, 5); if (!current()) return; }
         if (sH || sG < 8) { await this.dbeEntity.trySpread(target.location, 20); if (!current()) return; }
@@ -7845,7 +7845,7 @@ var hS = class extends cA {
     }
     onTimedExecution() {
       if (this.target) {
-        let sG = i3.getDBEEntity(this.target)?.skills.isSkillActive("fly") ?? !this.target.isOnGround,
+        let sG = late.i3.getDBEEntity(this.target)?.skills.isSkillActive("fly") ?? !this.target.isOnGround,
           { isFlying: sH } = this.combatBehaviorManager,
           sI = this.entity.getComponent("minecraft:riding");
         if (sI) {
@@ -7895,7 +7895,7 @@ var hS = class extends cA {
       if (this.target) {
         let { transformations: sG } = this.dbeEntity,
           sH = sG.getAvailableTransformations(),
-          sI = i3.getDBEEntity(this.target);
+          sI = late.i3.getDBEEntity(this.target);
         if (sI && sH.length) {
           let sK = this.getNextTransformationIndex(sI),
             sL = sH[sK];
@@ -8183,6 +8183,8 @@ var hX = class {
     }
   },
   i3 = new i2();
+bindLate("i3", () => i3); // O4.0: ligação tardia
+bindLate("i0", () => i0); // O4.0: ligação tardia
 bT.afterEvents.entityLoad.subscribe(({ entity: sG }) => {
   i3.initializeEntity(sG);
 }),
@@ -13085,6 +13087,7 @@ var qM = class extends gA {
       return { translate: "reward.z_points", with: ["" + this.amount] };
     }
   };
+bindLate("qM", () => qM); // O4.0: ligação tardia
 function qP() {
   gO.register("battle_power", qb),
     gO.register("collect_item", qq),
