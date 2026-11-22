@@ -134,6 +134,7 @@ createSpaceArena({
   events: { go: "dbe:tournament_of_power", back: "dbe:tournament_of_power_return", rebuild: "dbe:tournament_of_power_rebuild" },
   spawn: { x: 0.5, y: 87, z: 0.5 }, // the map floor is at y = 86
   fogTag: "dbe_tournament_of_power",
+  fogId: "dbe:fog_tournament_of_power", // clear bluish horizon (Aquarela, dec. 35); the sky above stays the dbe:space one
   originProp: "dbe:top_origin",
   stateProp: "dbe:top_pieces",
   fallY: -68,

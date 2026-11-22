@@ -22,14 +22,14 @@ const HINT_TICKS = 200;
 const distXZ = (x, z, p) => Math.hypot(Math.max(p.x - x, 0, x - (p.x + p.sx)), Math.max(p.z - z, 0, z - (p.z + p.sz)));
 
 /**
- * label, dimId, item, events { go, back, rebuild? }, spawn, rotation?, fogTag, originProp, stateProp, fallY,
+ * label, dimId, item, events { go, back, rebuild? }, spawn, rotation?, fogTag, fogId? (default dbe:fog_space), originProp, stateProp, fallY,
  * pieces [{ id, x, y, z, sx, sy, sz }], arrivalRadius, loadRadius, arrivalClear? { height }, arrivalFloor?, protectBlocks?, removeMobs?
  * migration? { prop, version, piece: function* (dim, piece) }: pieces already placed when the files changed are updated in
  *   the world, one per turn, while a player is in the dimension; prop = version once all are done (a world with nothing
  *   placed yet gets it at once). A closed world starts the remaining ones again on the next load (the step must be idempotent).
  */
 export function createSpaceArena(cfg) {
-  const FOG_PUSH = "fog @s push dbe:fog_space " + cfg.fogTag;
+  const FOG_PUSH = "fog @s push " + (cfg.fogId || "dbe:fog_space") + " " + cfg.fogTag;
   const FOG_POP = "fog @s remove " + cfg.fogTag;
   const travelling = new Set();
   const inside = new Map();
