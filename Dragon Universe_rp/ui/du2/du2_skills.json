@@ -137,35 +137,27 @@
   "type": "stack_panel",
   "orientation": "vertical",
   "size": ["100%", "100%c"],
+  "collection_name": "form_buttons",
   "controls": [
    {
     "points": {
      "type": "panel",
      "size": ["100%", 14],
-     "collection_name": "form_buttons",
+     "collection_index": 11,
      "clips_children": true,
-     "controls": [
+     "bindings": [
       {
-       "s": {
-        "type": "panel",
-        "size": ["100%", 14],
-        "collection_index": 11,
-        "bindings": [
-         {
-          "binding_type": "collection",
-          "binding_collection_name": "form_buttons",
-          "binding_name": "#form_button_text"
-         },
-         {
-          "binding_type": "view",
-          "source_property_name": "(not ((#form_button_text - 'pts;') = #form_button_text))",
-          "target_property_name": "#visible"
-         }
-        ],
-        "controls": [{"row@du2_skills.h15": {}}]
-       }
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#form_button_text - 'pts;') = #form_button_text))",
+       "target_property_name": "#visible"
       }
-     ]
+     ],
+     "controls": [{"row@du2_skills.h15": {}}]
     }
    },
    {
@@ -261,35 +253,27 @@
   "type": "stack_panel",
   "orientation": "vertical",
   "size": ["100%", "100%c"],
+  "collection_name": "form_buttons",
   "controls": [
    {
     "points": {
      "type": "panel",
      "size": ["100%", 14],
-     "collection_name": "form_buttons",
+     "collection_index": 11,
      "clips_children": true,
-     "controls": [
+     "bindings": [
       {
-       "s": {
-        "type": "panel",
-        "size": ["100%", 14],
-        "collection_index": 11,
-        "bindings": [
-         {
-          "binding_type": "collection",
-          "binding_collection_name": "form_buttons",
-          "binding_name": "#form_button_text"
-         },
-         {
-          "binding_type": "view",
-          "source_property_name": "(not ((#form_button_text - 'pts;') = #form_button_text))",
-          "target_property_name": "#visible"
-         }
-        ],
-        "controls": [{"row@du2_skills.h15": {}}]
-       }
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#form_button_text - 'pts;') = #form_button_text))",
+       "target_property_name": "#visible"
       }
-     ]
+     ],
+     "controls": [{"row@du2_skills.h15": {}}]
     }
    },
    {

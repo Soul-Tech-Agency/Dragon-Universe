@@ -163,11 +163,11 @@
     }
    },
    {
-    "cap2": {
+    "cap6": {
      "type": "stack_panel",
      "orientation": "vertical",
      "size": ["100%", "100%c"],
-     "collection_index": 2,
+     "collection_index": 6,
      "bindings": [
       {
        "binding_type": "collection",
@@ -373,7 +373,25 @@
      "controls": [{"row@du2_detail.h11": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
-   {"gap_req": {"pad": {"type": "panel", "size": ["100%", 4]}}},
+   {
+    "gap_req": {
+     "type": "panel",
+     "size": ["100%", 4],
+     "collection_index": 14,
+     "bindings": [
+      {
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#form_button_text = ''))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
    {
     "cap14": {
      "type": "stack_panel",
@@ -501,7 +519,25 @@
      "controls": [{"row@du2_detail.h12": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
-   {"gap_rew": {"pad": {"type": "panel", "size": ["100%", 4]}}},
+   {
+    "gap_rew": {
+     "type": "panel",
+     "size": ["100%", 4],
+     "collection_index": 18,
+     "bindings": [
+      {
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#form_button_text = ''))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
    {
     "cap18": {
      "type": "stack_panel",
@@ -713,7 +749,25 @@
      "controls": [{"row@du2_detail.h24": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
-   {"gap_end": {"pad": {"type": "panel", "size": ["100%", 4]}}},
+   {
+    "gap_end": {
+     "type": "panel",
+     "size": ["100%", 4],
+     "collection_index": 26,
+     "bindings": [
+      {
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#form_button_text = ''))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
    {
     "slot26": {
      "type": "stack_panel",
@@ -1060,11 +1114,11 @@
     }
    },
    {
-    "cap2": {
+    "cap6": {
      "type": "stack_panel",
      "orientation": "vertical",
      "size": ["100%", "100%c"],
-     "collection_index": 2,
+     "collection_index": 6,
      "bindings": [
       {
        "binding_type": "collection",
@@ -1270,7 +1324,25 @@
      "controls": [{"row@du2_detail.h11": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
-   {"gap_req": {"pad": {"type": "panel", "size": ["100%", 4]}}},
+   {
+    "gap_req": {
+     "type": "panel",
+     "size": ["100%", 4],
+     "collection_index": 14,
+     "bindings": [
+      {
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#form_button_text = ''))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
    {
     "cap14": {
      "type": "stack_panel",
@@ -1398,7 +1470,25 @@
      "controls": [{"row@du2_detail.h12": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
-   {"gap_rew": {"pad": {"type": "panel", "size": ["100%", 4]}}},
+   {
+    "gap_rew": {
+     "type": "panel",
+     "size": ["100%", 4],
+     "collection_index": 18,
+     "bindings": [
+      {
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#form_button_text = ''))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
    {
     "cap18": {
      "type": "stack_panel",
@@ -1610,7 +1700,25 @@
      "controls": [{"row@du2_detail.h24": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
-   {"gap_end": {"pad": {"type": "panel", "size": ["100%", 4]}}},
+   {
+    "gap_end": {
+     "type": "panel",
+     "size": ["100%", 4],
+     "collection_index": 26,
+     "bindings": [
+      {
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#form_button_text = ''))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
    {
     "slot26": {
      "type": "stack_panel",

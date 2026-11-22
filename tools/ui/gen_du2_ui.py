@@ -1126,8 +1126,9 @@ def skill_points_header(h):
         c("cap", lbl("ui.dbe.skills.caption.points", ["default", 10], "weak", None, "smooth", "left")), pad(6),
         c("v", value),
     ])
-    inner = P(["100%", h], [c("row", row)], collection_index=11, bindings=[coll_text(), view(PTS)])
-    return P(["100%", h], [c("s", inner)], collection_name=COL, clips_children=True)
+    # filho direto do stack com collection_name: some inteiro (sem os 14 px) quando o slot 11 não é "pts;"
+    return P(["100%", h], [c("row", row)], collection_index=11, clips_children=True,
+             bindings=[coll_text(), view(PTS)])
 
 
 def skills_content(mobile):
@@ -1135,7 +1136,7 @@ def skills_content(mobile):
     return [c("col", V(["100%", "100%"], [
         c("scroll", P(["100%", "fill"], [scroll_area(sk, "scroll_" + m, [
             c("points", skill_points_header(14)), body_label(), pad("100%", 4),
-            c("list", factory_list("du2_skills.row_" + m))])])),
+            c("list", factory_list("du2_skills.row_" + m))], COL)])),
         pad("100%", 4),
         c("bottom", H(["100%", 22], [
             c("fill", P(["fill", "100%"])),
@@ -1243,16 +1244,16 @@ def quest_detail_rows():
                            c("v", lbl("#du2_text", ["default", 10], "value", None, "smooth", "left",
                                       bindings=text_shown()))], 6),
         qrow(5, NONEMPTY, [wrap_label("desc")], 6),
-        cap(2, "ui.dbe.quest.caption.objectives"),
+        cap(6, "ui.dbe.quest.caption.objectives"),
         *[bullet(i, "text", done_check=True) for i in range(6, 14)],
-        c("gap_req", pad("100%", 4)),
+        c("gap_req", P(["100%", 4], collection_index=14, bindings=[coll_text(), view(NONEMPTY)])),
         cap(14, "ui.dbe.quest.caption.requirements"),
         *[bullet(i, "desc") for i in range(14, 18)],
-        c("gap_rew", pad("100%", 4)),
+        c("gap_rew", P(["100%", 4], collection_index=18, bindings=[coll_text(), view(NONEMPTY)])),
         cap(18, "ui.dbe.quest.caption.rewards"),
         *[qrow(i, NONEMPTY, [pad(4, 10), c("ic", tex_icon_at(i, [10, 10], REWARD_TINTS)), pad(4, 10),
                              wrap_label("text")]) for i in range(18, 26)],
-        c("gap_end", pad("100%", 4)),
+        c("gap_end", P(["100%", 4], collection_index=26, bindings=[coll_text(), view(NONEMPTY)])),
         qrow(26, NONEMPTY, [wrap_label("weak")]),
         qrow(27, NONEMPTY, [wrap_label("red")]),
         # script antigo / conquista: body inteiro
