@@ -1,0 +1,22 @@
+{
+    "format_version": "1.26.4",
+    "minecraft:fog_settings": {
+        "description": {
+            "identifier": "dbe:fog_tournament_of_power_c"
+        },
+        "distance": {
+            "air": {
+                "fog_start": 0.35,
+                "fog_end": 1.0,
+                "fog_color": "#6F93C9",
+                "render_distance_type": "render"
+            },
+            "water": {
+                "fog_start": 0,
+                "fog_end": 15,
+                "fog_color": "#222233",
+                "render_distance_type": "fixed"
+            }
+        }
+    }
+}

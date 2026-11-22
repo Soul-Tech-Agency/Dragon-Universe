@@ -1057,6 +1057,15 @@
          "path" : "fogs/space_fog_setting.json"
       },
       {
+         "path" : "fogs/tournament_of_power_fog_setting.json"
+      },
+      {
+         "path" : "fogs/tournament_of_power_b_fog_setting.json"
+      },
+      {
+         "path" : "fogs/tournament_of_power_c_fog_setting.json"
+      },
+      {
          "path" : "fogs/universe_6_fog_setting.json"
       },
       {
