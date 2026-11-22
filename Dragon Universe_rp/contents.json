@@ -5860,6 +5860,408 @@
          "path" : "textures/ui/zeni.png"
       },
       {
+         "path" : "textures/ui/du2/btn_close.json"
+      },
+      {
+         "path" : "textures/ui/du2/btn_close.png"
+      },
+      {
+         "path" : "textures/ui/du2/btn_close_hover.json"
+      },
+      {
+         "path" : "textures/ui/du2/btn_close_hover.png"
+      },
+      {
+         "path" : "textures/ui/du2/btn_close_pressed.json"
+      },
+      {
+         "path" : "textures/ui/du2/btn_close_pressed.png"
+      },
+      {
+         "path" : "textures/ui/du2/btn_plus.json"
+      },
+      {
+         "path" : "textures/ui/du2/btn_plus.png"
+      },
+      {
+         "path" : "textures/ui/du2/btn_plus_hover.json"
+      },
+      {
+         "path" : "textures/ui/du2/btn_plus_hover.png"
+      },
+      {
+         "path" : "textures/ui/du2/btn_plus_pressed.json"
+      },
+      {
+         "path" : "textures/ui/du2/btn_plus_pressed.png"
+      },
+      {
+         "path" : "textures/ui/du2/btn_primary.json"
+      },
+      {
+         "path" : "textures/ui/du2/btn_primary.png"
+      },
+      {
+         "path" : "textures/ui/du2/btn_primary_hover.json"
+      },
+      {
+         "path" : "textures/ui/du2/btn_primary_hover.png"
+      },
+      {
+         "path" : "textures/ui/du2/btn_primary_pressed.json"
+      },
+      {
+         "path" : "textures/ui/du2/btn_primary_pressed.png"
+      },
+      {
+         "path" : "textures/ui/du2/btn_secondary.json"
+      },
+      {
+         "path" : "textures/ui/du2/btn_secondary.png"
+      },
+      {
+         "path" : "textures/ui/du2/btn_secondary_hover.json"
+      },
+      {
+         "path" : "textures/ui/du2/btn_secondary_hover.png"
+      },
+      {
+         "path" : "textures/ui/du2/btn_secondary_pressed.json"
+      },
+      {
+         "path" : "textures/ui/du2/btn_secondary_pressed.png"
+      },
+      {
+         "path" : "textures/ui/du2/caption_box.json"
+      },
+      {
+         "path" : "textures/ui/du2/caption_box.png"
+      },
+      {
+         "path" : "textures/ui/du2/divider.png"
+      },
+      {
+         "path" : "textures/ui/du2/du_logo.png"
+      },
+      {
+         "path" : "textures/ui/du2/icon_box.json"
+      },
+      {
+         "path" : "textures/ui/du2/icon_box.png"
+      },
+      {
+         "path" : "textures/ui/du2/icon_box_dark.json"
+      },
+      {
+         "path" : "textures/ui/du2/icon_box_dark.png"
+      },
+      {
+         "path" : "textures/ui/du2/icon_box_gold.json"
+      },
+      {
+         "path" : "textures/ui/du2/icon_box_gold.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/attr_constitution.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/attr_dexterity.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/attr_size.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/attr_spirit.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/attr_strength.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/attr_willpower.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/check.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/chevron_left.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/chevron_right.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/chip_alignment.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/chip_form.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/chip_mentor.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/chip_race.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/close.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/fact_forms.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/fact_gender.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/fact_regen.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/info.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/plus.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/race_android.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/race_bio_android.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/race_earthling.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/race_frost_demon.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/race_glind.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/race_majin.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/race_namekian.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/race_saiyan.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/random.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/stat_bp.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/stat_damage.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/stat_defense.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/stat_energy.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/tab_achievements.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/tab_help.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/tab_news.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/tab_quests.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/tab_skills.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/tab_statistics.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/tab_training.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/tab_transformations.png"
+      },
+      {
+         "path" : "textures/ui/du2/panel_dark.json"
+      },
+      {
+         "path" : "textures/ui/du2/panel_dark.png"
+      },
+      {
+         "path" : "textures/ui/du2/panel_main.json"
+      },
+      {
+         "path" : "textures/ui/du2/panel_main.png"
+      },
+      {
+         "path" : "textures/ui/du2/panel_nav.json"
+      },
+      {
+         "path" : "textures/ui/du2/panel_nav.png"
+      },
+      {
+         "path" : "textures/ui/du2/panel_overlay.json"
+      },
+      {
+         "path" : "textures/ui/du2/panel_overlay.png"
+      },
+      {
+         "path" : "textures/ui/du2/panel_preview.json"
+      },
+      {
+         "path" : "textures/ui/du2/panel_preview.png"
+      },
+      {
+         "path" : "textures/ui/du2/panel_row.json"
+      },
+      {
+         "path" : "textures/ui/du2/panel_row.png"
+      },
+      {
+         "path" : "textures/ui/du2/pill_blue.json"
+      },
+      {
+         "path" : "textures/ui/du2/pill_blue.png"
+      },
+      {
+         "path" : "textures/ui/du2/pill_dark.json"
+      },
+      {
+         "path" : "textures/ui/du2/pill_dark.png"
+      },
+      {
+         "path" : "textures/ui/du2/pill_gold.json"
+      },
+      {
+         "path" : "textures/ui/du2/pill_gold.png"
+      },
+      {
+         "path" : "textures/ui/du2/race_card.json"
+      },
+      {
+         "path" : "textures/ui/du2/race_card.png"
+      },
+      {
+         "path" : "textures/ui/du2/race_card_active.json"
+      },
+      {
+         "path" : "textures/ui/du2/race_card_active.png"
+      },
+      {
+         "path" : "textures/ui/du2/race_card_hover.json"
+      },
+      {
+         "path" : "textures/ui/du2/race_card_hover.png"
+      },
+      {
+         "path" : "textures/ui/du2/race_card_pressed.json"
+      },
+      {
+         "path" : "textures/ui/du2/race_card_pressed.png"
+      },
+      {
+         "path" : "textures/ui/du2/race_icon_active.json"
+      },
+      {
+         "path" : "textures/ui/du2/race_icon_active.png"
+      },
+      {
+         "path" : "textures/ui/du2/seg.json"
+      },
+      {
+         "path" : "textures/ui/du2/seg.png"
+      },
+      {
+         "path" : "textures/ui/du2/seg_active.json"
+      },
+      {
+         "path" : "textures/ui/du2/seg_active.png"
+      },
+      {
+         "path" : "textures/ui/du2/seg_hover.json"
+      },
+      {
+         "path" : "textures/ui/du2/seg_hover.png"
+      },
+      {
+         "path" : "textures/ui/du2/seg_pressed.json"
+      },
+      {
+         "path" : "textures/ui/du2/seg_pressed.png"
+      },
+      {
+         "path" : "textures/ui/du2/step_dot.png"
+      },
+      {
+         "path" : "textures/ui/du2/step_dot_off.png"
+      },
+      {
+         "path" : "textures/ui/du2/tab.json"
+      },
+      {
+         "path" : "textures/ui/du2/tab.png"
+      },
+      {
+         "path" : "textures/ui/du2/tab_active.json"
+      },
+      {
+         "path" : "textures/ui/du2/tab_active.png"
+      },
+      {
+         "path" : "textures/ui/du2/tab_hover.json"
+      },
+      {
+         "path" : "textures/ui/du2/tab_hover.png"
+      },
+      {
+         "path" : "textures/ui/du2/tab_icon.json"
+      },
+      {
+         "path" : "textures/ui/du2/tab_icon.png"
+      },
+      {
+         "path" : "textures/ui/du2/tab_icon_active.json"
+      },
+      {
+         "path" : "textures/ui/du2/tab_icon_active.png"
+      },
+      {
+         "path" : "textures/ui/du2/tab_icon_hover.json"
+      },
+      {
+         "path" : "textures/ui/du2/tab_icon_hover.png"
+      },
+      {
+         "path" : "textures/ui/du2/tab_icon_pressed.json"
+      },
+      {
+         "path" : "textures/ui/du2/tab_icon_pressed.png"
+      },
+      {
+         "path" : "textures/ui/du2/tab_pressed.json"
+      },
+      {
+         "path" : "textures/ui/du2/tab_pressed.png"
+      },
+      {
+         "path" : "textures/ui/du2/title_bar.json"
+      },
+      {
+         "path" : "textures/ui/du2/title_bar.png"
+      },
+      {
+         "path" : "textures/ui/du2/xp_off.json"
+      },
+      {
+         "path" : "textures/ui/du2/xp_off.png"
+      },
+      {
+         "path" : "textures/ui/du2/xp_on.json"
+      },
+      {
+         "path" : "textures/ui/du2/xp_on.png"
+      },
+      {
          "path" : "ui/_ui_defs.json"
       },
       {
