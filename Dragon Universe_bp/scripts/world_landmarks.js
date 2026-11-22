@@ -88,11 +88,30 @@ const YAMCHA_FLOOR = {
   support: { "minecraft:sand": "minecraft:sandstone" },
 };
 
-/** Floor swap of a landmark placed before it (spot.floor is older), done once when a player comes near. */
-const touchUp = (key) => ({
-  pending: (spot) => spot.floor !== SPECS.find((s) => s.key === key).floor.version,
-  run: (spot, dim) => refloor(dim, key, spot),
-});
+// What a skirt may cover: low plants only. Leaves, trunks and anything else are left as they are.
+const SKIRT_SOFT = /short_grass|tall_grass|fern|flower(?!_pot)|poppy|dandelion|tulip|orchid|allium|bluet|daisy|cornflower|lily|peony|rose|lilac|snow_layer|dead_bush|sapling|moss_carpet/;
+
+/**
+ * Slope around a landmark whose bottom layer stands above the ground: up to `width` blocks out, one block lower per block, so the
+ * foundation is not a square wall. `top` covers it and `fill` is under it. Saved as spot.skirt = version, like spot.floor.
+ */
+const PICCOLO_SKIRT = { version: 1, width: 4, top: "minecraft:grass_block", fill: "minecraft:dirt" };
+const YAMCHA_SKIRT = { version: 1, width: 4, top: "minecraft:sand", fill: "minecraft:sandstone" };
+
+/** Floor swap and skirt of a landmark placed before them (spot.floor / spot.skirt older), done once when a player comes near. */
+const touchUp = (key) => {
+  const specOf = () => SPECS.find((s) => s.key === key);
+  const floorDue = (spec, spot) => spec.floor && spot.floor !== spec.floor.version;
+  const skirtDue = (spec, spot) => spec.skirt && spot.skirt !== spec.skirt.version;
+  return {
+    pending: (spot) => floorDue(specOf(), spot) || skirtDue(specOf(), spot),
+    run: async (spot, dim) => {
+      const spec = specOf();
+      if (floorDue(spec, spot)) await refloor(dim, key, spot);
+      if (skirtDue(spec, spot)) await reskirt(dim, spec, spot);
+    },
+  };
+};
 
 const single = (id, size) => [{ id, dx: 0, dz: 0, ...size }];
 const grid = (prefix, widths, depths) => {
@@ -113,8 +132,8 @@ const grid = (prefix, widths, depths) => {
  * biomes: overworld biomes to look for. maxRange: allowed height difference across the footprint. foundation: fill block.
  */
 const SPECS = [
-  { key: "piccolo_house", dim: "overworld", size: { x: 42, y: 27, z: 23 }, pieces: single("dbe:landmarks/piccolo_house", { x: 42, z: 23 }), biomes: LAND, maxRange: 8, foundation: "minecraft:dirt" },
-  { key: "yamcha_house", dim: "overworld", size: { x: 26, y: 45, z: 25 }, pieces: single("dbe:landmarks/yamcha_house", { x: 26, z: 25 }), biomes: ["minecraft:desert"], maxRange: 8, foundation: "minecraft:sandstone", floor: YAMCHA_FLOOR, followUp: touchUp("yamcha_house") },
+  { key: "piccolo_house", dim: "overworld", size: { x: 42, y: 27, z: 23 }, pieces: single("dbe:landmarks/piccolo_house", { x: 42, z: 23 }), biomes: LAND, maxRange: 8, foundation: "minecraft:dirt", skirt: PICCOLO_SKIRT, followUp: touchUp("piccolo_house") },
+  { key: "yamcha_house", dim: "overworld", size: { x: 26, y: 45, z: 25 }, pieces: single("dbe:landmarks/yamcha_house", { x: 26, z: 25 }), biomes: ["minecraft:desert"], maxRange: 8, foundation: "minecraft:sandstone", floor: YAMCHA_FLOOR, skirt: YAMCHA_SKIRT, followUp: touchUp("yamcha_house") },
   { key: "red_ribbon_tower", dim: "overworld", size: { x: 33, y: 65, z: 32 }, pieces: single("dbe:landmarks/red_ribbon_tower", { x: 33, z: 32 }), biomes: LAND, maxRange: 8, foundation: "minecraft:dirt" },
   { key: "frieza_army_base", dim: "frieza", size: { x: 59, y: 46, z: 59 }, pieces: single("dbe:landmarks/frieza_army_base", { x: 59, z: 59 }), maxRange: 7, foundation: "dbe:frieza_soil", floor: FRIEZA_FLOOR, followUp: touchUp("frieza_army_base") },
   { key: "guru_house", dim: "namek", size: { x: 91, y: 105, z: 91 }, pieces: grid("dbe:landmarks/guru_house_", [64, 27], [64, 27]), maxRange: 12, foundation: "dbe:namek_stone" },
@@ -658,6 +677,53 @@ function* foundationJob(dim, spec, spot, piece, y) {
   }
 }
 
+/**
+ * Skirt of spec.skirt around the footprint. A column gets it only where the landmark has ground at its edge, the slope is above
+ * the natural ground, and that ground is solid (never over water). Only air and low plants are replaced.
+ */
+function* skirtJob(dim, spec, spot) {
+  const { width, top, fill } = spec.skirt;
+  const x0 = spot.x, z0 = spot.z, x1 = spot.x + spec.size.x - 1, z1 = spot.z + spec.size.z - 1, y = spot.y;
+  const out = (v, lo, hi) => (v < lo ? lo - v : v > hi ? v - hi : 0);
+  const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+  for (let x = x0 - width; x <= x1 + width; x++) {
+    for (let z = z0 - width; z <= z1 + width; z++) {
+      const d = out(x, x0, x1) + out(z, z0, z1);
+      if (d === 0 || d > width) continue;
+      const edge = dim.getBlock({ x: clamp(x, x0, x1), y, z: clamp(z, z0, z1) });
+      if (!edge || edge.isAir || edge.isLiquid) continue;
+      const t = y - d;
+      let g = t;
+      let ground;
+      for (; g >= t - FOUNDATION_DEPTH; g--) {
+        const block = dim.getBlock({ x, y: g, z });
+        if (!block) break;
+        if (block.isAir || SKIRT_SOFT.test(block.typeId)) continue;
+        ground = block;
+        break;
+      }
+      if (!ground || ground.isLiquid || g >= t) continue;
+      for (let k = g + 1; k <= t; k++) dim.getBlock({ x, y: k, z })?.setType(k === t ? top : fill);
+    }
+    yield;
+  }
+}
+
+/** Skirt of a landmark (placement or follow-up). The area loaded is the footprint plus the skirt width. */
+async function reskirt(dim, spec, spot) {
+  const w = spec.skirt.width;
+  const from = { x: spot.x - w, y: spot.y, z: spot.z - w };
+  const to = { x: spot.x + spec.size.x - 1 + w, y: spot.y, z: spot.z + spec.size.z - 1 + w };
+  const area = await acquireLoadedArea(dim, from, to, "landmark " + spec.key + " skirt");
+  try {
+    await runJobAsync(skirtJob(dim, spec, spot));
+  } finally {
+    releaseLoadedArea(area);
+  }
+  spot.skirt = spec.skirt.version;
+  console.log("[Landmarks] " + spec.key + ": skirt done");
+}
+
 let busy = false;
 let drawTurn = 0;
 const drawAfter = new Map(); // key -> tick before which a landmark whose draw found nothing is not drawn again
@@ -771,6 +837,13 @@ async function placeLandmark(dim, spec, spot, plan) {
       });
     }
     if (spec.floor) spot.floor = spec.floor.version;
+    if (spec.skirt) {
+      try {
+        await reskirt(dim, spec, spot);
+      } catch (e) {
+        console.warn("[Landmarks] " + spec.key + ": skirt not done yet (tried again when a player comes near): " + e);
+      }
+    }
     liftPlayersInside(dim, spec, spot);
     spot.placed = true;
     delete spot.lastError;
