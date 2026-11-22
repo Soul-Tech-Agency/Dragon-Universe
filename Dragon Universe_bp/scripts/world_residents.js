@@ -234,4 +234,4 @@ system.afterEvents.scriptEventReceive.subscribe((ev) => {
   if (src?.typeId === "minecraft:player") report(src);
 });
 
-system.runInterval(tickResidents, 20);
+world.afterEvents.worldLoad.subscribe(() => system.runInterval(tickResidents, 20)); // the single scheduler (O3) swaps this line

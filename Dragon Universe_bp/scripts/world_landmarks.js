@@ -141,9 +141,14 @@ const SPECS = [
   { key: "yamcha_house", dim: "overworld", size: { x: 26, y: 45, z: 25 }, pieces: single("dbe:landmarks/yamcha_house", { x: 26, z: 25 }), biomes: ["minecraft:desert"], maxRange: 8, foundation: "minecraft:sandstone", floor: YAMCHA_FLOOR, skirt: YAMCHA_SKIRT, followUp: touchUp("yamcha_house") },
   { key: "red_ribbon_tower", dim: "overworld", size: { x: 33, y: 65, z: 32 }, pieces: single("dbe:landmarks/red_ribbon_tower", { x: 33, z: 32 }), biomes: LAND, maxRange: 8, foundation: "minecraft:dirt" },
   { key: "frieza_army_base", dim: "frieza", size: { x: 59, y: 46, z: 59 }, pieces: single("dbe:landmarks/frieza_army_base", { x: 59, z: 59 }), maxRange: 7, foundation: "dbe:frieza_soil", floor: FRIEZA_FLOOR, followUp: touchUp("frieza_army_base") },
-  { key: "guru_house", dim: "namek", size: { x: 91, y: 105, z: 91 }, pieces: grid("dbe:landmarks/guru_house_", [64, 27], [64, 27]), maxRange: 12, foundation: "dbe:namek_stone" },
-  { key: "capsule_corp", dim: "overworld", size: { x: 141, y: 42, z: 154 }, pieces: grid("dbe:landmarks/capsule_corp_", [64, 64, 13], [64, 64, 26]), biomes: ["minecraft:plains", "dbe:dirtstone_plains", "dbe:west_forest"], maxRange: 10, foundation: "minecraft:dirt" },
-  { key: "martial_arts_tournament", dim: "overworld", size: { x: 110, y: 21, z: 100 }, pieces: grid("dbe:landmarks/martial_arts_tournament_", [64, 46], [64, 36]), biomes: ["minecraft:plains", "minecraft:sunflower_plains", "dbe:dirtstone_plains"], maxRange: 6, foundation: "minecraft:dirt", enabled: () => martialArtsMode() === "relative", onPlaced: martialArtsPlaced, followUp: { pending: (spot) => !spot.announcer, run: spawnAnnouncer } },
+  { key: "guru_house", dim: "namek", size: { x: 91, y: 105, z: 91 }, pieces: grid("dbe:landmarks/guru_house_", [64, 27], [64, 27]), maxRange: 12, foundation: "dbe:namek_stone",
+    residents: [{ id: "guru", type: "dbe:grand_elder_guru", at: [45.5, 75, 45.5] }] }, // center of the dome, on the carpet
+  { key: "capsule_corp", dim: "overworld", size: { x: 141, y: 42, z: 154 }, pieces: grid("dbe:landmarks/capsule_corp_", [64, 64, 13], [64, 64, 26]), biomes: ["minecraft:plains", "dbe:dirtstone_plains", "dbe:west_forest"], maxRange: 10, foundation: "minecraft:dirt",
+    // ground floor of the dome house (capsule_corp_5, oak floor at y=1): new worlds have no engineer since West City left
+    residents: [74.5, 76.5, 78.5].map((x, i) => ({ id: "capsule_engineer_" + (i + 1), type: "dbe:capsule_corp_engineer", at: [x, 2, 80.5] })) },
+  { key: "martial_arts_tournament", dim: "overworld", size: { x: 110, y: 21, z: 100 }, pieces: grid("dbe:landmarks/martial_arts_tournament_", [64, 46], [64, 36]), biomes: ["minecraft:plains", "minecraft:sunflower_plains", "dbe:dirtstone_plains"], maxRange: 6, foundation: "minecraft:dirt", enabled: () => martialArtsMode() === "relative", onPlaced: martialArtsPlaced,
+    // the announcer opens the tournament queue; one already placed by an older version (no tag) is adopted
+    residents: [{ id: "tournament_announcer", type: "dbe:announcer", at: [38.5, 1, 53.5], adopt: true, onPresent: markAnnouncer }] },
 ];
 
 // ---------------------------------------------------------------- World Martial Arts Tournament
@@ -185,24 +190,21 @@ function applyMartialSite(spot) {
   for (const listener of martialListeners) listener(regions);
 }
 
-async function martialArtsPlaced(spot, dim) {
+function martialArtsPlaced(spot) {
   applyMartialSite(spot);
-  await spawnAnnouncer(spot, dim);
 }
 
-/** Opens the tournament queue. A failure leaves spot.announcer unset, and scan tries again while a player is near. */
-async function spawnAnnouncer(spot, dim) {
-  const location = { x: spot.x + MARTIAL.announcer[0] + 0.5, y: spot.y + MARTIAL.announcer[1], z: spot.z + MARTIAL.announcer[2] + 0.5 };
-  let area;
-  try {
-    area = await acquireLoadedArea(dim, location, location, "tournament announcer");
-    dim.spawnEntity("dbe:announcer", location);
-    spot.announcer = true;
-  } catch (e) {
-    console.warn("[Landmarks] tournament announcer not spawned: " + e);
-  } finally {
-    if (area) releaseLoadedArea(area);
-  }
+/**
+ * The announcer is the resident tournament_announcer (world_residents.js). spot.announcer is still written, once, when it is
+ * first seen: an older version opened afterwards then does not spawn another one.
+ */
+function markAnnouncer() {
+  if (savedSpot("martial_arts_tournament")?.announcer) return;
+  const plan = loadPlan();
+  const spot = plan.spots.martial_arts_tournament;
+  if (!spot?.placed || spot.announcer) return;
+  spot.announcer = true;
+  savePlan(plan);
 }
 
 const ENV = { frieza: friezaLandmarkEnv, namek: namekLandmarkEnv };
@@ -265,6 +267,36 @@ function loadPlan() {
 }
 
 const savePlan = (plan) => world.setDynamicProperty(PLAN_PROP, JSON.stringify(plan));
+
+// Residents of the landmarks (world_residents.js): their place follows the saved spot. The plan is parsed again only when
+// the saved text changes, so the resident cycle does not parse it on every look.
+let spotCache = { raw: undefined, spots: {} };
+function savedSpot(key) {
+  const raw = world.getDynamicProperty(PLAN_PROP);
+  if (raw !== spotCache.raw) {
+    let spots = {};
+    try {
+      spots = (typeof raw === "string" && JSON.parse(raw)?.spots) || {};
+    } catch {}
+    spotCache = { raw, spots };
+  }
+  return spotCache.spots[key];
+}
+
+for (const spec of SPECS) {
+  for (const res of spec.residents ?? []) {
+    const [dx, dy, dz] = res.at;
+    addResident({
+      ...res,
+      dim: spec.dim === "overworld" ? OVERWORLD : ENV[spec.dim].id,
+      at: () => {
+        const spot = savedSpot(spec.key);
+        return spot?.placed && spot.y !== undefined ? { x: spot.x + dx, y: spot.y + dy, z: spot.z + dz } : undefined;
+      },
+      enabled: () => enabled(spec),
+    });
+  }
+}
 
 function structureSpots() {
   try {
