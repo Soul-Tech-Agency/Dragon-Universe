@@ -1942,6 +1942,9 @@
          "path" : "scripts/core/11_entity_wrapper.js"
       },
       {
+         "path" : "scripts/core/12_quests.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
