@@ -26,6 +26,7 @@ async function duTravel(entity, location, options = {}) {
   }
 }
 import { namekDragonBallSpot as __nbl } from "./namek_dimension.js";
+import { raceInfo as duRaceInfo, firstFormsRawtext as duFirstFormsRawtext } from "./race_info.js";
 import { dragonBallsData as d } from "./data/dragon_balls_data.js";
 import {
   EntityComponentTypes as g,
@@ -15919,14 +15920,16 @@ var jY = class {
     }
     addFixedButtons() {
       let { initiator: sG } = this;
-      this.addButton("", () => cj.displayForm(sG, "")),
+      // 0 = aba Ajuda (Guia, redesign/CONTRATO.md seção 2)
+      this.addButton("", () => cj.displayForm(sG, "help")),
         this.addButton("", () => cj.displayForm(sG, "statistics")),
         this.addButton("", () => cj.displayForm(sG, "skills")),
         this.addButton("", () => cj.displayForm(sG, "quest_list")),
         this.addButton("", () => cj.displayForm(sG, "training")),
         this.addButton("", () => cj.displayForm(sG, "news")),
         this.addButton("", () => cj.displayForm(sG, "achievement_list")),
-        this.addButton("", () => cj.displayForm(sG, "")),
+        // 7 = aba Transformações (redesign/CONTRATO.md, seção 2); 8 e 9 reservados
+        this.addButton("", () => cj.displayForm(sG, "transformations")),
         this.addButton("", () => cj.displayForm(sG, "")),
         this.addButton("", () => cj.displayForm(sG, ""));
     }
@@ -16340,7 +16343,7 @@ var k8 = new k6(),
       super(sG);
       let sH = hO(sG),
         { attributes: sI } = sH;
-      jZ.lastMenuId.set(sG.id, "statistics_view"), this.setTitle("ui.dbe.statistics.title");
+      jZ.lastMenuId.set(sG.id, "statistics_view"), this.setTitle("ui.dbe.statistics.title"); // mesmo título do kF; o JSON separa pela flag "du2;" (só o kF manda)
       let sK = [];
       for (let sL of sI.stats.getStats())
         sK.push({ translate: "stat." + sL.id }, { text: ": §u" + sL.getFormatedValue() + "\n§r" });
@@ -16429,6 +16432,14 @@ function kp(sG) {
   }
   return sL;
 }
+// Redesign 1.7.17 (redesign/CONTRATO.md): ordem dos atributos nas Estatísticas e no bônus de raça; multiplicador como texto.
+const DU_ATTRIBUTE_ORDER = ["constitution", "dexterity", "spirit", "strength", "willpower"];
+// sempre com pelo menos 1 casa (x1.0, x2.0, x1.5) e no máximo 2, para não arredondar dado real (x1.25, x1.15)
+const duMultiplierText = (value) => {
+  const n = parseFloat(Number(value).toFixed(2));
+  return "x" + (Number.isInteger(n * 10) ? n.toFixed(1) : String(n));
+};
+const DU_RACE_GRID = 8; // botões 4-11 da seleção de raça
 // Jogadores com o formulário de customização aberto (ver showCustomizationForm e afterItemUse).
 var duCustomizationOpen = new Set();
 // Quem sai com a customização aberta não pode voltar "travado" (sem abrir a seleção de raça).
@@ -16447,26 +16458,36 @@ var kq = class t8 extends jY {
       (sN.raceIndex = sH),
         sN.reset(),
         this.setTitle("ui.dbe.select_race.title"),
-        this.setBody({
-          rawtext: [
-            {
-              translate: "ui.dbe.select_race.text",
-              with: {
-                rawtext: [
-                  { rawtext: [{ translate: "" + sM.id }, { text: "\n\n" }] },
-                  { rawtext: [{ translate: sM.id + ".description" }, { text: "\n\n" }] },
-                ],
-              },
-            },
-          ],
-        }),
-        this.addButton(this.lockRace ? " " : "ui.dbe.bigPreviousButton", () => this.selectRaceByIndex(sH - 1, sK)),
-        this.addButton("ui.dbe.select_race.button.select", async () => this.showCustomizationForm(sM.id)),
-        this.addButton(this.lockRace ? " " : "ui.dbe.select_race.button.random_select", async () => {
+        // redesign/CONTRATO.md, seção 4: body = só a descrição longa; 0-3 = navegação, 4-11 = grade de raças,
+        // 12-31 = slots de dado (botões que o JSON UI só lê, sem clique).
+        this.setBody({ rawtext: [{ translate: sM.id + ".description" }] }),
+        this.addButton(this.lockRace ? "" : "ui.dbe.bigPreviousButton", () => this.selectRaceByIndex(sH - 1, sK)),
+        this.addButton({ translate: "ui.dbe.select_race.button.select_race", with: { rawtext: [{ translate: sM.id }] } },
+          async () => this.showCustomizationForm(sM.id)),
+        this.addButton(this.lockRace ? "" : "ui.dbe.select_race.button.random_select", async () => {
           let sO = kp(sI);
           this.showCustomizationForm(sO.id);
         }),
-        this.addButton(this.lockRace ? " " : "ui.dbe.bigNextButton", () => this.selectRaceByIndex(sH + 1, sK));
+        this.addButton(this.lockRace ? "" : "ui.dbe.bigNextButton", () => this.selectRaceByIndex(sH + 1, sK));
+      for (let k = 0; k < DU_RACE_GRID; k++) {
+        const race = sK[k];
+        if (!race || (this.lockRace && k !== sH)) this.addButton("", () => {});
+        else this.addButton((k === sH ? "*" : "") + race.id, () => this.selectRaceByIndex(k, sK), { iconPatch: "textures/ui/du2/icons/race_" + race.id });
+      }
+      const info = duRaceInfo(sM.id),
+        slot = (content, icon) => this.addButton(content, () => {}, icon ? { iconPatch: icon } : void 0);
+      slot(sM.id + ".description.short"); // 12
+      slot(info ? duMultiplierText(info.regen) : ""); // 13
+      slot(info ? "" + info.formCount : ""); // 14
+      slot(info ? (info.gender ? "ui.dbe.yes" : "ui.dbe.no") : ""); // 15
+      slot(info ? { rawtext: duFirstFormsRawtext(info) } : ""); // 16
+      slot(sM.id + ".customization"); // 17
+      slot(sH + 1 + " / " + sK.length); // 18
+      slot(sM.id); // 19
+      const bonuses = info ? info.bonuses.map(({ id, value }) => ({ key: "attribute." + id, icon: "attr_" + id, value })) : [];
+      if (info && info.size !== 1) bonuses.push({ key: "ui.dbe.size", icon: "attr_size", value: info.size });
+      for (let k = 0; k < 6; k++) slot(bonuses[k]?.key ?? "", bonuses[k] && "textures/ui/du2/icons/" + bonuses[k].icon); // 20-25
+      for (let k = 0; k < 6; k++) slot(bonuses[k] ? duMultiplierText(bonuses[k].value) : ""); // 26-31
     }
     lockRace = !1;
     confirmRaceSelection(sG) {
@@ -16774,73 +16795,56 @@ var kB = class extends jY {
   },
   kE = new Map(),
   kF = class extends jZ {
+    // Layout do redesign 1.7.17 (redesign/CONTRATO.md, seção 3): 10 = Informações, 11-13 = x1/x10/x100, 14-18 = comprar
+    // atributo, 19 reservado, 20-47 = slots de dado (botões que o JSON UI só lê, sem clique). Body = flags ("du2;", "ozr;").
     constructor(sG) {
       super(sG);
       let sH = hO(sG),
         { attributes: sI } = sH,
         sK = kE.get(sG.id) ?? 1;
-      jZ.lastMenuId.set(sG.id, "statistics"),
-        this.setTitle("ui.dbe.statistics.title"),
-        this.setBody(this.listInfo()),
-        this.addButton("ui.dbe.statistics.button.info", () => cj.displayForm(sG, "statistics_view")),
-        this.addButton({ translate: "ui.dbe.statistics.button.amount", with: ["" + sK] }, () => {
-          kE.set(sG.id, sK >= 100 ? 1 : sK * 10), cj.displayForm(sG, "statistics");
+      jZ.lastMenuId.set(sG.id, "statistics"), this.setTitle("ui.dbe.statistics.title");
+      this.addButton("ui.dbe.statistics.button.info", () => cj.displayForm(sG, "statistics_view"));
+      for (const amount of [1, 10, 100])
+        this.addButton((amount === sK ? "*" : "") + "x" + amount, () => {
+          kE.set(sG.id, amount), cj.displayForm(sG, "statistics");
         });
-      for (let sL of sI.getAttributes()) {
-        let { id: sM, value: sN } = sL,
-          sO = parseFloat(sI.modifiers.getMultiplier(sM).toFixed(2)),
-          sP = sL.getUpgradeCost(sK),
-          sQ = {
-            rawtext: [
-              { translate: "attribute." + sM },
-              { text: " §u" + sN + (sO !== 1 ? " x" + sO + " " : " ") },
-              ...(d6(sP, "attribute_points").rawtext ?? []),
-            ],
-          };
-        this.addButton(sQ, () => {
+      const attributes = new Map([...sI.getAttributes()].map((attribute) => [attribute.id, attribute])),
+        rows = DU_ATTRIBUTE_ORDER.map((id) => attributes.get(id));
+      for (const sL of rows) {
+        if (!sL) {
+          this.addButton("", () => {});
+          continue;
+        }
+        const sP = sL.getUpgradeCost(sK);
+        this.addButton("attribute." + sL.id, () => {
           this.tryBuyAttribute(sL, sK, sP), cj.displayForm(sG, "statistics");
-        });
+        }, { iconPatch: "textures/ui/du2/icons/attr_" + sL.id });
       }
-    }
-    listInfo() {
-      let sG = hO(this.initiator),
-        {
-          alignment: sH,
-          masteries: sI,
-          masterManager: sK,
-          race: sL,
-          trainingMultiplier: sM,
-          pointsManager: sN,
-          transformations: sO,
-          level: sP,
-        } = sG,
-        { currentTransformation: sQ } = sO,
-        sR = sI.getMastery(sQ.id),
-        sS = "" + (sM !== 1 ? " §8x" + sM : "");
-      return {
-        rawtext: [
-          {
-            translate: "ui.dbe.statistics.text",
-            with: {
-              rawtext: [
-                {
-                  text: "" + sP.currentLevel + sS + " §8[" + sP.currentPoints + "/" + sP.getPointsToNextLevel() + "]\n",
-                },
-                { text: aO.shortenNumber(sN.get("attribute_points")) + "\n" },
-                { rawtext: [{ translate: sL.id }, { text: "\n" }] },
-                {
-                  rawtext: [
-                    { translate: "" + sQ.localizationKey },
-                    { text: sR ? " §8x" + sR.masteryMultiplier + "\n" : "\n" },
-                  ],
-                },
-                { rawtext: [{ translate: "alignment." + sH.getAlignment() }, { text: "\n" }] },
-                { rawtext: [{ translate: sK.getMasterLocalizationKey() }, { text: "\n\n" }] },
-              ],
-            },
-          },
-        ],
-      };
+      this.addButton("", () => {}); // 19 reservado
+      const slot = (content) => this.addButton(content, () => {});
+      const { alignment: alignment, masteries: masteries, masterManager: masterManager, race: race, trainingMultiplier: training,
+          pointsManager: points, transformations: transformations, level: level } = sH,
+        { currentTransformation: form } = transformations,
+        mastery = masteries.getMastery(form.id),
+        stat = (id) => aO.shortenNumber(Math.round(sI.stats.getStat(id)?.value ?? 0)),
+        next = level.getPointsToNextLevel();
+      slot(race.id); // 20
+      slot({ rawtext: [{ translate: "" + form.localizationKey }, { text: mastery ? " x" + mastery.masteryMultiplier : "" }] }); // 21
+      slot("alignment." + alignment.getAlignment()); // 22
+      slot(masterManager.getMasterLocalizationKey()); // 23
+      slot("" + level.currentLevel); // 24
+      slot(level.currentPoints + " / " + next + " XP"); // 25 (XP cru, como antes)
+      slot("" + (Math.max(0, Math.min(10, Math.floor((10 * Number(level.currentPoints)) / Math.max(1, Number(next))))) || 0)); // 26 (código, 0..10)
+      slot({ translate: "ui.dbe.statistics.free_points", with: [aO.shortenNumber(points.get("attribute_points"))] }); // 27
+      slot(aO.shortenNumber(Math.round(sI.battlePower ?? 0))); // 28
+      slot(stat("melee_damage")); // 29
+      slot(stat("defense")); // 30
+      slot(stat("max_ki")); // 31
+      for (const sL of rows) slot(sL ? "" + sL.value : ""); // 32-36
+      for (const sL of rows) slot(sL ? duMultiplierText(sI.modifiers.getMultiplier(sL.id)) : ""); // 37-41
+      for (const sL of rows) slot(sL ? d6(sL.getUpgradeCost(sK), "attribute_points") : ""); // 42-46
+      slot(training !== 1 ? "x" + parseFloat(Number(training).toFixed(2)) : ""); // 47
+      this.setBody(form.isOozaru ? "du2;ozr;" : "du2;"); // du2; = layout novo (o kf, mesmo título, não manda)
     }
     tryBuyAttribute(sG, sH, sI) {
       if (sG.value + sH >= sG.maxValue) return;
@@ -16926,8 +16930,23 @@ var kH = class extends jZ {
       this.initiator.sendMessage({ translate: "message.changeHair.withoutCutsWarning" });
     }
   };
+// Guia da aba Ajuda (redesign/CONTRATO.md, seção 5): 10+ = um botão por tópico; o clique reabre o form com o tópico no body.
+// Cada texto tem parágrafos: ui.dbe.help.text.<id>, depois .2, .3… (o .lang não tem quebra de linha).
+const DU_HELP_PARAGRAPHS = { intro: 2, evolve: 4, transformations: 4, quests: 4, dragon_balls: 3, planets: 4, commands: 4 };
+const DU_HELP_TOPICS = ["evolve", "transformations", "quests", "dragon_balls", "planets", "commands"];
+var duHelpForm = class extends jZ {
+    constructor(sG, topic) {
+      super(sG);
+      const open = DU_HELP_TOPICS.includes(topic) ? topic : "intro",
+        body = [{ translate: "ui.dbe.help.text." + open }];
+      for (let n = 2; n <= DU_HELP_PARAGRAPHS[open]; n++) body.push({ text: "\n\n" }, { translate: "ui.dbe.help.text." + open + "." + n });
+      this.setTitle("ui.dbe.help.title"), this.setBody({ rawtext: body });
+      for (const id of DU_HELP_TOPICS) this.addButton("ui.dbe.help.topic." + id, () => cj.displayForm(sG, "help", !1, id));
+    }
+  };
 function kJ() {
   cj.registerActionForm("achievement_list", kb),
+    cj.registerActionForm("help", duHelpForm),
     cj.registerActionForm("alignment_question", kk),
     cj.registerActionForm("customization", kv),
     cj.registerActionForm("main_functions", kx),
