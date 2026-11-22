@@ -4382,13 +4382,15 @@
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/panel_preview", "size": ["100%", "100%"]}},
          {
-          "player@statistics_form.player_preview": {"size": [70, 70], "offset": [0, -6], "$preview_visible": "((#form_text - '§r§o§r') = #form_text)"}
-         },
-         {
-          "oozaru@statistics_form.player_preview": {
-           "size": [22, 22],
+          "player": {
+           "type": "custom",
+           "renderer": "live_player_renderer",
+           "size": [70, 70],
+           "layer": 2,
+           "anchor_from": "center",
+           "anchor_to": "center",
            "offset": [0, -6],
-           "$preview_visible": "(not ((#form_text - '§r§o§r') = #form_text))"
+           "property_bag": {"#look_at_cursor": true}
           }
          }
         ]
@@ -4659,13 +4661,15 @@
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/panel_preview", "size": ["100%", "100%"]}},
          {
-          "player@statistics_form.player_preview": {"size": [70, 70], "offset": [0, -6], "$preview_visible": "((#form_text - '§r§o§r') = #form_text)"}
-         },
-         {
-          "oozaru@statistics_form.player_preview": {
-           "size": [22, 22],
+          "player": {
+           "type": "custom",
+           "renderer": "live_player_renderer",
+           "size": [70, 70],
+           "layer": 2,
+           "anchor_from": "center",
+           "anchor_to": "center",
            "offset": [0, -6],
-           "$preview_visible": "(not ((#form_text - '§r§o§r') = #form_text))"
+           "property_bag": {"#look_at_cursor": true}
           }
          }
         ]

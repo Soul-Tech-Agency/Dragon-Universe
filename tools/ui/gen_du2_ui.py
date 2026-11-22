@@ -503,12 +503,16 @@ def attr_rows(h, gap, mobile):
     return V(["100%", "100%c"], items)
 
 
+def player_render(size, offset):
+    """Prévia única do jogador. Sem caso especial para o Oozaru: a escala dele na UI vem da
+    animação oozaru_ui_scale do RP (decisão 31, 1.7.18)."""
+    return c("player", {"type": "custom", "renderer": "live_player_renderer", "size": [size, size], "layer": 2,
+                        "anchor_from": "center", "anchor_to": "center", "offset": offset,
+                        "property_bag": {"#look_at_cursor": True}})
+
+
 def preview(caption_key=None):
-    ctrls = [bg(T + "panel_preview"),
-             c("player@statistics_form.player_preview", {"size": [70, 70], "offset": [0, 4],
-                                                          "$preview_visible": "((#form_text - 'ozr;') = #form_text)"}),
-             c("oozaru@statistics_form.player_preview", {"size": [22, 22], "offset": [0, 4],
-                                                          "$preview_visible": "(not ((#form_text - 'ozr;') = #form_text))"})]
+    ctrls = [bg(T + "panel_preview"), player_render(70, [0, 4])]
     if caption_key:
         ctrls.append(c("cap", lbl(caption_key, ["100% - 8px", 8], "weak", 0.7, "smooth", "left",
                                   anchor_from="top_left", anchor_to="top_left", offset=[4, 3])))
@@ -1263,18 +1267,8 @@ def arrow_pair_rows(first_idx, rows, row_h, arrow_w):
     ])
 
 
-def custom_preview(w, oozaru_marker=None, confirm=None):
-    if oozaru_marker:
-        renders = [
-            c("player@statistics_form.player_preview", {"size": [70, 70], "offset": [0, -6],
-                "$preview_visible": f"((#form_text - '{oozaru_marker}') = #form_text)"}),
-            c("oozaru@statistics_form.player_preview", {"size": [22, 22], "offset": [0, -6],
-                "$preview_visible": f"(not ((#form_text - '{oozaru_marker}') = #form_text))"}),
-        ]
-    else:
-        renders = [c("player", {"type": "custom", "renderer": "live_player_renderer", "size": [70, 70], "layer": 2,
-                                "anchor_from": "center", "anchor_to": "center", "offset": [0, -6],
-                                "property_bag": {"#look_at_cursor": True}})]
+def custom_preview(w, confirm=None):
+    renders = [player_render(70, [0, -6])]
     col = [c("preview", P(["100%", "fill"], [bg(T + "panel_preview"), *renders], clips_children=True))]
     if confirm:
         col += [pad("100%", 4), confirm]
@@ -1288,7 +1282,7 @@ def options_area(name, rows_panel, mobile):
     return scroll_area(cu, name, [c("opts", rows_panel)])
 
 
-def custom_screen(form_name, title_left, first_idx, rows, oozaru_marker, with_confirm):
+def custom_screen(form_name, title_left, first_idx, rows, with_confirm):
     for m in ("pc", "mobile"):
         mobile = m == "mobile"
         row_h, arrow_w = (22, 26) if mobile else (16, 20)
@@ -1302,7 +1296,7 @@ def custom_screen(form_name, title_left, first_idx, rows, oozaru_marker, with_co
             ["100%", 22])) if with_confirm else None
         th = 20 if mobile else 24
         body = [c("inner", H(["100% - 10px" if not mobile else "100% - 6px", "100% - 8px" if not mobile else "100% - 6px"], [
-            c("left", custom_preview(130 if not mobile else 118, oozaru_marker, confirm)),
+            c("left", custom_preview(130 if not mobile else 118, confirm)),
             pad(6),
             c("right", P(["fill", "100%"], [options_area(form_name + "_opts_" + m,
                                                          arrow_pair_rows(first_idx, rows, row_h, arrow_w), mobile)])),
@@ -1316,8 +1310,8 @@ def custom_screen(form_name, title_left, first_idx, rows, oozaru_marker, with_co
     ]}
 
 
-custom_screen("customization_form", True, 2, 8, None, True)
-custom_screen("select_hair_form", False, 0, 5, "\u00a7r\u00a7o\u00a7r", False)
+custom_screen("customization_form", True, 2, 8, True)
+custom_screen("select_hair_form", False, 0, 5, False)
 
 
 # ---- Informações completas (kf): mesmo título das Estatísticas, sem a flag du2;; body = lista de stats
