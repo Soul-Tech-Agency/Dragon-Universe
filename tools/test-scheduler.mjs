@@ -19,7 +19,7 @@ export function reset() {
 reset();
 export const system = {
   get currentTick() { return state.tick; },
-  runInterval(fn, period) { const id = state.nextRun++; state.intervals.push({ id, fn, period }); return id; },
+  runInterval(fn, period) { const id = state.nextRun++; state.intervals.push({ id, fn, period, args: arguments.length }); return id; },
   clearRun(id) { state.cleared.push(id); state.intervals = state.intervals.filter((i) => i.id !== id); },
 };
 export const world = {
@@ -152,6 +152,14 @@ await test("7. sem __DU_STUB__ existe um único system.runInterval; com a flag, 
   eq(fake.state.intervals.map((i) => [i.period, i.fn === fns[fake.state.intervals.indexOf(i)]]), [[4, true], [100, true]], "intervalos com a flag (mesma função, mesmo período)");
   p.cancel(ids[0]);
   eq(fake.state.cleared, [ids[0]], "cancel com a flag = system.clearRun");
+  p.every(undefined, "sem período", () => {});
+  eq(fake.state.intervals.at(-1).args, 1, "período ausente continua ausente na passagem");
+  const r = await load();
+  let n = 0;
+  r.every(undefined, "1 tick", () => n++);
+  fireWorldLoad();
+  await runTicks(0, 4);
+  eq(n, 5, "período ausente = 1 tick no relógio");
 });
 
 await test("8. Promise rejeitada é registrada", async () => {

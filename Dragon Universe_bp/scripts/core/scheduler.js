@@ -2,6 +2,7 @@
 // criado no worldLoad, despacha todas as tarefas periódicas registradas com every().
 //
 //   every(period, name, fn, { phase })  roda fn quando (currentTick - phase) % period === 0; devolve um id
+//                                       (period undefined = 1 tick, como o system.runInterval sem período)
 //   cancel(id)                          tira a tarefa (pode ser chamado de dentro dela)
 //   players()                           world.getPlayers() lido no máximo 1 vez por tick, compartilhado
 //   playersIn(dimId)                    players() só da dimensão dimId
@@ -28,8 +29,9 @@ let playersTick = -1;
 let playersCache = [];
 
 export function every(period, name, fn, { phase = 0 } = {}) {
-  if (STUB) return system.runInterval(fn, period);
-  const p = Math.max(1, Math.floor(period));
+  // na passagem, os argumentos vão como vieram: runInterval(fn) sem período fica sem período no registro
+  if (STUB) return period === undefined ? system.runInterval(fn) : system.runInterval(fn, period);
+  const p = Math.max(1, Math.floor(period ?? 1));
   const task = { id: nextId++, period: p, phase: ((Math.floor(phase) % p) + p) % p, name, run: perfTask(name, fn),
     cancelled: false, lastWarn: -Infinity, suppressed: 0 };
   tasks.push(task);
