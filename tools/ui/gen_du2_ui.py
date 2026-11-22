@@ -268,50 +268,52 @@ def title_on(title):
 
 
 def tab_pc(t, help_tab=False):
+    """Aba do PC. Cada face tem dois grupos (apagada/acesa), um binding de título por grupo, em vez de um
+    por imagem e rótulo: planos/UI_DESEMPENHO.md, item 3. O desenho é o mesmo."""
     idx, icon, label, title = t
     on = title_on(title)
     off = f"(not {on})"
     icol = "gold" if help_tab else "cyan"
 
-    def face(state_tex):
-        return [
-            c("bg_off", img(T + state_tex, ["100%", "100%"], bindings=title_vis(off))),
-            c("bg_on", img(T + "tab_active", ["100%", "100%"], bindings=title_vis(on))),
+    def group(state_tex, active):
+        return P(["100%", "100%"], [
+            bg(T + ("tab_active" if active else state_tex)),
             c("row", H(["100%", "100%"], [
                 pad(4),
                 centered(14, P([14, 14], [
-                    c("box_off", img(T + "icon_box", ["100%", "100%"], bindings=title_vis(off))),
-                    c("box_on", img(T + "icon_box_gold", ["100%", "100%"], bindings=title_vis(on))),
-                    c("i_off", img(I + icon, [10, 10], icol, bindings=title_vis(off))),
-                    c("i_on", img(I + icon, [10, 10], "dark", bindings=title_vis(on))),
+                    c("box", img(T + ("icon_box_gold" if active else "icon_box"), ["100%", "100%"])),
+                    c("i", img(I + icon, [10, 10], "dark" if active else icol)),
                 ])),
                 pad(5),
                 c("name", P(["fill", "100%"], [
-                    c("off", lbl(label, ["100%", 10], "soft", None, "smooth", "left", anchor_from="left_middle",
-                                 anchor_to="left_middle", bindings=title_vis(off))),
-                    c("on", lbl(label, ["100%", 10], "white", None, "smooth", "left", anchor_from="left_middle",
-                                anchor_to="left_middle", bindings=title_vis(on))),
+                    c("l", lbl(label, ["100%", 10], "white" if active else "soft", None, "smooth", "left",
+                               anchor_from="left_middle", anchor_to="left_middle")),
                 ], clips_children=True)),
                 pad(3),
             ])),
-        ]
+        ], bindings=title_vis(on if active else off))
+
+    def face(state_tex):
+        return [c("off", group(state_tex, False)), c("on", group(state_tex, True))]
     return form_button(idx, ["100%", 20], {"default": face("tab"), "hover": face("tab_hover"),
                                             "pressed": face("tab_pressed")}, hide_empty=False)
 
 
 def tab_mobile(t, help_tab=False):
+    """Aba do celular (só ícone), com o mesmo agrupamento apagada/acesa do tab_pc."""
     idx, icon, label, title = t
     on = title_on(title)
     off = f"(not {on})"
     icol = "gold" if help_tab else "cyan"
 
+    def group(state_tex, active):
+        return P(["100%", "100%"], [
+            bg(T + ("tab_icon_active" if active else state_tex)),
+            c("i", img(I + icon, [13, 13], "dark" if active else icol)),
+        ], bindings=title_vis(on if active else off))
+
     def face(state_tex):
-        return [
-            c("bg_off", img(T + state_tex, ["100%", "100%"], bindings=title_vis(off))),
-            c("bg_on", img(T + "tab_icon_active", ["100%", "100%"], bindings=title_vis(on))),
-            c("i_off", img(I + icon, [13, 13], icol, bindings=title_vis(off))),
-            c("i_on", img(I + icon, [13, 13], "dark", bindings=title_vis(on))),
-        ]
+        return [c("off", group(state_tex, False)), c("on", group(state_tex, True))]
     return form_button(idx, ["100%", 20], {"default": face("tab_icon"), "hover": face("tab_icon_hover"),
                                             "pressed": face("tab_icon_pressed")}, hide_empty=False)
 
