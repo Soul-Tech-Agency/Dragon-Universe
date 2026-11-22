@@ -65,6 +65,17 @@ const SOFT = /leaves|_log$|_wood$|vine|short_grass|tall_grass|fern|flower|poppy|
 // What a foundation column may replace: plants only. Trunks and wood below the structure may be a player's wall.
 const FOUNDATION_SOFT = /leaves|vine|short_grass|tall_grass|fern|flower(?!_pot)|poppy|dandelion|tulip|orchid|allium|bluet|daisy|cornflower|lily|peony|rose|lilac|snow_layer|bush|sapling|seagrass|kelp|moss_carpet/;
 
+/**
+ * Ground of a structure recolored where it is placed, so the .mcstructure stays as it was made: the bottom `layers` layers of
+ * each piece get `swap`. The Frieza base was saved on Earth grass; on the planet that was a green square under it. version is
+ * saved in the spot (spot.floor), so a base placed before this also gets it once, when a player comes near (followUp).
+ */
+const FRIEZA_FLOOR = {
+  version: 1,
+  layers: 3,
+  swap: { "minecraft:grass_block": "dbe:frieza_soil", "minecraft:dirt": "dbe:frieza_soil", "minecraft:moss_block": "dbe:frieza_rock", "minecraft:mossy_cobblestone": "dbe:frieza_rock" },
+};
+
 const single = (id, size) => [{ id, dx: 0, dz: 0, ...size }];
 const grid = (prefix, widths, depths) => {
   const pieces = [];
@@ -87,7 +98,7 @@ const SPECS = [
   { key: "piccolo_house", dim: "overworld", size: { x: 42, y: 27, z: 23 }, pieces: single("dbe:landmarks/piccolo_house", { x: 42, z: 23 }), biomes: LAND, maxRange: 8, foundation: "minecraft:dirt" },
   { key: "yamcha_house", dim: "overworld", size: { x: 26, y: 45, z: 25 }, pieces: single("dbe:landmarks/yamcha_house", { x: 26, z: 25 }), biomes: ["minecraft:desert"], maxRange: 8, foundation: "minecraft:sandstone" },
   { key: "red_ribbon_tower", dim: "overworld", size: { x: 33, y: 65, z: 32 }, pieces: single("dbe:landmarks/red_ribbon_tower", { x: 33, z: 32 }), biomes: LAND, maxRange: 8, foundation: "minecraft:dirt" },
-  { key: "frieza_army_base", dim: "frieza", size: { x: 59, y: 46, z: 59 }, pieces: single("dbe:landmarks/frieza_army_base", { x: 59, z: 59 }), maxRange: 7, foundation: "dbe:frieza_rock" },
+  { key: "frieza_army_base", dim: "frieza", size: { x: 59, y: 46, z: 59 }, pieces: single("dbe:landmarks/frieza_army_base", { x: 59, z: 59 }), maxRange: 7, foundation: "dbe:frieza_soil", floor: FRIEZA_FLOOR, followUp: { pending: (spot) => spot.floor !== FRIEZA_FLOOR.version, run: (spot, dim) => refloor(dim, "frieza_army_base", spot) } },
   { key: "guru_house", dim: "namek", size: { x: 91, y: 105, z: 91 }, pieces: grid("dbe:landmarks/guru_house_", [64, 27], [64, 27]), maxRange: 12, foundation: "dbe:namek_stone" },
   { key: "capsule_corp", dim: "overworld", size: { x: 141, y: 42, z: 154 }, pieces: grid("dbe:landmarks/capsule_corp_", [64, 64, 13], [64, 64, 26]), biomes: ["minecraft:plains", "dbe:dirtstone_plains", "dbe:west_forest"], maxRange: 10, foundation: "minecraft:dirt" },
   { key: "martial_arts_tournament", dim: "overworld", size: { x: 110, y: 21, z: 100 }, pieces: grid("dbe:landmarks/martial_arts_tournament_", [64, 46], [64, 36]), biomes: ["minecraft:plains", "minecraft:sunflower_plains", "dbe:dirtstone_plains"], maxRange: 6, foundation: "minecraft:dirt", enabled: () => martialArtsMode() === "relative", onPlaced: martialArtsPlaced, followUp: { pending: (spot) => !spot.announcer, run: spawnAnnouncer } },
@@ -564,6 +575,29 @@ async function chooseLevel(dim, spec, spot, shift) {
   return builds ? { reason: "found " + builds } : { x: spot.x, z: spot.z, y };
 }
 
+/** Swaps the floor blocks of spec.floor in the bottom layers of a piece (only the listed types are touched). */
+function* floorJob(dim, spec, spot, piece, y) {
+  const { swap, layers } = spec.floor;
+  for (let i = 0; i < piece.x; i++) {
+    for (let j = 0; j < piece.z; j++) {
+      for (let k = 0; k < layers; k++) {
+        const block = dim.getBlock({ x: spot.x + piece.dx + i, y: y + k, z: spot.z + piece.dz + j });
+        const to = block && swap[block.typeId];
+        if (to) block.setType(to);
+      }
+    }
+    yield;
+  }
+}
+
+/** Follow-up of a landmark placed before its floor swap (or of an interrupted one): swaps it now, once. */
+async function refloor(dim, key, spot) {
+  const spec = SPECS.find((s) => s.key === key);
+  for (const piece of spec.pieces) await withPieceArea(dim, spec, spot, piece, spot.y, () => runJobAsync(floorJob(dim, spec, spot, piece, spot.y)));
+  spot.floor = spec.floor.version;
+  console.log("[Landmarks] " + key + ": floor swapped to the planet ground");
+}
+
 /** Fills the columns under the lowest layer of a piece. Only air, liquid and plants are replaced. */
 function* foundationJob(dim, spec, spot, piece, y) {
   for (let i = 0; i < piece.x; i++) {
@@ -688,8 +722,12 @@ async function placeLandmark(dim, spec, spot, plan) {
       await waitTicks(10);
     }
     for (const piece of spec.pieces) {
-      await withPieceArea(dim, spec, spot, piece, spot.y, () => runJobAsync(foundationJob(dim, spec, spot, piece, spot.y)));
+      await withPieceArea(dim, spec, spot, piece, spot.y, async () => {
+        if (spec.floor) await runJobAsync(floorJob(dim, spec, spot, piece, spot.y));
+        await runJobAsync(foundationJob(dim, spec, spot, piece, spot.y));
+      });
     }
+    if (spec.floor) spot.floor = spec.floor.version;
     liftPlayersInside(dim, spec, spot);
     spot.placed = true;
     delete spot.lastError;
@@ -782,6 +820,27 @@ function scan() {
 
   const check = unchecked[0];
   if (check) placeLandmark(check.dim, check.spec, check.spot, plan);
+}
+
+/**
+ * Every landmark used in this world, for the Star Navigator list (world_structures.js): key, dimension key ("overworld",
+ * "frieza", "namek"), center x/z when a spot exists, y once known, and state: "placed", "planned" (drawn, not built yet),
+ * "none" (no usable spot) or "unplanned" (not drawn yet).
+ */
+export function landmarkSummary() {
+  const plan = loadPlan();
+  return SPECS.filter(enabled).map((spec) => {
+    const s = plan.spots[spec.key];
+    const c = s && !s.none ? centerOf(spec, s) : undefined;
+    return {
+      key: spec.key,
+      dim: spec.dim,
+      x: c ? Math.round(c.x) : undefined,
+      z: c ? Math.round(c.z) : undefined,
+      y: s?.y,
+      state: !s ? "unplanned" : s.none ? "none" : s.placed ? "placed" : "planned",
+    };
+  });
 }
 
 function report(player) {

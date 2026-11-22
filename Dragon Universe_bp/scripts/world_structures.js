@@ -13,12 +13,17 @@
  * Worlds created before this change keep the copies they already generated; only new chunks stop getting more.
  * West City is no longer planned (1.7.15): see migratePlan. A copy already built stays where it is.
  *
+ * Star Navigator: the "Constructions" button lists every structure of this file and every landmark of world_landmarks.js
+ * with its coordinates (showConstructionList), placed or not.
+ * /scriptevent dbe:constructions opens the same list.
  * Operators: /scriptevent dbe:structures -> lists every planned spot and whether it was already placed.
  *            /dbe:structures_retry <spot> -> unlocks an interrupted or abandoned spot (inspect a world copy first).
  */
 import * as mc from "@minecraft/server";
 import { acquireLoadedArea, releaseLoadedArea } from "./travel_safety.js";
-import { overworldLandmarkCenters } from "./world_landmarks.js";
+import { ActionFormData } from "@minecraft/server-ui";
+import { overworldLandmarkCenters, landmarkSummary } from "./world_landmarks.js";
+import { addNavigatorExtra } from "./navigator_extras.js";
 
 const { world, system } = mc;
 
@@ -217,6 +222,73 @@ function report(player) {
   }
 }
 
+/**
+ * Every structure of this file for the Star Navigator list: same shape as landmarkSummary (dim always "overworld"; x/z are
+ * the jigsaw start, the middle of the build). A West City of version 1 shows only when it was built (kept in the plan as
+ * retired). number: the city number, for the shared name key.
+ */
+export function structureSummary() {
+  const plan = loadPlan();
+  const out = [];
+  const add = (key, s, nameKey, number) => {
+    out.push({
+      key, nameKey, number, dim: "overworld",
+      x: s && !s.none ? s.x : undefined,
+      z: s && !s.none ? s.z : undefined,
+      state: !s ? "unplanned" : s.none ? "none" : s.placed ? "placed" : "planned",
+    });
+  };
+  for (const spec of SPECS) {
+    const city = /^city_(\d+)$/.exec(spec.key);
+    add(spec.key, plan.spots[spec.key], city ? "dbe.constructions.name.city" : "dbe.constructions.name." + spec.key, city?.[1]);
+  }
+  for (const key of RETIRED) {
+    const s = plan.spots[key];
+    if (s?.retired && s.placed) add(key, s, "dbe.constructions.name.west_city", key.slice(-1));
+  }
+  return out;
+}
+
+const DIM_NAME = { overworld: "dbe.constructions.dim.overworld", frieza: "dbe.space.dest.frieza", namek: "dbe.space.dest.namek" };
+const STATE_NAME = { placed: "dbe.constructions.state.placed", planned: "dbe.constructions.state.planned", none: "dbe.constructions.state.none", unplanned: "dbe.constructions.state.unplanned" };
+
+/** One line of the list: name (dimension): X x, Z z - state. Without coordinates: name (dimension) - state. */
+function constructionLine(item) {
+  const name = { translate: item.nameKey ?? "dbe.constructions.name." + item.key };
+  if (item.number) name.with = [String(item.number)];
+  const parts = [name, { translate: DIM_NAME[item.dim] ?? DIM_NAME.overworld }];
+  if (item.x !== undefined) {
+    return { translate: "dbe.constructions.line", with: { rawtext: [...parts, { text: String(item.x) }, { text: String(item.z) }, { translate: STATE_NAME[item.state] }] } };
+  }
+  return { translate: "dbe.constructions.line_nocoords", with: { rawtext: [...parts, { translate: STATE_NAME[item.state] }] } };
+}
+
+/** Star Navigator: every unique structure and landmark of this world with its coordinates, placed or not. */
+async function showConstructionList(player) {
+  let items;
+  try {
+    const landmarks = landmarkSummary();
+    const order = { overworld: 0, namek: 1, frieza: 2 };
+    items = [...structureSummary(), ...landmarks].sort((a, b) => (order[a.dim] ?? 9) - (order[b.dim] ?? 9));
+  } catch (e) {
+    console.warn("[Structures] construction list failed: " + e);
+    return;
+  }
+  const rawtext = [{ translate: "dbe.constructions.menu.body" }];
+  for (const item of items) rawtext.push({ text: "\n" }, constructionLine(item));
+  const form = new ActionFormData()
+    .title({ translate: "dbe.constructions.menu.title" })
+    .body({ rawtext })
+    .button({ translate: "dbe.constructions.menu.close" });
+  for (let attempt = 0; attempt < 10; attempt++) {
+    const res = await form.show(player);
+    if (res.cancelationReason !== "UserBusy") return; // the Navigator menu may still be closing: try again shortly
+    await new Promise((resolve) => system.runTimeout(resolve, 10));
+  }
+}
+
+addNavigatorExtra({ label: { translate: "dbe.constructions.menu.button" }, open: showConstructionList });
+
 /** Operator unlock: an interrupted (started) or abandoned (MAX_TRIES) spot becomes eligible again. */
 function retrySpot(player, target) {
   const say = (translate, ...values) => { try { player?.sendMessage(values.length ? { translate, with: values.map(String) } : { translate }); } catch {} };
@@ -269,9 +341,10 @@ world.afterEvents.worldLoad.subscribe(() => {
   }, SCAN_TICKS);
 
   system.afterEvents.scriptEventReceive.subscribe((ev) => {
-    if (ev.id !== "dbe:structures") return;
+    if (ev.id !== "dbe:structures" && ev.id !== "dbe:constructions") return;
     const src = ev.sourceEntity;
     if (!src || src.typeId !== "minecraft:player") return;
-    report(src);
+    if (ev.id === "dbe:constructions") showConstructionList(src); // same list as the Star Navigator button
+    else report(src);
   });
 });
