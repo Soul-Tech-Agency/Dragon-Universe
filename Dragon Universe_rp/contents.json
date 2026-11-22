@@ -6085,6 +6085,24 @@
          "path" : "textures/ui/du2/icons/tab_transformations.png"
       },
       {
+         "path" : "textures/ui/du2/icons/back.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/train_shadow.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/train_concentration.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/train_stop.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/play.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/restart.png"
+      },
+      {
          "path" : "textures/ui/du2/panel_dark.json"
       },
       {
