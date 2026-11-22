@@ -1924,6 +1924,9 @@
          "path" : "scripts/core/05_db_cooldowns.js"
       },
       {
+         "path" : "scripts/core/06_requirements.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
