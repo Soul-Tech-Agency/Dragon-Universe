@@ -27,7 +27,10 @@
 //   - ORDEM DE EFEITOS: instruções de topo com efeito (chamada, new, atribuição a membro: inscrições em eventos,
 //     registros, intervalos) que trocam de ordem relativa;
 //   - ATRIBUIÇÃO entre módulos (import é somente leitura).
-// Sai com código 1 se houver qualquer problema.
+// Também lista a LIGAÇÃO TARDIA necessária (fatia O4.0): usos, de outro módulo, de nomes declarados depois na ordem
+// de hoje. Como import, eles fecham um ciclo e invertem a ordem de avaliação; como late.<nome> (objeto preenchido
+// pelo módulo que declara), não. O plano é simulado de novo sem essas arestas para provar que a lista basta.
+// Sai com código 1 se, mesmo com a ligação tardia, o plano causar problema.
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
@@ -465,76 +468,108 @@ function simulatePlan(plan) {
     modules.get(m).segments.push(seg.index);
   }
 
-  // dependências: qualquer uso (carga ou chamada) de nome declarado em outro módulo; imports externos não contam
-  const problems = { notEvaluated: [], effects: [], writes: [] };
+  // referências entre módulos (imports externos não contam)
   const allRefs = [];
   for (const seg of segments) {
     const { refs } = analysis(seg);
-    const from = moduleOf.get(seg.index);
     for (const r of refs) {
       const d = top.get(r.name);
       if (d.kind === "import") continue;
-      const to = moduleOf.get(d.segment);
-      if (to !== from) {
-        modules.get(from).deps.add(to);
-        if (r.write) problems.writes.push({ ...r, from, to, declaredLine: d.line });
-      }
-      allRefs.push({ ...r, decl: d });
+      allRefs.push({ ...r, decl: d, from: moduleOf.get(stmtSegment.get(r.stmt)), to: moduleOf.get(d.segment) });
     }
   }
   const firstSeg = (m) => modules.get(m).segments[0];
-  for (const [m, info] of modules) if (m === original) for (const other of modules.keys()) if (other !== m) info.deps.add(other);
+  const where = (st) => `index.js:${ast.body[st].loc.start.line} (#${stmtSegment.get(st)}, ${moduleOf.get(stmtSegment.get(st))})`;
 
-  // ordem de avaliação ES: DFS a partir do arquivo original; imports em ordem do primeiro segmento do módulo
-  const state = new Map(), order = [];
-  const visitModule = (m) => {
-    if (state.has(m)) return;
-    state.set(m, "visiting");
-    for (const d of [...modules.get(m).deps].sort((x, y) => firstSeg(x) - firstSeg(y))) visitModule(d);
-    state.set(m, "done");
-    order.push(m);
+  // LIGAÇÃO TARDIA: uso, de outro módulo, de um nome declarado DEPOIS na ordem de hoje. Como import, essa aresta
+  // fecha um ciclo contra a ordem original e o ES passa a avaliar o módulo posterior primeiro. Se ela virar
+  // `late.nome` (um objeto de ligações que o módulo posterior preenche ao declarar o nome), o import some e a ordem
+  // volta a ser a de hoje. Só é possível porque esses usos rodam depois da carga (chamada); um uso posterior em
+  // tempo de carga já é problema hoje ("JÁ HOJE").
+  // Só usos em tempo de chamada (em carga, late não ajuda) e vindos de um módulo novo (o arquivo original importa
+  // todos os módulos novos de qualquer forma e roda por último).
+  const isLate = (r) => !r.evalTime && r.from !== r.to && r.from !== original && r.decl.stmt > r.stmt;
+  const lateRefs = allRefs.filter(isLate);
+
+  const evaluate = (useLate) => {
+    const deps = new Map([...modules.keys()].map((m) => [m, new Set()]));
+    for (const r of allRefs) if (r.from !== r.to && !(useLate && isLate(r))) deps.get(r.from).add(r.to);
+    for (const m of modules.keys()) if (m !== original) deps.get(original).add(m);
+    // ordem de avaliação ES: DFS a partir do arquivo original; imports em ordem do primeiro segmento do módulo
+    const state = new Map(), order = [];
+    const visitModule = (m) => {
+      if (state.has(m)) return;
+      state.set(m, "visiting");
+      for (const d of [...deps.get(m)].sort((x, y) => firstSeg(x) - firstSeg(y))) visitModule(d);
+      state.set(m, "done");
+      order.push(m);
+    };
+    visitModule(original);
+    const stmtOrder = [];
+    for (const m of order) for (const si of modules.get(m).segments) for (const st of segments[si].statements) stmtOrder.push(stmtIndex.get(st));
+    const pos = new Map(stmtOrder.map((x, i) => [x, i]));
+    const problems = { notEvaluated: [], effects: [], writes: [] };
+    const seen = new Set();
+    for (const r of allRefs) {
+      if (r.write && r.from !== r.to && !(useLate && isLate(r))) problems.writes.push(r);
+      if (!r.evalTime || r.decl.kind === "function" || r.decl.stmt === r.stmt) continue;
+      if (pos.get(r.decl.stmt) < pos.get(r.stmt)) continue;
+      const k = r.name + "@" + r.line;
+      if (seen.has(k)) continue;
+      seen.add(k);
+      // já quebrado hoje (a declaração vem depois mesmo sem dividir): aparece à parte e não conta como causado pelo plano
+      problems.notEvaluated.push({ ...r, preexisting: r.decl.stmt > r.stmt });
+    }
+    const effectful = [];
+    for (const seg of segments) for (const st of analysis(seg).effects) effectful.push(st);
+    effectful.sort((a, b) => a - b);
+    for (let i = 1; i < effectful.length; i++) if (pos.get(effectful[i - 1]) > pos.get(effectful[i])) problems.effects.push({ before: effectful[i - 1], after: effectful[i] });
+    const caused = problems.notEvaluated.filter((r) => !r.preexisting).length + problems.effects.length + problems.writes.length;
+    return { order, problems, caused };
   };
-  visitModule(original);
-  const stmtOrder = []; // instruções de topo na ordem nova
-  for (const m of order) for (const si of modules.get(m).segments) for (const st of segments[si].statements) stmtOrder.push(stmtIndex.get(st));
-  const pos = new Map(stmtOrder.map((s, i) => [s, i]));
 
-  // 1. referências em tempo de carga a declarações que ainda não rodaram
-  const seen = new Set();
-  for (const r of allRefs) {
-    if (!r.evalTime || r.decl.kind === "function") continue;
-    if (pos.get(r.decl.stmt) < pos.get(r.stmt) || (r.decl.stmt === r.stmt && !r.via)) continue;
-    if (r.decl.stmt === r.stmt) continue; // dentro da própria declaração (ex.: X = (…)(X || {}))
-    const k = r.name + "@" + r.line;
-    if (seen.has(k)) continue;
-    seen.add(k);
-    // já quebrado hoje (a declaração vem depois mesmo sem dividir): aparece à parte e não conta como causado pelo plano
-    const preexisting = r.decl.stmt > r.stmt;
-    problems.notEvaluated.push({ ...r, preexisting, module: moduleOf.get(stmtSegment.get(r.stmt)), declModule: moduleOf.get(r.decl.segment) });
-  }
-  // 2. ordem relativa das instruções com efeito
-  const effectful = [];
-  for (const seg of segments) for (const st of analysis(seg).effects) effectful.push(st);
-  effectful.sort((a, b) => a - b);
-  for (let i = 1; i < effectful.length; i++) {
-    const a = effectful[i - 1], b = effectful[i];
-    if (pos.get(a) > pos.get(b)) problems.effects.push({ before: a, after: b });
+  const before = evaluate(false);
+  const after = evaluate(true);
+  const lateByName = new Map();
+  for (const r of lateRefs) {
+    if (!lateByName.has(r.name)) lateByName.set(r.name, { decl: r.decl, to: r.to, uses: [] });
+    const u = lateByName.get(r.name).uses;
+    if (!u.some((x) => x.line === r.line && x.from === r.from)) u.push({ line: r.line, from: r.from });
   }
 
-  const where = (st) => `linha ${ast.body[st].loc.start.line} (#${stmtSegment.get(st)}, ${moduleOf.get(stmtSegment.get(st))})`;
-  const caused = problems.notEvaluated.filter((r) => !r.preexisting);
-  const total = caused.length + problems.effects.length + problems.writes.length;
   if (json) {
-    console.log(JSON.stringify({ plan, evaluationOrder: order, problems }, null, 2));
-    return total ? 1 : 0;
+    console.log(JSON.stringify({ plan, evaluationOrder: before.order, problems: before.problems,
+      late: [...lateByName].map(([name, v]) => ({ name, declaredIn: v.to, declaredLine: v.decl.line, kind: v.decl.kind, uses: v.uses })),
+      withLate: { evaluationOrder: after.order, problems: after.problems } }, null, 2));
+    return after.caused ? 1 : 0;
   }
-  console.log(`Plano: ${modules.size - 1} módulo(s) novo(s), ${segments.filter((s) => moduleOf.get(s.index) !== original).length} de ${segments.length} segmentos movidos.`);
-  console.log("Ordem de avaliação ES simulada: " + order.join(" → "));
-  console.log(`Problemas causados pelo plano: ${caused.length} não avaliado(s), ${problems.effects.length} troca(s) de ordem de efeitos, ${problems.writes.length} atribuição(ões) entre módulos.\n`);
-  for (const r of problems.notEvaluated.slice(0, 40))
-    console.log(`  ${r.preexisting ? "JÁ HOJE     " : "NÃO AVALIADO"}  linha ${r.line} (${r.module}): ${r.name} (${r.decl.kind}, linha ${r.decl.line}, ${r.declModule})${r.via ? " [via " + r.via + "()]" : ""}`);
-  for (const e of problems.effects.slice(0, 40)) console.log(`  ORDEM DE EFEITOS  ${where(e.before)} passa a rodar depois de ${where(e.after)}`);
-  for (const w of problems.writes.slice(0, 40)) console.log(`  ATRIBUIÇÃO  linha ${w.line} (${w.from}): ${w.name} (declarado em ${w.to}, linha ${w.declaredLine})`);
-  if (!total) console.log("Nenhum problema: a divisão mantém a ordem de avaliação e de efeitos.");
-  return total ? 1 : 0;
+  const print = (title, res) => {
+    const nv = res.problems.notEvaluated.filter((r) => !r.preexisting).length;
+    console.log(`${title}: ordem ES ${res.order.join(" → ")}; problemas causados: ${res.caused} (${nv} não avaliado(s), ${res.problems.effects.length} troca(s) de ordem de efeitos, ${res.problems.writes.length} atribuição(ões) entre módulos).`);
+    for (const r of res.problems.notEvaluated.slice(0, 40))
+      console.log(`  ${r.preexisting ? "JÁ HOJE     " : "NÃO AVALIADO"}  index.js:${r.line} (${r.from}): ${r.name} (${r.decl.kind}, index.js:${r.decl.line}, ${r.to})${r.via ? " [via " + r.via + "()]" : ""}`);
+    if (res.problems.notEvaluated.length > 40) console.log(`  ... mais ${res.problems.notEvaluated.length - 40}`);
+    for (const e of res.problems.effects.slice(0, 40)) console.log(`  ORDEM DE EFEITOS  ${where(e.before)} passa a rodar depois de ${where(e.after)}`);
+    for (const w of res.problems.writes.slice(0, 40)) console.log(`  ATRIBUIÇÃO  index.js:${w.line} (${w.from}): ${w.name} (declarado em ${w.to}, index.js:${w.decl.line})`);
+  };
+  console.log(`Plano: ${modules.size - 1} módulo(s) novo(s), ${segments.filter((x) => moduleOf.get(x.index) !== original).length} de ${segments.length} segmentos movidos.\n`);
+  print("1. Só com imports", before);
+  console.log(`\n2. Ligação tardia necessária (O4.0): ${lateRefs.length} referência(s) a ${lateByName.size} nome(s) declarados depois na ordem de hoje.`);
+  console.log("   Cada nome vira late.<nome>, preenchido pelo módulo que o declara; cada uso abaixo passa a ler late.<nome>.");
+  for (const [name, v] of [...lateByName].sort((a, b) => a[1].decl.line - b[1].decl.line))
+    console.log(`  LATE  ${name} (${v.decl.kind}, index.js:${v.decl.line}, ${v.to}) ← ${v.uses.map((u) => `index.js:${u.line} (${u.from})`).join(", ")}`);
+  console.log("");
+  print("3. Com a ligação tardia acima", after);
+  if (!after.caused) console.log("\nCom a ligação tardia, a divisão mantém a ordem de avaliação e de efeitos de hoje.");
+  else {
+    console.log("\nAinda há problemas com a ligação tardia (late só resolve usos em tempo de chamada).");
+    // o arquivo original roda depois de TODOS os módulos novos: se ele guarda segmentos anteriores a um módulo novo,
+    // o código de carga desse módulo roda antes deles
+    const origSegs = modules.get(original)?.segments ?? [];
+    const early = [...modules.keys()].filter((m) => m !== original && origSegs.some((si) => si < firstSeg(m)));
+    if (early.length)
+      console.log(`  Causa provável: ${early.join(", ")} recorta(m) o meio do arquivo; os segmentos anteriores (#${origSegs[0]}…#${Math.max(...origSegs.filter((si) => early.some((m) => si < firstSeg(m))))}) ficam em ${original}, que roda por último. Extraia também os segmentos anteriores (de cima para baixo) ou leve o código de carga do recorte para uma função de init chamada pelo ${original}.`);
+    else console.log("  Causa provável: segmentos não contíguos num mesmo módulo, ou efeito de topo que precisa ir para uma função de init.");
+  }
+  return after.caused ? 1 : 0;
 }
