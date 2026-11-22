@@ -164,7 +164,7 @@ def tinted_icon(size, tints, **kw):
 
 
 QUEST_TINTS = [("lock", "weak"), ("quest_done", "green"), ("quest_main", "gold"), ("quest_side", "cyan"),
-               ("quest_challenge", "orange")]
+               ("quest_challenge", "orange"), ("quest_mentor", "purple")]
 ACH_TINTS = [("ach_done", "green"), ("ach_battle_power", "gold"), ("ach_defeat", "red"), ("ach_item", "orange"),
              ("ach_skill", "purple"), ("ach_requirement", "cyan")]
 LOCK_TINTS = [("lock", "weak")]
