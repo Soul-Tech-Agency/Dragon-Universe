@@ -11,7 +11,8 @@
 // Precisa ser o PRIMEIRO import do index.js, para envolver os agendadores antes de os módulos os usarem. Por isso
 // ligar a sonda = CONFIG.DEBUG_PERF = true E reabrir o mundo (o /reload também recarrega os scripts).
 // O tempo vem de Date.now() (resolução de 1 ms): tarefas rápidas aparecem como 0 ms e contam pelas chamadas.
-// O local (arquivo:linha) só é calculado com a medição ligada: com a flag ligada e sem start, a sonda quase não custa.
+// O local (arquivo:linha) de runInterval/runJob é calculado no registro (uma vez por tarefa, também antes do start);
+// o de run/runTimeout só com a medição ligada.
 import * as mc from "@minecraft/server";
 import { CONFIG } from "../config/config.js";
 
@@ -32,10 +33,11 @@ function install() {
 
   // Quem agendou: os 2 primeiros quadros da pilha fora deste arquivo. Se o 1º é um embrulho de agendamento do núcleo
   // (o runInterval/runTimeout das entidades, index.js, que repassa para o system), a tarefa é atribuída ao 2º,
-  // "local (via embrulho)"; senão ao 1º. Só com a medição ligada (montar a pilha custa); o que foi agendado antes do
-  // start fica agrupado como "antes do start" (tipo e período continuam no nome).
-  const site = () => {
-    if (!running) return "antes do start";
+  // "local (via embrulho)"; senão ao 1º. runInterval/runJob calculam sempre (always = true): são registrados uma vez e
+  // rodam por muito tempo, e os scanners agendados na carga precisam aparecer separados por arquivo:linha. run e
+  // runTimeout (uso único, muitos por tick) só calculam com a medição ligada.
+  const site = (always = false) => {
+    if (!running && !always) return "antes do start";
     const frames = [];
     for (const f of String(new Error().stack ?? "").split("\n")) {
       if (/perf\.m?js/.test(f)) continue;
@@ -81,7 +83,7 @@ function install() {
   };
 
   patch(system, "runInterval", (orig) => function (fn, ticks) {
-    const where = site();
+    const where = site(true);
     const id = orig.call(system, timed("interval(" + (ticks ?? 1) + ") " + where, fn), ticks);
     liveIntervals.set(id, where);
     return id;
@@ -99,7 +101,7 @@ function install() {
     return orig.call(system, id);
   });
   patch(system, "runJob", (orig) => function (gen) {
-    const where = site();
+    const where = site(true);
     // cada passo do gerador é uma execução da tarefa
     const wrapped = (function* () {
       const it = gen;
