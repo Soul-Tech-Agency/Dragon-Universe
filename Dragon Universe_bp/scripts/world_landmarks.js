@@ -2,10 +2,13 @@
  * Unique landmarks placed once per world from .mcstructure pieces (see relatorios/F_estruturas.md).
  *
  * Every landmark gets one random spot per world, saved in PLAN_PROP, on the surface of its dimension:
- *   - the spot is drawn the first time the script runs in a world and placed only when a player comes close;
+ *   - the spot is drawn the first time the script runs in a world and placed only when a player comes close. Overworld
+ *     draws look for a footprint well inside the biome (seed probes, no chunk loaded): the closest point of a biome is on its
+ *     border, next to hills, rivers or beaches, and that is where large landmarks used to be rejected;
  *   - before anything is written, the surface under the whole footprint is sampled and the footprint is searched for
- *     blocks a player or a village would have placed (PLACED_BLOCKS). A spot that fails is drawn again: nothing is
- *     written, so worlds created before this module keep what they have;
+ *     blocks a player or a village would have placed (PLACED_BLOCKS). Overworld: a spot that fails tries nearby positions
+ *     (SHIFT), then a few nearby draws during the same visit (NEARBY_TRIES); only then is it drawn again anywhere. Nothing is
+ *     written before a spot passes, so worlds created before this module keep what they have;
  *   - pieces are placed one at a time inside their own temporary loaded area, and the piece count is saved, so an
  *     interrupted placement resumes at the piece it stopped on;
  *   - whatever the lowest layer of the structure does not touch is filled down to the ground (FOUNDATION_DEPTH).
@@ -26,7 +29,8 @@ const PLAN_PROP = "dbe:world_landmarks"; // JSON { v, spots: { key: { x, z, y?, 
 const PLAN_VERSION = 2; // 2: 1.7.15 resets the reject and try counters of landmarks not placed yet (migratePlan)
 const STRUCTURES_PROP = "dbe:world_structures"; // plan of world_structures.js, read only
 const SCAN_TICKS = 40;
-const PLACE_MARGIN = 64; // a player this close to the footprint (horizontally) triggers the placement
+const PLACE_MARGIN = 64; // planets: a player this close to the footprint (horizontally) triggers the placement
+const OVERWORLD_MARGIN = 160; // overworld: further out, so the build is finished before the player gets there and sees it
 const MIN_SEPARATION = 400; // between the landmarks and the spots of world_structures.js
 const MIN_DIST = 900; // overworld: distance range from the world spawn
 const MAX_DIST = 3500;
@@ -35,7 +39,14 @@ const MAX_REJECTS = 12; // spots drawn again before a landmark gives up
 const SAMPLE_STEP = 8; // blocks between surface samples
 const MAX_WET = 0.1; // share of samples that may be liquid
 const FOUNDATION_DEPTH = 48;
-const SHIFT = 32; // overworld: a spot whose ground fails first tries every position this close (SAMPLE_STEP apart)
+const SHIFT = 48; // overworld: a spot whose ground fails first tries every position this close (SAMPLE_STEP apart)
+const NEARBY_TRIES = 3; // overworld: then this many draws around it, checked in the same visit
+const NEARBY_MIN = 160; // distance of those draws from the failed spot
+const NEARBY_MAX = 320;
+const BIOME_TOL = 12; // a seed probe closer than this to its biome is inside it
+const BIOME_MARGIN = 24; // ground around the footprint that must also be inside the biome
+const PROBE_STEP = 48; // at most this far between two biome probes across the footprint
+const DRAW_COOLDOWN = 600; // ticks before a landmark whose draw found nothing is drawn again (placements go on meanwhile)
 const SAMPLE_TILE = 64; // side of each temporary loaded area while the ground is sampled
 const SETTLE_TICKS = 10; // wait after loading a sample area, so chunks a teleport just loaded are complete
 
@@ -242,30 +253,105 @@ function takenCenters(spec, plan) {
 
 const farFrom = (taken, x, z) => !taken.some((t) => Math.hypot(t.x - x, t.z - z) < MIN_SEPARATION);
 
-function drawOverworld(spec, plan, dim) {
+function closestBiome(dim, from, biome, options) {
+  try {
+    return dim.calculateClosestBiomeFromSeed(from, biome, options);
+  } catch (e) {
+    return undefined; // biome unknown in this world type (e.g. flat world), or options not supported
+  }
+}
+
+// A probe only needs to know whether the biome is right here, so its search is bounded to a small box. Until a bounded search
+// has found a biome once, every miss is checked with an open search: if that one finds the biome here, the option is dropped.
+const PROBE_BOX = { boundingSize: { x: 64, y: 64, z: 64 } };
+let probeBounded = true, probeVerified = false;
+
+const nearTo = (p, x, z) => !!p && Math.hypot(p.x - x, p.z - z) <= BIOME_TOL;
+
+/** True when (x, z) is in one of the biomes, by the seed: nothing is loaded. One search per tick (they can be slow). */
+async function inBiome(dim, biomes, x, z) {
+  const at = { x, y: 64, z };
+  for (const biome of biomes) {
+    let inside;
+    if (probeBounded) {
+      inside = nearTo(closestBiome(dim, at, biome, PROBE_BOX), x, z);
+      if (inside) probeVerified = true;
+      else if (!probeVerified && nearTo(closestBiome(dim, at, biome), x, z)) {
+        probeBounded = false;
+        inside = true;
+        console.warn("[Landmarks] bounded biome search not usable here; probes use the open search");
+      }
+    } else inside = nearTo(closestBiome(dim, at, biome), x, z);
+    await waitTicks(1);
+    if (inside) return true;
+  }
+  return false;
+}
+
+/** Probe points covering the footprint centered on c, plus BIOME_MARGIN: the center first, then the edges. */
+function probePoints(spec, c) {
+  const hx = spec.size.x / 2 + BIOME_MARGIN, hz = spec.size.z / 2 + BIOME_MARGIN;
+  const nx = Math.max(2, Math.ceil((2 * hx) / PROBE_STEP)), nz = Math.max(2, Math.ceil((2 * hz) / PROBE_STEP));
+  const points = [[Math.round(c.x), Math.round(c.z)]];
+  for (let i = 0; i <= nx; i++)
+    for (let j = 0; j <= nz; j++) points.push([Math.round(c.x - hx + (2 * hx * i) / nx), Math.round(c.z - hz + (2 * hz * j) / nz)]);
+  return points;
+}
+
+/**
+ * A center whose whole footprint (and its margin) lies inside the allowed biomes, found from p, the closest biome point to
+ * `from`. p is on the border of the biome, so the candidates go into it, away from `from`.
+ */
+async function interiorCenter(dim, spec, from, p, taken) {
+  const len = Math.hypot(p.x - from.x, p.z - from.z);
+  const half = Math.hypot(spec.size.x, spec.size.z) / 2 + BIOME_MARGIN;
+  const candidates = len > 1
+    ? [1, 1.75, 2.5].map((k) => ({ x: p.x + ((p.x - from.x) / len) * half * k, z: p.z + ((p.z - from.z) / len) * half * k }))
+    : [{ x: p.x, z: p.z }, { x: p.x + half, z: p.z }, { x: p.x - half, z: p.z }, { x: p.x, z: p.z + half }, { x: p.x, z: p.z - half }];
+  for (const c of candidates) {
+    if (!farFrom(taken, c.x, c.z)) continue;
+    let inside = true;
+    for (const [x, z] of probePoints(spec, c)) {
+      if (!(await inBiome(dim, spec.biomes, x, z))) {
+        inside = false;
+        break;
+      }
+    }
+    if (inside) return c;
+  }
+}
+
+/**
+ * Overworld draw. around: the center of a spot that failed, to draw near it (NEARBY_MIN..NEARBY_MAX) instead of anywhere
+ * between MIN_DIST and MAX_DIST from the world spawn. Returns the corner { x, z }, with edge: true when no footprint fully
+ * inside the biome was found and the closest biome point is used as before; undefined when no biome is found.
+ */
+async function drawOverworld(spec, plan, dim, around) {
   const spawn = spawnPoint();
   const taken = takenCenters(spec, plan);
   const a = Math.random() * Math.PI * 2;
-  const d = MIN_DIST + Math.random() * (MAX_DIST - MIN_DIST);
-  const from = { x: Math.round(spawn.x + Math.cos(a) * d), y: 0, z: Math.round(spawn.z + Math.sin(a) * d) };
-  let best;
+  const base = around ?? spawn;
+  const d = around ? NEARBY_MIN + Math.random() * (NEARBY_MAX - NEARBY_MIN) : MIN_DIST + Math.random() * (MAX_DIST - MIN_DIST);
+  const from = { x: Math.round(base.x + Math.cos(a) * d), y: 64, z: Math.round(base.z + Math.sin(a) * d) };
+  const found = [];
   for (const biome of spec.biomes) {
-    let p;
-    try {
-      p = dim.calculateClosestBiomeFromSeed(from, biome);
-    } catch (e) {
-      p = undefined; // biome unknown in this world type (e.g. flat world)
-    }
+    const p = closestBiome(dim, from, biome);
+    await waitTicks(1);
     if (!p || !farFrom(taken, p.x, p.z)) continue;
-    const dd = Math.hypot(p.x - from.x, p.z - from.z);
-    if (!best || dd < best.d) best = { x: p.x, z: p.z, d: dd };
+    found.push({ x: p.x, z: p.z, d: Math.hypot(p.x - from.x, p.z - from.z) });
   }
-  if (!best) return undefined;
-  return { x: Math.round(best.x - spec.size.x / 2), z: Math.round(best.z - spec.size.z / 2) };
+  if (!found.length) return undefined;
+  found.sort((u, v) => u.d - v.d);
+  const corner = (c) => ({ x: Math.round(c.x - spec.size.x / 2), z: Math.round(c.z - spec.size.z / 2) });
+  for (const p of found.slice(0, 2)) {
+    const c = await interiorCenter(dim, spec, from, p, taken);
+    if (c) return corner(c);
+  }
+  return { ...corner(found[0]), edge: true };
 }
 
-function draw(spec, plan, dim) {
-  return spec.dim === "overworld" ? drawOverworld(spec, plan, dim) : drawOnPlanet(spec, plan);
+async function draw(spec, plan, dim, around) {
+  return spec.dim === "overworld" ? drawOverworld(spec, plan, dim, around) : drawOnPlanet(spec, plan);
 }
 
 /** Heights of the planets are known without loading anything, so a bad spot is discarded here. */
@@ -480,12 +566,51 @@ function* foundationJob(dim, spec, spot, piece, y) {
 
 let busy = false;
 let drawTurn = 0;
+const drawAfter = new Map(); // key -> tick before which a landmark whose draw found nothing is not drawn again
+
+/**
+ * Overworld: the drawn spot failed while a player is near. A few draws around it are checked now, so the landmark is still built
+ * during this visit and close to where it was listed. Returns the first usable level ({ x, z, y, nearby }) or the first verdict.
+ */
+async function chooseNearby(dim, spec, spot, plan, first) {
+  const center = centerOf(spec, spot);
+  for (let k = 1; k <= NEARBY_TRIES; k++) {
+    const alt = await drawOverworld(spec, plan, dim, center);
+    if (!alt) continue;
+    const level = await chooseLevel(dim, spec, alt);
+    console.warn("[Landmarks] " + spec.key + ": " + first.reason + "; nearby draw " + k + " at " + alt.x + ", " + alt.z + (level.y === undefined ? " rejected: " + level.reason : " usable"));
+    if (level.y !== undefined) return { ...level, nearby: k };
+  }
+  return { reason: first.reason + "; " + NEARBY_TRIES + " nearby draws also failed" };
+}
+
+/** Draws a spot for a landmark that has none. Runs over several ticks (seed probes), with busy set. */
+async function drawMissing(spec, plan) {
+  busy = true;
+  try {
+    const rejects = plan.rejects?.[spec.key] ?? 0;
+    const drawn = await draw(spec, plan, dimensionOf(spec));
+    if (!drawn) {
+      drawAfter.set(spec.key, system.currentTick + DRAW_COOLDOWN);
+      return;
+    }
+    plan.spots[spec.key] = rejects ? { ...drawn, rejects, lastReject: plan.lastRejects?.[spec.key] } : drawn;
+    savePlan(plan);
+    if (drawn.edge) console.warn("[Landmarks] " + spec.key + ": no footprint fully inside its biome found; using the biome border at " + drawn.x + ", " + drawn.z);
+  } catch (e) {
+    drawAfter.set(spec.key, system.currentTick + DRAW_COOLDOWN);
+    console.warn("[Landmarks] " + spec.key + ": draw failed: " + e);
+  } finally {
+    busy = false;
+  }
+}
 
 async function placeLandmark(dim, spec, spot, plan) {
   busy = true;
   try {
     if (spot.y === undefined) {
-      const level = await chooseLevel(dim, spec, spot);
+      let level = await chooseLevel(dim, spec, spot);
+      if (spec.dim === "overworld" && level.y === undefined && !level.transient) level = await chooseNearby(dim, spec, spot, plan, level);
       if (level.transient) {
         // Not an error: kept and tried again on a later scan, without counting towards MAX_TRIES.
         spot.waits = (spot.waits ?? 0) + 1;
@@ -495,7 +620,7 @@ async function placeLandmark(dim, spec, spot, plan) {
       if (level.y === undefined) {
         // No new spot right now is not the end: scan keeps drawing, with the count kept in plan.rejects.
         const rejects = (spot.rejects ?? 0) + 1;
-        const next = rejects < MAX_REJECTS ? draw(spec, plan, dim) : undefined;
+        const next = rejects < MAX_REJECTS ? await draw(spec, plan, dim) : undefined;
         for (const k of Object.keys(spot)) delete spot[k];
         if (next || rejects >= MAX_REJECTS) Object.assign(spot, next ?? { none: true }, { rejects, lastReject: level.reason });
         else {
@@ -506,7 +631,8 @@ async function placeLandmark(dim, spec, spot, plan) {
         console.warn("[Landmarks] " + spec.key + ": spot rejected (" + rejects + "): " + level.reason + (next ? "; drew " + next.x + ", " + next.z : rejects >= MAX_REJECTS ? "; giving up" : "; drawing again"));
         return;
       }
-      if (level.x !== spot.x || level.z !== spot.z) console.warn("[Landmarks] " + spec.key + ": moved " + (level.x - spot.x) + ", " + (level.z - spot.z) + " blocks to usable ground");
+      if (level.x !== spot.x || level.z !== spot.z) console.warn("[Landmarks] " + spec.key + ": moved " + (level.x - spot.x) + ", " + (level.z - spot.z) + " blocks to usable ground" + (level.nearby ? " (nearby draw " + level.nearby + ")" : ""));
+      delete spot.edge;
       spot.x = level.x;
       spot.z = level.z;
       spot.y = level.y;
@@ -582,18 +708,11 @@ function scan() {
   if (busy) return;
   const plan = loadPlan();
 
-  // one spot per scan, so the biome searches never pile up in a single tick
-  const missing = SPECS.filter((s) => enabled(s) && !plan.spots[s.key]);
+  // one draw at a time, its biome searches spread over ticks; a landmark still without a spot (no usable draw yet) waits DRAW_COOLDOWN and does not hold back the others
+  const missing = SPECS.filter((s) => enabled(s) && !plan.spots[s.key] && !(system.currentTick < (drawAfter.get(s.key) ?? 0)));
   if (missing.length) {
-    // a landmark still without a spot (no usable draw yet) does not hold back the others
-    const next = missing[drawTurn++ % missing.length];
-    const rejects = plan.rejects?.[next.key] ?? 0;
-    const drawn = draw(next, plan, dimensionOf(next));
-    if (drawn) {
-      plan.spots[next.key] = rejects ? { ...drawn, rejects, lastReject: plan.lastRejects?.[next.key] } : drawn;
-      savePlan(plan);
-      return;
-    }
+    drawMissing(missing[drawTurn++ % missing.length], plan);
+    return;
   }
 
   for (const spec of SPECS) {
@@ -603,10 +722,11 @@ function scan() {
     const followUp = spot.placed && spec.followUp?.pending(spot);
     if (spot.placed ? !followUp : (spot.tries ?? 0) >= MAX_TRIES) continue;
     const dim = dimensionOf(spec);
+    const margin = spec.dim === "overworld" ? OVERWORLD_MARGIN : PLACE_MARGIN;
     const near = dim.getPlayers().some((p) => {
       const dx = Math.max(spot.x - p.location.x, 0, p.location.x - (spot.x + spec.size.x));
       const dz = Math.max(spot.z - p.location.z, 0, p.location.z - (spot.z + spec.size.z));
-      return Math.hypot(dx, dz) < PLACE_MARGIN;
+      return Math.hypot(dx, dz) < margin;
     });
     if (near) {
       if (followUp) finishFollowUp(dim, spec, spot, plan);
@@ -628,7 +748,9 @@ function report(player) {
     else if (s.placed) state = "§aplaced";
     else if ((s.tries ?? 0) >= MAX_TRIES) state = "§cgave up: " + s.lastError;
     else state = "§6waiting for a player nearby" + (s.waits ? " §7(ground not readable " + s.waits + "x)" : "");
-    const where = s && !s.none ? " §fX: " + s.x + " Z: " + s.z : "";
+    // the center of the footprint: walking to the corner put the build behind the player
+    const c = s && !s.none ? centerOf(spec, s) : undefined;
+    const where = c ? " §fX: " + Math.round(c.x) + " Z: " + Math.round(c.z) + (s.y !== undefined ? " Y: " + s.y : "") + (s.edge && !s.placed ? " §7(biome border)" : "") : "";
     const rejected = s?.rejects ? " §7(rejected " + s.rejects + "x; last: " + (s.lastReject ?? "?") + ")" : "";
     player.sendMessage(" §b" + spec.key + " §7(" + spec.dim + ")" + where + " " + state + rejected);
   }
@@ -637,6 +759,7 @@ function report(player) {
 /** Operator unlock of a spot that gave up. A new spot is drawn on the next scan if none was found. */
 function retry(player, key) {
   if (player && !(player.commandPermissionLevel >= 1)) return;
+  if (busy) return player?.sendMessage("§e[Landmarks] busy drawing or placing a landmark; try again in a few seconds.");
   const plan = loadPlan();
   const spot = plan.spots[key];
   if (!SPECS.some((s) => s.key === key) || !spot || spot.placed) return player?.sendMessage("§c[Landmarks] nothing to retry: " + key);
@@ -644,6 +767,7 @@ function retry(player, key) {
     delete plan.spots[key];
     delete plan.rejects?.[key]; // otherwise the next reject is already past MAX_REJECTS
   } else spot.tries = 0;
+  drawAfter.delete(key);
   savePlan(plan);
   player?.sendMessage("§a[Landmarks] " + key + " unlocked.");
 }
