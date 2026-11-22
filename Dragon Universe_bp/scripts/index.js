@@ -13790,6 +13790,14 @@ var rP = class extends cH {
   flyEntity;
   isLoaded = !1;
   jumpState = { lastJump: !1, jumpCount: 0 };
+  // O2a: o voo deixava de reenviar dbe:fly_mode e de reescrever a velocidade da montaria a cada tick. Só escreve
+  // quando o valor muda (ou a montaria é outra); a cada FLY_REFRESH_TICKS ticks os caches são esquecidos e tudo é
+  // reaplicado, para o caso de outro caminho mudar a propriedade (ex.: fusão) ou o jogo reverter a velocidade.
+  lastFlyMode;
+  lastFlySpeed;
+  lastFlySpeedEntityId;
+  flyRefreshTicks = 0;
+  static FLY_REFRESH_TICKS = 20;
   constructor(sG, sH) {
     super(sG, sH);
     let { dimension: sI, location: sK } = sG.entity;
@@ -13820,6 +13828,7 @@ var rP = class extends cH {
       (this.entitySkillData.state.enabled = !1),
       this.saveState(),
       this.stopRiding(),
+      this.forgetFlyCache(),
       this.setFlyModeProperty("none");
   }
   async enable() {
@@ -13843,6 +13852,7 @@ var rP = class extends cH {
         let riding = sH.getComponent("minecraft:riding")?.entityRidingOn;
         let sM = this.flyEntity?.isValid && riding?.id === this.flyEntity.id &&
           this.flyEntity.dimension.id === sH.dimension.id;
+        ++this.flyRefreshTicks >= rP.FLY_REFRESH_TICKS && this.forgetFlyCache();
         this.setFlyModeProperty(this.flyMode), (sL || sG.currentValue <= 0 || sK.isOozaru || !sM) && this.disable();
       } else !sL && sG.currentValue > 0 && !sK.isOozaru && this.isDoubleJump && this.enable();
     }
@@ -13862,17 +13872,31 @@ var rP = class extends cH {
       await rO.waitTicks(1);
       if (this.isEnabled) return;
     }
-    this.dbeEntity.trySetProperty("dbe:fly_mode", sG);
+    if (sG !== this.lastFlyMode) {
+      this.lastFlyMode = sG;
+      this.dbeEntity.trySetProperty("dbe:fly_mode", sG);
+    }
     this.setFlySpeed(this.flyMode === "fast" ? 2 : 1);
   }
   setFlySpeed(sG) {
     let sH = this.flySpeed * sG,
-      sI = this.flyEntity?.getComponent(rM.FlyingSpeed),
-      sK = this.flyEntity?.getComponent(rM.UnderwaterMovement);
+      fly = this.flyEntity;
+    if (!fly || (sH === this.lastFlySpeed && fly.id === this.lastFlySpeedEntityId)) return;
+    let sI = fly.getComponent(rM.FlyingSpeed),
+      sK = fly.getComponent(rM.UnderwaterMovement);
     sI && (sI.value = sH), sK && sK.setCurrentValue(sH);
+    this.lastFlySpeed = sH;
+    this.lastFlySpeedEntityId = fly.id;
+  }
+  forgetFlyCache() {
+    this.lastFlyMode = void 0;
+    this.lastFlySpeed = void 0;
+    this.lastFlySpeedEntityId = void 0;
+    this.flyRefreshTicks = 0;
   }
   startRiding() {
     if (this.flyEntity?.isValid) this.stopRiding();
+    this.forgetFlyCache();
     let { entity: sG } = this.dbeEntity,
       { dimension: sH, location: sI } = sG,
       sK = sG.getRotation();
@@ -13893,6 +13917,8 @@ var rP = class extends cH {
   }
   stopRiding() {
     let sG = this.flyEntity;
+    this.lastFlySpeed = void 0;
+    this.lastFlySpeedEntityId = void 0;
     if (((this.flyEntity = void 0), sG?.isValid)) {
       let sH = sG.getVelocity();
       let player = this.dbeEntity.entity;
