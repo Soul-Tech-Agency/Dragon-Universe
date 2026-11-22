@@ -891,7 +891,9 @@
 				],
 				"animate": [
 					"root",
-					{ "dbe_general": "v.isLive" }
+					{ "dbe_general": "v.isLive" },
+					// Oozaru/Golden nas prévias de UI (inventário, Estatísticas, barbeiro): ~1/3 do tamanho, só fora do mundo
+					{ "oozaru_ui_scale": "v.is_oozaru && v.is_paperdoll" }
 				],
 				"variables": {
 					"variable.fp_melee_spear_use_attachable_rotation_z": "public",
@@ -1048,6 +1050,7 @@
 				"melee_attack_6": "animation.player.melee.attack_6",
 				"muscular_body": "animation.player.muscular",
 				"oozaru_setup": "animation.player.oozaru_setup",
+				"oozaru_ui_scale": "animation.player.oozaru_ui_scale",
 				"sfx_charge_god_loop": "animation.aura.charge_god_loop",
 				"sfx_charge_loop": "animation.aura.charge_loop",
 				"slim_body": "animation.player.slim_body",
