@@ -290,7 +290,7 @@
                 }
             },
             {
-                "statistics@statistics_form.statistics_form": {
+                "statistics@du2_statistics_view.statistics_view_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
@@ -364,9 +364,6 @@
                         }
                     ]
                 }
-            },
-            {
-                "du_icon_overlay@menu_form.du_icon_overlay": { }
             }
         ]
     }

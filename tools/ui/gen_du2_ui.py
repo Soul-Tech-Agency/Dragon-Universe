@@ -1313,6 +1313,18 @@ custom_screen("customization_form", True, 2, 8, None, True)
 custom_screen("select_hair_form", False, 0, 5, "\u00a7r\u00a7o\u00a7r", False)
 
 
+# ---- Informações completas (kf): mesmo título das Estatísticas, sem a flag du2;; body = lista de stats
+sv = {"namespace": "du2_statistics_view"}
+
+
+def statistics_view_content(mobile):
+    m = "mobile" if mobile else "pc"
+    return [c("scroll", P(["100%", "100%"], [scroll_area(sv, "scroll_" + m, [body_label("text")])]))]
+
+
+tab_screen(sv, "statistics_view_form", statistics_view_content)
+
+
 # --------------------------------------------------------------------------- escrita
 
 def fmt(v, ind=0):
@@ -1382,3 +1394,4 @@ write("du2_achievements.json", ac)
 write("du2_news.json", nw)
 write("du2_help.json", hp)
 write("du2_customization.json", cu)
+write("du2_statistics_view.json", sv)
