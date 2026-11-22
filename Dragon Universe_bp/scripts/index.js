@@ -1,6 +1,7 @@
 // Núcleo do Dragon Universe.
 // Gerado por tools/deobfuscate-core.mjs a partir da versão ofuscada (commit 2d4f628): textos decodificados e
 // código formatado, sem mudança de lógica. Os nomes curtos de variáveis vêm do ofuscador e não puderam ser recuperados.
+import "./core/perf.js"; // primeiro import: a sonda (CONFIG.DEBUG_PERF) envolve os agendadores antes dos módulos
 import "./kaioshin_dimension.js";
 import "./other_world_kai.js";
 import "./world_structures.js";
