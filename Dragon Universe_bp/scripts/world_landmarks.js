@@ -90,10 +90,14 @@ const YAMCHA_FLOOR = {
 
 // What a skirt may cover: low plants only. Leaves, trunks and anything else are left as they are.
 const SKIRT_SOFT = /short_grass|tall_grass|fern|flower(?!_pot)|poppy|dandelion|tulip|orchid|allium|bluet|daisy|cornflower|lily|peony|rose|lilac|snow_layer|dead_bush|sapling|moss_carpet/;
+// What a skirt may rest on: natural ground only. Over leaves, trunks, cactus, mushrooms or anything else the column is skipped.
+const SKIRT_GROUND = /^minecraft:(grass_block|dirt|coarse_dirt|podzol|rooted_dirt|mycelium|mud|sand|red_sand|sandstone|red_sandstone|stone|gravel|clay|andesite|diorite|granite|deepslate|tuff|calcite|hardened_clay|[a-z_]*terracotta|snow)$|^dbe:[a-z_]*(soil|stone|grass|dirt|sand|rock)[a-z_]*$/;
 
 /**
  * Slope around a landmark whose bottom layer stands above the ground: up to `width` blocks out, one block lower per block, so the
  * foundation is not a square wall. `top` covers it and `fill` is under it. Saved as spot.skirt = version, like spot.floor.
+ * Known and accepted: on a house placed before this (follow-up), a hole a player dug inside the skirt below the house level, or
+ * low plants they planted there, get covered once, like any natural dip.
  */
 const PICCOLO_SKIRT = { version: 1, width: 4, top: "minecraft:grass_block", fill: "minecraft:dirt" };
 const YAMCHA_SKIRT = { version: 1, width: 4, top: "minecraft:sand", fill: "minecraft:sandstone" };
@@ -679,7 +683,8 @@ function* foundationJob(dim, spec, spot, piece, y) {
 
 /**
  * Skirt of spec.skirt around the footprint. A column gets it only where the landmark has ground at its edge, the slope is above
- * the natural ground, and that ground is solid (never over water). Only air and low plants are replaced.
+ * the natural ground, and that ground is natural terrain (SKIRT_GROUND: never water, leaves, trunks, cactus or mushrooms). Only
+ * air and low plants are replaced, and never in a column where a player is.
  */
 function* skirtJob(dim, spec, spot) {
   const { width, top, fill } = spec.skirt;
@@ -687,9 +692,11 @@ function* skirtJob(dim, spec, spot) {
   const out = (v, lo, hi) => (v < lo ? lo - v : v > hi ? v - hi : 0);
   const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
   for (let x = x0 - width; x <= x1 + width; x++) {
+    const players = dim.getPlayers().map((p) => p.location); // read again each row: the job spans ticks
     for (let z = z0 - width; z <= z1 + width; z++) {
       const d = out(x, x0, x1) + out(z, z0, z1);
       if (d === 0 || d > width) continue;
+      if (players.some((p) => Math.abs(p.x - (x + 0.5)) < 1.3 && Math.abs(p.z - (z + 0.5)) < 1.3 && p.y > y - width - FOUNDATION_DEPTH && p.y < y + 2)) continue;
       const edge = dim.getBlock({ x: clamp(x, x0, x1), y, z: clamp(z, z0, z1) });
       if (!edge || edge.isAir || edge.isLiquid) continue;
       const t = y - d;
@@ -702,7 +709,7 @@ function* skirtJob(dim, spec, spot) {
         ground = block;
         break;
       }
-      if (!ground || ground.isLiquid || g >= t) continue;
+      if (!ground || g >= t || !SKIRT_GROUND.test(ground.typeId)) continue;
       for (let k = g + 1; k <= t; k++) dim.getBlock({ x, y: k, z })?.setType(k === t ? top : fill);
     }
     yield;
