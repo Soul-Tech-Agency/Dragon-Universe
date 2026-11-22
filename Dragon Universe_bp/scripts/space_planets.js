@@ -41,6 +41,7 @@ import * as mc from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 import { initVillages } from "./planet_villages.js";
 import { travelTimer } from "./travel_timing.js"; // TEMPORARY test measurement, see travel_timing.js
+import { navigatorExtras } from "./navigator_extras.js"; // extra buttons (constructions list of world_structures.js)
 
 const { world, system, BlockVolume } = mc;
 
@@ -2233,6 +2234,8 @@ async function openMenu(player) {
     });
     const form = new ActionFormData().title({ translate: "dbe.space.menu.title" }).body({ translate: "dbe.space.menu.body" });
     for (const k of dests) form.button(destName(k));
+    const extras = navigatorExtras().slice(); // snapshot: the selection index must match the buttons shown
+    for (const extra of extras) form.button(extra.label);
     let res;
     for (let attempt = 0; attempt < 10; attempt++) {
       res = await form.show(player);
@@ -2240,6 +2243,12 @@ async function openMenu(player) {
       await waitTicks(10);
     }
     if (!res || res.canceled) return;
+    if (res.selection >= dests.length) {
+      const extra = extras[res.selection - dests.length];
+      menuOpen.delete(player.id);
+      if (extra) await extra.open(player);
+      return;
+    }
     // travelTo marks the player as travelling synchronously; the menu itself is released before the
     // (possibly long) preparation so the Navigator never stays locked until the world is reloaded.
     const travel = travelTo(player, dests[res.selection]);
