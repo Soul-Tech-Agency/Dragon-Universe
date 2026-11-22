@@ -1921,6 +1921,9 @@
          "path" : "scripts/core/04_tournament_dims.js"
       },
       {
+         "path" : "scripts/core/05_db_cooldowns.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
