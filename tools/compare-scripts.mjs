@@ -6,75 +6,75 @@
 // cenário. Serve para refatorações que não devem mudar a lógica (ex.: renomear variáveis do núcleo). Não substitui
 // o teste no jogo: o ambiente falso não reproduz valores reais.
 //
-// Uso: node tools/compare-scripts.mjs [revisão]   (padrão: HEAD)
-import { execFileSync } from "node:child_process";
+// Uso: node tools/compare-scripts.mjs [revisão] [--unordered] [--ignore=a,b,...]   (revisão padrão: HEAD)
+//   --unordered   compara as chamadas como contagem (multiconjunto), sem a ordem. Para mudanças que movem código
+//                 entre módulos e por isso mudam a ordem de avaliação, mas não o que é chamado.
+//   --ignore=a,b  descarta as linhas que contêm qualquer um dos textos (ex.: system.runInterval,system.runTimeout),
+//                 para mudanças que trocam de propósito o agendamento. Os cabeçalhos "== callback de ..." dessas
+//                 chamadas também saem. Diga no commit o que foi ignorado e por quê.
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import url from "node:url";
+import { extractRevision, copyWorkingTree, runWithStub } from "./lib/scripts-snapshot.mjs";
 
-const root = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), "..");
-const rev = process.argv[2] ?? "HEAD";
-const SCRIPTS = "Dragon Universe_bp/scripts";
-const runner = path.join(root, "tools", "lib", "run-with-stub.mjs");
+const args = process.argv.slice(2);
+const rev = args.find((a) => !a.startsWith("--")) ?? "HEAD";
+const unordered = args.includes("--unordered");
+const ignore = (args.find((a) => a.startsWith("--ignore=")) ?? "--ignore=").slice(9).split(",").map((s) => s.trim()).filter(Boolean);
+const unknown = args.filter((a) => a.startsWith("--") && a !== "--unordered" && !a.startsWith("--ignore="));
+if (unknown.length) {
+  console.error("Opção desconhecida: " + unknown.join(" ") + "\nUso: node tools/compare-scripts.mjs [revisão] [--unordered] [--ignore=a,b,...]");
+  process.exit(2);
+}
+
 const work = fs.mkdtempSync(path.join(os.tmpdir(), "du-compare-"));
-
-// revisões anteriores a 2026-10-16 usam o nome antigo da pasta do Behavior Pack
-const OLD_SCRIPTS = "Dragon Block_bp/scripts";
-
-function extractRevision(target) {
-  // lista e copia os arquivos da revisão sem mexer na pasta de trabalho
-  const list = (dir) => execFileSync("git", ["ls-tree", "-r", "--name-only", rev, "--", dir], { cwd: root, encoding: "utf8" }).split("\n").filter(Boolean);
-  let base = SCRIPTS;
-  let files = list(SCRIPTS);
-  if (!files.length) {
-    base = OLD_SCRIPTS;
-    files = list(OLD_SCRIPTS);
-  }
-  if (!files.length) throw new Error(`nenhum arquivo de ${SCRIPTS} na revisão ${rev}`);
-  for (const f of files) {
-    const dest = path.join(target, path.relative(base, f));
-    fs.mkdirSync(path.dirname(dest), { recursive: true });
-    fs.writeFileSync(dest, execFileSync("git", ["show", `${rev}:${f}`], { cwd: root, maxBuffer: 64 * 1024 * 1024 }));
-  }
+let a, b;
+try {
+  const before = path.join(work, "antes");
+  const after = path.join(work, "depois");
+  extractRevision(rev, before);
+  copyWorkingTree(after);
+  a = runWithStub(before, path.join(work, "antes.log"));
+  b = runWithStub(after, path.join(work, "depois.log"));
+} finally {
+  fs.rmSync(work, { recursive: true, force: true });
 }
-
-// fs.cpSync encerra o processo sem erro em caminhos com acento no Windows (Node 22); cópia manual
-function copyDir(from, to) {
-  fs.mkdirSync(to, { recursive: true });
-  for (const e of fs.readdirSync(from, { withFileTypes: true })) {
-    const a = path.join(from, e.name);
-    const b = path.join(to, e.name);
-    if (e.isDirectory()) copyDir(a, b);
-    else fs.writeFileSync(b, fs.readFileSync(a));
-  }
-}
-
-function run(dir, logFile) {
-  execFileSync(process.execPath, [runner, dir, logFile], { stdio: ["ignore", "ignore", "inherit"], timeout: 600000 });
-  return fs.readFileSync(logFile, "utf8").split("\n");
-}
-
-const before = path.join(work, "antes");
-const after = path.join(work, "depois");
-extractRevision(before);
-copyDir(path.join(root, SCRIPTS), after);
-const a = run(before, path.join(work, "antes.log"));
-const b = run(after, path.join(work, "depois.log"));
 
 console.log(`${rev}: ${a.length} linhas · pasta atual: ${b.length} linhas · ${a.at(-2)} / ${b.at(-2)}`);
-const max = Math.max(a.length, b.length);
-let diffs = 0;
-for (let i = 0; i < max && diffs < 20; i++) {
-  if (a[i] !== b[i]) {
-    if (!diffs) console.log("Primeiras diferenças (linha: antes | depois):");
-    console.log(`  ${i + 1}: ${a[i] ?? "(fim)"}  |  ${b[i] ?? "(fim)"}`);
-    diffs++;
-  }
-}
-fs.rmSync(work, { recursive: true, force: true });
+const keep = (line) => !ignore.some((t) => line.includes(t));
+// a última linha útil ("callbacks executados: N") muda quando se ignora agendadores; fica fora da comparação
+const body = (log) => log.filter((l) => l && !l.startsWith("callbacks executados: ")).filter(keep);
+const mode = [unordered ? "sem ordem" : "na ordem", ignore.length ? "ignorando " + ignore.join(", ") : ""].filter(Boolean).join(", ");
+if (unordered || ignore.length) console.log("Modo: " + mode);
+
+const diffs = unordered ? multisetDiff(body(a), body(b)) : orderedDiff(ignore.length ? body(a) : a, ignore.length ? body(b) : b);
 if (diffs) {
   console.log("DIFERENTE: o comportamento observado mudou.");
   process.exit(1);
 }
-console.log("IDÊNTICO: mesmas chamadas ao jogo, na mesma ordem.");
+console.log(unordered ? "IDÊNTICO (sem ordem): as mesmas chamadas ao jogo, nas mesmas quantidades." : "IDÊNTICO: mesmas chamadas ao jogo, na mesma ordem.");
+
+function orderedDiff(x, y) {
+  const max = Math.max(x.length, y.length);
+  let n = 0;
+  for (let i = 0; i < max && n < 20; i++) {
+    if (x[i] !== y[i]) {
+      if (!n) console.log("Primeiras diferenças (linha: antes | depois):");
+      console.log(`  ${i + 1}: ${x[i] ?? "(fim)"}  |  ${y[i] ?? "(fim)"}`);
+      n++;
+    }
+  }
+  return n;
+}
+
+function multisetDiff(x, y) {
+  const count = new Map();
+  for (const l of x) count.set(l, (count.get(l) ?? 0) + 1);
+  for (const l of y) count.set(l, (count.get(l) ?? 0) - 1);
+  const changed = [...count].filter(([, n]) => n !== 0);
+  if (!changed.length) return 0;
+  console.log(`Chamadas com contagem diferente (${changed.length}; +N = N vezes a mais antes, -N = N vezes a mais depois):`);
+  for (const [line, n] of changed.slice(0, 20)) console.log(`  ${n > 0 ? "+" + n : n}  ${line}`);
+  if (changed.length > 20) console.log(`  ... mais ${changed.length - 20}`);
+  return changed.length;
+}
