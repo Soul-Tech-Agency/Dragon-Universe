@@ -350,5 +350,6 @@ system.afterEvents.scriptEventReceive.subscribe((ev) => {
   if (src?.typeId === "minecraft:player") report(src);
 });
 
-// O3-11: relógio único (core/scheduler.js), fase 15; registrado no mesmo lugar de antes (worldLoad)
-world.afterEvents.worldLoad.subscribe(() => every(20, "residents", tickResidents, { phase: 15 }));
+// O3-11: relógio único (core/scheduler.js), fase 3 (a 15 caía no mesmo tick do Universo 6, período 10 fase 5);
+// registrado no mesmo lugar de antes (worldLoad)
+world.afterEvents.worldLoad.subscribe(() => every(20, "residents", tickResidents, { phase: 3 }));
