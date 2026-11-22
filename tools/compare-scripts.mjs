@@ -7,6 +7,9 @@
 // o teste no jogo: o ambiente falso não reproduz valores reais.
 //
 // Uso: node tools/compare-scripts.mjs [revisão] [--unordered] [--ignore=a,b,...]   (revisão padrão: HEAD)
+//   A prova de um commit é SEMPRE contra o commit anterior a ele (com a mudança ainda não commitada, HEAD; depois do
+//   commit, <commit>~1 com a pasta no próprio commit). Se qualquer lado não carregar ("ERRO ao carregar"), o resultado
+//   é falha (código 1), mesmo que os dois registros sejam iguais.
 //   --unordered   compara as chamadas como contagem (multiconjunto), sem a ordem. Para mudanças que movem código
 //                 entre módulos e por isso mudam a ordem de avaliação, mas não o que é chamado.
 //   --ignore=a,b  descarta as linhas que contêm qualquer um dos textos (ex.: system.runInterval,system.runTimeout),
@@ -41,6 +44,9 @@ try {
 }
 
 console.log(`${rev}: ${a.length} linhas · pasta atual: ${b.length} linhas · ${a.at(-2)} / ${b.at(-2)}`);
+// Um lado que não carrega registra quase nada: dois registros "iguais" assim não provam nada.
+const loadErrors = [["antes (" + rev + ")", a], ["depois (pasta atual)", b]].filter(([, log]) => log.some((l) => l.startsWith("ERRO ao carregar")));
+for (const [side, log] of loadErrors) console.log(`ERRO: ${side} não carregou: ${log.find((l) => l.startsWith("ERRO ao carregar"))}`);
 const keep = (line) => !ignore.some((t) => line.includes(t));
 // a última linha útil ("callbacks executados: N") muda quando se ignora agendadores; fica fora da comparação
 const body = (log) => log.filter((l) => l && !l.startsWith("callbacks executados: ")).filter(keep);
@@ -50,6 +56,10 @@ if (unordered || ignore.length) console.log("Modo: " + mode);
 const diffs = unordered ? multisetDiff(body(a), body(b)) : orderedDiff(ignore.length ? body(a) : a, ignore.length ? body(b) : b);
 if (diffs) {
   console.log("DIFERENTE: o comportamento observado mudou.");
+  process.exit(1);
+}
+if (loadErrors.length) {
+  console.log("FALHOU: os scripts não carregaram; a comparação não vale como prova.");
   process.exit(1);
 }
 console.log(unordered ? "IDÊNTICO (sem ordem): as mesmas chamadas ao jogo, nas mesmas quantidades." : "IDÊNTICO: mesmas chamadas ao jogo, na mesma ordem.");
