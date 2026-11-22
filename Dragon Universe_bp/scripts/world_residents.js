@@ -26,13 +26,35 @@ const SETTLE = 60; // ticks the area must stay ready, with a player near, before
 const DRIFT = 3; // blocks away from its place before a resident is moved back
 
 /**
- * Bills and Whis, at the free side of the table with the cake in the dining room of the planet (bills_3: dark oak floor at
- * y=129, table at z=-13, ~12 blocks from the arrival). Changes when the palace exists.
+ * Bills and Whis. Until the palace exists: at the free side of the table with the cake in the dining room (bills_3: dark
+ * oak floor at y=129, table at z=-13, ~12 blocks from the arrival). Once both palace pieces are placed (bills_planet.js
+ * pieces 5 and 6, saved in dbe:bills_planet_pieces): on the terrace, Bills on his purple seat at the west end of the table,
+ * Whis on the light blue one at the east end, facing each other. The copies in the dining room are moved up (by tag, no
+ * new ones).
  */
 const BILLS_SPOTS = {
   beerus: { x: -2.5, y: 130, z: -10.5, yaw: 180 },
   whis: { x: 0.5, y: 130, z: -10.5, yaw: 180 },
 };
+const BILLS_TERRACE = {
+  beerus: { x: 3.5, y: 142, z: 22.5, yaw: -90 },
+  whis: { x: 11.5, y: 142, z: 22.5, yaw: 90 },
+};
+const BILLS_PIECES_PROP = "dbe:bills_planet_pieces"; // stateProp of bills_planet.js, read only
+const PALACE_PIECES = [5, 6];
+let piecesCache = { raw: undefined, palace: false };
+function palaceReady() {
+  const raw = world.getDynamicProperty(BILLS_PIECES_PROP);
+  if (raw !== piecesCache.raw) {
+    let placed = [];
+    try {
+      placed = typeof raw === "string" ? JSON.parse(raw) : [];
+    } catch {}
+    piecesCache = { raw, palace: PALACE_PIECES.every((i) => placed.includes(i)) };
+  }
+  return piecesCache.palace;
+}
+const billsSpot = (who) => () => (palaceReady() ? BILLS_TERRACE[who] : BILLS_SPOTS[who]);
 
 const residents = [];
 const types = new Set();
@@ -124,6 +146,7 @@ function step(r, players) {
   const spot = placeOf(r);
   if (!spot) return idle(st, "no site");
   const at = { x: spot.x, y: spot.y, z: spot.z };
+  const yaw = spot.yaw ?? r.yaw; // a place given by a function may bring its own facing
   if (!players.some((p) => Math.hypot(p.location.x - at.x, p.location.z - at.z) <= r.near)) return idle(st, "no player near");
   const dim = world.getDimension(r.dim);
   if (!areaReady(dim, { x: at.x - r.radius, y: at.y, z: at.z - r.radius }, { x: at.x + r.radius, y: at.y, z: at.z + r.radius }))
@@ -150,7 +173,7 @@ function step(r, players) {
       entity = r.structure ? placeCopy(dim, r, at) : dim.spawnEntity(r.type, at);
       if (!entity) return void (st.status = "not created");
       entity.addTag(TAG + r.id);
-      if (!r.structure) entity.setRotation({ x: 0, y: r.yaw });
+      if (!r.structure) entity.setRotation({ x: 0, y: yaw });
       st.spawns.push(now);
       st.created.push(entity.id);
       st.waitUntil = now + AFTER_SPAWN;
@@ -173,7 +196,7 @@ function step(r, players) {
     for (const e of extra) e.remove();
     if (extra.length) console.warn("[Residents] " + r.id + ": removed duplicate x" + extra.length);
   }
-  if (r.inWater ? !inWater(dim, entity.location) : distance(entity.location, at) > r.drift) entity.teleport(at, { rotation: { x: 0, y: r.yaw } });
+  if (r.inWater ? !inWater(dim, entity.location) : distance(entity.location, at) > r.drift) entity.teleport(at, { rotation: { x: 0, y: yaw } });
   st.status = "ok";
   r.onPresent?.(entity);
 }
@@ -244,8 +267,8 @@ function report(player) {
   }
 }
 
-addResident({ id: "bills_beerus", type: "dbe:beerus", dim: "dbe:bills_planet", at: BILLS_SPOTS.beerus, yaw: BILLS_SPOTS.beerus.yaw });
-addResident({ id: "bills_whis", type: "dbe:whis", dim: "dbe:bills_planet", at: BILLS_SPOTS.whis, yaw: BILLS_SPOTS.whis.yaw });
+addResident({ id: "bills_beerus", type: "dbe:beerus", dim: "dbe:bills_planet", at: billsSpot("beerus") });
+addResident({ id: "bills_whis", type: "dbe:whis", dim: "dbe:bills_planet", at: billsSpot("whis") });
 
 // The fish of the aquarium next to the dining room (water at x -9..-1, z -21..-18, y 131..134; bills_1/bills_3). They were
 // saved in bills_3 and doubled on every rebuild; now they are residents. adopt: in older worlds the fish already in the
