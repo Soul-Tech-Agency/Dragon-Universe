@@ -151,15 +151,20 @@ ACTIVE = "(not ((#form_button_text - '*') = #form_button_text))"
 INACTIVE = "((#form_button_text - '*') = #form_button_text)"
 
 
-def form_button(idx, size, faces, hide_empty=True, sound=True, **kw):
-    """Botão de formulário. faces: {'default': [...], 'hover': [...], 'pressed': [...]}"""
+def form_button(idx, size, faces, hide_empty=True, sound=True, vis=None, **kw):
+    """Botão de formulário. faces: {'default': [...], 'hover': [...], 'pressed': [...]}
+    idx None = item de factory (o índice vem da factory). vis = expressão de visibilidade própria."""
     binds = [{"binding_type": "collection_details", "binding_collection_name": COL}]
-    if hide_empty:
+    if vis:
+        binds += [coll_text(), view(vis)]
+    elif hide_empty:
         binds += [coll_text(), view("(not (#form_button_text = ''))")]
     d = {"size": size, "collection_index": idx, "$pressed_button_name": "button.form_button_click",
          "default_control": "default", "hover_control": "hover", "pressed_control": "pressed",
          "controls": [c(k, P(["100%", "100%"], faces[k])) for k in ("default", "hover", "pressed")],
          "bindings": binds}
+    if idx is None:
+        del d["collection_index"]
     if not sound:
         d["sound_volume"] = 0
     d.update(kw)
@@ -203,10 +208,11 @@ common["title_label"] = lbl("#title_text", ["100%", 10], "white", None, "Minecra
                             bindings=[{"binding_name": "#title_text"}])
 
 
-def title_bar(h, right_controls, close_w):
+def title_bar(h, right_controls, close_w, left_controls=None):
     return P(["100%", h], [
         bg(T + "title_bar"),
         c("row", H(["100%", "100%"], [
+            *(left_controls or []),
             pad(3),
             c("logo", P([h, "100%"], [c("logo@du2.logo", {})])),
             pad(4),
@@ -339,11 +345,11 @@ def caption(key, w="100%", h=8, scale=0.8, color="weak"):
     return lbl(key, [w, h], color, scale, "smooth", "left")
 
 
-def frame(size, max_size, title_h, right, close_w, body):
+def frame(size, max_size, title_h, right, close_w, body, left=None):
     return P(size, [
         bg(T + "panel_main"),
         c("col", V(["100%", "100%"], [
-            c("title", title_bar(title_h, right, close_w)),
+            c("title", title_bar(title_h, right, close_w, left)),
             c("body", P(["100%", "fill"], body)),
         ])),
     ], max_size=max_size, anchor_from="center", anchor_to="center", layer=1)
@@ -965,6 +971,367 @@ rc["mobile"] = frame(["100% - 6px", "100% - 6px"], [480, 270], 20, [
 ])
 
 
+# --------------------------------------------------------------------------- telas com abas e listas
+
+HIDDEN_ITEM = "(#form_button_text = '') or (#form_button_text = 'ui.dbe.backButton')"
+
+
+def body_label(color="desc"):
+    return c("body", lbl("#form_text", ["100%", "default"], color, None, "smooth", "left"))
+
+
+def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1, key_icons=None):
+    """Item de factory: linha com fundo, texto do botão e ícone opcional (cadeado do script) ou "+".
+    key_icons: [(chave do texto, ícone, cor)] = ícone à esquerda quando o texto é igual à chave."""
+    hide = HIDDEN_ITEM + (" or " + extra_hide if extra_hide else "")
+    anchor = "left_middle" if lines == 1 else "top_left"
+
+    def face(tex, plus_tex):
+        row = [pad(6)]
+        if key_icons:
+            row += [centered(14, P([14, 14], [c("i_" + ic, img(I + ic, [12, 12], col, bindings=[
+                coll_text(), view(f"(#form_button_text = '{key}')")])) for key, ic, col in key_icons])), pad(5)]
+        label = btn_label("text", None, size=["100%", 10 if lines == 1 else "default"], align="left",
+                          anchor_from=anchor, anchor_to=anchor)
+        if lines > 1:
+            label["offset"] = [0, 4]
+        row += [c("t", P(["fill", "100%"], [c("l", label)], clips_children=True))]
+        if icon:
+            row += [pad(4), centered(16, btn_icon([16, 16], None))]
+        if plus:
+            maxed = "(not ((#form_button_text - 'maximized_skill') = #form_button_text))"
+            row += [pad(4), centered(20, P([20, h - 6], [bg(T + plus_tex), c("i", img(I + "plus", [8, 8], "gold"))],
+                                           bindings=[coll_text(), view("(not " + maxed + ")")]))]
+        row += [pad(5)]
+        return [bg(T + tex), c("row", H(["100%", "100%"], row))]
+    button = form_button(None, ["100%", h], {"default": face("panel_row", "btn_plus"),
+                                             "hover": face("btn_secondary_hover", "btn_plus_hover"),
+                                             "pressed": face("btn_secondary_pressed", "btn_plus_pressed")},
+                         hide_empty=False, anchor_from="top_left", anchor_to="top_left")
+    return P(["100%", h + gap], [c("b@common.button", button)],
+             bindings=[{"binding_type": "collection_details", "binding_collection_name": COL},
+                       coll_text(), view("(not (" + hide + "))")])
+
+
+def factory_list(item_ref):
+    d = V(["100%", "100%c"], [], factory={"name": "buttons", "control_name": item_ref}, collection_name=COL,
+          bindings=[{"binding_name": "#form_button_length", "binding_name_override": "#collection_length"}])
+    del d["controls"]
+    return d
+
+
+def plain_button(idx, w, h, tex, icon=None, icol="cyan", label_color="text", vis=None):
+    def face(t):
+        row = []
+        if icon:
+            row += [centered(12, img(I + icon, [10, 10], icol)), pad(4)]
+        row += [c("t", P([w - 30 if icon else w - 12, "100%"], [c("l", btn_label(label_color, None, align="center",
+                                                                                 anchor_from="center", anchor_to="center"))],
+                         clips_children=True))]
+        return [bg(T + t), c("row", H(["100%c", "100%"], row, anchor_from="center", anchor_to="center"))]
+    return host("b@common.button", form_button(idx, [w, h], {"default": face(tex), "hover": face(tex + "_hover"),
+                                                             "pressed": face(tex + "_pressed")}, vis=vis), [w, h])
+
+
+def screen_root(nsd, form_name):
+    ns = nsd["namespace"]
+    nsd[form_name + "@du2.root"] = {"controls": [
+        c("pc@" + ns + ".pc", {"ignored": "$du2_mobile"}),
+        c("mobile@" + ns + ".mobile", {"ignored": "$du2_pc"}),
+    ]}
+
+
+def tab_screen(nsd, form_name, content):
+    """Tela com a barra de abas. content(mobile) -> lista de controles da área de conteúdo."""
+    screen_root(nsd, form_name)
+    nsd["pc"] = frame([450, 252], ["100% - 8px", "100% - 8px"], 24, [], 18, [
+        c("row", H(["100%", "100%"], [
+            c("nav@du2.nav_pc", {}),
+            c("content", P(["fill", "100%"], [c("inner", P(["100% - 12px", "100% - 10px"], content(False),
+                                                         anchor_from="center", anchor_to="center"))])),
+        ])),
+    ])
+    nsd["mobile"] = frame(["100% - 6px", "100% - 6px"], [480, 270], 20, [], 22, [
+        c("row", H(["100%", "100%"], [
+            c("nav@du2.nav_mobile", {}),
+            c("content", P(["fill", "100%"], [c("inner", P(["100% - 8px", "100% - 6px"], content(True),
+                                                         anchor_from="center", anchor_to="center"))])),
+        ])),
+    ])
+
+
+def scroll_area(nsd, name, controls):
+    nsd[name] = V(["100%", "100%c"], controls)
+    return c("s@common.scrolling_panel", scroll(nsd["namespace"] + "." + name))
+
+
+# ---- Habilidades (kD): body = pontos; 10 = Transformações; 11+ = melhorar habilidade
+sk = {"namespace": "du2_skills"}
+sk["row_pc"] = list_item(20, plus=True, extra_hide="(#form_button_text = 'ui.dbe.skills.button.transformations')")
+sk["row_mobile"] = list_item(22, plus=True, extra_hide="(#form_button_text = 'ui.dbe.skills.button.transformations')")
+
+
+def skills_content(mobile):
+    m = "mobile" if mobile else "pc"
+    return [c("col", V(["100%", "100%"], [
+        c("scroll", P(["100%", "fill"], [scroll_area(sk, "scroll_" + m, [
+            body_label(), pad("100%", 4), c("list", factory_list("du2_skills.row_" + m))])])),
+        pad("100%", 4),
+        c("bottom", H(["100%", 22], [
+            c("fill", P(["fill", "100%"])),
+            c("transformations", plain_button(10, 130, 22, "btn_secondary", "tab_transformations", "gold")),
+        ])),
+    ]))]
+
+
+tab_screen(sk, "skills_form", skills_content)
+
+
+# ---- Transformações (kj): 10+ = formas (texto com requisitos; ícone = cadeado do script)
+tr = {"namespace": "du2_transformations"}
+tr["row_pc"] = list_item(80, icon=True, lines=7)
+tr["row_mobile"] = list_item(84, icon=True, lines=7)
+
+
+def transformations_content(mobile):
+    m = "mobile" if mobile else "pc"
+    return [c("scroll", P(["100%", "100%"], [scroll_area(tr, "scroll_" + m, [
+        c("list", factory_list("du2_transformations.row_" + m))])]))]
+
+
+tab_screen(tr, "transformations_form", transformations_content)
+
+
+def back_button(w, h):
+    """Voltar (índice 0, só quando o texto é ui.dbe.backButton)."""
+    def face(t):
+        return [bg(T + t), c("i", img(I + "back", [10, 10], "gold"))]
+    btn = form_button(0, [w, h], {"default": face("btn_secondary"), "hover": face("btn_secondary_hover"),
+                                  "pressed": face("btn_secondary_pressed")},
+                      vis="(#form_button_text = 'ui.dbe.backButton')")
+    return [pad(3), c("back", P([w, "100%"], [c("h", host("b@common.button", btn, [w, h]) | {
+        "anchor_from": "center", "anchor_to": "center"})]))]
+
+
+def action_button(idx, w, h, key_icons):
+    """Botão principal com ícone escolhido pela chave do texto."""
+    def face(t):
+        icons = [c("i_" + ic, img(I + ic, [10, 10], "dark", bindings=[coll_text(), view(f"(#form_button_text = '{k}')")]))
+                 for k, ic in key_icons]
+        return [bg(T + t), c("row", H(["100%", "100%"], [
+            pad(8), centered(12, P([12, 12], icons)), pad(4),
+            c("t", P(["fill", "100%"], [c("l", btn_label("dark", None, align="center", anchor_from="center",
+                                                         anchor_to="center"))], clips_children=True)),
+            pad(8),
+        ]))]
+    btn = form_button(idx, [w, h], {"default": face("btn_primary"), "hover": face("btn_primary_hover"),
+                                    "pressed": face("btn_primary_pressed")},
+                      vis="(not ((#form_button_text = '') or (#form_button_text = 'ui.dbe.backButton')))")
+    return host("b@common.button", btn, [w, h])
+
+
+def detail_screen(nsd, form_name, bottom):
+    """Tela sem abas: Voltar na barra de título, texto com rolagem e botões embaixo."""
+    screen_root(nsd, form_name)
+    for m, (size, mx, th, inset, bh) in {"pc": ([400, 240], ["100% - 8px", "100% - 8px"], 24, 12, 22),
+                                          "mobile": (["100% - 6px", "100% - 6px"], [480, 270], 20, 8, 22)}.items():
+        nsd[m] = frame(size, mx, th, [], 22 if m == "mobile" else 18, [
+            c("inner", V([f"100% - {inset}px", f"100% - {inset - 2}px"], [
+                c("scroll", P(["100%", "fill"], [scroll_area(nsd, "scroll_" + m, [body_label("text")])])),
+                pad("100%", 4),
+                c("bottom", H(["100%", bh], [c("fill", P(["fill", "100%"])), *bottom(m == "mobile")])),
+            ], anchor_from="center", anchor_to="center")),
+        ], left=back_button(24, th - 4 if th >= 24 else th))
+
+
+# ---- Missões (kC lista: 10+ = missões) e detalhe (kB missão / k9 conquista: 0 = Voltar, 1 = Iniciar/Reiniciar)
+qs = {"namespace": "du2_quests"}
+qs["row_pc"] = list_item(20)
+qs["row_mobile"] = list_item(22)
+
+
+def quests_content(mobile):
+    m = "mobile" if mobile else "pc"
+    return [c("scroll", P(["100%", "100%"], [scroll_area(qs, "scroll_" + m, [
+        c("list", factory_list("du2_quests.row_" + m))])]))]
+
+
+tab_screen(qs, "quest_list_form", quests_content)
+
+qd = {"namespace": "du2_detail"}
+detail_screen(qd, "detail_form", lambda mobile: [
+    c("action", action_button(1, 130, 22, [("ui.dbe.quest.button.start", "play"),
+                                          ("ui.dbe.quest.button.restart", "restart")]))])
+
+
+# ---- Treino (kH): 10+ = sombra / concentração / parar (ícone pela chave do texto)
+tn = {"namespace": "du2_training"}
+TRAIN_ICONS = [("ui.dbe.training.button.shadow_dummy", "train_shadow", "cyan"),
+               ("ui.dbe.training.button.concentration", "train_concentration", "gold"),
+               ("ui.dbe.training.button.stop_concentration", "train_stop", "red")]
+tn["row_pc"] = list_item(24, key_icons=TRAIN_ICONS)
+tn["row_mobile"] = list_item(26, key_icons=TRAIN_ICONS)
+
+
+def training_content(mobile):
+    m = "mobile" if mobile else "pc"
+    return [c("scroll", P(["100%", "100%"], [scroll_area(tn, "scroll_" + m, [
+        c("list", factory_list("du2_training.row_" + m))])]))]
+
+
+tab_screen(tn, "training_form", training_content)
+
+
+# ---- Conquistas (kb): 10+ = conquistas (título + progresso, descrição na 2ª linha)
+ac = {"namespace": "du2_achievements"}
+ac["row_pc"] = list_item(44, lines=3)
+ac["row_mobile"] = list_item(46, lines=3)
+
+
+def achievements_content(mobile):
+    m = "mobile" if mobile else "pc"
+    return [c("scroll", P(["100%", "100%"], [scroll_area(ac, "scroll_" + m, [
+        c("list", factory_list("du2_achievements.row_" + m))])]))]
+
+
+tab_screen(ac, "achievement_list_form", achievements_content)
+
+
+# ---- Notícias (kz): só body + as 2 imagens fixas
+nw = {"namespace": "du2_news"}
+
+
+def news_content(mobile):
+    m = "mobile" if mobile else "pc"
+    return [c("scroll", P(["100%", "100%"], [scroll_area(nw, "scroll_" + m, [
+        body_label("text"),
+        pad("100%", 6),
+        c("items", P(["100%", 121], [c("i", {"type": "image", "texture": "textures/ui/images/patron_items"})])),
+        pad("100%", 4),
+        c("chat", P(["100%", 47], [c("i", {"type": "image", "texture": "textures/ui/images/patron_chat"})])),
+        pad("100%", 2),
+    ])]))]
+
+
+tab_screen(nw, "news_form", news_content)
+
+
+# ---- Guia de ajuda (help): body = texto do tópico; 10+ = tópicos
+hp = {"namespace": "du2_help"}
+hp["row_pc"] = list_item(20)
+hp["row_mobile"] = list_item(22)
+
+
+def help_content(mobile):
+    m = "mobile" if mobile else "pc"
+    return [c("scroll", P(["100%", "100%"], [scroll_area(hp, "scroll_" + m, [
+        body_label("text"),
+        pad("100%", 6),
+        c("list", factory_list("du2_help.row_" + m)),
+    ])]))]
+
+
+tab_screen(hp, "help_form", help_content)
+
+
+# ---- Customização (kv) e Barbeiro (kI): body = um nome de opção por linha; setas em pares
+cu = {"namespace": "du2_customization"}
+
+
+def arrow_pair_rows(first_idx, rows, row_h, arrow_w):
+    """Linhas com ◀ ▶ (índices first_idx + 2k e + 2k + 1) e o body por cima, uma linha de texto por linha."""
+    items = []
+    for k in range(rows):
+        a, b = first_idx + 2 * k, first_idx + 2 * k + 1
+        row_bg = img(T + "panel_row", ["100%", row_h - 2], collection_index=a,
+                     bindings=[coll_text(), view("(not (#form_button_text = ''))")])
+        items.append(c(f"row{k}", P(["100%", row_h], [
+            c("bg", P(["100%", "100%"], [c("i", row_bg)], collection_name=COL)),
+            c("arrows", H(["100%", row_h - 2], [
+                c("prev", host("b@common.button", arrow(a, "chevron_left", arrow_w, row_h - 2), [arrow_w, row_h - 2])),
+                c("fill", P(["fill", "100%"])),
+                c("next", host("b@common.button", arrow(b, "chevron_right", arrow_w, row_h - 2), [arrow_w, row_h - 2])),
+            ], layer=3)),
+        ])))
+    text = lbl("#form_text", ["100%", "default"], "text", None, "default", "center",
+               line_padding=row_h - 10, offset=[0, (row_h - 10) // 2 - 1],
+               anchor_from="top_middle", anchor_to="top_middle")
+    return P(["100%", rows * row_h], [
+        c("rows", V(["100%", "100%"], items)),
+        c("names", P([f"100% - {2 * arrow_w + 8}px", "100%"], [c("t", text)], layer=4, clips_children=True,
+                     anchor_from="top_middle", anchor_to="top_middle")),
+    ])
+
+
+def custom_preview(w, oozaru_marker=None, confirm=None):
+    if oozaru_marker:
+        renders = [
+            c("player@statistics_form.player_preview", {"size": [70, 70], "offset": [0, -6],
+                "$preview_visible": f"((#form_text - '{oozaru_marker}') = #form_text)"}),
+            c("oozaru@statistics_form.player_preview", {"size": [22, 22], "offset": [0, -6],
+                "$preview_visible": f"(not ((#form_text - '{oozaru_marker}') = #form_text))"}),
+        ]
+    else:
+        renders = [c("player", {"type": "custom", "renderer": "live_player_renderer", "size": [70, 70], "layer": 2,
+                                "anchor_from": "center", "anchor_to": "center", "offset": [0, -6],
+                                "property_bag": {"#look_at_cursor": True}})]
+    col = [c("preview", P(["100%", "fill"], [bg(T + "panel_preview"), *renders], clips_children=True))]
+    if confirm:
+        col += [pad("100%", 4), confirm]
+    return V([w, "100%"], col)
+
+
+def options_area(name, rows_panel, mobile):
+    """PC: linhas fixas. Celular: linhas de 22 com rolagem (8 linhas não cabem em 195 de altura)."""
+    if not mobile:
+        return c("opts", rows_panel | {"anchor_from": "top_middle", "anchor_to": "top_middle"})
+    return scroll_area(cu, name, [c("opts", rows_panel)])
+
+
+def custom_screen(form_name, title_left, first_idx, rows, oozaru_marker, with_confirm):
+    for m in ("pc", "mobile"):
+        mobile = m == "mobile"
+        row_h, arrow_w = (22, 26) if mobile else (16, 20)
+        confirm = c("confirm", host("b@common.button", form_button(1, ["100%", 22], {
+            k: [bg(T + "btn_primary" + suf), c("row", H(["100%c", "100%"], [
+                centered(12, img(I + "check", [10, 10], "dark")), pad(4),
+                c("t", P([80, "100%"], [c("l", btn_label("dark", None, align="center", anchor_from="center",
+                                                         anchor_to="center"))], clips_children=True)),
+            ], anchor_from="center", anchor_to="center"))]
+            for k, suf in (("default", ""), ("hover", "_hover"), ("pressed", "_pressed"))}),
+            ["100%", 22])) if with_confirm else None
+        th = 20 if mobile else 24
+        body = [c("inner", H(["100% - 10px" if not mobile else "100% - 6px", "100% - 8px" if not mobile else "100% - 6px"], [
+            c("left", custom_preview(130 if not mobile else 118, oozaru_marker, confirm)),
+            pad(6),
+            c("right", P(["fill", "100%"], [options_area(form_name + "_opts_" + m,
+                                                         arrow_pair_rows(first_idx, rows, row_h, arrow_w), mobile)])),
+        ], anchor_from="center", anchor_to="center"))]
+        size, mx = ([400, 240], ["100% - 8px", "100% - 8px"]) if not mobile else (["100% - 6px", "100% - 6px"], [480, 270])
+        cu[form_name + "_" + m] = frame(size, mx, th, [], 22 if mobile else 18, body,
+                                        left=back_button(24, th - 4 if th >= 24 else th) if title_left else None)
+    cu[form_name + "@du2.root"] = {"controls": [
+        c("pc@du2_customization." + form_name + "_pc", {"ignored": "$du2_mobile"}),
+        c("mobile@du2_customization." + form_name + "_mobile", {"ignored": "$du2_pc"}),
+    ]}
+
+
+custom_screen("customization_form", True, 2, 8, None, True)
+custom_screen("select_hair_form", False, 0, 5, "\u00a7r\u00a7o\u00a7r", False)
+
+
+# ---- Informações completas (kf): mesmo título das Estatísticas, sem a flag du2;; body = lista de stats
+sv = {"namespace": "du2_statistics_view"}
+
+
+def statistics_view_content(mobile):
+    m = "mobile" if mobile else "pc"
+    return [c("scroll", P(["100%", "100%"], [scroll_area(sv, "scroll_" + m, [body_label("text")])]))]
+
+
+tab_screen(sv, "statistics_view_form", statistics_view_content)
+
+
 # --------------------------------------------------------------------------- escrita
 
 def fmt(v, ind=0):
@@ -1025,3 +1392,13 @@ def write(name, data):
 write("du2_common.json", common)
 write("du2_statistics.json", st)
 write("du2_select_race.json", rc)
+write("du2_skills.json", sk)
+write("du2_transformations.json", tr)
+write("du2_quests.json", qs)
+write("du2_detail.json", qd)
+write("du2_training.json", tn)
+write("du2_achievements.json", ac)
+write("du2_news.json", nw)
+write("du2_help.json", hp)
+write("du2_customization.json", cu)
+write("du2_statistics_view.json", sv)

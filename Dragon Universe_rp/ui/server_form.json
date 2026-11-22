@@ -62,7 +62,7 @@
                 }
             },
             {
-                "achievement_list@achievement_list_form.achievement_list_form": {
+                "achievement_list@du2_achievements.achievement_list_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
@@ -104,7 +104,7 @@
                 }
             },
             {
-                "customization@customization_form.customization_form": {
+                "customization@du2_customization.customization_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
@@ -146,7 +146,7 @@
                 }
             },
             {
-                "news@news_form.news_form": {
+                "news@du2_news.news_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
@@ -192,7 +192,7 @@
                 }
             },
             {
-                "quest@quest_form.quest_form": {
+                "quest@du2_detail.detail_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
@@ -206,7 +206,7 @@
                 }
             },
             {
-                "quest_list@quest_list_form.quest_list_form": {
+                "quest_list@du2_quests.quest_list_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
@@ -220,7 +220,7 @@
                 }
             },
             {
-                "select_hair@select_hair_form.select_hair_form": {
+                "select_hair@du2_customization.select_hair_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
@@ -276,7 +276,7 @@
                 }
             },
             {
-                "skills@skills_form.skills_form": {
+                "skills@du2_skills.skills_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
@@ -290,7 +290,7 @@
                 }
             },
             {
-                "statistics@statistics_form.statistics_form": {
+                "statistics@du2_statistics_view.statistics_view_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
@@ -324,7 +324,7 @@
                 }
             },
             {
-                "help@help_form.help_form": {
+                "help@du2_help.help_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
@@ -338,7 +338,7 @@
                 }
             },
             {
-                "training@training_form.training_form": {
+                "training@du2_training.training_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
@@ -352,7 +352,7 @@
                 }
             },
             {
-                "transformations@transformations_form.transformations_form": {
+                "transformations@du2_transformations.transformations_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
@@ -364,9 +364,6 @@
                         }
                     ]
                 }
-            },
-            {
-                "du_icon_overlay@menu_form.du_icon_overlay": { }
             }
         ]
     }

@@ -6364,6 +6364,36 @@
          "path" : "ui/du2/du2_statistics.json"
       },
       {
+         "path" : "ui/du2/du2_statistics_view.json"
+      },
+      {
+         "path" : "ui/du2/du2_customization.json"
+      },
+      {
+         "path" : "ui/du2/du2_help.json"
+      },
+      {
+         "path" : "ui/du2/du2_news.json"
+      },
+      {
+         "path" : "ui/du2/du2_achievements.json"
+      },
+      {
+         "path" : "ui/du2/du2_training.json"
+      },
+      {
+         "path" : "ui/du2/du2_detail.json"
+      },
+      {
+         "path" : "ui/du2/du2_quests.json"
+      },
+      {
+         "path" : "ui/du2/du2_transformations.json"
+      },
+      {
+         "path" : "ui/du2/du2_skills.json"
+      },
+      {
          "path" : "ui/debug_screen.json"
       },
       {
@@ -6398,9 +6428,6 @@
       },
       {
          "path" : "ui/menus/functions_form.json"
-      },
-      {
-         "path" : "ui/menus/help_form.json"
       },
       {
          "path" : "ui/menus/gravity_machine_form.json"
