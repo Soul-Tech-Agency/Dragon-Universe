@@ -213,7 +213,7 @@ def title_bar(h, right_controls, close_w):
             c("title", P(["fill", "100%"], [c("t@du2.title_label", {})], clips_children=True)),
             *right_controls,
             pad(4),
-            c("close", P([close_w, "100%"], [c("b@du2.close_button", {"size": [close_w, h - 6],
+            c("close", P([close_w, "100%"], [c("b@du2.close_button", {"size": [close_w, h - 6 if h >= 24 else h],
                                                                       "anchor_from": "center", "anchor_to": "center"})])),
             pad(3),
         ])),

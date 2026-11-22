@@ -4993,7 +4993,7 @@
     "close": {
      "type": "panel",
      "size": [22, "100%"],
-     "controls": [{"b@du2.close_button": {"size": [22, 14], "anchor_from": "center", "anchor_to": "center"}}]
+     "controls": [{"b@du2.close_button": {"size": [22, 20], "anchor_from": "center", "anchor_to": "center"}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
