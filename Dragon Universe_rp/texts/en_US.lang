@@ -1034,7 +1034,7 @@ saiyan.transformation.beast=Beast
 saiyan.transformation.ultra_ego=Ultra Ego
 ## namekuseijin
 namekian=Namekian
-namekian.description=Peaceful and wise, with Constitution x1.5, regeneration x1.6 and a slightly larger body. Only Porunga, from Namek's Dragon Balls, can unlock the Namekians' Potential.
+namekian.description=Peaceful and wise, with Constitution x1.5, regeneration x1.6 and a slightly larger body. Potential Unleashed (level 40) comes from a Dragon Ball wish or from training with King Kai.
 namekian.transformation.base=Base Form
 namekian.transformation.full_released=Full Released
 namekian.transformation.potential_unleashed=Potential Unleashed
@@ -1666,7 +1666,7 @@ ui.dbe.help.text.quests.3=Master: talk to Goku and invite him to be your master 
 ui.dbe.help.text.quests.4=Characters spread across the world offer training, challenges and unique quests.
 ui.dbe.help.text.dragon_balls=There are 7 Dragon Balls on Earth, which call Shenron, and 7 on Namek, which call Porunga. The Dragon Radar, held in your hand, points to the nearest ball.
 ui.dbe.help.text.dragon_balls.2=Put all 7 side by side and interact with one to call the dragon: you get 3 wishes. Afterwards the balls turn to stone and come back after about 20 minutes of play.
-ui.dbe.help.text.dragon_balls.3=Wishes: items (Senzu Beans, diamonds and more), Divine Ki and, for Saiyans, getting the tail back. Only Porunga changes your race, and for Namekians he also unlocks the Potential.
+ui.dbe.help.text.dragon_balls.3=Wishes: items (Senzu Beans, diamonds and more), Divine Ki, Potential Unleashed for Namekians and, for Saiyans, getting the tail back. Only Porunga changes your race.
 ui.dbe.help.text.planets=The Star Navigator (iron, ender pearl, Nanochip and redstone) opens the destination list: Orbital Station, Namek, Planet Vegeta, Frieza Planet, Yardrat, Universe 6 Arena, Kaioshin Planet and Earth.
 ui.dbe.help.text.planets.2=Earth takes you back to the exact spot you left from. On the first landing on a planet the ground is prepared: wait a few seconds.
 ui.dbe.help.text.planets.3=Flying above height 500 takes you out of the atmosphere to the Orbital Station. In space, fly to a planet to land on it.

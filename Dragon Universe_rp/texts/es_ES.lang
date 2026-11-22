@@ -1034,7 +1034,7 @@ saiyan.transformation.beast=Forma Bestial
 saiyan.transformation.ultra_ego=Ultra Ego
 ## namekuseijin
 namekian=Namekuseijin
-namekian.description=Pacíficos y sabios, con Constitución x1.5, regeneración x1.6 y un cuerpo algo mayor. Solo Porunga, de las Esferas del Dragón de Namek, puede liberar el Potencial de los Namekuseijin.
+namekian.description=Pacíficos y sabios, con Constitución x1.5, regeneración x1.6 y un cuerpo algo mayor. El Potencial Liberado (nivel 40) viene de un deseo a las Esferas del Dragón o del entrenamiento con Kaio-sama.
 namekian.transformation.base=Forma Base
 namekian.transformation.full_released=Poder Completo
 namekian.transformation.potential_unleashed=Potencial Liberado
@@ -1666,7 +1666,7 @@ ui.dbe.help.text.quests.3=Maestro: habla con Goku e invítalo a ser tu maestro (
 ui.dbe.help.text.quests.4=Personajes repartidos por el mundo ofrecen entrenamientos, desafíos y misiones únicas.
 ui.dbe.help.text.dragon_balls=Hay 7 Esferas del Dragón en la Tierra, que llaman a Shenlong, y 7 en Namek, que llaman a Porunga. El Radar del Dragón, en la mano, señala la esfera más cercana.
 ui.dbe.help.text.dragon_balls.2=Junta las 7 una al lado de otra e interactúa con una para llamar al dragón: son 3 deseos. Después las esferas se vuelven piedra y vuelven tras unos 20 minutos de juego.
-ui.dbe.help.text.dragon_balls.3=Deseos: objetos (Semillas del Ermitaño, diamantes y más), el Ki Divino y, para los Saiyajin, recuperar la cola. Solo Porunga cambia tu raza, y para los Namekuseijin también desbloquea el Potencial.
+ui.dbe.help.text.dragon_balls.3=Deseos: objetos (Semillas del Ermitaño, diamantes y más), el Ki Divino, el Potencial Liberado para los Namekuseijin y, para los Saiyajin, recuperar la cola. Solo Porunga cambia tu raza.
 ui.dbe.help.text.planets=El Navegador Estelar (hierro, perla de Ender, Nanochip y redstone) abre la lista de destinos: Estación Orbital, Namek, Planeta Vegeta, Planeta Freezer, Yardrat, Arena del Universo 6, Planeta Kaioshin y Tierra.
 ui.dbe.help.text.planets.2=Tierra te devuelve al punto exacto de donde saliste. En el primer aterrizaje en un planeta se prepara el terreno: espera unos segundos.
 ui.dbe.help.text.planets.3=Volando por encima de la altura 500 sales de la atmósfera y llegas a la Estación Orbital. En el espacio, vuela hacia un planeta para aterrizar en él.

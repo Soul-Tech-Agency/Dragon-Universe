@@ -1034,7 +1034,7 @@ saiyan.transformation.beast=Forma Bestial
 saiyan.transformation.ultra_ego=Ultra Ego
 ## namekuseijin
 namekian=Namekuseijin
-namekian.description=Pacíficos e sábios, com Constituição x1.5, regeneração x1.6 e corpo um pouco maior. Só Porunga, das Esferas do Dragão de Namek, pode liberar o Potencial dos Namekuseijins.
+namekian.description=Pacíficos e sábios, com Constituição x1.5, regeneração x1.6 e corpo um pouco maior. O Potencial Liberado (nível 40) vem de um desejo às Esferas do Dragão ou do treino com o Senhor Kaio.
 namekian.transformation.base=Forma Base
 namekian.transformation.full_released=Poder Completo
 namekian.transformation.potential_unleashed=Potencial Liberado
@@ -1670,7 +1670,7 @@ ui.dbe.help.text.quests.3=Mestre: fale com o Goku e convide-o para ser o seu mes
 ui.dbe.help.text.quests.4=Personagens espalhados pelo mundo oferecem treinos, desafios e missões únicas.
 ui.dbe.help.text.dragon_balls=Há 7 Esferas do Dragão na Terra, que chamam Shenlong, e 7 em Namek, que chamam Porunga. O Radar do Dragão, na mão, aponta a esfera mais próxima.
 ui.dbe.help.text.dragon_balls.2=Junte as 7 lado a lado e interaja com uma para chamar o dragão: são 3 desejos. Depois disso as esferas viram pedra e voltam após cerca de 20 minutos de jogo.
-ui.dbe.help.text.dragon_balls.3=Desejos: itens (Sementes dos Deuses, diamantes e outros), o Ki Divino e, para Saiyajins, o rabo de volta. Só Porunga troca a sua raça, e para Namekuseijins ele também libera o Potencial.
+ui.dbe.help.text.dragon_balls.3=Desejos: itens (Sementes dos Deuses, diamantes e outros), o Ki Divino, o Potencial Liberado para Namekuseijins e, para Saiyajins, o rabo de volta. Só Porunga troca a sua raça.
 ui.dbe.help.text.planets=O Navegador Estelar (ferro, pérola do Ender, Nanochip e redstone) abre a lista de destinos: Estação Orbital, Namek, Planeta Vegeta, Planeta Freeza, Yardrat, Arena do Universo 6, Planeta Kaioshin e Terra.
 ui.dbe.help.text.planets.2=Terra leva você de volta ao ponto exato de onde saiu. No primeiro pouso em um planeta o terreno é preparado: espere alguns segundos.
 ui.dbe.help.text.planets.3=Voando acima da altura 500 você sai da atmosfera e chega à Estação Orbital. No espaço, voe até um planeta para pousar nele.
