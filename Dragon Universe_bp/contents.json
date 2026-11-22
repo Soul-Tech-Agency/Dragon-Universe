@@ -1927,6 +1927,9 @@
          "path" : "scripts/core/06_requirements.js"
       },
       {
+         "path" : "scripts/core/07_stats.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
