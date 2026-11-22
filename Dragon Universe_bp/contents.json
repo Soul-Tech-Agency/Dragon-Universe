@@ -1915,6 +1915,9 @@
          "path" : "scripts/core/02_forms_timers.js"
       },
       {
+         "path" : "scripts/core/03_skill_base.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
