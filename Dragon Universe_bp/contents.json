@@ -1939,6 +1939,9 @@
          "path" : "scripts/core/10_bars.js"
       },
       {
+         "path" : "scripts/core/11_entity_wrapper.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
