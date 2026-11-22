@@ -330,7 +330,7 @@ export function createSpaceArena(cfg) {
     if (!(player.commandPermissionLevel >= 1)) return;
     if (placing) return player.sendMessage("§e[" + cfg.label + "] busy placing a piece; try again in a few seconds.");
     // the migration queue, if any, stays: the pieces are placed again and the queue still clears what the new files skip
-    player.sendMessage("§e[" + cfg.label + "] placing the whole build again: blocks players built or broke inside it are lost.");
+    player.sendMessage("§e[" + cfg.label + "] placing the build's blocks again: whatever players broke or changed in it goes back to the original.");
     loadPlaced().clear();
     savePlaced();
     retry.clear();
