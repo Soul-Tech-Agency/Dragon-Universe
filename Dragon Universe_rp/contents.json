@@ -6163,6 +6163,42 @@
          "path" : "textures/ui/du2/icons/train_weights.png"
       },
       {
+         "path" : "textures/ui/du2/icons/quest_main.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/quest_side.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/quest_challenge.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/quest_done.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/ach_battle_power.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/ach_defeat.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/ach_item.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/ach_skill.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/ach_requirement.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/ach_done.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/skill_points.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/skill_max.png"
+      },
+      {
          "path" : "textures/ui/du2/panel_dark.json"
       },
       {
