@@ -88,6 +88,8 @@ Código de origem: **A** = Arquitetura, **T** = Treinos, **M** = Mundo (Marco), 
 
 **Atalho:** responder "aceito todas as recomendações" já destrava a 1.7.18 e a 1.7.19.
 
+> ✅ **DECIDIDO em 2026-11-22:** o usuário aceitou todas as recomendações desta seção ("aceito as recomendações; talvez faremos algumas alterações no futuro"). Continuam abertas só a 30 (gosto: olhos do SSJ4, cabelo do SSJ3 de Vegeta/Trunks, pontas do Beast) e a 32 (print da linha na Cápsula). Mudanças futuras entram como decisões novas.
+
 ### Organização e desempenho
 
 1. **(A1) Ordem do trabalho interno:** ganhos rápidos primeiro (lista duplicada, voo, relógio único) **ou** reorganizar tudo primeiro?
