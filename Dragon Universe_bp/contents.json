@@ -1936,6 +1936,9 @@
          "path" : "scripts/core/09_skills_combat.js"
       },
       {
+         "path" : "scripts/core/10_bars.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
