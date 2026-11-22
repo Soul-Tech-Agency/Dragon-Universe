@@ -434,15 +434,16 @@ def chip(icon, icol, cap_key, idx, val_color="value"):
 
 
 def xp_segments(h):
-    segs = []
-    for k in range(1, 11):
-        expr = "(" + " or ".join(f"(#form_button_text = '{j}')" for j in range(k, 11)) + ")"
-        on = img(T + "xp_on", ["100%", "100%"], collection_index=26, bindings=[coll_text(), view(expr)])
-        segs.append(c(f"seg{k}", P(["10%", "100%"], [
-            c("off", img(T + "xp_off", ["100% - 2px", h])),
-            c("on_host", P(["100% - 2px", h], [c("on", on)], collection_name=COL)),
-        ])))
-    return H(["fill", "100%"], segs)
+    """Barra de XP de 10 segmentos pelo slot 26 ("0".."10"). Os apagados são fixos. Por cima, um painel por
+    nível n (slot 26 = 'n') com os n primeiros acesos: 10 comparações em vez das 55 da versão com "OU" por
+    segmento (planos/UI_DESEMPENHO.md, item 5). O desenho é o mesmo."""
+    def cell(name, tex):
+        return c(name, P(["10%", "100%"], [c("i", img(T + tex, ["100% - 2px", h]))]))
+    off = H(["100%", "100%"], [cell(f"seg{k}", "xp_off") for k in range(1, 11)])
+    levels = [c(f"lv{n}", H(["100%", "100%"], [cell(f"seg{k}", "xp_on") for k in range(1, n + 1)],
+                            collection_index=26, bindings=[coll_text(), view(f"(#form_button_text = '{n}')")]))
+              for n in range(1, 11)]
+    return P(["fill", "100%"], [c("off", off), c("on", P(["100%", "100%"], levels, collection_name=COL))])
 
 
 def level_bar(mobile):
