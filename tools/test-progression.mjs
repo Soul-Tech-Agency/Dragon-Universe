@@ -18,8 +18,8 @@ const player = ({ saved, completed = [], active = [] } = {}) => {
   };
 };
 const entity = (typeId, tags = []) => ({ typeId, hasTag: (t) => tags.includes(t) });
-const task = (type, entity) => ({ taskData: { type, entity } });
-const objective = (done, ...tasks) => ({ isCompleted: done, getTasks: () => tasks });
+const task = (type, entity, entityDefinitions) => ({ taskData: { type, entity, entityDefinitions } });
+const objective = (done, ...tasks) => ({ isCompleted: done, objectiveData: {}, getTasks: () => tasks });
 
 let failed = 0;
 const test = (name, fn) => {
@@ -64,5 +64,19 @@ test("6. entidade sem hasTag utilizável (inválida) não marca", () => {
   const p = player();
   eq(mod.recordBossKill(p, { typeId: "dbe:cell", hasTag() { throw new Error("inválida"); } }), false, "marcou");
 });
-console.log(failed ? `\n${failed} caso(s) falharam.` : "\nOK: 6 casos.");
+test("7. luta de sobrevivência não entra no backfill: saga_beerus_1 concluída não marca o Beerus", () => {
+  eq(mod.SURVIVAL_FIGHTS_COUNT, false, "flag");
+  const p = player({ completed: ["saga_beerus_1"] });
+  eq(mod.hasDefeated(p, "dbe:beerus_enemy"), false, "Beerus marcado");
+  eq(mod.isSurvivalFight({ completeOnTimeout: true }, {}), true, "completeOnTimeout");
+  eq(mod.isSurvivalFight({}, { entityDefinitions: { alwaysDodge: true } }), true, "alwaysDodge");
+});
+test("8. idem em missão em andamento: objetivo completeOnTimeout ou chefe alwaysDodge não marcam", () => {
+  const timed = { isCompleted: true, objectiveData: { completeOnTimeout: true }, getTasks: () => [task("defeat_enemy", "dbe:frieza")] };
+  const dodge = objective(true, task("defeat_enemy", "dbe:cell", { alwaysDodge: true }));
+  const normal = objective(true, task("defeat_enemy", "dbe:dabura"));
+  const p = player({ active: [{ getAllObjectives: () => [timed, dodge, normal] }] });
+  eq(mod.listDefeated(p).map((b) => b.id), ["dbe:dabura"], "derrotados");
+});
+console.log(failed ? `\n${failed} caso(s) falharam.` : "\nOK: 8 casos.");
 process.exit(failed ? 1 : 0);
