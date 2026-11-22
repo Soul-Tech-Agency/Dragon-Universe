@@ -143,6 +143,14 @@ function step(r, players) {
       return;
     }
   } else {
+    // adopt: the saved one (no tag) may have loaded after a copy was created here; it is adopted as the saved original and
+    // the copy created in this session goes away below
+    const saved = r.adopt ? adoptable(dim, r, at) : undefined;
+    if (saved) {
+      saved.addTag(TAG + r.id);
+      copies.push(saved);
+      console.warn("[Residents] " + r.id + ": adopted the " + r.type + " already there, next to a copy");
+    }
     entity = oldest(copies, at, st);
     const extra = copies.filter((e) => e !== entity);
     for (const e of extra) e.remove();
@@ -220,6 +228,8 @@ addResident({ id: "bills_whis", type: "dbe:whis", dim: "dbe:bills_planet", at: B
 world.afterEvents.entityLoad.subscribe(({ entity }) => {
   try {
     if (!types.has(entity.typeId)) return; // filter by type before reading tags: this event fires for every entity
+    // an entity of an adopting resident's type may be the saved original without a tag yet
+    for (const r of residents) if (r.adopt && r.type === entity.typeId) urgent.add(r.id);
     for (const tag of entity.getTags()) {
       if (!tag.startsWith(TAG)) continue;
       const id = tag.slice(TAG.length);
