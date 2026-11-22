@@ -147,6 +147,29 @@ def btn_icon(size, color, vis=None, **kw):
     return img("", size, color, bindings=b, **kw)
 
 
+def tex_is(name):
+    """Expressão: o ícone mandado pelo script é textures/ui/du2/icons/<name> (caminho exato, sem extensão)."""
+    return f"(#form_button_texture = '{I + name}')"
+
+
+def tinted_icon(size, tints, **kw):
+    """Ícone do botão com a cor escolhida pelo caminho (CONTRATO.md §10: cor fixa por ícone).
+    tints: [(nome do ícone, chave de cor)]. Ícone fora da tabela aparece branco; sem ícone, nada."""
+    tex = {"binding_type": "collection", "binding_collection_name": COL, "binding_name": "#form_button_texture"}
+    known = " or ".join(tex_is(n) for n, _ in tints)
+    imgs = [c("i_" + n, img("", size, col, bindings=coll_tex() + [tex, view(tex_is(n))])) for n, col in tints]
+    imgs.append(c("i_other", img("", size, "white", bindings=coll_tex() + [
+        tex, view(f"(not ((#form_button_texture = '') or {known}))")])))
+    return P(size, imgs, **kw)
+
+
+QUEST_TINTS = [("lock", "weak"), ("quest_done", "green"), ("quest_main", "gold"), ("quest_side", "cyan"),
+               ("quest_challenge", "orange")]
+ACH_TINTS = [("ach_done", "green"), ("ach_battle_power", "gold"), ("ach_defeat", "red"), ("ach_item", "orange"),
+             ("ach_skill", "purple"), ("ach_requirement", "cyan")]
+LOCK_TINTS = [("lock", "weak")]
+
+
 ACTIVE = "(not ((#form_button_text - '*') = #form_button_text))"
 INACTIVE = "((#form_button_text - '*') = #form_button_text)"
 
@@ -984,7 +1007,7 @@ def body_label(color="desc"):
     return c("body", lbl("#form_text", ["100%", "default"], color, None, "smooth", "left"))
 
 
-def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1, key_icons=None):
+def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1, key_icons=None, tints=None):
     """Item de factory: linha com fundo, texto do botão e ícone opcional (cadeado do script) ou "+".
     key_icons: [(chave do texto, ícone, cor)] = ícone à esquerda quando o texto é igual à chave."""
     hide = HIDDEN_ITEM + (" or " + extra_hide if extra_hide else "")
@@ -995,6 +1018,10 @@ def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1, key_ic
         if key_icons:
             row += [centered(14, P([14, 14], [c("i_" + ic, img(I + ic, [12, 12], col, bindings=[
                 coll_text(), view(f"(#form_button_text = '{key}')")])) for key, ic, col in key_icons])), pad(5)]
+        if tints:
+            top = "left_middle" if lines == 1 else "top_left"
+            row += [c("icon", P([14, "100%"], [c("ic", tinted_icon([12, 12], tints, anchor_from=top, anchor_to=top,
+                                                                 offset=[0, 0] if lines == 1 else [1, 4]))])), pad(5)]
         label = btn_label("text", None, size=["100%", 10 if lines == 1 else "default"], align="left",
                           anchor_from=anchor, anchor_to=anchor)
         if lines > 1:
@@ -1150,8 +1177,8 @@ def detail_screen(nsd, form_name, bottom):
 
 # ---- Missões (kC lista: 10+ = missões) e detalhe (kB missão / k9 conquista: 0 = Voltar, 1 = Iniciar/Reiniciar)
 qs = {"namespace": "du2_quests"}
-qs["row_pc"] = list_item(20)
-qs["row_mobile"] = list_item(22)
+qs["row_pc"] = list_item(20, tints=QUEST_TINTS)
+qs["row_mobile"] = list_item(22, tints=QUEST_TINTS)
 
 
 def quests_content(mobile):
@@ -1188,8 +1215,8 @@ tab_screen(tn, "training_form", training_content)
 
 # ---- Conquistas (kb): 10+ = conquistas (título + progresso, descrição na 2ª linha)
 ac = {"namespace": "du2_achievements"}
-ac["row_pc"] = list_item(44, lines=3)
-ac["row_mobile"] = list_item(46, lines=3)
+ac["row_pc"] = list_item(44, lines=3, tints=ACH_TINTS)
+ac["row_mobile"] = list_item(46, lines=3, tints=ACH_TINTS)
 
 
 def achievements_content(mobile):
