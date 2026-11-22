@@ -948,8 +948,9 @@ const LOOKOUT_BW = {
   near: 96,
   radius: 48,
   settle: 60, // ticks of ready area before looking: entities of a chunk may show up after its blocks
+  recheck: 1200, // with none found, a second look this much later (1 min) before it is marked done
 };
-let lookoutReadySince;
+let lookoutReadySince, lookoutEmptySince;
 
 function moveLookoutResidents(plan) {
   if (plan.lookoutMoved) return;
@@ -968,14 +969,25 @@ function moveLookoutResidents(plan) {
   lookoutReadySince ??= system.currentTick;
   if (system.currentTick - lookoutReadySince < LOOKOUT_BW.settle) return;
   const counts = {};
+  const found = [];
   for (const type of ["dbe:beerus", "dbe:whis"]) {
     counts[type] = 0;
     for (const entity of dim.getEntities({ type, location: center, maxDistance: LOOKOUT_BW.radius })) {
       if (entity.getTags().some((t) => t.startsWith("dbe_resident:")) || entity.getDynamicProperty("dbe:spawned_by") !== undefined) continue;
-      entity.remove();
+      found.push(entity);
       counts[type]++;
     }
   }
+  // 0 found is final, so it is only trusted on a second look at least LOOKOUT_BW.recheck later: the entities up at y~299
+  // may not have loaded yet on the first one
+  if (!found.length) {
+    if (lookoutEmptySince === undefined) {
+      lookoutEmptySince = system.currentTick;
+      return;
+    }
+    if (system.currentTick - lookoutEmptySince < LOOKOUT_BW.recheck) return;
+  }
+  for (const entity of found) entity.remove();
   plan.lookoutMoved = 1;
   savePlan(plan);
   console.warn("[Landmarks] Lookout: Beerus x" + counts["dbe:beerus"] + ", Whis x" + counts["dbe:whis"] + " moved to Bills' planet");
