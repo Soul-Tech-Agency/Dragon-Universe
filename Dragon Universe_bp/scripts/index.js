@@ -10461,7 +10461,7 @@ var kB = class extends jY {
       // mesmo filtro do dC.listDescription usado no body (sem jogador), um requisito por slot, sem "\n- "
       fill(requirements.filter((r) => !r.exceptRaceIds?.includes(void 0) && dC.get(r.test)), 4, (r) =>
         slot({ rawtext: [dC.getDescription(r)] }));
-      const rewardIcon = { item: "ach_item", points: "skill_points", zeni: "reward_zeni" };
+      const rewardIcon = { item: "ach_item", points: "skill_points", zeni: "reward_zeni", z_points: "reward_xp" };
       fill(quest.getRewards().filter((r) => r.description?.rawtext), 8, (r) => {
         const icon = rewardIcon[r.rewardData?.type];
         slot({ rawtext: r.description.rawtext }, icon ? DU_ICON + icon : "");
