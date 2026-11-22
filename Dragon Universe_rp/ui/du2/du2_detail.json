@@ -599,7 +599,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_detail.h17": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
+     "controls": [{"row@du2_detail.h18": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
    {
@@ -620,7 +620,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_detail.h18": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
+     "controls": [{"row@du2_detail.h19": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
    {
@@ -641,7 +641,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_detail.h19": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
+     "controls": [{"row@du2_detail.h20": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
    {
@@ -662,7 +662,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_detail.h20": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
+     "controls": [{"row@du2_detail.h21": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
    {
@@ -683,7 +683,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_detail.h21": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
+     "controls": [{"row@du2_detail.h22": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
    {
@@ -704,7 +704,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_detail.h22": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
+     "controls": [{"row@du2_detail.h23": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
    {
@@ -725,7 +725,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_detail.h23": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
+     "controls": [{"row@du2_detail.h24": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
    {
@@ -746,7 +746,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_detail.h24": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
+     "controls": [{"row@du2_detail.h25": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
    {
@@ -945,11 +945,11 @@
         "size": ["100%", 24],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_detail.h26": {}}
+         {"row@du2_detail.h27": {}}
         ]
        }
       },
-      {"body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_detail.h30": {}}]}}
+      {"body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_detail.h31": {}}]}}
      ]
     }
    }
@@ -1551,7 +1551,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_detail.h17": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
+     "controls": [{"row@du2_detail.h18": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
    {
@@ -1572,7 +1572,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_detail.h18": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
+     "controls": [{"row@du2_detail.h19": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
    {
@@ -1593,7 +1593,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_detail.h19": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
+     "controls": [{"row@du2_detail.h20": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
    {
@@ -1614,7 +1614,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_detail.h20": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
+     "controls": [{"row@du2_detail.h21": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
    {
@@ -1635,7 +1635,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_detail.h21": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
+     "controls": [{"row@du2_detail.h22": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
    {
@@ -1656,7 +1656,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_detail.h22": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
+     "controls": [{"row@du2_detail.h23": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
    {
@@ -1677,7 +1677,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_detail.h23": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
+     "controls": [{"row@du2_detail.h24": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
    {
@@ -1698,7 +1698,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_detail.h24": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
+     "controls": [{"row@du2_detail.h25": {}}, {"pad": {"type": "panel", "size": ["100%", 2]}}]
     }
    },
    {
@@ -1897,11 +1897,11 @@
         "size": ["100%", 20],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_detail.h31": {}}
+         {"row@du2_detail.h32": {}}
         ]
        }
       },
-      {"body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_detail.h32": {}}]}}
+      {"body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_detail.h33": {}}]}}
      ]
     }
    }
@@ -2454,6 +2454,36 @@
   "type": "image",
   "texture": "",
   "size": [10, 10],
+  "color": [0.137, 0.843, 1.0],
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture",
+    "binding_name_override": "#texture"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture_file_system",
+    "binding_name_override": "#texture_file_system"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(#form_button_texture = 'textures/ui/du2/icons/reward_xp')",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h17": {
+  "type": "image",
+  "texture": "",
+  "size": [10, 10],
   "color": [1.0, 1.0, 1.0],
   "bindings": [
    {
@@ -2475,12 +2505,12 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((#form_button_texture = '') or (#form_button_texture = 'textures/ui/du2/icons/ach_item') or (#form_button_texture = 'textures/ui/du2/icons/skill_points') or (#form_button_texture = 'textures/ui/du2/icons/reward_zeni')))",
+    "source_property_name": "(not ((#form_button_texture = '') or (#form_button_texture = 'textures/ui/du2/icons/ach_item') or (#form_button_texture = 'textures/ui/du2/icons/skill_points') or (#form_button_texture = 'textures/ui/du2/icons/reward_zeni') or (#form_button_texture = 'textures/ui/du2/icons/reward_xp')))",
     "target_property_name": "#visible"
    }
   ]
  },
- "h17": {
+ "h18": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%c"],
@@ -2506,69 +2536,8 @@
             {"i_ach_item@du2_detail.h13": {}},
             {"i_skill_points@du2_detail.h14": {}},
             {"i_reward_zeni@du2_detail.h15": {}},
-            {"i_other@du2_detail.h16": {}}
-           ]
-          }
-         }
-        ]
-       }
-      }
-     ]
-    }
-   },
-   {"pad": {"type": "panel", "size": [4, 10]}},
-   {
-    "t": {
-     "type": "label",
-     "text": "#du2_text",
-     "size": ["fill", "default"],
-     "color": [0.902, 0.925, 0.969],
-     "font_type": "smooth",
-     "shadow": false,
-     "text_alignment": "left",
-     "bindings": [
-      {
-       "binding_type": "collection",
-       "binding_collection_name": "form_buttons",
-       "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
-      }
-     ]
-    }
-   }
-  ]
- },
- "h18": {
-  "type": "stack_panel",
-  "orientation": "horizontal",
-  "size": ["100%", "100%c"],
-  "controls": [
-   {"pad": {"type": "panel", "size": [4, 10]}},
-   {
-    "ic": {
-     "type": "panel",
-     "size": [10, 10],
-     "collection_name": "form_buttons",
-     "controls": [
-      {
-       "s": {
-        "type": "panel",
-        "size": [10, 10],
-        "collection_index": 19,
-        "controls": [
-         {
-          "i": {
-           "type": "panel",
-           "size": [10, 10],
-           "controls": [
-            {"i_ach_item@du2_detail.h13": {}},
-            {"i_skill_points@du2_detail.h14": {}},
-            {"i_reward_zeni@du2_detail.h15": {}},
-            {"i_other@du2_detail.h16": {}}
+            {"i_reward_xp@du2_detail.h16": {}},
+            {"i_other@du2_detail.h17": {}}
            ]
           }
          }
@@ -2620,7 +2589,7 @@
        "s": {
         "type": "panel",
         "size": [10, 10],
-        "collection_index": 20,
+        "collection_index": 19,
         "controls": [
          {
           "i": {
@@ -2630,7 +2599,8 @@
             {"i_ach_item@du2_detail.h13": {}},
             {"i_skill_points@du2_detail.h14": {}},
             {"i_reward_zeni@du2_detail.h15": {}},
-            {"i_other@du2_detail.h16": {}}
+            {"i_reward_xp@du2_detail.h16": {}},
+            {"i_other@du2_detail.h17": {}}
            ]
           }
          }
@@ -2682,7 +2652,7 @@
        "s": {
         "type": "panel",
         "size": [10, 10],
-        "collection_index": 21,
+        "collection_index": 20,
         "controls": [
          {
           "i": {
@@ -2692,7 +2662,8 @@
             {"i_ach_item@du2_detail.h13": {}},
             {"i_skill_points@du2_detail.h14": {}},
             {"i_reward_zeni@du2_detail.h15": {}},
-            {"i_other@du2_detail.h16": {}}
+            {"i_reward_xp@du2_detail.h16": {}},
+            {"i_other@du2_detail.h17": {}}
            ]
           }
          }
@@ -2744,7 +2715,7 @@
        "s": {
         "type": "panel",
         "size": [10, 10],
-        "collection_index": 22,
+        "collection_index": 21,
         "controls": [
          {
           "i": {
@@ -2754,7 +2725,8 @@
             {"i_ach_item@du2_detail.h13": {}},
             {"i_skill_points@du2_detail.h14": {}},
             {"i_reward_zeni@du2_detail.h15": {}},
-            {"i_other@du2_detail.h16": {}}
+            {"i_reward_xp@du2_detail.h16": {}},
+            {"i_other@du2_detail.h17": {}}
            ]
           }
          }
@@ -2806,7 +2778,7 @@
        "s": {
         "type": "panel",
         "size": [10, 10],
-        "collection_index": 23,
+        "collection_index": 22,
         "controls": [
          {
           "i": {
@@ -2816,7 +2788,8 @@
             {"i_ach_item@du2_detail.h13": {}},
             {"i_skill_points@du2_detail.h14": {}},
             {"i_reward_zeni@du2_detail.h15": {}},
-            {"i_other@du2_detail.h16": {}}
+            {"i_reward_xp@du2_detail.h16": {}},
+            {"i_other@du2_detail.h17": {}}
            ]
           }
          }
@@ -2868,7 +2841,7 @@
        "s": {
         "type": "panel",
         "size": [10, 10],
-        "collection_index": 24,
+        "collection_index": 23,
         "controls": [
          {
           "i": {
@@ -2878,7 +2851,8 @@
             {"i_ach_item@du2_detail.h13": {}},
             {"i_skill_points@du2_detail.h14": {}},
             {"i_reward_zeni@du2_detail.h15": {}},
-            {"i_other@du2_detail.h16": {}}
+            {"i_reward_xp@du2_detail.h16": {}},
+            {"i_other@du2_detail.h17": {}}
            ]
           }
          }
@@ -2930,7 +2904,7 @@
        "s": {
         "type": "panel",
         "size": [10, 10],
-        "collection_index": 25,
+        "collection_index": 24,
         "controls": [
          {
           "i": {
@@ -2940,7 +2914,8 @@
             {"i_ach_item@du2_detail.h13": {}},
             {"i_skill_points@du2_detail.h14": {}},
             {"i_reward_zeni@du2_detail.h15": {}},
-            {"i_other@du2_detail.h16": {}}
+            {"i_reward_xp@du2_detail.h16": {}},
+            {"i_other@du2_detail.h17": {}}
            ]
           }
          }
@@ -2976,7 +2951,70 @@
    }
   ]
  },
- "h25@common.button": {
+ "h25": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%c"],
+  "controls": [
+   {"pad": {"type": "panel", "size": [4, 10]}},
+   {
+    "ic": {
+     "type": "panel",
+     "size": [10, 10],
+     "collection_name": "form_buttons",
+     "controls": [
+      {
+       "s": {
+        "type": "panel",
+        "size": [10, 10],
+        "collection_index": 25,
+        "controls": [
+         {
+          "i": {
+           "type": "panel",
+           "size": [10, 10],
+           "controls": [
+            {"i_ach_item@du2_detail.h13": {}},
+            {"i_skill_points@du2_detail.h14": {}},
+            {"i_reward_zeni@du2_detail.h15": {}},
+            {"i_reward_xp@du2_detail.h16": {}},
+            {"i_other@du2_detail.h17": {}}
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, 10]}},
+   {
+    "t": {
+     "type": "label",
+     "text": "#du2_text",
+     "size": ["fill", "default"],
+     "color": [0.902, 0.925, 0.969],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "bindings": [
+      {
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(#form_button_text - '*')",
+       "target_property_name": "#du2_text"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h26@common.button": {
   "size": [24, 20],
   "collection_index": 0,
   "$pressed_button_name": "button.form_button_click",
@@ -3050,7 +3088,7 @@
    }
   ]
  },
- "h26": {
+ "h27": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -3066,7 +3104,7 @@
         "type": "panel",
         "size": [24, 20],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_detail.h25": {}}],
+        "controls": [{"b@du2_detail.h26": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -3096,7 +3134,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h27": {
+ "h28": {
   "type": "panel",
   "size": [12, 12],
   "controls": [
@@ -3144,13 +3182,13 @@
   "anchor_from": "center",
   "anchor_to": "center"
  },
- "h28": {
+ "h29": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
   "controls": [
    {"pad": {"type": "panel", "size": [8, "100%"]}},
-   {"cell": {"type": "panel", "size": [12, "100%"], "controls": [{"x@du2_detail.h27": {}}]}},
+   {"cell": {"type": "panel", "size": [12, "100%"], "controls": [{"x@du2_detail.h28": {}}]}},
    {"pad": {"type": "panel", "size": [4, "100%"]}},
    {
     "t": {
@@ -3189,7 +3227,7 @@
    {"pad": {"type": "panel", "size": [8, "100%"]}}
   ]
  },
- "h29@common.button": {
+ "h30@common.button": {
   "size": [130, 22],
   "collection_index": 1,
   "$pressed_button_name": "button.form_button_click",
@@ -3203,7 +3241,7 @@
      "size": ["100%", "100%"],
      "controls": [
       {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary", "size": ["100%", "100%"]}},
-      {"row@du2_detail.h28": {}}
+      {"row@du2_detail.h29": {}}
      ]
     }
    },
@@ -3213,7 +3251,7 @@
      "size": ["100%", "100%"],
      "controls": [
       {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary_hover", "size": ["100%", "100%"]}},
-      {"row@du2_detail.h28": {}}
+      {"row@du2_detail.h29": {}}
      ]
     }
    },
@@ -3223,7 +3261,7 @@
      "size": ["100%", "100%"],
      "controls": [
       {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary_pressed", "size": ["100%", "100%"]}},
-      {"row@du2_detail.h28": {}}
+      {"row@du2_detail.h29": {}}
      ]
     }
    }
@@ -3242,7 +3280,7 @@
    }
   ]
  },
- "h30": {
+ "h31": {
   "type": "stack_panel",
   "orientation": "vertical",
   "size": ["100% - 12px", "100% - 10px"],
@@ -3283,7 +3321,7 @@
         "type": "panel",
         "size": [130, 22],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_detail.h29": {}}]
+        "controls": [{"b@du2_detail.h30": {}}]
        }
       }
      ]
@@ -3291,7 +3329,7 @@
    }
   ]
  },
- "h31": {
+ "h32": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -3307,7 +3345,7 @@
         "type": "panel",
         "size": [24, 20],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_detail.h25": {}}],
+        "controls": [{"b@du2_detail.h26": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -3337,7 +3375,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h32": {
+ "h33": {
   "type": "stack_panel",
   "orientation": "vertical",
   "size": ["100% - 8px", "100% - 6px"],
@@ -3378,7 +3416,7 @@
         "type": "panel",
         "size": [130, 22],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_detail.h29": {}}]
+        "controls": [{"b@du2_detail.h30": {}}]
        }
       }
      ]

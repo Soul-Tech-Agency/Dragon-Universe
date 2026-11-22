@@ -1200,7 +1200,7 @@ def action_button(idx, w, h, key_icons):
     return host("b@common.button", btn, [w, h])
 
 
-REWARD_TINTS = [("ach_item", "orange"), ("skill_points", "gold"), ("reward_zeni", "gold")]
+REWARD_TINTS = [("ach_item", "orange"), ("skill_points", "gold"), ("reward_zeni", "gold"), ("reward_xp", "cyan")]
 
 
 def tex_icon_at(idx, size, tints):
