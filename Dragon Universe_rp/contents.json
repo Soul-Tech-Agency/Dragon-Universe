@@ -1066,6 +1066,9 @@
          "path" : "fogs/tournament_of_power_c_fog_setting.json"
       },
       {
+         "path" : "fogs/mental_fog_setting.json"
+      },
+      {
          "path" : "fogs/universe_6_fog_setting.json"
       },
       {
@@ -1850,6 +1853,15 @@
       },
       {
          "path" : "particles/concentration_orb_off.particle.json"
+      },
+      {
+         "path" : "particles/mental_enter.particle.json"
+      },
+      {
+         "path" : "particles/mental_exit.particle.json"
+      },
+      {
+         "path" : "particles/mental_replica_aura.particle.json"
       },
       {
          "path" : "particles/explode_beam.particle.json"
@@ -5396,6 +5408,12 @@
       },
       {
          "path" : "textures/particle/concentration_orb_off.png"
+      },
+      {
+         "path" : "textures/particle/mental_shard.png"
+      },
+      {
+         "path" : "textures/particle/mental_wisp.png"
       },
       {
          "path" : "textures/particle/critical_hit.png"

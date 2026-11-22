@@ -1,0 +1,22 @@
+{
+    "format_version": "1.26.4",
+    "minecraft:fog_settings": {
+        "description": {
+            "identifier": "dbe:fog_mental"
+        },
+        "distance": {
+            "air": {
+                "fog_start": 0.15,
+                "fog_end": 0.75,
+                "fog_color": "#3A2A66",
+                "render_distance_type": "render"
+            },
+            "water": {
+                "fog_start": 0,
+                "fog_end": 15,
+                "fog_color": "#2A1F4D",
+                "render_distance_type": "fixed"
+            }
+        }
+    }
+}
