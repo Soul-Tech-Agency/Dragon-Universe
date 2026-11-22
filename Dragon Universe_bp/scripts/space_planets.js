@@ -706,7 +706,9 @@ const knownLiquid = (P, id) => id === P.liquid && provenLiquid.has(P.key);
 // each), so one chunk was read up to 5 times in a minute. A proof is reused only for the same chunk, with the same
 // ownership and buffer markers, younger than PROOF_TICKS, and not touched by a player, explosion or piston since
 // (those events drop it). A strict proof (stone scaffold) also proves the non-strict containment.
-const PROOF_TICKS = 1200;
+// Accepted risk: a change that fires none of those events (operator /setblock or /fill, another script) inside a
+// proven chunk is not seen by a reuse within PROOF_TICKS (15 s); after that the chunk is read again.
+const PROOF_TICKS = 300;
 const PROOF_LIMIT = 512;
 const containmentProofs = new Map(); // "planet:cx,cz" -> { owner, buffer, strict, tick }
 let proofsUsable = true; // false when an invalidating event cannot be watched: every proof is then read again
@@ -941,21 +943,33 @@ function decorContext(P, dim, cx, cz) {
   };
 }
 
+const PAD_CENTER = "minecraft:gray_concrete";
+const PAD_HALF = 5;
+const padBuilt = (dim, spawn) => dim.getBlock({ x: spawn.x, y: spawn.y, z: spawn.z })?.typeId === PAD_CENTER;
+/** Landing pad: 11x11 levelled at the spawn height, cleared 6 blocks up, concrete with four lanterns. Draws no rng. */
+function* buildPad(c, spawn) {
+  const { P, dim } = c;
+  const y = spawn.y;
+  yield* levelArea(c, spawn.x - PAD_HALF, spawn.z - PAD_HALF, spawn.x + PAD_HALF, spawn.z + PAD_HALF, y, P.top);
+  tryFill(dim, spawn.x - PAD_HALF, y + 1, spawn.z - PAD_HALF, spawn.x + PAD_HALF, y + 6, spawn.z + PAD_HALF, AIR);
+  tryFill(dim, spawn.x - 3, y, spawn.z - 3, spawn.x + 3, y, spawn.z + 3, "minecraft:light_gray_concrete");
+  tryFill(dim, spawn.x - 1, y, spawn.z - 1, spawn.x + 1, y, spawn.z + 1, PAD_CENTER);
+  for (const sx of [-3, 3]) for (const sz of [-3, 3]) put(dim, spawn.x + sx, y, spawn.z + sz, "minecraft:sea_lantern");
+  yield;
+}
+/** Builds only the landing pad, before the first arrival: needs just the chunks under the pad, not the 8 neighbours. */
+function* padJob(P, dim) {
+  const spawn = findSpawn(P);
+  if (!padBuilt(dim, spawn)) yield* buildPad({ P, dim }, spawn);
+}
+
 function* decorateJob(P, dim, cx, cz) {
   const c = decorContext(P, dim, cx, cz);
   const { x0, z0, rng } = c;
   const spawn = findSpawn(P);
 
-  // landing pad at the arrival point
-  if (chunkOf(spawn.x) === cx && chunkOf(spawn.z) === cz) {
-    const y = spawn.y;
-    yield* levelArea(c, spawn.x - 5, spawn.z - 5, spawn.x + 5, spawn.z + 5, y, P.top);
-    tryFill(dim, spawn.x - 5, y + 1, spawn.z - 5, spawn.x + 5, y + 6, spawn.z + 5, AIR);
-    tryFill(dim, spawn.x - 3, y, spawn.z - 3, spawn.x + 3, y, spawn.z + 3, "minecraft:light_gray_concrete");
-    tryFill(dim, spawn.x - 1, y, spawn.z - 1, spawn.x + 1, y, spawn.z + 1, "minecraft:gray_concrete");
-    for (const sx of [-3, 3]) for (const sz of [-3, 3]) put(dim, spawn.x + sx, y, spawn.z + sz, "minecraft:sea_lantern");
-    yield;
-  }
+  // landing pad at the arrival point (normally already built by padJob before the first arrival)
+  if (chunkOf(spawn.x) === cx && chunkOf(spawn.z) === cz && !padBuilt(dim, spawn)) yield* buildPad(c, spawn);
 
   yield* villages.buildInChunk(c);
 
@@ -1213,7 +1227,7 @@ const chunkJobs = new Map();
 const waitTicks = (n) => new Promise((resolve) => system.runTimeout(resolve, n));
 
 function scopedPlanetDimension(P, dim, cx, cz, phase, activity) {
-  const halo = phase === "decoration" ? 1 : 0;
+  const halo = phase === "decoration" || phase === "pad" ? 1 : 0;
   const scope = { expected: new Map(), failed: false, error: undefined, operation: "starting", position: undefined };
   // Retain this job's own writes after required-write verification drains expected.
   // A later overlap still has to read and match that exact value before replacing it.
@@ -1241,7 +1255,7 @@ function scopedPlanetDimension(P, dim, cx, cz, phase, activity) {
     // Prove the whole volume before the first native write, including foundation markers.
     for (let x = from.x; x <= to.x; x++) for (let z = from.z; z <= to.z; z++) {
       const columnKey = x + "," + z;
-      if (phase === "decoration" && !columns.has(columnKey)) columns.set(columnKey, planetColumn(P, x, z));
+      if ((phase === "decoration" || phase === "pad") && !columns.has(columnKey)) columns.set(columnKey, planetColumn(P, x, z));
       for (let y = from.y; y <= to.y; y++) {
         const point = { x, y, z }, current = dim.getBlock(point);
         if (!current) throw new Error(P.key + " write preflight unavailable at " + x + "," + y + "," + z);
@@ -1249,7 +1263,7 @@ function scopedPlanetDimension(P, dim, cx, cz, phase, activity) {
         if (current.typeId === desired || phase === "terrain" && current.typeId === AIR) continue;
         const buffer = phase === "terrain" && world.getDynamicProperty(planetBuffer(P, chunkOf(x), chunkOf(z)));
         if ((buffer === "ready" || buffer === "converting") && y > MIN_Y && y <= P.liquidLevel && current.typeId === P.stone) continue;
-        if (phase === "decoration") {
+        if (phase === "decoration" || phase === "pad") {
           const key = x + "," + y + "," + z;
           // This direct read proves a preceding write, even when both occur before a yield.
           if (written.get(key) === current.typeId) continue;
@@ -1849,6 +1863,8 @@ function scan() {
           break;
         }
       }
+    } else if (landingRescue(p, W, x, y, z)) {
+      /* moved back onto the landing pad */
     } else if (y < MIN_Y + 8) {
       // A predicted height is not proof that generation actually produced a safe surface.
       try {
@@ -1926,6 +1942,29 @@ function planetDecorationStep(W, dim, pcx, pcz, r) {
   return false;
 }
 
+/**
+ * The first trip only generates the chunks under the landing point; the rest around it follows within seconds. A player who walks off meanwhile and drops below where the ground of an unfinished chunk will be (into the
+ * void, onto the stone scaffold, or inside a column about to be converted) goes back to the landing point.
+ */
+function landingRescue(p, W, x, y, z) {
+  if (W.kind !== "planet") return false;
+  try {
+    // The chunks generated before arrival (within ARRIVAL_MARGIN of the landing point) and the ring around them.
+    const s = findSpawn(W), cx = chunkOf(x), cz = chunkOf(z);
+    const ring = (c, v) => chunkOf(v - ARRIVAL_MARGIN) - 1 <= c && c <= chunkOf(v + ARRIVAL_MARGIN) + 1;
+    if (!ring(cx, s.x + 0.5) || !ring(cz, s.z + 0.5)) return false;
+    if (["complete", "legacy", "protected"].includes(world.getDynamicProperty(planetOwnership(W, cx, cz)))) return false;
+    if (y >= heightAt(W, Math.floor(x), Math.floor(z)) + 1 || isTravelPending(p)) return false;
+    if (world.getDynamicProperty(planetOwnership(W, chunkOf(s.x), chunkOf(s.z))) !== "complete") return false;
+    const target = { x: s.x + 0.5, y: s.y + 1, z: s.z + 0.5 };
+    if (!isSafeStanding(p.dimension, target)) return false;
+    p.teleport(target, { checkForBlocks: true });
+    return true;
+  } catch (err) {
+    return false; // unavailable terrain: left to the other rescue paths
+  }
+}
+
 // ---------------------------------------------------------------- messages
 
 const tr = (key, ...args) => (args.length ? { translate: key, with: { rawtext: args } } : { translate: key });
@@ -1983,6 +2022,12 @@ async function prepareArea(W, dim, cx, cz, player, timing, landing) {
       timing?.mark("chunk " + cx + "," + cz + " decoration:start");
       await timed(() => runExclusive(loaded => decorateJob(W, loaded, cx, cz), W, cx, cz, "decoration", true));
       timing?.mark("chunk " + cx + "," + cz + " decoration:end");
+    } else if (W.kind === "planet" && landing && chunkState(dim, cx, cz) === 1) {
+      // First arrival: the landing pad alone, on the chunks under it (all generated above, ARRIVAL_MARGIN > PAD_HALF),
+      // so it exists before any player can edit the area. Best effort: the ground is already safe without it.
+      timing?.mark("pad:start");
+      await timed(() => runExclusive(loaded => padJob(W, loaded), W, cx, cz, "pad"));
+      timing?.mark("pad:end");
     }
   } catch (e) {
     releaseLoadedArea(id);

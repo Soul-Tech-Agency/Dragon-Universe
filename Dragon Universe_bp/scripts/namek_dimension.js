@@ -433,6 +433,7 @@ function* decorateJob(dim, cx, cz) {
 
 let busy = false;
 const retryAt = new Map();
+let unloadedScanJobs = 0; // scan jobs whose chunk unloaded mid-job (diagnostic count)
 
 const waitTicks = (n) => new Promise((resolve) => system.runTimeout(resolve, n));
 
@@ -470,6 +471,8 @@ async function runExclusive(gen, key, strict = false) {
     // has no markers yet and is generated again when a player comes back. Leased (strict) jobs still report it.
     const unloaded = !strict && /UnloadedChunksError|LocationInUnloadedChunkError/.test(String(e?.name) + ": " + String(e));
     if (!unloaded) console.warn("[Namek] chunk " + key + " failed: " + e);
+    // Counted, not hidden: one line at the 1st, 10th, 100th... suppressed case.
+    else if (Number.isInteger(Math.log10(++unloadedScanJobs))) console.warn("[Namek] " + unloadedScanJobs + " scan chunk job(s) stopped by an unloaded chunk so far (retried later; last " + key + ")");
     if (strict) throw e;
   } finally {
     busy = false;
