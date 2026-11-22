@@ -1,34 +1,34 @@
-# 1.7.17: roteiro de teste (rascunho)
+# 1.7.17: roteiro de teste
 
-Rascunho montado em 2026-11-22 a partir dos itens "para o roteiro" de cada frente (viagens, construções e Star Navigator, menus, Oozaru e cabelos) e dos itens que ficaram sem teste na 1.7.15.
+Montado em 2026-11-22 a partir dos itens "para o roteiro" de cada frente (viagens, construções e Star Navigator, menus, Oozaru e cabelos) e dos itens que ficaram sem teste na 1.7.15 e na 1.7.16.
 Marque cada item com **Y** (funcionou), **N** (falhou) ou **?** (não testado ou não deu para saber). Quando falhar: print ou vídeo, Content Log, dimensão e coordenadas.
 Nada aqui foi testado no Minecraft pela equipe.
 
 ## Quem e onde
-- ⚠️ **Não abrir numa versão anterior um mundo que já passou pela 1.7.17.** As versões antigas não entendem o plano novo e podem duplicar construções. Teste sempre em cópia.
+- ⚠️ **Não abrir numa versão anterior um mundo que já passou pela 1.7.15, 1.7.16 ou 1.7.17.** As versões antigas não entendem o plano novo e podem duplicar construções. Teste sempre em cópia.
 - Testador · PC Windows ☐ · Android ☐ (modelo: ____) · **versão exata do Minecraft: ____** · data
-- Content Log File e GUI ligados · Beta APIs ligado · mundo NOVO + CÓPIA de um mundo salvo da 1.7.14 ou 1.7.15
+- Content Log File e GUI ligados · Beta APIs ligado · mundo NOVO + CÓPIA de um mundo salvo da 1.7.14, 1.7.15 ou 1.7.16
 
 ## 1. Abre?
 - [ ] O mundo carrega · auditoria `10/10` · primeiro erro do log: ____
 
-## 2. Viagens
+## 2. Viagens (1 jogador)
 - [ ] Na 1ª chegada a plataforma já está lá
 - [ ] Sair andando da plataforma nos primeiros 20 s: quem cai, ou fica abaixo do chão ainda não gerado, volta para ela, sem sufocar
 - [ ] Tempos da 1ª viagem a Vegeta, Freeza e Yardrat: ____ / ____ / ____ · copiar as linhas `[Timing]`
 - [ ] Base do Freeza aparece em `/scriptevent dbe:landmarks` em ~2 min no planeta Freeza
-- [ ] ContentLog sem `PlanetPreservationError` (`gold_ore`/`lapis_ore`) e sem `[Namek] UnloadedChunksError`
+- [ ] Content Log sem `PlanetPreservationError` (`gold_ore`/`lapis_ore`) e sem `[Namek] UnloadedChunksError`
 - [ ] Namek: ida e volta 3 vezes sem `LocationInUnloadedChunkError` no log
-- [ ] **2 jogadores viajando juntos (H10, sem teste na 1.7.15):** os dois chegam? O que aparece para cada um? ____
 
-## 2b. 2 jogadores (H10)
-- [ ] A e B escolhem o mesmo planeta nunca visitado (Vegeta ou Freeza) quase ao mesmo tempo: os dois chegam na plataforma; B vê 'Partindo para…' e a mensagem de fila
+## 2b. Viagens com 2 jogadores (H10, sem teste na 1.7.15)
+- [ ] A e B escolhem o mesmo planeta nunca visitado (Vegeta ou Freeza) quase ao mesmo tempo: os dois chegam na plataforma; B vê "Partindo para…" e a mensagem de fila
 - [ ] A chega num planeta novo e logo depois B escolhe o mesmo planeta: B chega em poucos segundos
-- [ ] A está num planeta e B escolhe outro planeta novo: B chega, sem 'Não foi possível iniciar a viagem…'
+- [ ] A está num planeta e B escolhe outro planeta novo: B chega, sem "Não foi possível iniciar a viagem…"
+- [ ] Com B viajando para um destino novo, A (já no destino) sai andando ou voando do pouso: A não cai no vazio e B chega normalmente
 - [ ] A e B vão juntos para Kaioshin e depois para Namek: os dois chegam, com a mensagem no idioma do jogo
 - [ ] Uma vez em inglês ou espanhol: a mensagem de fila aparece traduzida
-- [ ] Se aparecer só '!': print do chat e Content Log do anfitrião
-- [ ] Content Log sem 'Terrain preparation queue timed out' e sem `LocationInUnloadedChunkError`
+- [ ] Se aparecer só "!": print do chat e Content Log do anfitrião
+- [ ] Content Log sem `Terrain preparation queue timed out` e sem `LocationInUnloadedChunkError`
 
 ## 3. Construções do mundo normal
 **Como chegar:** `/scriptevent dbe:landmarks` lista os pontos. **As coordenadas agora são do centro** da construção. Ir com `/tp @s X 200 Z` e descer. No mundo normal, a construção começa a ser feita quando o jogador está a 160 blocos dela.
@@ -49,18 +49,21 @@ Nada aqui foi testado no Minecraft pela equipe.
 
 ## 5. Star Navigator: lista de construções
 - [ ] `/scriptevent dbe:constructions` abre a lista com **todas** as construções (geradas ou não), com X/Z e estado
-- [ ] Botão "Construções" no Star Navigator abre a mesma lista (depende do patch da Bússola no `space_planets.js`)
+- [ ] Botão "Construções" no Star Navigator abre a mesma lista
 - [ ] Nomes e textos em pt/en/es sem chave crua (`dbe.constructions...`) · West City antiga só aparece se tiver sido construída
 - [ ] Fechar a lista não trava o Navigator: dá para abrir de novo e viajar
 
 ## 6. Menus
-- [ ] Ícone DU nos 7 painéis, **no PC e no celular** (print de cada): centralizado, sem corte e sem cobrir botão ou texto
-- [ ] Setas da customização funcionam nos dois sentidos
-- [ ] Setas do barbeiro funcionam nos dois sentidos
+- [ ] Ícone DU nos 7 painéis com abas (estatísticas, skills, missões, treino, notícias, conquistas, transformações), **no PC e no celular** (print de cada): centralizado acima do painel, sem corte e sem cobrir título, X ou abas. Em tela muito baixa ele pode ficar menor ou sumir: anotar
+- [ ] Customização (Saiyajin, masculino e feminino): cada seta muda e **mantém** a opção, nos dois sentidos (cabelo, cor do cabelo, olhos, cor dos olhos, pele, barba, gênero) · clicar rápido várias vezes não volta para a anterior
+- [ ] Customização → Voltar → Selecionar de novo: abre normal, sem formulário repetido nem travado
+- [ ] Customização com o chat aberto: não fica reabrindo sem parar
+- [ ] Sair do mundo com a customização aberta, entrar de novo: a seleção de raça abre normal, sem trava nem dado perdido
+- [ ] Barbeiro: as setas mudam e mantêm o estilo, nos dois sentidos
+- [ ] Estatísticas em Oozaru e Golden Oozaru: **corpo inteiro** na prévia, sem close do pelo (print)
 - [ ] Barbeiro em Oozaru e Golden Oozaru: corpo inteiro na prévia, nada estranho no fim do texto
-- [ ] Barbeiro na forma base: prévia do mesmo tamanho de antes
-- [ ] Sair do mundo com a customização aberta, entrar de novo: sem trava nem dado perdido
-- [ ] Prévia do Oozaru na customização aparece certa
+- [ ] Estatísticas e barbeiro na forma base e no SSJ: prévia do mesmo tamanho de antes · uma vez em inglês ou espanhol: a prévia pequena só aparece no Oozaru
+- [ ] Loja: todos os itens (inclusive a máquina de gravidade) dourados, com hover ciano · a tela da máquina de gravidade continua com o visual antigo
 
 ## 7. Oozaru e cabelos
 - [ ] Oozaru: cabeça lisa vista **de cima, de trás e de frente** (sem quadradinhos)
@@ -71,7 +74,8 @@ Nada aqui foi testado no Minecraft pela equipe.
 - [ ] Correndo e parado: a juba balança e não atravessa o corpo
 - [ ] Gohan jovem e adulto SSJ3: igual
 - [ ] Vegeta e Trunks SSJ3 (DMZ): dourados, ainda curtos
-- [ ] SSJ, SSJ2 e Beast desses estilos sem mudança
+- [ ] Beast do Goku: sem a juba do SSJ3 (igual à 1.7.16)
+- [ ] SSJ e SSJ2 desses estilos sem mudança
 
 ## 8. Mundo salvo antigo (CÓPIA; sem teste na 1.7.15)
 - [ ] Mundo da 1.7.14: log com `plan updated to v2` · construções já geradas continuam `placed`, **sem segunda cópia**
