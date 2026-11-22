@@ -1930,6 +1930,9 @@
          "path" : "scripts/core/07_stats.js"
       },
       {
+         "path" : "scripts/core/08_fusion_regions.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
