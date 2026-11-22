@@ -1571,6 +1571,95 @@ def mental_list_content(mobile):
 tab_screen(mt, "mental_list_form", mental_list_content)
 
 
+def mental_start_button(idx, h):
+    """Começar (1 = Memória, 2 = Desafio); "" esconde."""
+    def face(t):
+        return [bg(T + t), c("row", H(["100%c", "100%"], [
+            centered(12, img(I + "play", [10, 10], "dark")), pad(4),
+            c("t", P([70, "100%"], [c("l", btn_label("dark", None, align="center", anchor_from="center",
+                                                     anchor_to="center"))], clips_children=True)),
+        ], anchor_from="center", anchor_to="center"))]
+    btn = form_button(idx, ["100%", h], {"default": face("btn_primary"), "hover": face("btn_primary_hover"),
+                                         "pressed": face("btn_primary_pressed")})
+    return host("b@common.button", btn, ["100%", h])
+
+
+def mental_card(title_key, start_idx, level_idx, reward_idx):
+    """Cartão de uma dificuldade: nível, recompensa da 1ª vitória (✓ e esmaecida com '*') e Começar."""
+    reward_on = lbl("#du2_text", ["fill", "default"], "text", None, "smooth", "left", collection_index=reward_idx,
+                    bindings=text_shown())
+    reward_done = lbl("#du2_text", ["fill", "default"], "weak", None, "smooth", "left", collection_index=reward_idx,
+                      bindings=text_shown())
+    reward = P(["100%", 22], [c("s", P(["100%", 22], [
+        c("todo", H(["100%", "100%c"], [c("ic", P([12, 10], [c("i", tinted_icon([9, 9], [("skill_points", "gold")]))])),
+                                        pad(3), c("t", reward_on)], collection_index=reward_idx,
+                       bindings=[coll_text(), view(INACTIVE)])),
+        c("done", H(["100%", "100%c"], [centered(12, img(I + "check", [9, 9], "green"), h=10), pad(3),
+                                        c("t", reward_done)], collection_index=reward_idx,
+                       bindings=[coll_text(), view(ACTIVE)])),
+    ], collection_index=reward_idx, bindings=[coll_text(), view(NONEMPTY)]))], collection_name=COL, clips_children=True)
+    return P(["fill", "100%"], [
+        bg(T + "panel_row"),
+        c("col", V(["100% - 10px", "100% - 8px"], [
+            c("cap", lbl(title_key, ["100%", 10], "gold", None, "MinecraftTen", "left")),
+            pad("100%", 4),
+            c("lvl", H(["100%", 10], [
+                c("c", lbl("ui.dbe.training.mental.level", ["default", 10], "weak", None, "smooth", "left")),
+                pad(4), c("v", slot(level_idx, ["fill", 10], "value")),
+            ])),
+            pad("100%", 5),
+            c("fc", lbl("ui.dbe.training.mental.first_clear", ["100%", 10], "weak", None, "smooth", "left")),
+            pad("100%", 2),
+            c("reward", reward),
+            c("fill", P(["100%", "fill"])),
+            c("start", mental_start_button(start_idx, 22)),
+        ], anchor_from="center", anchor_to="center")),
+    ])
+
+
+def mental_confirm(mobile):
+    th_ = 20 if mobile else 24
+    inset = 8 if mobile else 12
+    head = H(["100%", 14], [
+        c("ic", tex_icon_at(3, [12, 12], [("train_mental", "purple")])), pad(4),
+        c("name", slot(3, ["fill", 14], "gold")),
+        c("best", H([96, 14], [
+            c("c", P(["fill", "100%"], [c("s", P(["100%", "100%"], [c("l", lbl(
+                "ui.dbe.training.mental.best", ["100%", 10], "weak", None, "smooth", "right",
+                anchor_from="right_middle", anchor_to="right_middle"))],
+                collection_index=4, bindings=[coll_text(), view(NONEMPTY)]))], collection_name=COL)),
+            pad(4), c("v", slot(4, [30, 14], "value", align="right", anchor="right_middle")),
+        ])),
+    ])
+    desc = P(["100%", 20], [c("l", lbl("#form_text", ["100%", "default"], "desc", None, "smooth", "left",
+                                       anchor_from="top_left", anchor_to="top_left"))], clips_children=True)
+    foot = H(["100%", 12], [
+        c("warn", slot(6, ["fill", 12], "red")),
+        pad(6),
+        c("dc", lbl("ui.dbe.training.mental.daily", ["default", 10], "weak", None, "smooth", "left")),
+        pad(4), c("dv", slot(5, [28, 12], "value", align="right", anchor="right_middle")),
+    ])
+    body = [c("inner", V([f"100% - {inset}px", f"100% - {inset - 2}px"], [
+        c("head", head), pad("100%", 2), c("desc", desc), pad("100%", 4),
+        c("cards", H(["100%", "fill"], [
+            c("memory", mental_card("ui.dbe.training.mental.memory", 1, 7, 8)),
+            pad(6),
+            c("challenge", mental_card("ui.dbe.training.mental.challenge", 2, 9, 10)),
+        ])),
+        pad("100%", 4), c("foot", foot),
+    ], anchor_from="center", anchor_to="center"))]
+    size, mx = ([400, 240], ["100% - 8px", "100% - 8px"]) if not mobile else (["100% - 6px", "100% - 6px"], [480, 270])
+    return frame(size, mx, th_, [], 22 if mobile else 18, body, left=back_button(24, th_ - 4 if th_ >= 24 else th_))
+
+
+mt["confirm_pc"] = mental_confirm(False)
+mt["confirm_mobile"] = mental_confirm(True)
+mt["mental_confirm_form@du2.root"] = {"controls": [
+    c("pc@du2_mental.confirm_pc", {"ignored": "$du2_mobile"}),
+    c("mobile@du2_mental.confirm_mobile", {"ignored": "$du2_pc"}),
+]}
+
+
 # ---- HUD: painel de treino (CONTRATO.md §11). Canal e tokens: §11 (título com valores terminados em ';',
 # números no subtítulo único "train_vals:"). Visual: mapa da Aquarela (planos/TREINOS_TEXTURAS.md).
 th = {"namespace": "du2_training_hud"}
