@@ -331,7 +331,7 @@ export function createSpaceArena(cfg) {
   const rebuildAsked = new Map(); // player id -> tick of the first call
 
   /** Operators only, and only when the command is repeated within 10 s: the first call just says what will happen. */
-  function rebuild(player) {
+  async function rebuild(player) {
     if (!(player.commandPermissionLevel >= 1)) return;
     if (placing) return player.sendMessage("§e[" + cfg.label + "] busy placing a piece; try again in a few seconds.");
     const asked = rebuildAsked.get(player.id);
@@ -344,8 +344,15 @@ export function createSpaceArena(cfg) {
     rebuildAsked.delete(player.id);
     // the migration queue, if any, stays: the pieces are placed again and the queue still clears what the new files skip
     player.sendMessage("§a[" + cfg.label + "] placing the build again.");
-    // nobody inside a piece while it is placed again (suffocating) or over a gap (falling): all to the arrival point first
-    for (const p of world.getDimension(cfg.dimId).getPlayers()) {
+    // nobody inside a piece while it is placed again (suffocating) or over a gap (falling): all to the arrival point first,
+    // after the arrival column is emptied and its floor put back (a player may have built or dug there)
+    const dim = world.getDimension(cfg.dimId);
+    try {
+      await clearArrival(dim);
+    } catch (e) {
+      console.warn("[" + cfg.label + "] rebuild: arrival not cleared: " + e);
+    }
+    for (const p of dim.getPlayers()) {
       try {
         p.teleport(cfg.spawn, { rotation: cfg.rotation ?? { x: 0, y: 0 } });
         if (p.id !== player.id) p.sendMessage("§e[" + cfg.label + "] the build is being placed again: you were moved to the arrival point.");
@@ -388,7 +395,7 @@ export function createSpaceArena(cfg) {
         if (!src || src.typeId !== "minecraft:player") return;
         if (ev.id === cfg.events.go) sendToArena(src);
         else if (ev.id === cfg.events.back) sendHome(src);
-        else if (cfg.events.rebuild && ev.id === cfg.events.rebuild) rebuild(src);
+        else if (cfg.events.rebuild && ev.id === cfg.events.rebuild) rebuild(src).catch((e) => console.warn("[" + cfg.label + "] rebuild: " + e));
       });
 
       if (cfg.removeMobs) {
