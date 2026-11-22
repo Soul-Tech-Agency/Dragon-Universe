@@ -30,7 +30,8 @@
 // Também lista a LIGAÇÃO TARDIA necessária (fatia O4.0): usos, de outro módulo, de nomes declarados depois na ordem
 // de hoje. Como import, eles fecham um ciclo e invertem a ordem de avaliação; como late.<nome> (objeto preenchido
 // pelo módulo que declara), não. O plano é simulado de novo sem essas arestas para provar que a lista basta.
-// Sai com código 1 se, mesmo com a ligação tardia, o plano causar problema.
+// Sai com código 1 se, mesmo com a ligação tardia, o plano causar problema, e com 2 se o plano for inválido
+// (segmento inexistente ou repetido, ou o segmento 0 fora do arquivo original).
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
@@ -454,12 +455,27 @@ function simulatePlan(plan) {
   for (const [target, specs] of Object.entries(plan))
     for (const spec of [].concat(specs)) {
       const [a, b = a] = String(spec).split("-").map(Number);
+      if (!Number.isInteger(a) || !Number.isInteger(b) || b < a) {
+        console.error(`plano inválido: faixa "${spec}" em ${target} (use "N" ou "A-B").`);
+        return 2;
+      }
       for (let i = a; i <= b; i++) {
-        if (!segments[i]) throw new Error(`plano: segmento ${i} não existe (há ${segments.length})`);
-        if (moduleOf.has(i)) throw new Error(`plano: segmento ${i} está em ${moduleOf.get(i)} e em ${target}`);
+        const bad = !Number.isInteger(i) || !segments[i] ? `o segmento ${i} (faixa "${spec}") não existe (há ${segments.length}: 0 a ${segments.length - 1})`
+          : moduleOf.has(i) ? `o segmento ${i} está em ${moduleOf.get(i)} e em ${target}` : null;
+        if (bad) {
+          console.error("plano inválido: " + bad + ".");
+          return 2;
+        }
         moduleOf.set(i, target);
       }
     }
+  // Regra do O4 (ARQUITETURA_OTIMIZACAO.md §8): o segmento 0 (imports do topo e cabeçalho) fica no arquivo original,
+  // que é o ponto de entrada. Um plano que o move (ou move tudo) não tem entrada: erro claro em vez de exceção.
+  if (moduleOf.has(0)) {
+    console.error(`plano inválido: o segmento 0 está em ${moduleOf.get(0)}; ele fica em ${original} (ponto de entrada, regra do O4).` +
+      (moduleOf.size === segments.length ? " O plano move todos os segmentos." : ""));
+    return 2;
+  }
   for (const seg of segments) if (!moduleOf.has(seg.index)) moduleOf.set(seg.index, original);
   const modules = new Map(); // arquivo → { segments: [], deps: Set }
   for (const seg of segments) {
@@ -479,7 +495,7 @@ function simulatePlan(plan) {
     }
   }
   const firstSeg = (m) => modules.get(m).segments[0];
-  const where = (st) => `index.js:${ast.body[st].loc.start.line} (#${stmtSegment.get(st)}, ${moduleOf.get(stmtSegment.get(st))})`;
+  const where = (st) => `${original}:${ast.body[st].loc.start.line} (#${stmtSegment.get(st)}, ${moduleOf.get(stmtSegment.get(st))})`;
 
   // LIGAÇÃO TARDIA: uso, de outro módulo, de um nome declarado DEPOIS na ordem de hoje. Como import, essa aresta
   // fecha um ciclo contra a ordem original e o ES passa a avaliar o módulo posterior primeiro. Se ela virar
@@ -487,8 +503,9 @@ function simulatePlan(plan) {
   // volta a ser a de hoje. Só é possível porque esses usos rodam depois da carga (chamada); um uso posterior em
   // tempo de carga já é problema hoje ("JÁ HOJE").
   // Só usos em tempo de chamada (em carga, late não ajuda) e vindos de um módulo novo (o arquivo original importa
-  // todos os módulos novos de qualquer forma e roda por último).
-  const isLate = (r) => !r.evalTime && r.from !== r.to && r.from !== original && r.decl.stmt > r.stmt;
+  // todos os módulos novos de qualquer forma e roda por último). Regra do O4: nenhum módulo novo importa o arquivo
+  // original, então todo uso de um nome dele (mesmo declarado antes) também vira late.
+  const isLate = (r) => !r.evalTime && r.from !== r.to && r.from !== original && (r.decl.stmt > r.stmt || r.to === original);
   const lateRefs = allRefs.filter(isLate);
 
   const evaluate = (useLate) => {
@@ -508,10 +525,17 @@ function simulatePlan(plan) {
     const stmtOrder = [];
     for (const m of order) for (const si of modules.get(m).segments) for (const st of segments[si].statements) stmtOrder.push(stmtIndex.get(st));
     const pos = new Map(stmtOrder.map((x, i) => [x, i]));
-    const problems = { notEvaluated: [], effects: [], writes: [] };
-    const seen = new Set();
+    const problems = { notEvaluated: [], effects: [], writes: [], importsOriginal: [] };
+    const seen = new Set(), seenOrig = new Set();
     for (const r of allRefs) {
       if (r.write && r.from !== r.to && !(useLate && isLate(r))) problems.writes.push(r);
+      // uso EM CARGA de uma função declarada no arquivo original por um módulo novo: o import a tornaria visível
+      // (funções são içadas), mas a regra do O4 proíbe importar o original e late não serve na carga (o original roda
+      // por último). Os demais usos do original na carga já saem como NÃO AVALIADO.
+      if (r.evalTime && r.decl.kind === "function" && r.from !== original && r.to === original && !seenOrig.has(r.name + "@" + r.line)) {
+        seenOrig.add(r.name + "@" + r.line);
+        problems.importsOriginal.push(r);
+      }
       if (!r.evalTime || r.decl.kind === "function" || r.decl.stmt === r.stmt) continue;
       if (pos.get(r.decl.stmt) < pos.get(r.stmt)) continue;
       const k = r.name + "@" + r.line;
@@ -524,7 +548,7 @@ function simulatePlan(plan) {
     for (const seg of segments) for (const st of analysis(seg).effects) effectful.push(st);
     effectful.sort((a, b) => a - b);
     for (let i = 1; i < effectful.length; i++) if (pos.get(effectful[i - 1]) > pos.get(effectful[i])) problems.effects.push({ before: effectful[i - 1], after: effectful[i] });
-    const caused = problems.notEvaluated.filter((r) => !r.preexisting).length + problems.effects.length + problems.writes.length;
+    const caused = problems.notEvaluated.filter((r) => !r.preexisting).length + problems.effects.length + problems.writes.length + problems.importsOriginal.length;
     return { order, problems, caused };
   };
 
@@ -545,19 +569,21 @@ function simulatePlan(plan) {
   }
   const print = (title, res) => {
     const nv = res.problems.notEvaluated.filter((r) => !r.preexisting).length;
-    console.log(`${title}: ordem ES ${res.order.join(" → ")}; problemas causados: ${res.caused} (${nv} não avaliado(s), ${res.problems.effects.length} troca(s) de ordem de efeitos, ${res.problems.writes.length} atribuição(ões) entre módulos).`);
+    console.log(`${title}: ordem ES ${res.order.join(" → ")}; problemas causados: ${res.caused} (${nv} não avaliado(s), ${res.problems.effects.length} troca(s) de ordem de efeitos, ${res.problems.writes.length} atribuição(ões) entre módulos, ${res.problems.importsOriginal.length} função(ões) do original usada(s) na carga).`);
     for (const r of res.problems.notEvaluated.slice(0, 40))
-      console.log(`  ${r.preexisting ? "JÁ HOJE     " : "NÃO AVALIADO"}  index.js:${r.line} (${r.from}): ${r.name} (${r.decl.kind}, index.js:${r.decl.line}, ${r.to})${r.via ? " [via " + r.via + "()]" : ""}`);
+      console.log(`  ${r.preexisting ? "JÁ HOJE     " : "NÃO AVALIADO"}  ${original}:${r.line} (${r.from}): ${r.name} (${r.decl.kind}, ${original}:${r.decl.line}, ${r.to})${r.via ? " [via " + r.via + "()]" : ""}`);
     if (res.problems.notEvaluated.length > 40) console.log(`  ... mais ${res.problems.notEvaluated.length - 40}`);
     for (const e of res.problems.effects.slice(0, 40)) console.log(`  ORDEM DE EFEITOS  ${where(e.before)} passa a rodar depois de ${where(e.after)}`);
-    for (const w of res.problems.writes.slice(0, 40)) console.log(`  ATRIBUIÇÃO  index.js:${w.line} (${w.from}): ${w.name} (declarado em ${w.to}, index.js:${w.decl.line})`);
+    for (const r of res.problems.importsOriginal.slice(0, 40))
+      console.log(`  IMPORTA O ORIGINAL  ${original}:${r.line} (${r.from}): ${r.name} (${r.decl.kind}, ${original}:${r.decl.line}) (função) é chamada na carga do módulo novo`);
+    for (const w of res.problems.writes.slice(0, 40)) console.log(`  ATRIBUIÇÃO  ${original}:${w.line} (${w.from}): ${w.name} (declarado em ${w.to}, ${original}:${w.decl.line})`);
   };
   console.log(`Plano: ${modules.size - 1} módulo(s) novo(s), ${segments.filter((x) => moduleOf.get(x.index) !== original).length} de ${segments.length} segmentos movidos.\n`);
   print("1. Só com imports", before);
-  console.log(`\n2. Ligação tardia necessária (O4.0): ${lateRefs.length} referência(s) a ${lateByName.size} nome(s) declarados depois na ordem de hoje.`);
+  console.log(`\n2. Ligação tardia necessária (O4.0): ${lateRefs.length} referência(s) a ${lateByName.size} nome(s) declarados depois na ordem de hoje ou no ${original}.`);
   console.log("   Cada nome vira late.<nome>, preenchido pelo módulo que o declara; cada uso abaixo passa a ler late.<nome>.");
   for (const [name, v] of [...lateByName].sort((a, b) => a[1].decl.line - b[1].decl.line))
-    console.log(`  LATE  ${name} (${v.decl.kind}, index.js:${v.decl.line}, ${v.to}) ← ${v.uses.map((u) => `index.js:${u.line} (${u.from})`).join(", ")}`);
+    console.log(`  LATE  ${name} (${v.decl.kind}, ${original}:${v.decl.line}, ${v.to}) ← ${v.uses.map((u) => `${original}:${u.line} (${u.from})`).join(", ")}`);
   console.log("");
   print("3. Com a ligação tardia acima", after);
   if (!after.caused) console.log("\nCom a ligação tardia, a divisão mantém a ordem de avaliação e de efeitos de hoje.");
