@@ -16343,7 +16343,7 @@ var k8 = new k6(),
       super(sG);
       let sH = hO(sG),
         { attributes: sI } = sH;
-      jZ.lastMenuId.set(sG.id, "statistics_view"), this.setTitle("ui.dbe.statistics_view.title"); // tela própria (CONTRATO, P2-1)
+      jZ.lastMenuId.set(sG.id, "statistics_view"), this.setTitle("ui.dbe.statistics.title"); // mesmo título do kF; o JSON separa pela flag "du2;" (só o kF manda)
       let sK = [];
       for (let sL of sI.stats.getStats())
         sK.push({ translate: "stat." + sL.id }, { text: ": §u" + sL.getFormatedValue() + "\n§r" });
@@ -16839,7 +16839,7 @@ var kB = class extends jY {
       for (const sL of rows) slot(sL ? "" + sL.value : ""); // 32-36
       for (const sL of rows) slot(sL ? duMultiplierText(sI.modifiers.getMultiplier(sL.id)) : ""); // 37-41
       for (const sL of rows) slot(sL ? d6(sL.getUpgradeCost(sK), "attribute_points") : ""); // 42-46
-      slot(training !== 1 ? "x" + training : ""); // 47
+      slot(training !== 1 ? "x" + parseFloat(Number(training).toFixed(2)) : ""); // 47
       this.setBody(form.isOozaru ? "du2;ozr;" : "du2;"); // du2; = layout novo (o kf, mesmo título, não manda)
     }
     tryBuyAttribute(sG, sH, sI) {

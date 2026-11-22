@@ -1595,7 +1595,6 @@ dbe.constructions.name.martial_arts_tournament=World Martial Arts Tournament
 
 ## redesign 1.7.17 (menu, seleção de raça e Guia de ajuda)
 ui.dbe.help.title=Help
-ui.dbe.statistics_view.title=Full information
 ui.dbe.statistics.free_points=%s free points
 ui.dbe.du2.attributes=ATTRIBUTES
 ui.dbe.du2.points_per_click=Points per click

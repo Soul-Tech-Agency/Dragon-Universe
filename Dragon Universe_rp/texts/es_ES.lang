@@ -1595,7 +1595,6 @@ dbe.constructions.name.martial_arts_tournament=Torneo de Artes Marciales
 
 ## redesign 1.7.17 (menu, seleção de raça e Guia de ajuda)
 ui.dbe.help.title=Ayuda
-ui.dbe.statistics_view.title=Información completa
 ui.dbe.statistics.free_points=%s puntos libres
 ui.dbe.du2.attributes=ATRIBUTOS
 ui.dbe.du2.points_per_click=Puntos por clic
