@@ -1677,17 +1677,13 @@ def hud_lbl(text, size, color="text", align="left", **kw):
 
 
 def hud_segments(key, on_tex="xp_on", h=5):
-    """Barra de 10 segmentos: o segmento k acende com key:k; … key:10;."""
-    segs = []
-    for k in range(1, 11):
-        expr = "(" + " or ".join(f"(not ((#hud_title_text_string - '{key}:{j};') = #hud_title_text_string))"
-                                 for j in range(k, 11)) + ")"
-        segs.append(c(f"seg{k}", P(["10%", "100%"], [
-            c("off", img(T + "xp_off", ["100% - 1px", h])),
-            c("on", img(T + on_tex, ["100% - 1px", h], bindings=[{"binding_name": "#hud_title_text_string"},
-                                                                view(expr)])),
-        ])))
-    return H(["fill", h], segs)
+    """Barra de 10 segmentos. Os apagados são fixos (sem binding). Por cima, um painel por nível n
+    (visível com key:n;) com os n primeiros segmentos acesos: 10 comparações por barra, em vez das 55
+    da versão com "OU" por segmento (planos/UI_DESEMPENHO.md, item 2). O desenho é o mesmo."""
+    def row(tex, n):
+        return [c(f"seg{k}", P(["10%", "100%"], [c("i", img(T + tex, ["100% - 1px", h]))])) for k in range(1, n + 1)]
+    levels = [c(f"lv{n}", H(["100%", h], row(on_tex, n), bindings=has_token(f"{key}:{n};"))) for n in range(1, 11)]
+    return P(["fill", h], [c("off", H(["100%", h], row("xp_off", 10))), *levels])
 
 
 def hud_icon(icon, col):
