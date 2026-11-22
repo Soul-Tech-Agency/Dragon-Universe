@@ -41,6 +41,7 @@ import * as mc from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 import { initVillages } from "./planet_villages.js";
 import { travelTimer } from "./travel_timing.js"; // TEMPORARY test measurement, see travel_timing.js
+import { navigatorExtras } from "./navigator_extras.js"; // extra buttons (constructions list of world_structures.js)
 
 const { world, system, BlockVolume } = mc;
 
@@ -692,6 +693,90 @@ function learnSolid(P, block) {
   provenSolid.get(P.key).add(block.typeId);
 }
 const solidTypes = (P) => [...(provenSolid.get(P.key) ?? [])];
+// Same idea for the planet liquid: once a real read saw it liquid, a block of that type is known to be liquid.
+// isSolid/isLiquid depend on the block type only, so the per-block loops below read just getBlock + typeId for the
+// generator types (2 native calls instead of ~7); any other type still goes through the full original checks.
+const provenLiquid = new Set();
+function learnLiquid(P, block) {
+  if (P.liquid && block.typeId === P.liquid && block.isLiquid) provenLiquid.add(P.key);
+}
+const knownSolid = (P, id) => provenSolid.get(P.key)?.has(id) === true;
+const knownLiquid = (P, id) => id === P.liquid && provenLiquid.has(P.key);
+
+// Containment proofs of this session. While preparing an area every chunk job re-proved its 4 neighbours (31k reads
+// each), so one chunk was read up to 5 times in a minute. A proof is reused only for the same chunk, with the same
+// ownership and buffer markers, younger than PROOF_TICKS, and not touched by a player, explosion or piston since
+// (those events drop it). A strict proof (stone scaffold) also proves the non-strict containment.
+// Accepted risk: a change that fires none of those events (operator /setblock or /fill, another script) inside a
+// proven chunk is not seen by a reuse within PROOF_TICKS (15 s); after that the chunk is read again.
+const PROOF_TICKS = 300;
+const PROOF_LIMIT = 512;
+const containmentProofs = new Map(); // "planet:cx,cz" -> { owner, buffer, strict, tick }
+let proofsUsable = true; // false when an invalidating event cannot be watched: every proof is then read again
+const proofKey = (P, cx, cz) => P.key + ":" + cx + "," + cz;
+const touchedAt = new Map(); // "planet:cx,cz" -> last tick an invalidating event touched the chunk
+/** Keeps a proof whose reads started at tick `since`, unless the chunk was touched since then. */
+function rememberContainment(P, cx, cz, strict, since) {
+  const key = proofKey(P, cx, cz);
+  containmentProofs.delete(key);
+  if (!proofsUsable || (touchedAt.get(key) ?? -1) >= since) return;
+  if (containmentProofs.size >= PROOF_LIMIT) containmentProofs.delete(containmentProofs.keys().next().value);
+  containmentProofs.set(key, { owner: world.getDynamicProperty(planetOwnership(P, cx, cz)), buffer: world.getDynamicProperty(planetBuffer(P, cx, cz)), strict, tick: system.currentTick });
+}
+/** The buffer marker moved to "ready" in the same step as the proof was taken (no yield between): keep the proof. */
+function restampContainment(P, cx, cz) {
+  const proof = containmentProofs.get(proofKey(P, cx, cz));
+  if (proof && proof.tick === system.currentTick) {
+    proof.owner = world.getDynamicProperty(planetOwnership(P, cx, cz));
+    proof.buffer = world.getDynamicProperty(planetBuffer(P, cx, cz));
+  }
+}
+function provenContained(P, cx, cz, strict) {
+  if (!proofsUsable) return false;
+  const proof = containmentProofs.get(proofKey(P, cx, cz));
+  if (!proof) return false;
+  const valid = (proof.strict || !strict) && system.currentTick - proof.tick <= PROOF_TICKS &&
+    proof.owner === world.getDynamicProperty(planetOwnership(P, cx, cz)) && proof.buffer === world.getDynamicProperty(planetBuffer(P, cx, cz));
+  if (!valid) containmentProofs.delete(proofKey(P, cx, cz));
+  return valid;
+}
+// Chunk under conversion whose stone scaffold (up to sea level) was strictly proven just before the conversion began,
+// with the tick it began. The conversion leaves the stone spans of that region as they are, so while no event touched
+// the chunk the job reads them neither before writing nor in the final verification. One writer at a time.
+const provenScaffold = new Map(); // "planet:cx,cz" -> tick
+function scaffoldIntact(P, cx, cz) {
+  const key = proofKey(P, cx, cz), since = provenScaffold.get(key);
+  return since !== undefined && (touchedAt.get(key) ?? -1) < since;
+}
+/** Drops the proofs of the planet chunks within r blocks of a changed block. */
+function forgetContainment(dimensionId, location, r = 0) {
+  const P = BY_DIM.get(dimensionId);
+  if (!P || P.kind !== "planet" || !location) return;
+  for (let cx = chunkOf(location.x - r); cx <= chunkOf(location.x + r); cx++)
+    for (let cz = chunkOf(location.z - r); cz <= chunkOf(location.z + r); cz++) {
+      const key = proofKey(P, cx, cz);
+      containmentProofs.delete(key);
+      touchedAt.delete(key);
+      if (touchedAt.size >= PROOF_LIMIT) touchedAt.delete(touchedAt.keys().next().value);
+      touchedAt.set(key, system.currentTick);
+    }
+}
+for (const [event, pick] of [
+  ["playerPlaceBlock", (e) => [e.block?.dimension?.id ?? e.player?.dimension?.id, e.block?.location, 0]],
+  ["playerBreakBlock", (e) => [e.block?.dimension?.id ?? e.player?.dimension?.id, e.block?.location, 0]],
+  ["playerInteractWithBlock", (e) => [e.block?.dimension?.id ?? e.player?.dimension?.id, e.block?.location, 1]], // buckets
+  ["blockExplode", (e) => [e.dimension?.id, e.block?.location, 0]],
+  ["pistonActivate", (e) => [e.dimension?.id ?? e.block?.dimension?.id, e.block?.location, 13]],
+]) {
+  try {
+    world.afterEvents[event].subscribe((e) => {
+      try { const [dimensionId, location, r] = pick(e); forgetContainment(dimensionId, location, r); } catch (error) { proofsUsable = false; containmentProofs.clear(); }
+    });
+  } catch (error) {
+    proofsUsable = false;
+    console.warn("[Space] containment proofs disabled, " + event + " cannot be watched: " + error);
+  }
+}
 const queriesUsable = (dim, cx, cz) => queriesReportAir(dim, { x: cx * 16, y: 319, z: cz * 16 });
 function columnContained(P, dim, x, z, strict, profile) {
   const solids = solidTypes(P);
@@ -714,12 +799,14 @@ function columnMatchesProfile(P, dim, x, z, profile) {
 }
 
 let spanPace = 0;
-function* fillPlanetSpan(P, dim, x, z, from, to, type) {
+function* fillPlanetSpan(P, dim, x, z, from, to, type, assumeScaffold = false) {
   const buffer = world.getDynamicProperty(planetBuffer(P, chunkOf(x), chunkOf(z)));
   const convertible = buffer === "ready" || buffer === "converting";
+  const scaffoldBlock = { typeId: P.stone };
   const runs = []; let start;
   for (let y = from; y <= to + 1; y++) {
-    const current = y <= to ? dim.getBlock({ x, y, z }) : undefined;
+    // A proven, untouched scaffold block is stone: no read (writes still go through the guarded preflight read).
+    const current = y <= to ? (assumeScaffold && convertible && y <= P.liquidLevel ? scaffoldBlock : dim.getBlock({ x, y, z })) : undefined;
     if (y <= to && !current) throw new Error(P.key + " terrain unavailable at " + x + "," + y + "," + z);
     const scaffold = convertible && y <= P.liquidLevel && current?.typeId === P.stone;
     if (y <= to && current.typeId !== type) {
@@ -738,18 +825,24 @@ function* terrainJob(P, dim, cx, cz) {
   for (let i = 0; i < 16; i++) {
     for (let j = 0; j < 16; j++) {
       const x = x0 + i, z = z0 + j;
+      const assume = scaffoldIntact(P, cx, cz);
       for (const span of planetColumn(P, x, z)) for (let y = span.from; y <= span.to; y += 64) {
         planetWritable(P, cx, cz, "terrain");
-        yield* fillPlanetSpan(P, dim, x, z, y, Math.min(y + 63, span.to), span.type);
+        yield* fillPlanetSpan(P, dim, x, z, y, Math.min(y + 63, span.to), span.type, assume);
       }
     }
   }
   runningTiming?.mark("chunk " + cx + "," + cz + " write:end");
-  yield* verifyPlanetProfile(P, dim, cx, cz);
+  if (scaffoldIntact(P, cx, cz)) {
+    // Stone spans of the proven scaffold were not written above: verify everything else, then re-verify in full
+    // if anything touched the chunk meanwhile.
+    yield* verifyPlanetProfile(P, dim, cx, cz, true);
+    if (!scaffoldIntact(P, cx, cz)) yield* verifyPlanetProfile(P, dim, cx, cz);
+  } else yield* verifyPlanetProfile(P, dim, cx, cz);
   runningTiming?.mark("chunk " + cx + "," + cz + " verify:end");
 }
 
-function* verifyPlanetProfile(P, dim, cx, cz) {
+function* verifyPlanetProfile(P, dim, cx, cz, skipScaffold = false) {
   const x0 = cx * 16, z0 = cz * 16;
   const native = queriesUsable(dim, cx, cz);
   for (let i = 0; i < 16; i++) for (let j = 0; j < 16; j++) {
@@ -759,11 +852,15 @@ function* verifyPlanetProfile(P, dim, cx, cz) {
       if (j === 15) yield;
       continue;
     }
-    for (const span of planetColumn(P, x, z)) for (let y = span.from; y <= span.to; y++) {
+    for (const span of planetColumn(P, x, z)) for (let y = skipScaffold && span.type === P.stone ? Math.max(span.from, P.liquidLevel + 1) : span.from; y <= span.to; y++) {
       const block = dim.getBlock({ x, y, z }), liquid = span.type === P.liquid;
-      if (block) learnSolid(P, block);
-      if (!block || block.typeId === AIR || (liquid ? !block.isSolid && !block.isLiquid : !block.isSolid || block.isLiquid)) throw new Error(P.key + " terrain verification failed at " + x + "," + y + "," + z + "; expected " + span.type + ", observed " + (block?.typeId ?? "unavailable"));
-      if (block.typeId !== span.type) throw new PlanetPreservationError(P.key + " terrain preserves unexpected " + block.typeId + " at " + x + "," + y + "," + z + "; expected original profile " + span.type + "; review the world copy before repair");
+      const id = block?.typeId;
+      // Fast path: the expected generator type, already proven solid (or liquid) by a real read: same verdict.
+      if (!(id === span.type && (liquid ? knownLiquid(P, id) : knownSolid(P, id)))) {
+        if (block) { learnSolid(P, block); learnLiquid(P, block); }
+        if (!block || block.typeId === AIR || (liquid ? !block.isSolid && !block.isLiquid : !block.isSolid || block.isLiquid)) throw new Error(P.key + " terrain verification failed at " + x + "," + y + "," + z + "; expected " + span.type + ", observed " + (block?.typeId ?? "unavailable"));
+        if (block.typeId !== span.type) throw new PlanetPreservationError(P.key + " terrain preserves unexpected " + block.typeId + " at " + x + "," + y + "," + z + "; expected original profile " + span.type + "; review the world copy before repair");
+      }
       if ((y - span.from + 1) % 64 === 0 || y === span.to) { planetWritable(P, cx, cz, "terrain"); yield; }
     }
   }
@@ -847,21 +944,33 @@ function decorContext(P, dim, cx, cz) {
   };
 }
 
+const PAD_CENTER = "minecraft:gray_concrete";
+const PAD_HALF = 5;
+const padBuilt = (dim, spawn) => dim.getBlock({ x: spawn.x, y: spawn.y, z: spawn.z })?.typeId === PAD_CENTER;
+/** Landing pad: 11x11 levelled at the spawn height, cleared 6 blocks up, concrete with four lanterns. Draws no rng. */
+function* buildPad(c, spawn) {
+  const { P, dim } = c;
+  const y = spawn.y;
+  yield* levelArea(c, spawn.x - PAD_HALF, spawn.z - PAD_HALF, spawn.x + PAD_HALF, spawn.z + PAD_HALF, y, P.top);
+  tryFill(dim, spawn.x - PAD_HALF, y + 1, spawn.z - PAD_HALF, spawn.x + PAD_HALF, y + 6, spawn.z + PAD_HALF, AIR);
+  tryFill(dim, spawn.x - 3, y, spawn.z - 3, spawn.x + 3, y, spawn.z + 3, "minecraft:light_gray_concrete");
+  tryFill(dim, spawn.x - 1, y, spawn.z - 1, spawn.x + 1, y, spawn.z + 1, PAD_CENTER);
+  for (const sx of [-3, 3]) for (const sz of [-3, 3]) put(dim, spawn.x + sx, y, spawn.z + sz, "minecraft:sea_lantern");
+  yield;
+}
+/** Builds only the landing pad, before the first arrival: needs just the chunks under the pad, not the 8 neighbours. */
+function* padJob(P, dim) {
+  const spawn = findSpawn(P);
+  if (!padBuilt(dim, spawn)) yield* buildPad({ P, dim }, spawn);
+}
+
 function* decorateJob(P, dim, cx, cz) {
   const c = decorContext(P, dim, cx, cz);
   const { x0, z0, rng } = c;
   const spawn = findSpawn(P);
 
-  // landing pad at the arrival point
-  if (chunkOf(spawn.x) === cx && chunkOf(spawn.z) === cz) {
-    const y = spawn.y;
-    yield* levelArea(c, spawn.x - 5, spawn.z - 5, spawn.x + 5, spawn.z + 5, y, P.top);
-    tryFill(dim, spawn.x - 5, y + 1, spawn.z - 5, spawn.x + 5, y + 6, spawn.z + 5, AIR);
-    tryFill(dim, spawn.x - 3, y, spawn.z - 3, spawn.x + 3, y, spawn.z + 3, "minecraft:light_gray_concrete");
-    tryFill(dim, spawn.x - 1, y, spawn.z - 1, spawn.x + 1, y, spawn.z + 1, "minecraft:gray_concrete");
-    for (const sx of [-3, 3]) for (const sz of [-3, 3]) put(dim, spawn.x + sx, y, spawn.z + sz, "minecraft:sea_lantern");
-    yield;
-  }
+  // landing pad at the arrival point (normally already built by padJob before the first arrival)
+  if (chunkOf(spawn.x) === cx && chunkOf(spawn.z) === cz && !padBuilt(dim, spawn)) yield* buildPad(c, spawn);
 
   yield* villages.buildInChunk(c);
 
@@ -878,7 +987,11 @@ function* decorateJob(P, dim, cx, cz) {
       let oy = o.minY + Math.floor(rng() * (top - o.minY + 1));
       let oz = z;
       for (let k = 0; k < o.size; k++) {
-        put(dim, ox, oy, oz, o.id);
+        // A vein may wander into the neighbouring chunk, onto ore that chunk's own decoration already placed (the
+        // preservation guard then aborted this whole decoration: "unexpected gold_ore ... required lapis_ore"), or
+        // down onto the marker row. Ore only replaces the natural stone core; anything else is left as it is.
+        // The rng draws below do not change, so the rest of the vein and of the chunk stay the same.
+        if (oy > MIN_Y && dim.getBlock({ x: ox, y: oy, z: oz })?.typeId === P.stone) put(dim, ox, oy, oz, o.id);
         const axis = Math.floor(rng() * 3);
         const step = rng() < 0.5 ? -1 : 1;
         if (axis === 0) ox += step;
@@ -1115,7 +1228,7 @@ const chunkJobs = new Map();
 const waitTicks = (n) => new Promise((resolve) => system.runTimeout(resolve, n));
 
 function scopedPlanetDimension(P, dim, cx, cz, phase, activity) {
-  const halo = phase === "decoration" ? 1 : 0;
+  const halo = phase === "decoration" || phase === "pad" ? 1 : 0;
   const scope = { expected: new Map(), failed: false, error: undefined, operation: "starting", position: undefined };
   // Retain this job's own writes after required-write verification drains expected.
   // A later overlap still has to read and match that exact value before replacing it.
@@ -1143,7 +1256,7 @@ function scopedPlanetDimension(P, dim, cx, cz, phase, activity) {
     // Prove the whole volume before the first native write, including foundation markers.
     for (let x = from.x; x <= to.x; x++) for (let z = from.z; z <= to.z; z++) {
       const columnKey = x + "," + z;
-      if (phase === "decoration" && !columns.has(columnKey)) columns.set(columnKey, planetColumn(P, x, z));
+      if ((phase === "decoration" || phase === "pad") && !columns.has(columnKey)) columns.set(columnKey, planetColumn(P, x, z));
       for (let y = from.y; y <= to.y; y++) {
         const point = { x, y, z }, current = dim.getBlock(point);
         if (!current) throw new Error(P.key + " write preflight unavailable at " + x + "," + y + "," + z);
@@ -1151,7 +1264,7 @@ function scopedPlanetDimension(P, dim, cx, cz, phase, activity) {
         if (current.typeId === desired || phase === "terrain" && current.typeId === AIR) continue;
         const buffer = phase === "terrain" && world.getDynamicProperty(planetBuffer(P, chunkOf(x), chunkOf(z)));
         if ((buffer === "ready" || buffer === "converting") && y > MIN_Y && y <= P.liquidLevel && current.typeId === P.stone) continue;
-        if (phase === "decoration") {
+        if (phase === "decoration" || phase === "pad") {
           const key = x + "," + y + "," + z;
           // This direct read proves a preceding write, even when both occur before a yield.
           if (written.get(key) === current.typeId) continue;
@@ -1237,6 +1350,17 @@ function freshBulkEmpty(P, dim, cx, cz, activity) {
 }
 
 function* verifyContainment(P, dim, cx, cz, activity, strictBuffer = false) {
+  if (provenContained(P, cx, cz, strictBuffer)) {
+    activity.serial++;
+    yield;
+    return;
+  }
+  const since = system.currentTick;
+  yield* readContainment(P, dim, cx, cz, activity, strictBuffer);
+  rememberContainment(P, cx, cz, strictBuffer, since);
+}
+
+function* readContainment(P, dim, cx, cz, activity, strictBuffer) {
   const native = queriesUsable(dim, cx, cz);
   if (native) {
     // One query proves a dry chunk or a finished scaffold (volume within the native limit, as the bulk fill above).
@@ -1258,8 +1382,16 @@ function* verifyContainment(P, dim, cx, cz, activity, strictBuffer = false) {
       const actual = dim.getBlock({ x, y, z }), expected = profile.find(span => y >= span.from && y <= span.to)?.type;
       if (!actual) throw new Error(P.key + " fluid containment unavailable at " + x + "," + y + "," + z);
       activity.serial++;
-      learnSolid(P, actual);
-      const contained = strictBuffer ? actual.typeId === P.stone && actual.isSolid && !actual.isLiquid : actual.isSolid && !actual.isLiquid || expected === P.liquid && actual.typeId === P.liquid && actual.isLiquid;
+      const id = actual.typeId;
+      let contained;
+      // Fast path for types already proven solid/liquid by a real read; anything else takes the original check.
+      if (knownSolid(P, id)) contained = !strictBuffer || id === P.stone;
+      else if (!strictBuffer && expected === P.liquid && knownLiquid(P, id)) contained = true;
+      else {
+        learnSolid(P, actual);
+        learnLiquid(P, actual);
+        contained = strictBuffer ? actual.typeId === P.stone && actual.isSolid && !actual.isLiquid : actual.isSolid && !actual.isLiquid || expected === P.liquid && actual.typeId === P.liquid && actual.isLiquid;
+      }
       if (!contained)
         throw new PlanetPreservationError(P.key + " fluid containment is incomplete at " + x + "," + y + "," + z + "; observed " + actual.typeId + "; review and repair this neighboring chunk before travel");
       if ((y - MIN_Y) % 64 === 0 || y === P.liquidLevel) yield;
@@ -1309,6 +1441,7 @@ function* preparePlanetBuffer(P, dim, cx, cz, activity) {
       yield* verifyContainment(P, dim, cx, cz, activity, true);
       planetWritable(P, cx, cz, "terrain");
       world.setDynamicProperty(bufferKey, "ready");
+      restampContainment(P, cx, cz);
       return;
     }
     world.setDynamicProperty(bufferKey, "building-air:0");
@@ -1332,6 +1465,7 @@ function* preparePlanetBuffer(P, dim, cx, cz, activity) {
   yield* verifyContainment(P, dim, cx, cz, activity, true);
   planetWritable(P, cx, cz, "terrain");
   world.setDynamicProperty(bufferKey, "ready");
+  restampContainment(P, cx, cz);
 }
 
 async function waitForWriter() {
@@ -1408,6 +1542,8 @@ async function runLoadedJob(build, key, W, cx, cz, phase) {
               if (dx || dz) activity.containment.set(nx + "," + nz, { ownerKey, bufferKey, owner, buffer });
             }
             planetWritable(W, cx, cz, "terrain");
+            // Checked in the same step as the marker change: the scaffold of this chunk is strictly proven right now.
+            if (provenContained(W, cx, cz, true)) provenScaffold.set(proofKey(W, cx, cz), system.currentTick);
             world.setDynamicProperty(planetBuffer(W, cx, cz), "converting");
             timing?.mark(at + " buffers:end");
           }
@@ -1415,6 +1551,7 @@ async function runLoadedJob(build, key, W, cx, cz, phase) {
       }
       // A certified profile still goes through the real terrain iterator; matching
       // blocks cause no terrain writes and the full profile is proven again before markers.
+      const builtSince = system.currentTick;
       const gen = build(target);
       try {
         for (;;) {
@@ -1436,6 +1573,8 @@ async function runLoadedJob(build, key, W, cx, cz, phase) {
         planetWritable(W, cx, cz, phase);
         world.setDynamicProperty(planetBuffer(W, cx, cz), certifyExisting ? "legacy-profile" : "profile");
         world.setDynamicProperty(planetOwnership(W, cx, cz), "complete");
+        // The full profile proven above holds every block up to sea level solid, or the planet liquid where expected.
+        rememberContainment(W, cx, cz, false, builtSince);
       } else if (scope && phase === "decoration") {
         put(target, cx * 16 + 1, MIN_Y, cz * 16, BEDROCK);
         yield* verifyRequiredWrites(scope, W, cx, cz, phase);
@@ -1451,6 +1590,7 @@ async function runLoadedJob(build, key, W, cx, cz, phase) {
     throw e;
   } finally {
     if (area) releaseLoadedArea(area);
+    provenScaffold.delete(proofKey(W, cx, cz));
     if (ownsBusy) { busy = false; busyActivity = undefined; runningTiming = undefined; }
     system.run(() => {
       try {
@@ -1475,7 +1615,17 @@ function terrainFor(W, dim, cx, cz) {
  * Generates and decorates a chunk rectangle (and terrain one chunk around it) so a landmark can stand on finished ground.
  * False when a chunk here is legacy or protected: that ground is not ours to write on.
  */
+let landmarkPrep = 0; // landmark ground preparations running: the player scan then keeps to the 3x3 under the player
 async function prepareLandmarkChunks(P, minCx, minCz, maxCx, maxCz) {
+  landmarkPrep++;
+  try {
+    return await prepareLandmarkGround(P, minCx, minCz, maxCx, maxCz);
+  } finally {
+    landmarkPrep--;
+  }
+}
+
+async function prepareLandmarkGround(P, minCx, minCz, maxCx, maxCz) {
   const state = (cx, cz) => world.getDynamicProperty(planetOwnership(P, cx, cz));
   for (let cx = minCx - 1; cx <= maxCx + 1; cx++) {
     for (let cz = minCz - 1; cz <= maxCz + 1; cz++) {
@@ -1714,6 +1864,8 @@ function scan() {
           break;
         }
       }
+    } else if (landingRescue(p, W, x, y, z)) {
+      /* moved back onto the landing pad */
     } else if (y < MIN_Y + 8) {
       // A predicted height is not proof that generation actually produced a safe surface.
       try {
@@ -1739,30 +1891,78 @@ function scan() {
     }
     const pcx = chunkOf(p.location.x);
     const pcz = chunkOf(p.location.z);
-    for (const [dx, dz] of offsets(W.radius)) {
-      const cx = pcx + dx;
-      const cz = pcz + dz;
-      const k = W.key + ":terrain:" + cx + "," + cz;
-      if (!canRetry(k)) continue;
-      const state = W.kind === "planet" ? world.getDynamicProperty(planetOwnership(W, cx, cz)) : undefined;
-      if (W.kind === "planet" ? !["complete", "legacy", "protected"].includes(state) : chunkState(dim, cx, cz) === 0) {
-        runExclusive(loaded => terrainFor(W, loaded, cx, cz), W, cx, cz);
-        return;
+    if (W.kind !== "planet") {
+      for (const [dx, dz] of offsets(W.radius)) {
+        const cx = pcx + dx;
+        const cz = pcz + dz;
+        if (!canRetry(W.key + ":terrain:" + cx + "," + cz)) continue;
+        if (chunkState(dim, cx, cz) === 0) {
+          runExclusive(loaded => terrainFor(W, loaded, cx, cz), W, cx, cz);
+          return;
+        }
       }
+      continue;
     }
-    if (W.kind !== "planet") continue;
-    for (const [dx, dz] of offsets(W.decorRadius)) {
-      const cx = pcx + dx;
-      const cz = pcz + dz;
-      const k = W.key + ":decoration:" + cx + "," + cz;
-      if (!canRetry(k)) continue;
-      if (world.getDynamicProperty(planetOwnership(W, cx, cz)) !== "complete") continue;
-      if (chunkState(dim, cx, cz) !== 1) continue;
-      if (NEIGHBOURS.every(([nx, nz]) => chunkState(dim, cx + nx, cz + nz) >= 1)) {
-        runExclusive(loaded => decorateJob(W, loaded, cx, cz), W, cx, cz, "decoration");
-        return;
-      }
+    // Planets: the 3x3 under the player first, terrain then decoration (the landing pad, when the trip only generated
+    // the chunks under the landing point), then the rest. While a landmark prepares its ground (landmarkPrep), only the
+    // 3x3 under the player competes with it for the single writer.
+    const rings = landmarkPrep > 0 ? [[1, 1]] : [[1, 1], [W.radius, W.decorRadius]];
+    for (const [terrainRadius, decorRadius] of rings) {
+      if (planetTerrainStep(W, dim, pcx, pcz, terrainRadius) || planetDecorationStep(W, dim, pcx, pcz, decorRadius)) return;
     }
+  }
+}
+
+/** Starts the terrain job of the nearest unfinished chunk within r of the player chunk; true when one started. */
+function planetTerrainStep(W, dim, pcx, pcz, r) {
+  for (const [dx, dz] of offsets(r)) {
+    const cx = pcx + dx;
+    const cz = pcz + dz;
+    if (!canRetry(W.key + ":terrain:" + cx + "," + cz)) continue;
+    if (!["complete", "legacy", "protected"].includes(world.getDynamicProperty(planetOwnership(W, cx, cz)))) {
+      runExclusive(loaded => terrainFor(W, loaded, cx, cz), W, cx, cz);
+      return true;
+    }
+  }
+  return false;
+}
+
+/** Starts the decoration job of the nearest undecorated chunk within r whose neighbours have terrain; true when one started. */
+function planetDecorationStep(W, dim, pcx, pcz, r) {
+  for (const [dx, dz] of offsets(r)) {
+    const cx = pcx + dx;
+    const cz = pcz + dz;
+    if (!canRetry(W.key + ":decoration:" + cx + "," + cz)) continue;
+    if (world.getDynamicProperty(planetOwnership(W, cx, cz)) !== "complete") continue;
+    if (chunkState(dim, cx, cz) !== 1) continue;
+    if (NEIGHBOURS.every(([nx, nz]) => chunkState(dim, cx + nx, cz + nz) >= 1)) {
+      runExclusive(loaded => decorateJob(W, loaded, cx, cz), W, cx, cz, "decoration");
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * The first trip only generates the chunks under the landing point; the rest around it follows within seconds. A player who walks off meanwhile and drops below where the ground of an unfinished chunk will be (into the
+ * void, onto the stone scaffold, or inside a column about to be converted) goes back to the landing point.
+ */
+function landingRescue(p, W, x, y, z) {
+  if (W.kind !== "planet") return false;
+  try {
+    // The chunks generated before arrival (within ARRIVAL_MARGIN of the landing point) and the ring around them.
+    const s = findSpawn(W), cx = chunkOf(x), cz = chunkOf(z);
+    const ring = (c, v) => chunkOf(v - ARRIVAL_MARGIN) - 1 <= c && c <= chunkOf(v + ARRIVAL_MARGIN) + 1;
+    if (!ring(cx, s.x + 0.5) || !ring(cz, s.z + 0.5)) return false;
+    if (["complete", "legacy", "protected"].includes(world.getDynamicProperty(planetOwnership(W, cx, cz)))) return false;
+    if (y >= heightAt(W, Math.floor(x), Math.floor(z)) + 1 || isTravelPending(p)) return false;
+    if (world.getDynamicProperty(planetOwnership(W, chunkOf(s.x), chunkOf(s.z))) !== "complete") return false;
+    const target = { x: s.x + 0.5, y: s.y + 1, z: s.z + 0.5 };
+    if (!isSafeStanding(p.dimension, target)) return false;
+    p.teleport(target, { checkForBlocks: true });
+    return true;
+  } catch (err) {
+    return false; // unavailable terrain: left to the other rescue paths
   }
 }
 
@@ -1778,12 +1978,15 @@ function removeArea(id) {
   releaseLoadedArea(id);
 }
 
-// Planet arrival only needs the 3x3 around the landing chunk; the scan generates radius 3 and decorates radius 2
-// after arrival. Preparing 7x7 + 5x5 up front kept the player waiting for minutes with no feedback.
+// Planet arrival loads the 3x3 around the landing chunk, but only generates the chunks within ARRIVAL_MARGIN blocks of
+// the landing point (1 to 4 chunks: the ground under the player and around the landing pad). The scan generates the
+// rest of radius 3 and decorates radius 2 right after arrival, nearest chunks first. Preparing 7x7 + 5x5 up front kept
+// the player waiting for minutes; the full 3x3 (9 chunks in series) still took 45-90 s on the first trip.
 const PLANET_ARRIVAL_RADIUS = 1;
+const ARRIVAL_MARGIN = 8;
 const PROGRESS_TICKS = 100;
 
-async function prepareArea(W, dim, cx, cz, player, timing) {
+async function prepareArea(W, dim, cx, cz, player, timing, landing) {
   const rad = W.kind === "space" ? W.prep : PLANET_ARRIVAL_RADIUS;
   timing?.mark("area+loading:start", (2 * rad + 1) ** 2 + " chunks");
   const id = await acquireLoadedArea(dim,
@@ -1794,7 +1997,9 @@ async function prepareArea(W, dim, cx, cz, player, timing) {
   // TEMPORARY test measurement: hands the trip timer to the job this call starts (or joins).
   const timed = (start) => { nextJobTiming = timing; try { return start(); } finally { nextJobTiming = undefined; } };
   try {
-    const chunks = offsets(rad);
+    // Planets: only the chunks the landing area touches, inside the loaded 3x3 (ARRIVAL_MARGIN < 16).
+    const near = (v, c) => chunkOf(v - ARRIVAL_MARGIN) <= c && c <= chunkOf(v + ARRIVAL_MARGIN);
+    const chunks = W.kind === "planet" && landing ? offsets(rad).filter(([dx, dz]) => near(landing.x, cx + dx) && near(landing.z, cz + dz)) : offsets(rad);
     let done = 0, noticeAt = system.currentTick + PROGRESS_TICKS;
     const progress = () => {
       done++;
@@ -1818,6 +2023,12 @@ async function prepareArea(W, dim, cx, cz, player, timing) {
       timing?.mark("chunk " + cx + "," + cz + " decoration:start");
       await timed(() => runExclusive(loaded => decorateJob(W, loaded, cx, cz), W, cx, cz, "decoration", true));
       timing?.mark("chunk " + cx + "," + cz + " decoration:end");
+    } else if (W.kind === "planet" && landing && chunkState(dim, cx, cz) === 1) {
+      // First arrival: the landing pad alone, on the chunks under it (all generated above, ARRIVAL_MARGIN > PAD_HALF),
+      // so it exists before any player can edit the area. Best effort: the ground is already safe without it.
+      timing?.mark("pad:start");
+      await timed(() => runExclusive(loaded => padJob(W, loaded), W, cx, cz, "pad"));
+      timing?.mark("pad:end");
     }
   } catch (e) {
     releaseLoadedArea(id);
@@ -1952,7 +2163,7 @@ async function travelTo(player, key, opts = {}) {
       const s = findSpawn(W);
       target = { x: s.x + 0.5, y: s.y + 1, z: s.z + 0.5 };
     }
-    areaId = await prepareArea(W, dim, chunkOf(target.x), chunkOf(target.z), player, timing);
+    areaId = await prepareArea(W, dim, chunkOf(target.x), chunkOf(target.z), player, timing, target);
     if (W.kind === "planet") {
       const { state, buffer, progress } = planetProvenance(W, chunkOf(target.x), chunkOf(target.z));
       if (["inspecting", "building"].includes(state) || progress !== undefined || ["building", "ready", "converting"].includes(buffer)) throw new Error(W.key + " arrival terrain remains incomplete; the player was kept at the origin. Review generation diagnostics before retrying");
@@ -2023,6 +2234,8 @@ async function openMenu(player) {
     });
     const form = new ActionFormData().title({ translate: "dbe.space.menu.title" }).body({ translate: "dbe.space.menu.body" });
     for (const k of dests) form.button(destName(k));
+    const extras = navigatorExtras().slice(); // snapshot: the selection index must match the buttons shown
+    for (const extra of extras) form.button(extra.label);
     let res;
     for (let attempt = 0; attempt < 10; attempt++) {
       res = await form.show(player);
@@ -2030,6 +2243,12 @@ async function openMenu(player) {
       await waitTicks(10);
     }
     if (!res || res.canceled) return;
+    if (res.selection >= dests.length) {
+      const extra = extras[res.selection - dests.length];
+      menuOpen.delete(player.id);
+      if (extra) await extra.open(player);
+      return;
+    }
     // travelTo marks the player as travelling synchronously; the menu itself is released before the
     // (possibly long) preparation so the Navigator never stays locked until the world is reloaded.
     const travel = travelTo(player, dests[res.selection]);
