@@ -32,6 +32,7 @@ for (const f of fs.readdirSync(dir, { recursive: true })) {
 }
 
 const { log, callbacks, mc, clock } = await import(stub);
+globalThis.__DU_STUB__ = true; // core/scheduler.js em modo de passagem: every() = system.runInterval(fn, período) direto
 try {
   await import(url.pathToFileURL(path.join(dir, "index.mjs")).href);
 } catch (e) {

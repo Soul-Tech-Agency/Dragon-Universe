@@ -1837,6 +1837,9 @@
          "path" : "scripts/core/perf.js"
       },
       {
+         "path" : "scripts/core/scheduler.js"
+      },
+      {
          "path" : "scripts/data/achievements_data.js"
       },
       {

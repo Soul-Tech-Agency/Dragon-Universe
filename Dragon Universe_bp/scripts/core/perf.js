@@ -13,12 +13,20 @@
 // O tempo vem de Date.now() (resolução de 1 ms): tarefas rápidas aparecem como 0 ms e contam pelas chamadas.
 // O local (arquivo:linha) de runInterval/runJob é calculado no registro (uma vez por tarefa, também antes do start);
 // o de run/runTimeout só com a medição ligada.
+// As tarefas do relógio único (core/scheduler.js, O3) passam por perfTask e aparecem como "every <nome>"; sem isso,
+// todas apareceriam como o intervalo do scheduler.js.
 import * as mc from "@minecraft/server";
 import { CONFIG } from "../config/config.js";
 
 const { system, world } = mc;
 const MAX_SAMPLES = 2000; // amostras guardadas por tarefa, para o p95
 const TOP = 12;
+
+// Com a sonda desligada, perfTask devolve a própria função (custo zero). install() troca a implementação.
+let wrapTask = (name, fn) => fn;
+export function perfTask(name, fn) {
+  return wrapTask(name, fn);
+}
 
 if (CONFIG.DEBUG_PERF) install();
 
@@ -27,7 +35,7 @@ function install() {
   const liveIntervals = new Map(); // runId → onde foi agendado
   const failures = [];
   let running = false, startTick = 0, startMs = 0, stoppedTick = 0, stoppedMs = 0;
-  let setProperties = 0, getEntitiesCalls = 0;
+  let setProperties = 0, getEntitiesCalls = 0, getPlayersCalls = 0;
   const tickGaps = [];
   let lastTickMs = 0;
 
@@ -124,6 +132,9 @@ function install() {
   };
   countProto(mc.Entity, "setProperty", () => setProperties++);
   countProto(mc.Dimension, "getEntities", () => getEntitiesCalls++);
+  countProto(mc.World, "getPlayers", () => getPlayersCalls++);
+  countProto(mc.World, "getAllPlayers", () => getPlayersCalls++);
+  wrapTask = (name, fn) => timed("every " + name, fn);
 
   // duração real de cada tick (intervalo de 1 tick próprio, fora da contagem de tarefas)
   rawInterval(() => {
@@ -172,7 +183,7 @@ function install() {
     const { dbe, players } = loadedDbeEntities();
     const lines = [
       `§e[perf] ${ticks} ticks em ${fmt(seconds)} s (${running ? "medindo" : "parado"}). Tick: média ${fmt(tickGaps.reduce((a, b) => a + b, 0) / Math.max(1, tickGaps.length))} ms, p95 ${p95(tickGaps)} ms.`,
-      `§e[perf] intervalos vivos ${liveIntervals.size}; setProperty ${fmt(setProperties / seconds)}/s; getEntities ${fmt(getEntitiesCalls / seconds)}/s; entidades dbe: ${dbe}, jogadores ${players}.`,
+      `§e[perf] intervalos vivos ${liveIntervals.size}; setProperty ${fmt(setProperties / seconds)}/s; getEntities ${fmt(getEntitiesCalls / seconds)}/s; getPlayers ${fmt(getPlayersCalls / seconds)}/s; entidades dbe: ${dbe}, jogadores ${players}.`,
       `§e[perf] tarefas (top ${rows.length} por tempo total): chamadas · média · p95 · máx (ms) · ms/tick`,
       ...rows.map(([k, t]) => `  ${k}: ${t.calls} · ${fmt(t.total / t.calls)} · ${p95(t.samples)} · ${t.max} · ${fmt(t.total / ticks)}`),
     ];
@@ -187,7 +198,7 @@ function install() {
     if (cmd === "start") {
       tasks.clear();
       tickGaps.length = 0;
-      setProperties = getEntitiesCalls = 0;
+      setProperties = getEntitiesCalls = getPlayersCalls = 0;
       lastTickMs = 0;
       running = true;
       startTick = system.currentTick;
