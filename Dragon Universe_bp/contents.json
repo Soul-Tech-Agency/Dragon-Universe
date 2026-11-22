@@ -529,6 +529,12 @@
          "path" : "entities/training_orb.json"
       },
       {
+         "path" : "entities/trader_llama.json"
+      },
+      {
+         "path" : "entities/wandering_trader.json"
+      },
+      {
          "path" : "entities/vehicles/capsule_991.json"
       },
       {
