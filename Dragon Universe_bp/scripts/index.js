@@ -10427,20 +10427,47 @@ var kB = class extends jY {
           ],
         }),
         this.addButton("ui.dbe.backButton", () => cj.displayForm(sG, "quest_list"));
-      let sO = "ui.dbe.quest.button.start";
+      // 1 = Iniciar/Reiniciar (mesmas condições de antes); sem botão, "" para os índices seguintes não andarem
+      let sO = "ui.dbe.quest.button.start",
+        start;
       if (sK.canStart) {
-        if (!sH.isStarted) {
-          this.addButton(sO, () => sH.startQuest());
-          return;
-        }
-        if (!sK.isStarted) {
-          this.addButton(sO, () => sK.startObjective());
-          return;
-        }
-        sL &&
-          sL.isExpired() &&
-          ((sO = "ui.dbe.quest.button.restart"), this.addButton(sO, () => sH.restartInProgressObjective()));
+        if (!sH.isStarted) start = () => sH.startQuest();
+        else if (!sK.isStarted) start = () => sK.startObjective();
+        else if (sL && sL.isExpired()) (sO = "ui.dbe.quest.button.restart"), (start = () => sH.restartInProgressObjective());
       }
+      start ? this.addButton(sO, start) : this.addButton("", () => {});
+      this.addDetailSlots(sH, sI, sL, sM, sN);
+    }
+    // 12c (CONTRATO §10.3): 2 título, 3 tipo (com o ícone da lista), 4 nível (código), 5 descrição, 6-13 objetivos,
+    // 14-17 requisitos, 18-25 recompensas (com ícone pelo tipo), 26 espera para reiniciar, 27 erro de início.
+    // Só leitura (sem clique). O body continua completo, como reserva.
+    addDetailSlots(quest, level, cooldown, requirements, startError) {
+      const noop = () => {},
+        slot = (content, icon) => this.addButton(content, noop, icon ? { iconPatch: icon } : void 0),
+        fill = (list, max, make) => {
+          for (let k = 0; k < max; k++) list[k] ? make(list[k]) : slot("");
+        };
+      slot({ rawtext: [{ translate: quest.titleKey }] });
+      slot("quest." + quest.type + ".single", duQuestIcon(quest));
+      slot("" + level);
+      slot({ rawtext: [{ translate: quest.descriptionKey }] });
+      // mesma ordem e filtro do listObjectives (iniciada = só o objetivo atual; não iniciada = todos), sem "\n N. "
+      const objectives = [];
+      for (const objective of quest.isStarted ? [quest.getInProgressObjective()] : quest.getAllObjectives()) {
+        const text = objective && gX.getFormatedDescription(objective.getTasks(), objective.durationCooldown).rawtext;
+        text && objectives.push({ rawtext: [...(objective.isCompleted ? [{ text: "*" }] : []), ...text] });
+      }
+      fill(objectives, 8, (text) => slot(text));
+      // mesmo filtro do dC.listDescription usado no body (sem jogador), um requisito por slot, sem "\n- "
+      fill(requirements.filter((r) => !r.exceptRaceIds?.includes(void 0) && dC.get(r.test)), 4, (r) =>
+        slot({ rawtext: [dC.getDescription(r)] }));
+      const rewardIcon = { item: "ach_item", points: "skill_points", zeni: "reward_zeni" };
+      fill(quest.getRewards().filter((r) => r.description?.rawtext), 8, (r) => {
+        const icon = rewardIcon[r.rewardData?.type];
+        slot({ rawtext: r.description.rawtext }, icon ? DU_ICON + icon : "");
+      });
+      slot(cooldown && !cooldown.isExpired() ? { rawtext: [kA(cooldown.getRemainingTicks())] } : "");
+      slot(startError ? { rawtext: [this.getErrorMessage(startError)] } : "");
     }
     getErrorMessage(sG) {
       return sG === "SafeRegion"
