@@ -16915,6 +16915,8 @@ var kH = class extends jZ {
         this.addButton(" ", () => sG.setOptionValue(sL, sG.getOptionValue(sL) - 1)),
           this.addButton(" ", () => sG.setOptionValue(sL, sG.getOptionValue(sL) + 1));
       }
+      // Marca invisível (só códigos de formatação) para a UI usar a prévia menor no Oozaru (select_hair_form.json)
+      sK.length && hO(this.initiator).transformations.currentTransformation.isOozaru && sK.push({ text: "§r§o§r" });
       return sK.length ? { rawtext: sK } : "";
     }
     playShearSoundEffect() {
