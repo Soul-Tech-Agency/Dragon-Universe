@@ -10,6 +10,7 @@
 //                                 getEntities/s e entidades dbe: carregadas.
 // Precisa ser o PRIMEIRO import do index.js, para envolver os agendadores antes de os módulos os usarem.
 // O tempo vem de Date.now() (resolução de 1 ms): tarefas rápidas aparecem como 0 ms e contam pelas chamadas.
+// O local (arquivo:linha) só é calculado com a medição ligada: com a flag ligada e sem start, a sonda quase não custa.
 import * as mc from "@minecraft/server";
 import { CONFIG } from "../config/config.js";
 
@@ -28,8 +29,10 @@ function install() {
   const tickGaps = [];
   let lastTickMs = 0;
 
-  // primeiro quadro da pilha fora deste arquivo: quem chamou o agendador
+  // primeiro quadro da pilha fora deste arquivo: quem chamou o agendador. Só com a medição ligada (montar a pilha
+  // custa); o que foi agendado antes do start fica agrupado como "antes do start" (tipo e período continuam no nome).
   const site = () => {
+    if (!running) return "antes do start";
     const frames = String(new Error().stack ?? "").split("\n");
     for (const f of frames) {
       if (/perf\.m?js/.test(f)) continue;
