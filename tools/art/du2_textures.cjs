@@ -72,6 +72,9 @@ tex('icon_box_gold', 16, 16, 4, box(16, 16, { r: 3, fill: '#F6B943' }), '', 'pil
 // xp: 4x4 visíveis + 1 px de brilho (on) ou de folga transparente (off), para os dois ocuparem o mesmo espaço
 tex('xp_on', 6, 6, 2, `<path d="${rr(0, 0, 6, 6, 2)}" fill="#23D7FF" fill-opacity="0.35"/><path d="${rr(1, 1, 4, 4, 1)}" fill="#23D7FF"/>`, '', 'pill');
 tex('xp_off', 6, 6, 2, `<path d="${rr(1, 1, 4, 4, 1)}" fill="#1D3F73"/>`, '', 'pill');
+// barras dos treinos (1.7.19): mesmo formato do xp_on, outras cores
+tex('bar_red_on', 6, 6, 2, `<path d="${rr(0, 0, 6, 6, 2)}" fill="#FF5A5A" fill-opacity="0.35"/><path d="${rr(1, 1, 4, 4, 1)}" fill="#FF5A5A"/>`, '', 'pill');
+tex('bar_gold_on', 6, 6, 2, `<path d="${rr(0, 0, 6, 6, 2)}" fill="#F6B943" fill-opacity="0.35"/><path d="${rr(1, 1, 4, 4, 1)}" fill="#F6B943"/>`, '', 'pill');
 
 // ---------- 7.3 Botões ----------
 // btn_primary 16x18: face 16x16 + sombra de 2 px embaixo; pressed desce 2 px sem sombra
@@ -202,7 +205,10 @@ const P = {
   zeni: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM8.5 8h7l-7 8h7',
   // treinos novos (1.7.19, dec. 33)
   physical: 'M5.5 11a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM8.5 10 21 17M10.5 11l-2 4 2 4.5M21 17v2.5M2 20.5h20',
-  mental: 'M15 21v-3a6 6 0 0 0 3-5.5C18 7.5 14.5 4 10.5 4S3 7 3 11c0 2 1 3.5 2 4.5V21M10.5 7.5l1 2.2 2.2 1-2.2 1-1 2.2-1-2.2-2.2-1 2.2-1z'
+  mental: 'M15 21v-3a6 6 0 0 0 3-5.5C18 7.5 14.5 4 10.5 4S3 7 3 11c0 2 1 3.5 2 4.5V21M10.5 7.5l1 2.2 2.2 1-2.2 1-1 2.2-1-2.2-2.2-1 2.2-1z',
+  clock: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 6.5V12l3.5 2.5',
+  chevron_up: 'M5 15l7-7 7 7',
+  chevron_down: 'M5 9l7 7 7-7'
 };
 const ICONS = {
   tab_statistics: 'stats', tab_skills: 'skills', tab_transformations: 'bolt', tab_quests: 'missions', tab_training: 'training',
@@ -256,7 +262,10 @@ const ICONS = {
   quest_mentor: 'q_mentor',
   reward_zeni: 'zeni',
   train_physical: 'physical',
-  train_mental: 'mental'
+  train_mental: 'mental',
+  clock: 'clock',
+  chevron_up: 'chevron_up',
+  chevron_down: 'chevron_down'
 };
 // ajuste óptico (unidades do viewBox 24): centro de massa no meio do 32x32
 const NUDGE = { stat_damage: [0.32, 0.32], train_concentration: [0, -1.36], train_shadow: [0, -0.4], restart: [0.78, 0.76],

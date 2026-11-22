@@ -1849,6 +1849,9 @@
          "path" : "particles/concentration_orb.particle.json"
       },
       {
+         "path" : "particles/concentration_orb_off.particle.json"
+      },
+      {
          "path" : "particles/explode_beam.particle.json"
       },
       {
@@ -5392,6 +5395,9 @@
          "path" : "textures/particle/concentration_orb.png"
       },
       {
+         "path" : "textures/particle/concentration_orb_off.png"
+      },
+      {
          "path" : "textures/particle/critical_hit.png"
       },
       {
@@ -6398,6 +6404,27 @@
       },
       {
          "path" : "textures/ui/du2/xp_on.png"
+      },
+      {
+         "path" : "textures/ui/du2/bar_red_on.json"
+      },
+      {
+         "path" : "textures/ui/du2/bar_red_on.png"
+      },
+      {
+         "path" : "textures/ui/du2/bar_gold_on.json"
+      },
+      {
+         "path" : "textures/ui/du2/bar_gold_on.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/clock.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/chevron_up.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/chevron_down.png"
       },
       {
          "path" : "ui/_ui_defs.json"
