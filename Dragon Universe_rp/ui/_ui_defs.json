@@ -2,6 +2,9 @@
     "ui_defs": [
         "ui/custom_hud_screen.json",
         "ui/custom_server_form.json",
+        "ui/du2/du2_common.json",
+        "ui/du2/du2_statistics.json",
+        "ui/du2/du2_select_race.json",
         "ui/common/common_bar.json",
         "ui/common/templates.json",
         "ui/hud_screen/charge_bar.json",
@@ -17,6 +20,7 @@
         "ui/menus/christmas_form.json",
         "ui/menus/customization_form.json",
         "ui/menus/functions_form.json",
+        "ui/menus/help_form.json",
         "ui/menus/gravity_machine_form.json",
         "ui/menus/news_form.json",
         "ui/menus/menu_form.json",

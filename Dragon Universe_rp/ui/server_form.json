@@ -234,7 +234,7 @@
                 }
             },
             {
-                "select_race@select_race_form.select_race_form": {
+                "select_race@du2_select_race.select_race_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
@@ -296,8 +296,42 @@
                             "binding_name": "#title_text"
                         },
                         {
+                            "binding_name": "#form_text"
+                        },
+                        {
                             "binding_type": "view",
-                            "source_property_name": "(#title_text = 'ui.dbe.statistics.title')",
+                            "source_property_name": "((#title_text = 'ui.dbe.statistics.title') and ((#form_text - 'du2;') = #form_text))",
+                            "target_property_name": "#visible"
+                        }
+                    ]
+                }
+            },
+            {
+                "du2_statistics@du2_statistics.statistics_form": {
+                    "bindings": [
+                        {
+                            "binding_name": "#title_text"
+                        },
+                        {
+                            "binding_name": "#form_text"
+                        },
+                        {
+                            "binding_type": "view",
+                            "source_property_name": "((#title_text = 'ui.dbe.statistics.title') and (not ((#form_text - 'du2;') = #form_text)))",
+                            "target_property_name": "#visible"
+                        }
+                    ]
+                }
+            },
+            {
+                "help@help_form.help_form": {
+                    "bindings": [
+                        {
+                            "binding_name": "#title_text"
+                        },
+                        {
+                            "binding_type": "view",
+                            "source_property_name": "(#title_text = 'ui.dbe.help.title')",
                             "target_property_name": "#visible"
                         }
                     ]
