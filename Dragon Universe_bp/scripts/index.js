@@ -1297,7 +1297,7 @@ var cA = class {
         )
           return;
         let sG = this.dbeEntity.skills.getSkill("rapid_movement");
-        sG instanceof cI && (sG.teleportToEntity(this.target), this.startCooldown());
+        sG instanceof late.cI && (sG.teleportToEntity(this.target), this.startCooldown());
       }
     }
   };
@@ -1476,8 +1476,8 @@ var cF = class {
     }
     enable() {
       if ((this.id === "ultra_instinct" || this.id === "hakai") &&
-          this.dbeEntity instanceof late.hN && !dC.testAll(this.dbeEntity, this.requirements)) {
-        this.dbeEntity.player.sendMessage(dC.listDescription(this.requirements, this.dbeEntity));
+          this.dbeEntity instanceof late.hN && !late.dC.testAll(this.dbeEntity, this.requirements)) {
+        this.dbeEntity.player.sendMessage(late.dC.listDescription(this.requirements, this.dbeEntity));
         return;
       }
       if (this.kiDrain > 0 && this.dbeEntity.ki.currentValue <= 0) {
@@ -1606,6 +1606,7 @@ var cF = class {
       return sG instanceof late.hN ? !0 : late.i3.getDBEEntity(sG)?.advancedCombat === !0;
     }
   };
+bindLate("cI", () => cI); // O4.0: ligação tardia
 import { Player as cJ, system as cK, world as cL } from "@minecraft/server";
 import { system as cM } from "@minecraft/server";
 var cN = class {
@@ -2180,6 +2181,7 @@ var dB = class {
     }
   },
   dC = new dB();
+bindLate("dC", () => dC); // O4.0: ligação tardia
 import { InputPermissionCategory as dD, system as dE } from "@minecraft/server";
 import { CONFIG as dF } from "./config/config.js";
 import { Player as dG, world as dH } from "@minecraft/server";
