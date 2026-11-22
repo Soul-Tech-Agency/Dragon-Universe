@@ -1945,6 +1945,9 @@
          "path" : "scripts/core/12_quests.js"
       },
       {
+         "path" : "scripts/core/13_ki_attack_hud_level.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
