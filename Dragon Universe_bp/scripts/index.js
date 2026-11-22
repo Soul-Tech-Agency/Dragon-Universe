@@ -8686,15 +8686,28 @@ var iV = class extends cH {
   iX = new iW();
 import { Player as iY, system as iZ } from "@minecraft/server";
 import { system as j0 } from "@minecraft/server";
+// O2c (decisão O2c-1, opção a): cada cápsula tem 2 intervalos de 1 tick (sensores aqui e movimento em j5). Antes
+// eles nunca eram limpos e a instância ficava num WeakMap pela entidade JS; agora a instância fica num Map pelo
+// entity.id e dispose() limpa os 2 intervalos quando a cápsula deixa de ser válida. Se ela voltar (chunk
+// recarregado), j4 cria uma instância nova no próximo tick em que alguém a montar.
 var j1 = class t5 {
   constructor(sG) {
     (this.entity = sG),
+      (this.entityId = sG.id),
       ((this.vehicleState = { direction: 0 }),
-      j0.runInterval(() => {
-        sG.isValid && this.calculateHeightSensors();
-      }));
+      (this.sensorRunId = j0.runInterval(() => {
+        if (!sG.isValid) return this.dispose();
+        this.calculateHeightSensors();
+      })));
   }
-  static instances = new WeakMap();
+  static instances = new Map();
+  dispose() {
+    if (this.disposed) return;
+    this.disposed = !0;
+    j0.clearRun(this.sensorRunId);
+    this._movement?.dispose();
+    t5.instances.get(this.entityId) === this && t5.instances.delete(this.entityId);
+  }
   vehicleState;
   _movement;
   pitchDiff = 0;
@@ -8704,11 +8717,12 @@ var j1 = class t5 {
     return 40;
   }
   static getInstance(sG) {
-    if (!this.instances.has(sG)) {
-      let sH = new t5(sG);
-      t5.instances.set(sG, sH);
+    let sH = t5.instances.get(sG.id);
+    if (!sH) {
+      sH = new t5(sG);
+      t5.instances.set(sG.id, sH);
     }
-    return t5.instances.get(sG);
+    return sH;
   }
   get isDrifting() {
     return this.movement.direction.y < 0 && this.movement.speed > 0.2;
@@ -8745,6 +8759,11 @@ var j1 = class t5 {
       t1 && (t1.applyImpulse({ x: 0, y: -100, z: 0 }), (sK[sR] = t1));
     }
     await j0.waitTicks(1);
+    // a cápsula pode ter sumido nesse tick (ou um sensor não ter nascido): os sensores saem de qualquer jeito
+    if (!this.entity.isValid || Object.keys(sK).length < 5) {
+      for (let t2 of Object.values(sK)) t2.isValid && t2.remove();
+      return;
+    }
     let sM = sK.frontLeft.location.y - this.entity.location.y,
       sN = sK.frontRight.location.y - this.entity.location.y,
       sO = sK.backLeft.location.y - this.entity.location.y,
@@ -8783,23 +8802,13 @@ function j4(sG) {
 var j5 = class {
   constructor(sG) {
     (this.vehicle = sG),
-      iZ.runInterval(() => {
-        if (sG.entity.isValid) {
-          this.updateDirection(), this.moveVehicle();
-          for (let sH of this.vehicle.getRiders())
-            sH instanceof iY &&
-              sH.onScreenDisplay.setActionBar(
-                "Center: " +
-                  sG.sensors.center.toFixed(2) +
-                  " Speed: " +
-                  this.speed.toFixed(2) +
-                  "\nPitchDiff: " +
-                  sG.pitchDiff.toFixed(2) +
-                  " RollDiff: " +
-                  sG.rollDiff.toFixed(2),
-              );
-        }
-      });
+      (this.runId = iZ.runInterval(() => {
+        if (!sG.entity.isValid) return sG.dispose();
+        this.updateDirection(), this.moveVehicle();
+      }));
+  }
+  dispose() {
+    iZ.clearRun(this.runId);
   }
   direction = { x: 0, y: 0 };
   speed = 0;
