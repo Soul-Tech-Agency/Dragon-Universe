@@ -1,0 +1,1053 @@
+{
+ "namespace": "du2_skills",
+ "row_pc": {
+  "type": "panel",
+  "size": ["100%", 22],
+  "bindings": [
+   {"binding_type": "collection_details", "binding_collection_name": "form_buttons"},
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#form_button_text = '') or (#form_button_text = 'ui.dbe.backButton') or (#form_button_text = 'ui.dbe.skills.button.transformations')))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "b@common.button": {
+     "size": ["100%", 20],
+     "$pressed_button_name": "button.form_button_click",
+     "default_control": "default",
+     "hover_control": "hover",
+     "pressed_control": "pressed",
+     "controls": [
+      {
+       "default": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "controls": [
+         {"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}},
+         {"row@du2_skills.h2": {}}
+        ]
+       }
+      },
+      {
+       "hover": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "controls": [
+         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
+         {"row@du2_skills.h4": {}}
+        ]
+       }
+      },
+      {
+       "pressed": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "controls": [
+         {
+          "bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}
+         },
+         {"row@du2_skills.h6": {}}
+        ]
+       }
+      }
+     ],
+     "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left"
+    }
+   }
+  ]
+ },
+ "row_mobile": {
+  "type": "panel",
+  "size": ["100%", 24],
+  "bindings": [
+   {"binding_type": "collection_details", "binding_collection_name": "form_buttons"},
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#form_button_text = '') or (#form_button_text = 'ui.dbe.backButton') or (#form_button_text = 'ui.dbe.skills.button.transformations')))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "b@common.button": {
+     "size": ["100%", 22],
+     "$pressed_button_name": "button.form_button_click",
+     "default_control": "default",
+     "hover_control": "hover",
+     "pressed_control": "pressed",
+     "controls": [
+      {
+       "default": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "controls": [
+         {"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}},
+         {"row@du2_skills.h8": {}}
+        ]
+       }
+      },
+      {
+       "hover": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "controls": [
+         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
+         {"row@du2_skills.h10": {}}
+        ]
+       }
+      },
+      {
+       "pressed": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "controls": [
+         {
+          "bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}
+         },
+         {"row@du2_skills.h12": {}}
+        ]
+       }
+      }
+     ],
+     "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left"
+    }
+   }
+  ]
+ },
+ "skills_form@du2.root": {
+  "controls": [{"pc@du2_skills.pc": {"ignored": "$du2_mobile"}}, {"mobile@du2_skills.mobile": {"ignored": "$du2_pc"}}]
+ },
+ "scroll_pc": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": ["100%", "100%c"],
+  "controls": [
+   {
+    "body": {
+     "type": "label",
+     "text": "#form_text",
+     "size": ["100%", "default"],
+     "color": [0.788, 0.827, 0.902],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left"
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {
+    "list": {
+     "type": "stack_panel",
+     "orientation": "vertical",
+     "size": ["100%", "100%c"],
+     "factory": {"name": "buttons", "control_name": "du2_skills.row_pc"},
+     "collection_name": "form_buttons",
+     "bindings": [{"binding_name": "#form_button_length", "binding_name_override": "#collection_length"}]
+    }
+   }
+  ]
+ },
+ "pc": {
+  "type": "panel",
+  "size": [450, 252],
+  "max_size": ["100% - 8px", "100% - 8px"],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "layer": 1,
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/panel_main", "size": ["100%", "100%"]}},
+   {
+    "col": {
+     "type": "stack_panel",
+     "orientation": "vertical",
+     "size": ["100%", "100%"],
+     "controls": [
+      {
+       "title": {
+        "type": "panel",
+        "size": ["100%", 24],
+        "controls": [
+         {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
+         {"row@du2_skills.h13": {}}
+        ]
+       }
+      },
+      {
+       "body": {
+        "type": "panel",
+        "size": ["100%", "fill"],
+        "controls": [
+         {
+          "row": {
+           "type": "stack_panel",
+           "orientation": "horizontal",
+           "size": ["100%", "100%"],
+           "controls": [
+            {"nav@du2.nav_pc": {}},
+            {
+             "content": {
+              "type": "panel",
+              "size": ["fill", "100%"],
+              "controls": [
+               {
+                "inner": {
+                 "type": "panel",
+                 "size": ["100% - 12px", "100% - 10px"],
+                 "anchor_from": "center",
+                 "anchor_to": "center",
+                 "controls": [{"col@du2_skills.h16": {}}]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "scroll_mobile": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": ["100%", "100%c"],
+  "controls": [
+   {
+    "body": {
+     "type": "label",
+     "text": "#form_text",
+     "size": ["100%", "default"],
+     "color": [0.788, 0.827, 0.902],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left"
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {
+    "list": {
+     "type": "stack_panel",
+     "orientation": "vertical",
+     "size": ["100%", "100%c"],
+     "factory": {"name": "buttons", "control_name": "du2_skills.row_mobile"},
+     "collection_name": "form_buttons",
+     "bindings": [{"binding_name": "#form_button_length", "binding_name_override": "#collection_length"}]
+    }
+   }
+  ]
+ },
+ "mobile": {
+  "type": "panel",
+  "size": ["100% - 6px", "100% - 6px"],
+  "max_size": [480, 270],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "layer": 1,
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/panel_main", "size": ["100%", "100%"]}},
+   {
+    "col": {
+     "type": "stack_panel",
+     "orientation": "vertical",
+     "size": ["100%", "100%"],
+     "controls": [
+      {
+       "title": {
+        "type": "panel",
+        "size": ["100%", 20],
+        "controls": [
+         {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
+         {"row@du2_skills.h17": {}}
+        ]
+       }
+      },
+      {
+       "body": {
+        "type": "panel",
+        "size": ["100%", "fill"],
+        "controls": [
+         {
+          "row": {
+           "type": "stack_panel",
+           "orientation": "horizontal",
+           "size": ["100%", "100%"],
+           "controls": [
+            {"nav@du2.nav_mobile": {}},
+            {
+             "content": {
+              "type": "panel",
+              "size": ["fill", "100%"],
+              "controls": [
+               {
+                "inner": {
+                 "type": "panel",
+                 "size": ["100% - 8px", "100% - 6px"],
+                 "anchor_from": "center",
+                 "anchor_to": "center",
+                 "controls": [{"col@du2_skills.h18": {}}]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h1": {
+  "type": "panel",
+  "size": [20, "100%"],
+  "controls": [
+   {
+    "x": {
+     "type": "panel",
+     "size": [20, 14],
+     "bindings": [
+      {
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (not ((#form_button_text - 'maximized_skill') = #form_button_text)))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_plus", "size": ["100%", "100%"]}},
+      {
+       "i": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/plus",
+        "size": [8, 8],
+        "color": [0.965, 0.725, 0.263]
+       }
+      }
+     ],
+     "anchor_from": "center",
+     "anchor_to": "center"
+    }
+   }
+  ]
+ },
+ "h2": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"pad": {"type": "panel", "size": [6, "100%"]}},
+   {
+    "t": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "clips_children": true,
+     "controls": [
+      {
+       "l": {
+        "type": "label",
+        "text": "#du2_text",
+        "size": ["100%", 10],
+        "color": [0.902, 0.925, 0.969],
+        "font_type": "smooth",
+        "shadow": false,
+        "text_alignment": "left",
+        "bindings": [
+         {
+          "binding_type": "collection",
+          "binding_collection_name": "form_buttons",
+          "binding_name": "#form_button_text"
+         },
+         {
+          "binding_type": "view",
+          "source_property_name": "(#form_button_text - '*')",
+          "target_property_name": "#du2_text"
+         }
+        ],
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {"cell@du2_skills.h1": {}},
+   {"pad": {"type": "panel", "size": [5, "100%"]}}
+  ]
+ },
+ "h3": {
+  "type": "panel",
+  "size": [20, "100%"],
+  "controls": [
+   {
+    "x": {
+     "type": "panel",
+     "size": [20, 14],
+     "bindings": [
+      {
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (not ((#form_button_text - 'maximized_skill') = #form_button_text)))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_plus_hover", "size": ["100%", "100%"]}},
+      {
+       "i": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/plus",
+        "size": [8, 8],
+        "color": [0.965, 0.725, 0.263]
+       }
+      }
+     ],
+     "anchor_from": "center",
+     "anchor_to": "center"
+    }
+   }
+  ]
+ },
+ "h4": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"pad": {"type": "panel", "size": [6, "100%"]}},
+   {
+    "t": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "clips_children": true,
+     "controls": [
+      {
+       "l": {
+        "type": "label",
+        "text": "#du2_text",
+        "size": ["100%", 10],
+        "color": [0.902, 0.925, 0.969],
+        "font_type": "smooth",
+        "shadow": false,
+        "text_alignment": "left",
+        "bindings": [
+         {
+          "binding_type": "collection",
+          "binding_collection_name": "form_buttons",
+          "binding_name": "#form_button_text"
+         },
+         {
+          "binding_type": "view",
+          "source_property_name": "(#form_button_text - '*')",
+          "target_property_name": "#du2_text"
+         }
+        ],
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {"cell@du2_skills.h3": {}},
+   {"pad": {"type": "panel", "size": [5, "100%"]}}
+  ]
+ },
+ "h5": {
+  "type": "panel",
+  "size": [20, 14],
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(not (not ((#form_button_text - 'maximized_skill') = #form_button_text)))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/btn_plus_pressed", "size": ["100%", "100%"]}},
+   {
+    "i": {"type": "image", "texture": "textures/ui/du2/icons/plus", "size": [8, 8], "color": [0.965, 0.725, 0.263]}
+   }
+  ],
+  "anchor_from": "center",
+  "anchor_to": "center"
+ },
+ "h6": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"pad": {"type": "panel", "size": [6, "100%"]}},
+   {
+    "t": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "clips_children": true,
+     "controls": [
+      {
+       "l": {
+        "type": "label",
+        "text": "#du2_text",
+        "size": ["100%", 10],
+        "color": [0.902, 0.925, 0.969],
+        "font_type": "smooth",
+        "shadow": false,
+        "text_alignment": "left",
+        "bindings": [
+         {
+          "binding_type": "collection",
+          "binding_collection_name": "form_buttons",
+          "binding_name": "#form_button_text"
+         },
+         {
+          "binding_type": "view",
+          "source_property_name": "(#form_button_text - '*')",
+          "target_property_name": "#du2_text"
+         }
+        ],
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {"cell": {"type": "panel", "size": [20, "100%"], "controls": [{"x@du2_skills.h5": {}}]}},
+   {"pad": {"type": "panel", "size": [5, "100%"]}}
+  ]
+ },
+ "h7": {
+  "type": "panel",
+  "size": [20, "100%"],
+  "controls": [
+   {
+    "x": {
+     "type": "panel",
+     "size": [20, 16],
+     "bindings": [
+      {
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (not ((#form_button_text - 'maximized_skill') = #form_button_text)))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_plus", "size": ["100%", "100%"]}},
+      {
+       "i": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/plus",
+        "size": [8, 8],
+        "color": [0.965, 0.725, 0.263]
+       }
+      }
+     ],
+     "anchor_from": "center",
+     "anchor_to": "center"
+    }
+   }
+  ]
+ },
+ "h8": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"pad": {"type": "panel", "size": [6, "100%"]}},
+   {
+    "t": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "clips_children": true,
+     "controls": [
+      {
+       "l": {
+        "type": "label",
+        "text": "#du2_text",
+        "size": ["100%", 10],
+        "color": [0.902, 0.925, 0.969],
+        "font_type": "smooth",
+        "shadow": false,
+        "text_alignment": "left",
+        "bindings": [
+         {
+          "binding_type": "collection",
+          "binding_collection_name": "form_buttons",
+          "binding_name": "#form_button_text"
+         },
+         {
+          "binding_type": "view",
+          "source_property_name": "(#form_button_text - '*')",
+          "target_property_name": "#du2_text"
+         }
+        ],
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {"cell@du2_skills.h7": {}},
+   {"pad": {"type": "panel", "size": [5, "100%"]}}
+  ]
+ },
+ "h9": {
+  "type": "panel",
+  "size": [20, "100%"],
+  "controls": [
+   {
+    "x": {
+     "type": "panel",
+     "size": [20, 16],
+     "bindings": [
+      {
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (not ((#form_button_text - 'maximized_skill') = #form_button_text)))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_plus_hover", "size": ["100%", "100%"]}},
+      {
+       "i": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/plus",
+        "size": [8, 8],
+        "color": [0.965, 0.725, 0.263]
+       }
+      }
+     ],
+     "anchor_from": "center",
+     "anchor_to": "center"
+    }
+   }
+  ]
+ },
+ "h10": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"pad": {"type": "panel", "size": [6, "100%"]}},
+   {
+    "t": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "clips_children": true,
+     "controls": [
+      {
+       "l": {
+        "type": "label",
+        "text": "#du2_text",
+        "size": ["100%", 10],
+        "color": [0.902, 0.925, 0.969],
+        "font_type": "smooth",
+        "shadow": false,
+        "text_alignment": "left",
+        "bindings": [
+         {
+          "binding_type": "collection",
+          "binding_collection_name": "form_buttons",
+          "binding_name": "#form_button_text"
+         },
+         {
+          "binding_type": "view",
+          "source_property_name": "(#form_button_text - '*')",
+          "target_property_name": "#du2_text"
+         }
+        ],
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {"cell@du2_skills.h9": {}},
+   {"pad": {"type": "panel", "size": [5, "100%"]}}
+  ]
+ },
+ "h11": {
+  "type": "panel",
+  "size": [20, 16],
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(not (not ((#form_button_text - 'maximized_skill') = #form_button_text)))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/btn_plus_pressed", "size": ["100%", "100%"]}},
+   {
+    "i": {"type": "image", "texture": "textures/ui/du2/icons/plus", "size": [8, 8], "color": [0.965, 0.725, 0.263]}
+   }
+  ],
+  "anchor_from": "center",
+  "anchor_to": "center"
+ },
+ "h12": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"pad": {"type": "panel", "size": [6, "100%"]}},
+   {
+    "t": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "clips_children": true,
+     "controls": [
+      {
+       "l": {
+        "type": "label",
+        "text": "#du2_text",
+        "size": ["100%", 10],
+        "color": [0.902, 0.925, 0.969],
+        "font_type": "smooth",
+        "shadow": false,
+        "text_alignment": "left",
+        "bindings": [
+         {
+          "binding_type": "collection",
+          "binding_collection_name": "form_buttons",
+          "binding_name": "#form_button_text"
+         },
+         {
+          "binding_type": "view",
+          "source_property_name": "(#form_button_text - '*')",
+          "target_property_name": "#du2_text"
+         }
+        ],
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {"cell": {"type": "panel", "size": [20, "100%"], "controls": [{"x@du2_skills.h11": {}}]}},
+   {"pad": {"type": "panel", "size": [5, "100%"]}}
+  ]
+ },
+ "h13": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"pad": {"type": "panel", "size": [3, "100%"]}},
+   {"logo": {"type": "panel", "size": [24, "100%"], "controls": [{"logo@du2.logo": {}}]}},
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "title": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "clips_children": true,
+     "controls": [{"t@du2.title_label": {}}]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "close": {
+     "type": "panel",
+     "size": [18, "100%"],
+     "controls": [{"b@du2.close_button": {"size": [18, 18], "anchor_from": "center", "anchor_to": "center"}}]
+    }
+   },
+   {"pad": {"type": "panel", "size": [3, "100%"]}}
+  ]
+ },
+ "h14": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%c", "100%"],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {
+    "cell": {
+     "type": "panel",
+     "size": [12, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/tab_transformations",
+        "size": [10, 10],
+        "color": [0.965, 0.725, 0.263],
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "t": {
+     "type": "panel",
+     "size": [100, "100%"],
+     "clips_children": true,
+     "controls": [
+      {
+       "l": {
+        "type": "label",
+        "text": "#du2_text",
+        "size": ["100%", 10],
+        "color": [0.902, 0.925, 0.969],
+        "font_type": "smooth",
+        "shadow": false,
+        "text_alignment": "center",
+        "bindings": [
+         {
+          "binding_type": "collection",
+          "binding_collection_name": "form_buttons",
+          "binding_name": "#form_button_text"
+         },
+         {
+          "binding_type": "view",
+          "source_property_name": "(#form_button_text - '*')",
+          "target_property_name": "#du2_text"
+         }
+        ],
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h15@common.button": {
+  "size": [130, 22],
+  "collection_index": 10,
+  "$pressed_button_name": "button.form_button_click",
+  "default_control": "default",
+  "hover_control": "hover",
+  "pressed_control": "pressed",
+  "controls": [
+   {
+    "default": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary", "size": ["100%", "100%"]}},
+      {"row@du2_skills.h14": {}}
+     ]
+    }
+   },
+   {
+    "hover": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
+      {"row@du2_skills.h14": {}}
+     ]
+    }
+   },
+   {
+    "pressed": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}},
+      {"row@du2_skills.h14": {}}
+     ]
+    }
+   }
+  ],
+  "bindings": [
+   {"binding_type": "collection_details", "binding_collection_name": "form_buttons"},
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(not (#form_button_text = ''))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h16": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "scroll": {
+     "type": "panel",
+     "size": ["100%", "fill"],
+     "controls": [
+      {
+       "s@common.scrolling_panel": {
+        "anchor_to": "top_left",
+        "anchor_from": "top_left",
+        "size": ["100%", "100%"],
+        "$show_background": false,
+        "$scrolling_content": "du2_skills.scroll_pc",
+        "$scroll_size": [4, "100% - 2px"],
+        "$scrolling_pane_size": ["100% - 6px", "100%"],
+        "$scrolling_pane_offset": [0, 0],
+        "$scroll_bar_right_padding_size": [0, 0]
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {
+    "bottom": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 22],
+     "controls": [
+      {"fill": {"type": "panel", "size": ["fill", "100%"]}},
+      {
+       "transformations": {
+        "type": "panel",
+        "size": [130, 22],
+        "collection_name": "form_buttons",
+        "controls": [{"b@du2_skills.h15": {}}]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h17": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"pad": {"type": "panel", "size": [3, "100%"]}},
+   {"logo": {"type": "panel", "size": [20, "100%"], "controls": [{"logo@du2.logo": {}}]}},
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "title": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "clips_children": true,
+     "controls": [{"t@du2.title_label": {}}]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "close": {
+     "type": "panel",
+     "size": [22, "100%"],
+     "controls": [{"b@du2.close_button": {"size": [22, 20], "anchor_from": "center", "anchor_to": "center"}}]
+    }
+   },
+   {"pad": {"type": "panel", "size": [3, "100%"]}}
+  ]
+ },
+ "h18": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "scroll": {
+     "type": "panel",
+     "size": ["100%", "fill"],
+     "controls": [
+      {
+       "s@common.scrolling_panel": {
+        "anchor_to": "top_left",
+        "anchor_from": "top_left",
+        "size": ["100%", "100%"],
+        "$show_background": false,
+        "$scrolling_content": "du2_skills.scroll_mobile",
+        "$scroll_size": [4, "100% - 2px"],
+        "$scrolling_pane_size": ["100% - 6px", "100%"],
+        "$scrolling_pane_offset": [0, 0],
+        "$scroll_bar_right_padding_size": [0, 0]
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {
+    "bottom": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 22],
+     "controls": [
+      {"fill": {"type": "panel", "size": ["fill", "100%"]}},
+      {
+       "transformations": {
+        "type": "panel",
+        "size": [130, 22],
+        "collection_name": "form_buttons",
+        "controls": [{"b@du2_skills.h15": {}}]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

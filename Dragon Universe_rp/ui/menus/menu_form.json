@@ -141,7 +141,7 @@
             },
             {
                 "binding_type": "view",
-                "source_property_name": "(((#title_text = 'ui.dbe.statistics.title') and ((#form_text - 'du2;') = #form_text)) or (#title_text = 'ui.dbe.help.title') or (#title_text = 'ui.dbe.skills.title') or (#title_text = 'ui.dbe.quest_list.title') or (#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.news.title') or (#title_text = 'ui.dbe.achievement_list.title') or (#title_text = 'ui.dbe.transformations.title'))",
+                "source_property_name": "(((#title_text = 'ui.dbe.statistics.title') and ((#form_text - 'du2;') = #form_text)) or (#title_text = 'ui.dbe.help.title') or (#title_text = 'ui.dbe.quest_list.title') or (#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.news.title') or (#title_text = 'ui.dbe.achievement_list.title') or (#title_text = 'ui.dbe.transformations.title'))",
                 "target_property_name": "#visible"
             }
         ]

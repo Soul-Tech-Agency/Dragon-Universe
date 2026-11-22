@@ -276,7 +276,7 @@
                 }
             },
             {
-                "skills@skills_form.skills_form": {
+                "skills@du2_skills.skills_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
