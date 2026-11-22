@@ -1,0 +1,48 @@
+// Registro de progressão (planos/TREINOS.md §3.1): os chefes da campanha, na ordem das missões principais (a ordem
+// da 1ª tarefa defeat_enemy de cada um em main_quests_data.js). São as 43 entidades defeat_enemy das missões
+// principais, sem os inimigos comuns (dbe:shadow_dummy, dbe:saibaman, dbe:frieza_soldier, dbe:cell_junior).
+// Base do treino mental (lista de réplicas, CONTRATO §12.1), dos títulos e dos eventos. Só acrescentar no fim.
+const progression_data = {
+  bosses: [
+    { id: "dbe:raditz", quest: "saga_saiyan_1", order: 1 },
+    { id: "dbe:nappa", quest: "saga_saiyan_4", order: 2 },
+    { id: "dbe:vegeta", quest: "saga_saiyan_5", order: 3 },
+    { id: "dbe:cui", quest: "saga_frieza_2", order: 4 },
+    { id: "dbe:dodoria", quest: "saga_frieza_3", order: 5 },
+    { id: "dbe:zarbon", quest: "saga_frieza_4", order: 6 },
+    { id: "dbe:guldo", quest: "saga_frieza_5", order: 7 },
+    { id: "dbe:recoome", quest: "saga_frieza_5", order: 8 },
+    { id: "dbe:burter", quest: "saga_frieza_6", order: 9 },
+    { id: "dbe:jeice", quest: "saga_frieza_6", order: 10 },
+    { id: "dbe:ginyu", quest: "saga_frieza_7", order: 11 },
+    { id: "dbe:frieza", quest: "saga_frieza_8", order: 12 },
+    { id: "dbe:king_cold", quest: "saga_frieza_11", order: 13 },
+    { id: "dbe:android_19", quest: "saga_android_2", order: 14 },
+    { id: "dbe:android_20", quest: "saga_android_2", order: 15 },
+    { id: "dbe:android_17", quest: "saga_android_3", order: 16 },
+    { id: "dbe:android_18", quest: "saga_android_4", order: 17 },
+    { id: "dbe:cell", quest: "saga_android_5", order: 18 },
+    { id: "dbe:puipui", quest: "saga_majin_1", order: 19 },
+    { id: "dbe:yakon", quest: "saga_majin_2", order: 20 },
+    { id: "dbe:dabura", quest: "saga_majin_3", order: 21 },
+    { id: "dbe:majin_vegeta", quest: "saga_majin_4", order: 22 },
+    { id: "dbe:fat_buu", quest: "saga_majin_5", order: 23 },
+    { id: "dbe:super_buu", quest: "saga_majin_6", order: 24 },
+    { id: "dbe:kid_buu", quest: "saga_majin_7", order: 25 },
+    { id: "dbe:beerus_enemy", quest: "saga_beerus_1", order: 26 },
+    { id: "dbe:shisami", quest: "saga_golden_frieza_3", order: 27 },
+    { id: "dbe:tagoma", quest: "saga_golden_frieza_3", order: 28 },
+    { id: "dbe:piccolo_enemy", quest: "saga_universe_6_1", order: 29 },
+    { id: "dbe:goku_enemy", quest: "saga_universe_6_1", order: 30 },
+    { id: "dbe:botamo", quest: "saga_universe_6_2", order: 31 },
+    { id: "dbe:frost", quest: "saga_universe_6_3", order: 32 },
+    { id: "dbe:magetta", quest: "saga_universe_6_4", order: 33 },
+    { id: "dbe:cabba", quest: "saga_universe_6_5", order: 34 },
+    { id: "dbe:hitto", quest: "saga_universe_6_6", order: 35 },
+    { id: "dbe:goku_black", quest: "saga_future_trunks_2", order: 36 },
+    { id: "dbe:zamasu", quest: "saga_future_trunks_4", order: 37 },
+    { id: "dbe:fused_zamasu", quest: "saga_future_trunks_5", order: 38 },
+    { id: "dbe:corrupted_fused_zamasu", quest: "saga_future_trunks_6", order: 39 },
+  ],
+};
+export { progression_data };

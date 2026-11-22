@@ -1876,6 +1876,9 @@
          "path" : "scripts/data/modifiers_data.js"
       },
       {
+         "path" : "scripts/data/progression_data.js"
+      },
+      {
          "path" : "scripts/data/races_data.js"
       },
       {
@@ -1922,6 +1925,9 @@
       },
       {
          "path" : "scripts/planet_villages.js"
+      },
+      {
+         "path" : "scripts/progression/progression.js"
       },
       {
          "path" : "scripts/race_info.js"

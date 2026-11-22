@@ -17,6 +17,7 @@ import { safeTeleport as duSafeTeleport, isTravelPending as duIsTravelPending,
   reportTravelFailure as duReportTravelFailure } from "./travel_safety.js";
 import { initializeFutureTerrain, prepareFutureCity } from "./future_terrain.js";
 import { duTravel } from "./core/du_travel.js"; // O4.0-1: movido do segmento 0, como estava
+import { recordBossKill as duRecordBossKill, listDefeated as duListDefeated, BOSS_IDS as DU_BOSS_IDS } from "./progression/progression.js";
 import { namekDragonBallSpot as __nbl } from "./namek_dimension.js";
 import { raceInfo as duRaceInfo, firstFormsRawtext as duFirstFormsRawtext } from "./race_info.js";
 import { dragonBallsData as d } from "./data/dragon_balls_data.js";
@@ -6414,6 +6415,16 @@ bM.on("entity_died", ({ damageSource: sG, entity: sH }) => {
   if (sG.damagingEntity instanceof h1) {
     let { tasks: sI } = late.hO(sG.damagingEntity);
     for (let sK of sI.getActiveTasksByType("defeat_enemy")) sH.typeId === sK.entityTypeId && sK.addProgress(1);
+  }
+});
+// Registro de chefes derrotados (progression/progression.js, TREINOS.md §3.1): o mesmo critério de matador da tarefa
+// defeat_enemy acima; réplica do treino mental (tag dbe:mental_replica) não conta.
+bM.on("entity_died", ({ damageSource: sG, entity: sH }) => {
+  if (!(sG.damagingEntity instanceof h1)) return;
+  try {
+    duRecordBossKill(late.hO(sG.damagingEntity), sH);
+  } catch (error) {
+    console.warn("[Dragon Universe] boss registry failed: " + (error?.stack ?? error));
   }
 });
 var h4 = class {
@@ -13176,7 +13187,18 @@ function duHandleStaffRecovery({ id, message, sourceEntity }) {
     try { if (sourceEntity.isValid) sourceEntity.sendMessage({ translate: "dbe.quest.staff.failed" }); } catch {}
   }
 }
-q6.afterEvents.scriptEventReceive.subscribe(duHandleStaffRecovery);
+// Consulta do registro de chefes, para teste: /scriptevent dbe:bosses (o próprio jogador). Mesma inscrição do recovery.
+function duHandleBossQuery({ id, sourceEntity }) {
+  if (id !== "dbe:bosses" || sourceEntity?.typeId !== "minecraft:player") return;
+  const defeated = duListDefeated(hO(sourceEntity)),
+    names = defeated.flatMap((b, k) => [...(k ? [{ text: ", " }] : []), { translate: "entity." + b.id + ".name" }, ...(b.wins > 1 ? [{ text: " x" + b.wins }] : [])]);
+  sourceEntity.sendMessage({ rawtext: [{ text: "§e[bosses] " + defeated.length + "/" + DU_BOSS_IDS.length + ":§r " }, ...names] });
+  console.warn("[bosses] " + sourceEntity.name + " " + defeated.length + "/" + DU_BOSS_IDS.length + ": " + defeated.map((b) => b.id + "=" + b.wins).join(" "));
+}
+q6.afterEvents.scriptEventReceive.subscribe((event) => {
+  duHandleStaffRecovery(event);
+  duHandleBossQuery(event);
+});
 var qQ = {
   "dbe:angel_staff": 1,
   "dbe:z_sword": 1,
