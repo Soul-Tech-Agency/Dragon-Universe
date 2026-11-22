@@ -5060,11 +5060,22 @@ var fP = class extends Error {
       }, sH);
       return this.runIds.add(sI), sI;
     }
+    // O2b (decisão O2b-1, opção a): pedidos da mesma propriedade no mesmo tick viram um só run, que grava o ÚLTIMO
+    // valor pedido; e só grava se o valor atual da entidade for outro. O valor atual é relido na hora de gravar
+    // (outro caminho, como setProperty direto, eventos do JSON ou o respawn, pode tê-lo mudado), sem cache.
     trySetProperty(sG, sH) {
+      const pending = (this.pendingProperties ??= new Map());
+      const scheduled = pending.has(sG);
+      pending.set(sG, sH);
+      if (scheduled) return;
       cw.run(() => {
+        const value = pending.get(sG);
+        pending.delete(sG);
         if (this.entity.isValid)
           try {
-            this.entity.setProperty(sG, sH);
+            let current;
+            try { current = this.entity.getProperty(sG); } catch {}
+            if (current === void 0 || current !== value) this.entity.setProperty(sG, value);
           } catch {}
       });
     }
