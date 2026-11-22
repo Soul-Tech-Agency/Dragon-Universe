@@ -173,7 +173,12 @@ export const PALACE_PIECES = {
   a: { id: "bills_palace_a", from: { x: -15, y: 130, z: -15 }, to: { x: 15, y: 187, z: 15 } },
 };
 const EXIT_BOX = { x0: -8, x1: -2, z0: 17, z1: 22 };
-const STAIR = { z0: 8, z1: 10, top: 14, steps: 11 }; // degrau k (1..11): bloco em (14 - k, 141 - k); chega ao salão em x 2
+// alinhada com a porta da sala (x 5, z 7..9, entre os pilares de mangue de z 6 e z 10): revisão da Aquarela, nota A
+const STAIR = { z0: 7, z1: 9, top: 14, steps: 11 }; // degrau k (1..11): bloco em (14 - k, 141 - k); chega ao salão em x 2
+const CEILING_Y = 136; // teto de tábuas da sala: o furo da escada ganha moldura de tronco de mangue descascado
+// a placa da porta (spruce_hanging_sign, com o texto) sai de cima da porta e é pendurada de novo no teto, junto à face
+// oeste (lado da sala) do pilar de z 6, com os mesmos estados e o mesmo texto
+const SIGN = { from: { x: 5, y: 133, z: 8 }, to: { x: 4, y: 135, z: 6 } };
 const SOUTH = new Set(["quartz_bricks", "smooth_quartz", "quartz_pillar", "quartz_slab_top", "purple_wool", "light_blue_wool", "water", "prismarine_bricks", "lily_pad"]);
 const S = (v) => ({ t: 8, v: { v: v } }), I = (v) => ({ t: 3, v }), B = (v) => ({ t: 1, v });
 // estados canônicos (os mesmos das peças do pacote em 1.21.60.33)
@@ -182,8 +187,10 @@ const STATES = {
   stripped_dark_oak_log: [["pillar_axis", S("y")]], water: [["liquid_depth", I(0)]], end_rod: [["facing_direction", I(1)]],
   quartz_slab_top: [["minecraft:vertical_half", S("top")]],
   stair: [["minecraft:corner", S("none")], ["upside_down_bit", B(0)], ["weirdo_direction", I(0)]], // sobe para leste
+  frame_x: [["pillar_axis", S("x")]], frame_z: [["pillar_axis", S("z")]],
 };
-const NAME = { quartz_slab_top: "minecraft:quartz_slab", stair: "minecraft:smooth_sandstone_stairs", light: "minecraft:light_block_15", air: "minecraft:air" };
+const NAME = { quartz_slab_top: "minecraft:quartz_slab", stair: "minecraft:smooth_sandstone_stairs", light: "minecraft:light_block_15", air: "minecraft:air",
+  frame_x: "minecraft:stripped_mangrove_log", frame_z: "minecraft:stripped_mangrove_log", sign: "minecraft:spruce_hanging_sign" };
 const VERSION = 18168865;
 
 export function palaceCells(model) {
@@ -238,24 +245,36 @@ export function palaceCells(model) {
       for (let y = 140; y <= 141; y++) b.delete(x + "," + y + "," + z);
     }
   }
+  // moldura do furo no teto da sala: bordas norte e sul (z 6 e z 10) ao longo do poço e a ponta oeste (x 2)
+  const cut = (x, z) => z >= STAIR.z0 && z <= STAIR.z1 && x >= STAIR.top - STAIR.steps && x <= STAIR.top - 1 && 142 - (STAIR.top - x) <= CEILING_Y;
+  for (let x = STAIR.top - STAIR.steps - 1; x <= STAIR.top; x++) {
+    for (let z = STAIR.z0 - 1; z <= STAIR.z1 + 1; z++) {
+      if (cut(x, z) || a.has(x + "," + CEILING_Y + "," + z)) continue;
+      const touches = [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => cut(x + dx, z + dz));
+      if (touches) put(a, x, CEILING_Y, z, z < STAIR.z0 || z > STAIR.z1 ? "frame_x" : "frame_z");
+    }
+  }
+  // a placa: sai de cima da porta (o vão da escada já passa por lá) e vai para junto do pilar
+  put(a, SIGN.to.x, SIGN.to.y, SIGN.to.z, "sign");
   // luz nos andares ocos (no ar do modelo, longe da escada)
   const levels = [[143, 7], [149, 6], [155, 4], [161, 3], [167, 0], [175, 0]];
   for (const [y, q] of levels) {
     for (const [dx, dz] of q ? [[-q, -q], [-q, q], [q, -q], [q, q], [0, 0]] : [[0, 0]]) {
       const k = dx + "," + y + "," + dz;
-      if (!a.has(k) && !(dz >= STAIR.z0 - 1 && dz <= STAIR.z1 + 1 && dx >= 2)) put(a, dx, y, dz, "light");
+      if (!a.has(k) && !(y < 147 && dz >= STAIR.z0 - 1 && dz <= STAIR.z1 + 1 && dx >= 2)) put(a, dx, y, dz, "light"); // só o térreo tem a escada
     }
   }
   return { a, b };
 }
 
-function entryFor(block) {
+function entryFor(block, special) {
+  if (special?.[block]) return special[block].entry;
   const name = NAME[block] ?? "minecraft:" + block;
   const states = STATES[block] ?? [];
   return [[{ v: "name" }, S(name)], [{ v: "states" }, { t: 10, v: states.map(([k, n]) => [{ v: k }, n]) }], [{ v: "version" }, I(VERSION)]];
 }
 
-function buildPiece(template, piece, cells) {
+function buildPiece(template, piece, cells, special = {}) {
   const root = readMcstructure(template);
   const parts = structureParts(root);
   const sx = piece.to.x - piece.from.x + 1, sy = piece.to.y - piece.from.y + 1, sz = piece.to.z - piece.from.z + 1;
@@ -266,17 +285,20 @@ function buildPiece(template, piece, cells) {
   const n = sx * sy * sz;
   const indices = field2(parts.structure, "block_indices");
   const primary = new Int32Array(n).fill(-1), water = new Int32Array(n).fill(-1);
-  const palette = [], index = new Map();
+  const palette = [], index = new Map(), data = [];
   for (const [k, block] of cells) {
     const [x, y, z] = k.split(",").map(Number);
     const lx = x - piece.from.x, ly = y - piece.from.y, lz = z - piece.from.z;
     if (lx < 0 || ly < 0 || lz < 0 || lx >= sx || ly >= sy || lz >= sz) throw new Error(piece.id + ": célula fora da peça " + k);
-    if (!index.has(block)) { index.set(block, palette.length); palette.push(entryFor(block)); }
-    primary[(lx * sy + ly) * sz + lz] = index.get(block);
+    if (!index.has(block)) { index.set(block, palette.length); palette.push(entryFor(block, special)); }
+    const i = (lx * sy + ly) * sz + lz;
+    primary[i] = index.get(block);
+    if (special[block]?.data) data.push([{ v: String(i) }, special[block].data(x, y, z)]);
   }
   indices.v.items = indices.v.items.map((l, i) => (l instanceof Int32Array ? (i ? water : primary) : { et: l.et, items: i ? water : primary }));
   parts.palette.v.items = palette;
-  if (parts.positionData) parts.positionData.v = [];
+  if (parts.positionData) parts.positionData.v = data;
+  else if (data.length) throw new Error(piece.id + ": o molde não tem block_position_data");
   parts.entities.v.items = [];
   return root;
 }
@@ -284,9 +306,27 @@ function buildPiece(template, piece, cells) {
 function palaceCommand(modelFile, out) {
   const model = JSON.parse(fs.readFileSync(modelFile, "utf8"));
   const { a, b } = palaceCells(model);
+  // a placa original da porta (bills_3): mesma entrada de paleta (estados) e o mesmo block entity (texto)
+  const island = loadIsland();
+  const at = locate(island, SIGN.from.x, SIGN.from.y, SIGN.from.z);
+  const signEntry = at.p.parts.palette.v.items[at.p.parts.layers[0][at.i]];
+  if (field(signEntry, "name").v.v !== NAME.sign) throw new Error("a placa não está em " + JSON.stringify(SIGN.from));
+  const signData = at.p.parts.positionData.v.find(([k]) => k.v === String(at.i))?.[1];
+  if (!signData) throw new Error("a placa não tem block entity");
+  const special = {
+    sign: {
+      entry: signEntry,
+      data: (x, y, z) => {
+        const copy = structuredClone(signData);
+        const be = copy.v.find(([k]) => k.v === "block_entity_data")[1];
+        for (const [k, n] of be.v) if (k.v === "x") n.v = x; else if (k.v === "y") n.v = y; else if (k.v === "z") n.v = z;
+        return copy;
+      },
+    },
+  };
   const template = path.join(DIR, "prop_cushion_1.mcstructure");
   for (const [piece, cells] of [[PALACE_PIECES.b, b], [PALACE_PIECES.a, a]]) {
-    const root = buildPiece(template, piece, cells);
+    const root = buildPiece(template, piece, cells, special);
     const dest = path.join(out, piece.id + ".mcstructure");
     writeMcstructureNew(dest, root);
     // conferência: relida do disco, cada célula tem o bloco pedido e o resto é vazio
