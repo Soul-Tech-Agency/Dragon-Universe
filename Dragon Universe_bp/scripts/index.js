@@ -1476,12 +1476,12 @@ var cF = class {
     }
     enable() {
       if ((this.id === "ultra_instinct" || this.id === "hakai") &&
-          this.dbeEntity instanceof hN && !dC.testAll(this.dbeEntity, this.requirements)) {
+          this.dbeEntity instanceof late.hN && !dC.testAll(this.dbeEntity, this.requirements)) {
         this.dbeEntity.player.sendMessage(dC.listDescription(this.requirements, this.dbeEntity));
         return;
       }
       if (this.kiDrain > 0 && this.dbeEntity.ki.currentValue <= 0) {
-        this.dbeEntity instanceof hN && this.dbeEntity.player.sendMessage({ translate: "message.noKi.warning" });
+        this.dbeEntity instanceof late.hN && this.dbeEntity.player.sendMessage({ translate: "message.noKi.warning" });
         return;
       }
       if (this.id === "ultra_instinct" || this.id === "hakai") {
@@ -1505,13 +1505,13 @@ var cF = class {
         if (this.chargeTime && !(await this.waitForChargeOrCancel())) return;
         this.enable();
       }
-      if (this.dbeEntity instanceof hN) {
+      if (this.dbeEntity instanceof late.hN) {
         let sH = this.getTranslationKey();
         this.dbeEntity.player.sendMessage([{ text: "§6" }, sH]);
       }
     }
     updateIcon() {
-      if (this.dbeEntity instanceof hN) {
+      if (this.dbeEntity instanceof late.hN) {
         let { statusIndicator: sG } = this.dbeEntity;
         this.showHudIcon && (this.isEnabled ? sG.addIcon(this.id) : sG.removeIcon(this.id));
       }
@@ -1575,7 +1575,7 @@ var cF = class {
       return sH && (await cy.waitTicks(3), this.applyTeleportEffects()), sH;
     }
     onTick() {
-      if (this.dbeEntity instanceof hN && this.rapidMovementCooldown.isExpired() && this.dbeEntity.player.isJumping) {
+      if (this.dbeEntity instanceof late.hN && this.rapidMovementCooldown.isExpired() && this.dbeEntity.player.isJumping) {
         let sG = this.dbeEntity.entity.getEntitiesFromViewDirection();
         for (let sH of sG) {
           let { distance: sI, entity: sK } = sH;
@@ -1603,7 +1603,7 @@ var cF = class {
       return sL;
     }
     isValidOpponent(sG) {
-      return sG instanceof hN ? !0 : late.i3.getDBEEntity(sG)?.advancedCombat === !0;
+      return sG instanceof late.hN ? !0 : late.i3.getDBEEntity(sG)?.advancedCombat === !0;
     }
   };
 import { Player as cJ, system as cK, world as cL } from "@minecraft/server";
@@ -2348,7 +2348,7 @@ var dO = class {
 import { EntityComponentTypes as dV } from "@minecraft/server";
 var dW = class extends dR {
     constructor(sG) {
-      if ((super("flying_speed", sG), !(sG instanceof hN))) {
+      if ((super("flying_speed", sG), !(sG instanceof late.hN))) {
         let sH = sG.entity.getComponent(dV.FlyingSpeed),
           sI = sG.entity.getComponent(dV.UnderwaterMovement);
         sG.runInterval(() => {
@@ -2426,7 +2426,7 @@ var e4 = class extends dR {
   underwaterMovementComponent;
   constructor(sG) {
     super("running_speed", sG),
-      (this.isPlayer = sG instanceof hN),
+      (this.isPlayer = sG instanceof late.hN),
       (this.movementComponent = sG.entity.getComponent(e2.Movement)),
       (this.underwaterMovementComponent = sG.entity.getComponent(e2.UnderwaterMovement)),
       this.isPlayer && sG.runInterval(() => this.handleSpeed());
@@ -2451,7 +2451,7 @@ var e4 = class extends dR {
       sK = this.dbeEntity.getGravity(),
       sL = Math.min((sI / 1000 + 0.1) / (sK + 1), 0.2);
     this.setValue(sL),
-      this.dbeEntity instanceof hN ? this.updateSpeed() : this.setSpeed(sH.isGuarding ? this.value / 2 : this.value);
+      this.dbeEntity instanceof late.hN ? this.updateSpeed() : this.setSpeed(sH.isGuarding ? this.value / 2 : this.value);
   }
   handleSpeed() {
     let { entity: sG, stamina: sH } = this.dbeEntity,
@@ -2484,7 +2484,7 @@ var e6 = class extends dR {
     }
     update() {
       let { defaultScale: sG, entity: sH } = this.dbeEntity;
-      if ((this.setValue(sG), this.dbeEntity instanceof hN)) {
+      if ((this.setValue(sG), this.dbeEntity instanceof late.hN)) {
         let sI = this.dbeEntity.getCurrentFusion();
         if (sI && !sI.isController) {
           this.setScale(0);
@@ -2580,7 +2580,7 @@ var eb = class {
       (this._value = Math.floor(bN(sG, 0, this.maxValue))), this.attributeManager.saveAttributes();
     }
     applyBuyEffects(sG) {
-      if (this.dbeEntity instanceof hN) {
+      if (this.dbeEntity instanceof late.hN) {
         let { player: sH } = this.dbeEntity,
           sI = Math.floor(this.value % 3) + 1;
         sH.sendMessage({ translate: "attribute." + this.id + ".upgrade." + sI, with: ["" + sG] }),
@@ -2667,9 +2667,9 @@ var eb = class {
       }
     }
     updateStats(sG = !0) {
-      if (sG && this.dbeEntity instanceof hN) {
+      if (sG && this.dbeEntity instanceof late.hN) {
         let sH = this.dbeEntity.getCurrentFusion()?.partnerPlayer;
-        sH && hO(sH).attributes.updateStats(!1);
+        sH && late.hO(sH).attributes.updateStats(!1);
       }
       this.modifiers.applyModifiers(), this.stats.updateStats(), this.updateBattlePower();
     }
@@ -2738,7 +2738,7 @@ var ep = class {
       if (this.isWearingPotara(sH)) {
         let sI = this.findNearbyPlayer(sH);
         if (!sI) return;
-        let sK = hO(sI),
+        let sK = late.hO(sI),
           sL = 0;
         for (; this.checkPotaraConditions(sG) && this.checkPotaraConditions(sK) && !(sL >= 100); ) {
           if (bO.distance(sI.location, sH.location) <= 0.1) {
@@ -2789,7 +2789,7 @@ var ep = class {
     }
     get partnerPlayer() {
       let sG = dH.getEntity(this.partnerId);
-      if (sG instanceof dG) return hO(sG).getCurrentFusion()?.partnerId === this.dbePlayer.player.id ? sG : void 0;
+      if (sG instanceof dG) return late.hO(sG).getCurrentFusion()?.partnerId === this.dbePlayer.player.id ? sG : void 0;
     }
     get type() {
       return this.fusionData.type;
@@ -2801,7 +2801,7 @@ var ep = class {
         sL = sG * sK;
       if (sH) {
         let { attributes: sM } = this.dbePlayer,
-          sN = hO(sH).attributes;
+          sN = late.hO(sH).attributes;
         for (let sO of sN.getAttributes()) {
           let sP = (sM.getAttribute(sO.id)?.value ?? 1) + sO.value;
           sI[sO.id] = (sP / 100) * sL + 1;
@@ -2838,7 +2838,7 @@ var ep = class {
       return (sI[0].toUpperCase() + sI.slice(1).toLowerCase()).replace(" ", "");
     }
     setFusion(sG, sH, sI) {
-      let sK = hO(sG),
+      let sK = late.hO(sG),
         { attributes: sL, data: sM, inputPermissionManager: sN } = sK;
       sK.trySetProperty("dbe:fusion_type", sI.type),
         sG.triggerEvent("dbe:fusion_player_" + (sI.isController ? 1 : 2)),
@@ -2877,7 +2877,7 @@ var ep = class {
     }
   };
 bM.on("entity_died", ({ dbeEntity: sG }) => {
-  sG instanceof hN && ex.tryStopFusion(sG);
+  sG instanceof late.hN && ex.tryStopFusion(sG);
 });
 var ex = new ew();
 import { CONFIG as ey } from "./config/config.js";
@@ -2933,7 +2933,7 @@ var eE = class {
   },
   eF = new eE();
 bM.on("battle_power_changed", ({ dbeEntity: sG }) => {
-  eF.initialized && sG instanceof hN && !sG.isFused && eF.updatePlayerEntry(sG);
+  eF.initialized && sG instanceof late.hN && !sG.isFused && eF.updatePlayerEntry(sG);
 });
 function eG(sG) {
   return sG.replace(/[^a-zA-Z0-9_]/g, "");
@@ -2979,7 +2979,7 @@ var eH = class {
         (this.members.push({ id: sG.id, name: sG.name }),
         this.getOwner() || this.setOwner(sG.id),
         this.saveGroup(),
-        hO(sG).updateNameTag(),
+        late.hO(sG).updateNameTag(),
         sG.sendMessage({ translate: "player_group.join.success", with: [this.name] }));
     }
     deleteClaims() {
@@ -3045,7 +3045,7 @@ var eH = class {
           this.totalMembers > 0
             ? (this.isOwner(sH.id) && this.setOwner(this.members[0].id), this.saveGroup())
             : eJ.deleteGroup(this.id),
-          sI && hO(sI).updateNameTag();
+          sI && late.hO(sI).updateNameTag();
       }
     }
     setFriendlyFire(sG) {
@@ -3272,7 +3272,7 @@ var eH = class {
       return new Promise((resolve) => dz.run(async () => {
         try {
           if (!this.accessRequirements) return resolve(!1);
-          if (sG instanceof dx) await ex.tryStopFusion(hO(sG));
+          if (sG instanceof dx) await ex.tryStopFusion(late.hO(sG));
           resolve(await duTravel(sG, this.accessRequirements.deniedAccessLocation,
             { dimension: this.dimension, label: "region fallback " + this.id }));
         } catch (error) {
@@ -3285,7 +3285,7 @@ var eH = class {
       return new Promise((resolve) => dz.run(async () => {
         try {
           if (!this.spawnPoint) return resolve(!1);
-          if (sG instanceof dx) await ex.tryStopFusion(hO(sG));
+          if (sG instanceof dx) await ex.tryStopFusion(late.hO(sG));
           resolve(await duTravel(sG, this.spawnPoint, { dimension: this.dimension, label: "region " + this.id }));
         } catch (error) {
           console.warn(`[Dragon Universe] Region travel failed: ${error?.stack ?? error}`);
@@ -3381,7 +3381,7 @@ var eH = class {
         if (sI) {
           if (!sG.canEnter(sI)) {
             sG.teleportToFallbackLocation(sH),
-              sI instanceof hN &&
+              sI instanceof late.hN &&
                 sI.sendQueueMessage({ message: sG.accessRequirements?.deniedAccessMessage ?? "", tickDelay: 0 });
             return;
           }
@@ -3493,7 +3493,7 @@ var eT = class {
       sI = this.loadSkill(sH);
     this.saveState(),
       sI instanceof cH && sI.isPassive && sI.enable(),
-      this.dbeEntity instanceof hN && this.dbeEntity.skillsContainer.updateSideBar(),
+      this.dbeEntity instanceof late.hN && this.dbeEntity.skillsContainer.updateSideBar(),
       bM.dispatch("skill_unlocked", { dbeEntity: this.dbeEntity, skill: sI });
   }
   canLearnSkill(sG) {
@@ -3580,7 +3580,7 @@ var eT = class {
         (sH instanceof cH && (sH.disable(), sH.updateIcon()),
         this.skillsMap.delete(sG),
         this.saveState(),
-        this.dbeEntity instanceof hN && this.dbeEntity.skillsContainer.updateSideBar());
+        this.dbeEntity instanceof late.hN && this.dbeEntity.skillsContainer.updateSideBar());
     }
   }
   saveState() {
@@ -3597,13 +3597,13 @@ var eT = class {
       if (this.hasSkill(sG))
         this.dbeEntity.entity instanceof eR &&
           this.dbeEntity.entity.sendMessage({ translate: "message.learn.error.3" });
-      else if (this.dbeEntity instanceof hN && !this.canLearnSkill(sG)) {
+      else if (this.dbeEntity instanceof late.hN && !this.canLearnSkill(sG)) {
         let sH = eQ.find(({ id: sI }) => sI === sG);
         this.dbeEntity.player.sendMessage(dC.listDescription(sH?.requirements ?? [], this.dbeEntity));
       } else
         return (
           this.addSkill(sG),
-          this.dbeEntity instanceof hN &&
+          this.dbeEntity instanceof late.hN &&
             this.dbeEntity.entity.sendMessage({
               rawtext: [{ translate: "message.learn.success", with: { rawtext: [{ translate: "skill." + sG }] } }],
             }),
@@ -3666,10 +3666,10 @@ var eU = class {
     this.reset(),
       (this.isLoading = !1),
       (this.increaseCallbacks.length = 0),
-      this.dbeEntity instanceof hN && this.dbeEntity.title.setTitle(this.barId + "_frame");
+      this.dbeEntity instanceof late.hN && this.dbeEntity.title.setTitle(this.barId + "_frame");
   }
   update() {
-    this.dbeEntity instanceof hN && this.dbeEntity.title.setTitle(this.barId + "_frame", this.barFrame);
+    this.dbeEntity instanceof late.hN && this.dbeEntity.title.setTitle(this.barId + "_frame", this.barFrame);
   }
 };
 import { system as eV } from "@minecraft/server";
@@ -3779,7 +3779,7 @@ var f1 = class {
           (await eV.waitTicks(2),
           f2.createExplosion(sG.dimension, sG.location, 3, { breakBlocks: !0, damagingEntity: this.dbeEntity.entity }),
           this.dbeEntity.entity.applyKnockback({ x: sI.x * sH, z: sI.z * sH }, 0.1),
-          this.dbeEntity instanceof hN &&
+          this.dbeEntity instanceof late.hN &&
             (this.dbeEntity.player.camera.setCamera(c1.ThirdPerson),
             await eV.waitTicks(10),
             this.dbeEntity.player.camera.clear()));
@@ -3917,7 +3917,7 @@ var fj = class {
       return 0;
     }
     applyDamage(sG, sH) {
-      if (this.dbeEntity instanceof hN && !this.dbeEntity.isInActiveMode) return 0;
+      if (this.dbeEntity instanceof late.hN && !this.dbeEntity.isInActiveMode) return 0;
       let sI = sH ? late.i3.getDBEEntity(sH) : void 0,
         sK = sI?.isFriendlyDamage,
         sL = Math.floor(sG - this.getDamageReduction(sG)),
@@ -3925,7 +3925,7 @@ var fj = class {
         sN = sM <= 0,
         sO = sK && sN;
       if (sH && !sO) {
-        if (sI instanceof hN) {
+        if (sI instanceof late.hN) {
           let { multiplier: sP } = sI.level;
           this.addEntityToRewardLog(sH.id, sP);
         }
@@ -3935,7 +3935,7 @@ var fj = class {
         sO
           ? (this.setCurrent(1),
             fb.run(() => {
-              this.dbeEntity instanceof hN && this.dbeEntity.knockout(),
+              this.dbeEntity instanceof late.hN && this.dbeEntity.knockout(),
                 sH && !(sH instanceof f9) && (sH.dimension.playSound("common.teleport2", sH.location), sH.remove());
             }))
           : this.setCurrent(sM),
@@ -3967,7 +3967,7 @@ var fj = class {
         }, 50));
     }
     updateBar() {
-      if (this.dbeEntity instanceof hN) {
+      if (this.dbeEntity instanceof late.hN) {
         let sG = Math.floor(this.currentValue),
           sH = Math.floor(this.maxValue),
           sI = Math.floor((sG * 50) / sH);
@@ -3986,12 +3986,12 @@ var fj = class {
       for (let [sG, sH] of this.entityRewardLog) {
         let sI = ff.getEntity(sG);
         if (sI instanceof f9) {
-          let { level: sK } = hO(sI),
+          let { level: sK } = late.hO(sI),
             sL = Math.floor(sH.rewardAmount * f8.REWARD_MODIFIERS.DEFEAT_MOBS);
           sK.addPoints(sL);
           try {
             let zq = Math.max(3, Math.floor(sL / 5));
-            hO(sI).zeni.addValue(zq);
+            late.hO(sI).zeni.addValue(zq);
             sI.sendMessage(d6(zq, "zeni", "e"));
           } catch (zr) {}
         }
@@ -3999,7 +3999,7 @@ var fj = class {
       this.entityRewardLog.clear();
     }
     increaseMastering() {
-      if (this.dbeEntity instanceof hN) {
+      if (this.dbeEntity instanceof late.hN) {
         let { masteries: sG, transformations: sH } = this.dbeEntity,
           sI = sG.getMastery(sH.currentTransformation.id);
         if (sI && !this.isHealthDraining) {
@@ -4027,7 +4027,7 @@ var fv = class extends fj {
   }
   currentAuraProperties;
   get auraEnabled() {
-    return this.dbeEntity instanceof hN && this.dbeEntity.player.isSneaking
+    return this.dbeEntity instanceof late.hN && this.dbeEntity.player.isSneaking
       ? !0
       : this.dbeEntity.skills.isSkillActive("aura_boost");
   }
@@ -4075,7 +4075,7 @@ var fv = class extends fj {
       this.updateBar();
   }
   onValueChanged({ newValue: sG, oldValue: sH }) {
-    if ((this.currentValue <= 0 && this.noKi(), this.dbeEntity instanceof hN)) {
+    if ((this.currentValue <= 0 && this.noKi(), this.dbeEntity instanceof late.hN)) {
       let { tasks: sI } = this.dbeEntity,
         sK = sG - sH,
         sL = Math.abs(sK);
@@ -4090,7 +4090,7 @@ var fv = class extends fj {
   setCurrentAura(sG) {
     if (
       (sG ? this.dbeEntity.data.set("aura_properties", sG) : this.dbeEntity.data.delete("aura_properties"),
-      this.dbeEntity instanceof hN)
+      this.dbeEntity instanceof late.hN)
     ) {
       let sH = sG?.soundIndex,
         sI = sG?.type;
@@ -4109,7 +4109,7 @@ var fv = class extends fj {
     });
   }
   updateBar() {
-    if (this.dbeEntity instanceof hN) {
+    if (this.dbeEntity instanceof late.hN) {
       let sG = Math.floor(this.currentValue),
         sH = Math.floor(this.maxValue),
         sI = Math.floor((sG * 50) / sH),
@@ -4138,7 +4138,7 @@ var fv = class extends fj {
   }
   handleKi() {
     let { dbeEntity: sG } = this;
-    sG instanceof hN &&
+    sG instanceof late.hN &&
       sG.runInterval(() => {
         let { isInActiveMode: sH, isActionBlocked: sI, player: sK, skills: sL, transformations: sM } = sG;
         if (!sI) {
@@ -4193,7 +4193,7 @@ var fx = class extends fj {
     this.updateBar();
   }
   removeCurrent(sG) {
-    (this.dbeEntity instanceof hN && !this.dbeEntity.isInActiveMode) ||
+    (this.dbeEntity instanceof late.hN && !this.dbeEntity.isInActiveMode) ||
       !fw.STAMINA.ENABLED ||
       this.dbeEntity.isDeath ||
       (this.setCurrent(this.currentValue - sG),
@@ -4205,7 +4205,7 @@ var fx = class extends fj {
     this.addCurrent(sH);
   }
   updateBar() {
-    if (this.dbeEntity instanceof hN) {
+    if (this.dbeEntity instanceof late.hN) {
       let sG = Math.floor((this.currentValue * 50) / this.maxValue);
       this.dbeEntity.title.setTitle("stamina_bar_frame", sG);
     }
@@ -4388,7 +4388,7 @@ var fM = class {
       this.dbeEntity.skills.getToggleSkill("ultra_instinct")?.disable();
     let { attributes: sG, transformations: sH } = this.dbeEntity,
       sI = sH.currentTransformation;
-    if (this.dbeEntity instanceof hN) {
+    if (this.dbeEntity instanceof late.hN) {
       let { isFused: sL } = this.dbeEntity;
       fL(this.dbeEntity, sI),
         (this.dbeEntity.isArmorVisible = !sL && this.isArmorVisible),
@@ -4406,7 +4406,7 @@ var fM = class {
     if (this.applyTransformation() !== !1) this.applyTransformationEffects();
   }
   updateIcon() {
-    if (this.dbeEntity instanceof hN) {
+    if (this.dbeEntity instanceof late.hN) {
       let { statusIndicator: sG } = this.dbeEntity;
       this.showHudIcon ? sG.addIcon(this.id) : sG.removeIcon(this.id);
     }
@@ -4417,11 +4417,11 @@ var fM = class {
       ? sG.playSound("common.power_down", sH)
       : (sG.playSound("common.transform", sH),
         this.dbeEntity.entity.playAnimation("animation.player.transform"),
-        this.dbeEntity instanceof hN && this.dbeEntity.player.runCommand("camerashake add @s 0.1 0.4 rotational"));
+        this.dbeEntity instanceof late.hN && this.dbeEntity.player.runCommand("camerashake add @s 0.1 0.4 rotational"));
   }
   setOozaruCamera() {
     fK.run(() => {
-      this.dbeEntity instanceof hN && this.dbeEntity.player.camera.setCamera(c1.FollowOrbit);
+      this.dbeEntity instanceof late.hN && this.dbeEntity.player.camera.setCamera(c1.FollowOrbit);
     });
   }
   updateAura() {
@@ -4526,7 +4526,7 @@ var fO = class {
     return !this.currentTransformation.isBase;
   }
   setAvailableTransformations(sG) {
-    if (this.dbeEntity instanceof hN)
+    if (this.dbeEntity instanceof late.hN)
       throw new Error("Não é possível definir manualmente as transformações disponíveis para jogadores.");
     this.availableTransformationIds.clear();
     for (let sH of sG) this.availableTransformationIds.add(sH);
@@ -4558,7 +4558,7 @@ var fO = class {
     this.currentTransformation !== sG && sG.transform();
   }
   updateAvailableTransformations() {
-    if (this.dbeEntity instanceof hN && this.dbeEntity.hasStartedAdventure)
+    if (this.dbeEntity instanceof late.hN && this.dbeEntity.hasStartedAdventure)
       for (let sG of this.getTransformations()) {
         let { canTransform: sH } = sG,
           sI = this.availableTransformationIds.has(sG.id);
@@ -4602,7 +4602,7 @@ var fO = class {
   notifyNewTransformationUnlock(sG) {
     if (
       (bM.dispatch("transformation_unlocked", { dbeEntity: this.dbeEntity, transformation: sG }),
-      this.dbeEntity instanceof hN)
+      this.dbeEntity instanceof late.hN)
     ) {
       let { race: sH } = this.dbeEntity;
       this.dbeEntity.sendQueueMessage({
@@ -4630,7 +4630,7 @@ bM.on("entity_died", ({ dbeEntity: sG }) => {
 }),
   fJ.afterEvents.entityStartSneaking.subscribe(({ entity: sG }) => {
     if (sG instanceof fI) {
-      let sH = hO(sG);
+      let sH = late.hO(sG);
       if (!sH.isActionBlocked) {
         let sI = sH.runInterval(() => {
           let { selectedSlotIndex: sK } = sG;
@@ -4731,7 +4731,7 @@ var fP = class extends Error {
       return [...sG];
     }
     get colorIndexes() {
-      if (this.dbeEntity instanceof hN) {
+      if (this.dbeEntity instanceof late.hN) {
         let { raceIndex: sG } = this.dbeEntity.playerCustomization;
         return fR.getByIndex(sG).getData()?.colorIndexes || {};
       }
@@ -4741,7 +4741,7 @@ var fP = class extends Error {
       let sH = this.dbeEntity.race?.colorIndexes;
       if (sH)
         return (
-          this.dbeEntity instanceof hN &&
+          this.dbeEntity instanceof late.hN &&
             !this.dbeEntity.hasStartedAdventure &&
             (sH = fR.getByIndex(this.dbeEntity.playerCustomization.raceIndex).getData()?.colorIndexes || {}),
           sH[sG]
@@ -4802,7 +4802,7 @@ var fP = class extends Error {
       if (sG !== this.isGuarding) {
         (this._isGuarding = sG),
           this.dbeEntity.trySetProperty("dbe:is_defending", sG),
-          this.dbeEntity instanceof hN && this.dbeEntity.toggleMovement(!sG);
+          this.dbeEntity instanceof late.hN && this.dbeEntity.toggleMovement(!sG);
         let { dimension: sH, location: sI } = this.dbeEntity.entity;
         sH.playSound("common.swing", sI);
       }
@@ -4825,7 +4825,7 @@ var fP = class extends Error {
       sG ? sH.setCooldown("guard", sG ?? 20) : sH.clearCooldown("guard"), (this.isGuarding = !1);
     }
     init() {
-      this.isGuarding = this.dbeEntity instanceof hN
+      this.isGuarding = this.dbeEntity instanceof late.hN
         ? this.dbeEntity.player.selectedSlotIndex === 8
         : !!this.dbeEntity.entity.getProperty("dbe:is_defending");
       this.dbeEntity.trySetProperty("dbe:is_defending", this.isGuarding);
@@ -5227,7 +5227,7 @@ var g0 = class {
         fX.runTimeout(() => {
           this.worldLocked = !0;
           for (let sK of fY.getAllPlayers()) {
-            let sL = hO(sK);
+            let sL = late.hO(sK);
             this.validatePlayerAccess(sL);
           }
         }, sI);
@@ -5616,7 +5616,7 @@ var gA = class {
       });
       for (let sG of gz.getAllPlayers())
         sG !== this.dbePlayer.player &&
-          hO(sG).sendQueueMessage({
+          late.hO(sG).sendQueueMessage({
             soundId: "ui.challenge_complete",
             tickDelay: 20,
             message: {
@@ -6410,7 +6410,7 @@ var h3 = class extends gN {
 };
 bM.on("entity_died", ({ damageSource: sG, entity: sH }) => {
   if (sG.damagingEntity instanceof h1) {
-    let { tasks: sI } = hO(sG.damagingEntity);
+    let { tasks: sI } = late.hO(sG.damagingEntity);
     for (let sK of sI.getActiveTasksByType("defeat_enemy")) sH.typeId === sK.entityTypeId && sK.addProgress(1);
   }
 });
@@ -6860,13 +6860,13 @@ var hj = class extends cF {
       let { chargeBar: sG, ki: sH } = this.dbeEntity;
       if (sH.currentValue <= 0) return;
       let { startChargeSound: sI } = this.skillData,
-        sK = this.dbeEntity instanceof hN && this.dbeEntity.isInActiveMode;
+        sK = this.dbeEntity instanceof late.hN && this.dbeEntity.isInActiveMode;
       if (
         (this.updateKiManipulationColor(),
         this.dbeEntity.trySetProperty("dbe:charging_attack", this.propertyIndex),
         (this.isLoadingAttack = !0),
         this.canMoveWhileFiring ||
-          (this.dbeEntity instanceof hN
+          (this.dbeEntity instanceof late.hN
             ? this.dbeEntity.inputPermissionManager.blockInputPermission("charge_ki_attack", [hb.Movement])
             : this.dbeEntity.entity.triggerEvent("dbe:stop_movement")),
         sI)
@@ -6879,7 +6879,7 @@ var hj = class extends cF {
         let sN = 0;
         sG.startIncrease(this.chargeSpeed),
           sG.onIncrease((sO) => {
-            let sP = !(this.dbeEntity instanceof hN) && Math.random() < 0.1 && sO >= 50,
+            let sP = !(this.dbeEntity instanceof late.hN) && Math.random() < 0.1 && sO >= 50,
               sQ = sP;
             this.ignoreAttackBar && sO >= 100
               ? (this.useSkill(sO), sH.removeCurrent(sN), sG.reset())
@@ -6895,7 +6895,7 @@ var hj = class extends cF {
         this.canMoveWhileFiring ||
           hf.runTimeout(() => {
             if (!this.isLoadingAttack) {
-              if (this.dbeEntity instanceof hN)
+              if (this.dbeEntity instanceof late.hN)
                 this.dbeEntity.inputPermissionManager.unblockInputPermission("charge_ki_attack");
               else
                 try {
@@ -6914,7 +6914,7 @@ var hj = class extends cF {
     }
     getAttackDirection() {
       let { entity: sG, target: sH } = this.dbeEntity;
-      return !(this.dbeEntity instanceof hN) && sH
+      return !(this.dbeEntity instanceof late.hN) && sH
         ? bO.normalize(bO.subtract(sH.getHeadLocation(), sG.getHeadLocation()))
         : sG.getViewDirection();
     }
@@ -6947,7 +6947,7 @@ var hj = class extends cF {
       return sG;
     }
     updateSideBar() {
-      if (this.dbeEntity instanceof hN) {
+      if (this.dbeEntity instanceof late.hN) {
         let { title: sG } = this.dbeEntity,
           sH = this.getEquippedSkills();
         sH.length &&
@@ -6960,7 +6960,7 @@ var hj = class extends cF {
   };
 h8.afterEvents.playerSwingStart.subscribe(({ player: sG, swingSource: sH }) => {
   let { selectedSlotIndex: sI } = sG;
-  sI === 6 && sH === h7.Attack && hO(sG).skillsContainer.selectNextSlot();
+  sI === 6 && sH === h7.Attack && late.hO(sG).skillsContainer.selectNextSlot();
 });
 var hp = class {
   constructor(sG) {
@@ -7053,7 +7053,7 @@ var hz = 24000,
       let sK = { location: this.dbePlayer.player.location, maxDistance: this.kiSenseLevel * 25.6 };
       for (let sN of late.i3.getDBEEntities(this.dbePlayer.player.dimension, sK)) {
         let { entity: sO } = sN;
-        if (!sN.hasAttributesDefined || sN === this.dbePlayer || (sN instanceof hN && sN.isActionBlocked)) continue;
+        if (!sN.hasAttributesDefined || sN === this.dbePlayer || (sN instanceof late.hN && sN.isActionBlocked)) continue;
         let { battlePower: sP } = sN.attributes;
         return (
           sP > sH &&
@@ -7779,11 +7779,13 @@ var hJ = 1,
       });
     }
   };
+bindLate("hN", () => hN); // O4.0: ligação tardia
 function hO(sG) {
   let sH = late.i3.getDBEEntity(sG);
   if (sH instanceof hN) return sH;
   throw new Error("Instância de DBEPlayer não encontrada para o jogador fornecido.");
 }
+bindLate("hO", () => hO); // O4.0: ligação tardia
 var hP = class extends cA {
     constructor(sG, sH) {
       super(sG, sH), (this.cooldownDuration = 50), (this.triggerChance = 0.7);
