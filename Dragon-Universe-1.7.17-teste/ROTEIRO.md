@@ -111,7 +111,7 @@ Roteiro detalhado, escrito pela Sentinela 2. Marque também nesta parte.
 - [ ] O Content Log está ligado (Configurações → Criador → "Content Log" e "Mostrar na tela").
 - [ ] Tenho **dois mundos**:
   - (A) um **mundo novo**, para ver a seleção de raça;
-  - (B) um **mundo antigo**, da 1.7.15 ou 1.7.16, com personagem já criado.
+  - (B) uma **CÓPIA** de um mundo antigo da 1.7.15 ou 1.7.16, com personagem já criado (nunca o original).
 - [ ] No mundo antigo, anotei antes **raça, nível, pontos de atributo e forma** do personagem, para comparar depois.
 
 #### Onde mudar a escala da interface (PC)
@@ -129,7 +129,7 @@ No **celular**, faça uma vez com a escala padrão. Se der, repita com a escala 
 
 Para abrir: entre no mundo novo e use qualquer item do addon (ex.: o item de menu). A tela "Escolha sua raça" deve abrir.
 
-#### 1.1 PC (repita nas 3 escalas: P / M / G)
+#### 11.1.1 PC (repita nas 3 escalas: P / M / G)
 
 | O que testar | P | M | G |
 |---|---|---|---|
@@ -158,12 +158,12 @@ Para abrir: entre no mundo novo e use qualquer item do addon (ex.: o item de men
 | Terráqueo | Ki Máximo x1.25, Poder de Ki x1.25 | x1.0 | 6 | Sim | [ ] |
 | Saiyajin | Força x1.5 | x1.0 | 16 | Sim | [ ] |
 | Namekuseijin | Constituição x1.5, Tamanho x1.05 | x1.6 | 6 | Não | [ ] |
-| Frost Demon | Destreza x1.25, Poder de Ki x1.25, Tamanho x0.95 | x1.2 | **10** (a maquete diz 11; o jogo tem 10) | Não | [ ] |
+| Frost Demon | Destreza x1.25, Poder de Ki x1.25, Tamanho x0.95 | x1.2 | **10** | Não | [ ] |
 | Majin | Constituição x1.25, Destreza x1.25, Tamanho x0.95 | x2.0 | 6 | Sim | [ ] |
 | Bio Androide | Constituição x1.25, Força x1.25, Tamanho x1.05 | x1.7 | 7 | Não | [ ] |
 | Glind | Força x1.25, Ki Máximo x1.15, Constituição x1.1, Poder de Ki x1.1 | x1.5 | 8 | Sim | [ ] |
 
-#### 1.2 Etapa 2: aparência (customização)
+#### 11.1.2 Etapa 2: aparência (customização)
 
 - [ ] Depois de "Selecionar", abre a tela de aparência com a etapa **2** em destaque.
 - [ ] Cada opção (Gênero, Barba, Olhos, Cabelo, Cor do cabelo, Pele…) tem setas ◀ ▶.
@@ -175,7 +175,7 @@ Para abrir: entre no mundo novo e use qualquer item do addon (ex.: o item de men
 - [ ] O botão **Confirmar** começa a aventura (etapa 3) e a raça escolhida fica salva.
 - [ ] Nada de texto vazando nas linhas de opção, nem na escala Grande.
 
-#### 1.3 Celular (escolha de raça)
+#### 11.1.3 Celular (escolha de raça)
 
 - [ ] A tela abre inteira, sem precisar rolar para ver os botões principais.
 - [ ] O título mostra **ESCOLHA SUA RAÇA** e "**Etapa 1 de 3**".
@@ -197,7 +197,7 @@ Para abrir: entre no mundo novo e use qualquer item do addon (ex.: o item de men
 
 Para abrir: use o **item de menu**. Ele abre na última aba que você usou.
 
-#### 2.1 Comum a todas as abas (PC, nas 3 escalas)
+#### 11.2.1 Comum a todas as abas (PC, nas 3 escalas)
 
 | O que testar | P | M | G |
 |---|---|---|---|
@@ -211,7 +211,7 @@ Para abrir: use o **item de menu**. Ele abre na última aba que você usou.
 | O visual é liso, com cantos arredondados e borda ciano fina. Nada fica "quadriculado" ou esticado de um jeito feio. | [ ] | [ ] | [ ] |
 | Fechar com **X** / **Esc** fecha o menu normalmente. | [ ] | [ ] | [ ] |
 
-#### 2.2 Estatísticas (PC, nas 3 escalas)
+#### 11.2.2 Estatísticas (PC, nas 3 escalas)
 
 | O que testar | P | M | G |
 |---|---|---|---|
@@ -234,14 +234,14 @@ Para abrir: use o **item de menu**. Ele abre na última aba que você usou.
 | Usar o item de menu depois de ter fechado em "Informações completas" reabre essa mesma tela, e não uma tela vazia. | [ ] | [ ] | [ ] |
 | Números grandes (nível 100+, atributo 1000+, BP com muitos dígitos) **não vazam** da caixa. | [ ] | [ ] | [ ] |
 
-#### 2.3 Habilidades
+#### 11.2.3 Habilidades
 
 - [ ] A tela mostra "Pontos de Habilidade" e a lista de habilidades.
 - [ ] Clicar numa habilidade gasta pontos e sobe o nível. A **mesma** habilidade sobe, não a de cima ou a de baixo.
 - [ ] Nomes compridos de habilidade não vazam.
 - [ ] Sem habilidades disponíveis, aparece a mensagem de aviso, e não uma tela vazia.
 
-#### 2.4 Transformações (agora é aba própria)
+#### 11.2.4 Transformações (agora é aba própria)
 
 - [ ] A aba **Transformações** abre a lista de formas da minha raça.
 - [ ] As formas bloqueadas mostram **cadeado**, e as liberadas não.
@@ -249,28 +249,28 @@ Para abrir: use o **item de menu**. Ele abre na última aba que você usou.
 - [ ] Os nomes e requisitos compridos não vazam.
 - [ ] O botão antigo "Transformações" dentro de Habilidades, se ainda existir, abre a mesma tela.
 
-#### 2.5 Missões
+#### 11.2.5 Missões
 
 - [ ] A lista de missões aparece. Clicar numa abre os detalhes, com Iniciar/Reiniciar e voltar.
 - [ ] Os nomes de missão compridos não vazam.
 
-#### 2.6 Treino
+#### 11.2.6 Treino
 
 - [ ] Aparecem "Sombra de treinamento" e "Treino de concentração" (se eu tiver tentativas).
 - [ ] Cada botão faz o que diz.
 
-#### 2.7 Conquistas
+#### 11.2.7 Conquistas
 
 - [ ] A lista aparece com nome, progresso [P/100] ou "Concluído", e a descrição.
 - [ ] Clicar numa abre os detalhes, e o voltar funciona.
 
-#### 2.8 Notícias
+#### 11.2.8 Notícias
 
 - [ ] O texto de boas-vindas aparece inteiro.
 - [ ] As **2 imagens** aparecem: a de **itens** (mais alta) e a do **chat** (faixa comprida).
 - [ ] As imagens não ficam esticadas, cortadas ou por cima do texto.
 
-#### 2.9 Ajuda / Guia
+#### 11.2.9 Ajuda / Guia
 
 - [ ] A aba **Ajuda** (ícone "?", dourado, no rodapé da barra de abas) **abre a tela "Ajuda"**. Antes ela não fazia nada.
 - [ ] Ao abrir, aparecem uma **introdução** e uma **lista de tópicos** (ex.: evoluir, transformações e ki, missões e mestres, Esferas do Dragão, planetas e Star Navigator, comandos).
@@ -281,7 +281,7 @@ Para abrir: use o **item de menu**. Ele abre na última aba que você usou.
 - [ ] Do Guia dá para voltar ao menu.
 - [ ] Mude o jogo para **inglês** e **espanhol** e abra o Guia. O texto aparece traduzido, e não como uma chave do tipo `dbe.guide.algo`.
 
-#### 2.10 Celular: menu
+#### 11.2.10 Celular: menu
 
 - [ ] As abas aparecem **só com ícone**, numa coluna, com a **Ajuda** separada embaixo (em dourado).
 - [ ] Tocar numa aba muda o **título** para o nome dela (ex.: "TRANSFORMAÇÕES").
