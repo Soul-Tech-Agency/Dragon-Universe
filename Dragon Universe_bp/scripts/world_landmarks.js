@@ -575,15 +575,35 @@ async function chooseLevel(dim, spec, spot, shift) {
   return builds ? { reason: "found " + builds } : { x: spot.x, z: spot.z, y };
 }
 
-/** Swaps the floor blocks of spec.floor in the bottom layers of a piece (only the listed types are touched). */
+/**
+ * Swaps the floor blocks of spec.floor in the bottom layers of a piece. Only where the template itself has that block: dirt or
+ * moss a player put on a base placed earlier stays as it is. Without the template nothing is swapped.
+ */
 function* floorJob(dim, spec, spot, piece, y) {
   const { swap, layers } = spec.floor;
+  let template;
+  try {
+    template = world.structureManager.get(piece.id);
+  } catch (e) {
+    template = undefined;
+  }
+  if (!template) {
+    console.warn("[Landmarks] " + spec.key + ": structure " + piece.id + " not found; floor left as is");
+    return;
+  }
+  const templateType = (i, k, j) => {
+    try {
+      return template.getBlockPermutation({ x: i, y: k, z: j })?.type.id;
+    } catch (e) {
+      return undefined;
+    }
+  };
   for (let i = 0; i < piece.x; i++) {
     for (let j = 0; j < piece.z; j++) {
       for (let k = 0; k < layers; k++) {
         const block = dim.getBlock({ x: spot.x + piece.dx + i, y: y + k, z: spot.z + piece.dz + j });
         const to = block && swap[block.typeId];
-        if (to) block.setType(to);
+        if (to && templateType(i, k, j) === block.typeId) block.setType(to);
       }
     }
     yield;

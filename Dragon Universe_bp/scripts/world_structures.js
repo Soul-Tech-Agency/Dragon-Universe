@@ -280,10 +280,14 @@ async function showConstructionList(player) {
     .title({ translate: "dbe.constructions.menu.title" })
     .body({ rawtext })
     .button({ translate: "dbe.constructions.menu.close" });
-  for (let attempt = 0; attempt < 10; attempt++) {
-    const res = await form.show(player);
-    if (res.cancelationReason !== "UserBusy") return; // the Navigator menu may still be closing: try again shortly
-    await new Promise((resolve) => system.runTimeout(resolve, 10));
+  try {
+    for (let attempt = 0; attempt < 10; attempt++) {
+      const res = await form.show(player);
+      if (res.cancelationReason !== "UserBusy") return; // the Navigator menu may still be closing: try again shortly
+      await new Promise((resolve) => system.runTimeout(resolve, 10));
+    }
+  } catch (e) {
+    console.warn("[Structures] construction list not shown: " + e); // player left, or the form was rejected
   }
 }
 
@@ -344,7 +348,7 @@ world.afterEvents.worldLoad.subscribe(() => {
     if (ev.id !== "dbe:structures" && ev.id !== "dbe:constructions") return;
     const src = ev.sourceEntity;
     if (!src || src.typeId !== "minecraft:player") return;
-    if (ev.id === "dbe:constructions") showConstructionList(src); // same list as the Star Navigator button
+    if (ev.id === "dbe:constructions") showConstructionList(src).catch((e) => console.warn("[Structures] construction list failed: " + e)); // same list as the Star Navigator button
     else report(src);
   });
 });
