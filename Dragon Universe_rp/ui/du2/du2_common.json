@@ -1,0 +1,4433 @@
+{
+ "namespace": "du2",
+ "root": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "$du2_pc|default": true,
+  "$du2_mobile|default": false,
+  "variables": [{"requires": "$pocket_edition", "$du2_pc": false, "$du2_mobile": true}]
+ },
+ "close_button@common.button": {
+  "size": [18, 18],
+  "$pressed_button_name": "button.menu_exit",
+  "default_control": "default",
+  "hover_control": "hover",
+  "pressed_control": "pressed",
+  "controls": [
+   {
+    "default": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_close", "size": ["100%", "100%"]}},
+      {
+       "i": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/close",
+        "size": [8, 8],
+        "color": [0.659, 0.714, 0.816]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "hover": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_close_hover", "size": ["100%", "100%"]}},
+      {
+       "i": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/close",
+        "size": [8, 8],
+        "color": [0.659, 0.714, 0.816]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "pressed": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_close_pressed", "size": ["100%", "100%"]}},
+      {
+       "i": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/close",
+        "size": [8, 8],
+        "color": [0.659, 0.714, 0.816]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "logo": {
+  "type": "image",
+  "texture": "textures/ui/du2/du_logo",
+  "size": ["100%y", "100% - 4px"],
+  "anchor_from": "center",
+  "anchor_to": "center"
+ },
+ "title_label": {
+  "type": "label",
+  "text": "#title_text",
+  "size": ["100%", 10],
+  "color": [1.0, 1.0, 1.0],
+  "font_type": "MinecraftTen",
+  "shadow": false,
+  "text_alignment": "left",
+  "anchor_from": "left_middle",
+  "anchor_to": "left_middle",
+  "bindings": [{"binding_name": "#title_text"}]
+ },
+ "nav_pc": {
+  "type": "panel",
+  "size": [100, "100%"],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/panel_nav", "size": ["100%", "100%"]}},
+   {
+    "tabs": {
+     "type": "stack_panel",
+     "orientation": "vertical",
+     "size": ["100% - 8px", "100% - 8px"],
+     "collection_name": "form_buttons",
+     "anchor_from": "center",
+     "anchor_to": "center",
+     "controls": [
+      {
+       "tab_1@common.button": {
+        "size": ["100%", 20],
+        "collection_index": 1,
+        "$pressed_button_name": "button.form_button_click",
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [{"default@du2.h3": {}}, {"hover@du2.h4": {}}, {"pressed@du2.h5": {}}],
+        "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}]
+       }
+      },
+      {"gap": {"type": "panel", "size": ["100%", 2]}},
+      {
+       "tab_2@common.button": {
+        "size": ["100%", 20],
+        "collection_index": 2,
+        "$pressed_button_name": "button.form_button_click",
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [{"default@du2.h8": {}}, {"hover@du2.h9": {}}, {"pressed@du2.h10": {}}],
+        "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}]
+       }
+      },
+      {"gap": {"type": "panel", "size": ["100%", 2]}},
+      {
+       "tab_7@common.button": {
+        "size": ["100%", 20],
+        "collection_index": 7,
+        "$pressed_button_name": "button.form_button_click",
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [{"default@du2.h13": {}}, {"hover@du2.h14": {}}, {"pressed@du2.h15": {}}],
+        "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}]
+       }
+      },
+      {"gap": {"type": "panel", "size": ["100%", 2]}},
+      {
+       "tab_3@common.button": {
+        "size": ["100%", 20],
+        "collection_index": 3,
+        "$pressed_button_name": "button.form_button_click",
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [{"default@du2.h18": {}}, {"hover@du2.h19": {}}, {"pressed@du2.h20": {}}],
+        "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}]
+       }
+      },
+      {"gap": {"type": "panel", "size": ["100%", 2]}},
+      {
+       "tab_4@common.button": {
+        "size": ["100%", 20],
+        "collection_index": 4,
+        "$pressed_button_name": "button.form_button_click",
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [{"default@du2.h23": {}}, {"hover@du2.h24": {}}, {"pressed@du2.h25": {}}],
+        "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}]
+       }
+      },
+      {"gap": {"type": "panel", "size": ["100%", 2]}},
+      {
+       "tab_6@common.button": {
+        "size": ["100%", 20],
+        "collection_index": 6,
+        "$pressed_button_name": "button.form_button_click",
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [{"default@du2.h28": {}}, {"hover@du2.h29": {}}, {"pressed@du2.h30": {}}],
+        "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}]
+       }
+      },
+      {"gap": {"type": "panel", "size": ["100%", 2]}},
+      {
+       "tab_5@common.button": {
+        "size": ["100%", 20],
+        "collection_index": 5,
+        "$pressed_button_name": "button.form_button_click",
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [{"default@du2.h33": {}}, {"hover@du2.h34": {}}, {"pressed@du2.h35": {}}],
+        "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}]
+       }
+      },
+      {"fill": {"type": "panel", "size": ["100%", "fill"]}},
+      {
+       "tab_0@common.button": {
+        "size": ["100%", 20],
+        "collection_index": 0,
+        "$pressed_button_name": "button.form_button_click",
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [{"default@du2.h38": {}}, {"hover@du2.h39": {}}, {"pressed@du2.h40": {}}],
+        "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "nav_mobile": {
+  "type": "panel",
+  "size": [28, "100%"],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/panel_nav", "size": ["100%", "100%"]}},
+   {
+    "tabs": {
+     "type": "stack_panel",
+     "orientation": "vertical",
+     "size": ["100% - 6px", "100% - 6px"],
+     "collection_name": "form_buttons",
+     "anchor_from": "center",
+     "anchor_to": "center",
+     "controls": [
+      {
+       "tab_1@common.button": {
+        "size": ["100%", 20],
+        "collection_index": 1,
+        "$pressed_button_name": "button.form_button_click",
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [{"default@du2.h41": {}}, {"hover@du2.h42": {}}, {"pressed@du2.h43": {}}],
+        "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}]
+       }
+      },
+      {"gap": {"type": "panel", "size": ["100%", 1]}},
+      {
+       "tab_2@common.button": {
+        "size": ["100%", 20],
+        "collection_index": 2,
+        "$pressed_button_name": "button.form_button_click",
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [{"default@du2.h44": {}}, {"hover@du2.h45": {}}, {"pressed@du2.h46": {}}],
+        "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}]
+       }
+      },
+      {"gap": {"type": "panel", "size": ["100%", 1]}},
+      {
+       "tab_7@common.button": {
+        "size": ["100%", 20],
+        "collection_index": 7,
+        "$pressed_button_name": "button.form_button_click",
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [{"default@du2.h47": {}}, {"hover@du2.h48": {}}, {"pressed@du2.h49": {}}],
+        "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}]
+       }
+      },
+      {"gap": {"type": "panel", "size": ["100%", 1]}},
+      {
+       "tab_3@common.button": {
+        "size": ["100%", 20],
+        "collection_index": 3,
+        "$pressed_button_name": "button.form_button_click",
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [{"default@du2.h50": {}}, {"hover@du2.h51": {}}, {"pressed@du2.h52": {}}],
+        "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}]
+       }
+      },
+      {"gap": {"type": "panel", "size": ["100%", 1]}},
+      {
+       "tab_4@common.button": {
+        "size": ["100%", 20],
+        "collection_index": 4,
+        "$pressed_button_name": "button.form_button_click",
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [{"default@du2.h53": {}}, {"hover@du2.h54": {}}, {"pressed@du2.h55": {}}],
+        "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}]
+       }
+      },
+      {"gap": {"type": "panel", "size": ["100%", 1]}},
+      {
+       "tab_6@common.button": {
+        "size": ["100%", 20],
+        "collection_index": 6,
+        "$pressed_button_name": "button.form_button_click",
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [{"default@du2.h56": {}}, {"hover@du2.h57": {}}, {"pressed@du2.h58": {}}],
+        "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}]
+       }
+      },
+      {"gap": {"type": "panel", "size": ["100%", 1]}},
+      {
+       "tab_5@common.button": {
+        "size": ["100%", 20],
+        "collection_index": 5,
+        "$pressed_button_name": "button.form_button_click",
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [{"default@du2.h59": {}}, {"hover@du2.h60": {}}, {"pressed@du2.h61": {}}],
+        "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}]
+       }
+      },
+      {"fill": {"type": "panel", "size": ["100%", "fill"]}},
+      {
+       "tab_0@common.button": {
+        "size": ["100%", 20],
+        "collection_index": 0,
+        "$pressed_button_name": "button.form_button_click",
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [{"default@du2.h62": {}}, {"hover@du2.h63": {}}, {"pressed@du2.h64": {}}],
+        "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "details_toggle": {
+  "type": "toggle",
+  "toggle_name": "du2_details",
+  "toggle_default_state": false,
+  "radio_toggle_group": false,
+  "toggle_on_button": "button.menu_select",
+  "toggle_off_button": "button.menu_select",
+  "unchecked_control": "unchecked",
+  "checked_control": "checked",
+  "unchecked_hover_control": "unchecked_hover",
+  "checked_hover_control": "checked_hover",
+  "button_mappings": [
+   {"from_button_id": "button.menu_select", "to_button_id": "button.menu_select", "mapping_type": "pressed"},
+   {"from_button_id": "button.menu_ok", "to_button_id": "button.menu_ok", "mapping_type": "focused"}
+  ],
+  "sound_name": "random.click",
+  "sound_volume": 1.0,
+  "controls": [
+   {
+    "unchecked": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary", "size": ["100%", "100%"]}},
+      {"row@du2.h65": {}}
+     ]
+    }
+   },
+   {
+    "unchecked_hover": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
+      {"row@du2.h65": {}}
+     ]
+    }
+   },
+   {
+    "checked": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}},
+      {"row@du2.h66": {}}
+     ]
+    }
+   },
+   {
+    "checked_hover": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}},
+      {"row@du2.h66": {}}
+     ]
+    }
+   }
+  ]
+ },
+ "more_details_toggle": {
+  "type": "toggle",
+  "toggle_name": "du2_details",
+  "toggle_default_state": false,
+  "radio_toggle_group": false,
+  "toggle_on_button": "button.menu_select",
+  "toggle_off_button": "button.menu_select",
+  "unchecked_control": "unchecked",
+  "checked_control": "checked",
+  "unchecked_hover_control": "unchecked_hover",
+  "checked_hover_control": "checked_hover",
+  "button_mappings": [
+   {"from_button_id": "button.menu_select", "to_button_id": "button.menu_select", "mapping_type": "pressed"},
+   {"from_button_id": "button.menu_ok", "to_button_id": "button.menu_ok", "mapping_type": "focused"}
+  ],
+  "sound_name": "random.click",
+  "sound_volume": 1.0,
+  "controls": [
+   {
+    "unchecked": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary", "size": ["100%", "100%"]}},
+      {"row@du2.h67": {}}
+     ]
+    }
+   },
+   {
+    "unchecked_hover": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
+      {"row@du2.h67": {}}
+     ]
+    }
+   },
+   {
+    "checked": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}},
+      {"row@du2.h68": {}}
+     ]
+    }
+   },
+   {
+    "checked_hover": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}},
+      {"row@du2.h68": {}}
+     ]
+    }
+   }
+  ]
+ },
+ "h1": {
+  "type": "panel",
+  "size": [14, 14],
+  "controls": [
+   {
+    "box_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icon_box",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.statistics.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "box_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icon_box_gold",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.statistics.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_statistics",
+     "size": [10, 10],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.statistics.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_statistics",
+     "size": [10, 10],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.statistics.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ],
+  "anchor_from": "center",
+  "anchor_to": "center"
+ },
+ "h2": {
+  "type": "panel",
+  "size": ["fill", "100%"],
+  "clips_children": true,
+  "controls": [
+   {
+    "off": {
+     "type": "label",
+     "text": "ui.dbe.statistics.title",
+     "size": ["100%", 10],
+     "color": [0.659, 0.714, 0.816],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.statistics.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "on": {
+     "type": "label",
+     "text": "ui.dbe.statistics.title",
+     "size": ["100%", 10],
+     "color": [1.0, 1.0, 1.0],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.statistics.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h3": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.statistics.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.statistics.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h1": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h2": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h4": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_hover",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.statistics.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.statistics.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h1": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h2": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h5": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_pressed",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.statistics.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.statistics.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h1": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h2": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h6": {
+  "type": "panel",
+  "size": [14, 14],
+  "controls": [
+   {
+    "box_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icon_box",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.skills.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "box_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icon_box_gold",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.skills.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_skills",
+     "size": [10, 10],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.skills.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_skills",
+     "size": [10, 10],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.skills.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ],
+  "anchor_from": "center",
+  "anchor_to": "center"
+ },
+ "h7": {
+  "type": "panel",
+  "size": ["fill", "100%"],
+  "clips_children": true,
+  "controls": [
+   {
+    "off": {
+     "type": "label",
+     "text": "ui.dbe.skills.title",
+     "size": ["100%", 10],
+     "color": [0.659, 0.714, 0.816],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.skills.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "on": {
+     "type": "label",
+     "text": "ui.dbe.skills.title",
+     "size": ["100%", 10],
+     "color": [1.0, 1.0, 1.0],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.skills.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h8": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.skills.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.skills.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h6": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h7": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h9": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_hover",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.skills.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.skills.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h6": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h7": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h10": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_pressed",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.skills.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.skills.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h6": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h7": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h11": {
+  "type": "panel",
+  "size": [14, 14],
+  "controls": [
+   {
+    "box_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icon_box",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.transformations.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "box_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icon_box_gold",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.transformations.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_transformations",
+     "size": [10, 10],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.transformations.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_transformations",
+     "size": [10, 10],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.transformations.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ],
+  "anchor_from": "center",
+  "anchor_to": "center"
+ },
+ "h12": {
+  "type": "panel",
+  "size": ["fill", "100%"],
+  "clips_children": true,
+  "controls": [
+   {
+    "off": {
+     "type": "label",
+     "text": "ui.dbe.transformations.title",
+     "size": ["100%", 10],
+     "color": [0.659, 0.714, 0.816],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.transformations.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "on": {
+     "type": "label",
+     "text": "ui.dbe.transformations.title",
+     "size": ["100%", 10],
+     "color": [1.0, 1.0, 1.0],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.transformations.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h13": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.transformations.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.transformations.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h11": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h12": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h14": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_hover",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.transformations.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.transformations.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h11": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h12": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h15": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_pressed",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.transformations.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.transformations.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h11": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h12": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h16": {
+  "type": "panel",
+  "size": [14, 14],
+  "controls": [
+   {
+    "box_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icon_box",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.quest_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "box_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icon_box_gold",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.quest_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_quests",
+     "size": [10, 10],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.quest_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_quests",
+     "size": [10, 10],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.quest_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ],
+  "anchor_from": "center",
+  "anchor_to": "center"
+ },
+ "h17": {
+  "type": "panel",
+  "size": ["fill", "100%"],
+  "clips_children": true,
+  "controls": [
+   {
+    "off": {
+     "type": "label",
+     "text": "ui.dbe.quest_list.title",
+     "size": ["100%", 10],
+     "color": [0.659, 0.714, 0.816],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.quest_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "on": {
+     "type": "label",
+     "text": "ui.dbe.quest_list.title",
+     "size": ["100%", 10],
+     "color": [1.0, 1.0, 1.0],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.quest_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h18": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.quest_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.quest_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h16": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h17": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h19": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_hover",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.quest_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.quest_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h16": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h17": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h20": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_pressed",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.quest_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.quest_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h16": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h17": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h21": {
+  "type": "panel",
+  "size": [14, 14],
+  "controls": [
+   {
+    "box_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icon_box",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.training.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "box_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icon_box_gold",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.training.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_training",
+     "size": [10, 10],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.training.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_training",
+     "size": [10, 10],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.training.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ],
+  "anchor_from": "center",
+  "anchor_to": "center"
+ },
+ "h22": {
+  "type": "panel",
+  "size": ["fill", "100%"],
+  "clips_children": true,
+  "controls": [
+   {
+    "off": {
+     "type": "label",
+     "text": "ui.dbe.training.title",
+     "size": ["100%", 10],
+     "color": [0.659, 0.714, 0.816],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.training.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "on": {
+     "type": "label",
+     "text": "ui.dbe.training.title",
+     "size": ["100%", 10],
+     "color": [1.0, 1.0, 1.0],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.training.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h23": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.training.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.training.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h21": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h22": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h24": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_hover",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.training.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.training.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h21": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h22": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h25": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_pressed",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.training.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.training.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h21": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h22": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h26": {
+  "type": "panel",
+  "size": [14, 14],
+  "controls": [
+   {
+    "box_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icon_box",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.achievement_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "box_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icon_box_gold",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.achievement_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_achievements",
+     "size": [10, 10],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.achievement_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_achievements",
+     "size": [10, 10],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.achievement_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ],
+  "anchor_from": "center",
+  "anchor_to": "center"
+ },
+ "h27": {
+  "type": "panel",
+  "size": ["fill", "100%"],
+  "clips_children": true,
+  "controls": [
+   {
+    "off": {
+     "type": "label",
+     "text": "ui.dbe.achievement_list.title",
+     "size": ["100%", 10],
+     "color": [0.659, 0.714, 0.816],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.achievement_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "on": {
+     "type": "label",
+     "text": "ui.dbe.achievement_list.title",
+     "size": ["100%", 10],
+     "color": [1.0, 1.0, 1.0],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.achievement_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h28": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.achievement_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.achievement_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h26": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h27": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h29": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_hover",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.achievement_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.achievement_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h26": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h27": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h30": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_pressed",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.achievement_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.achievement_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h26": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h27": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h31": {
+  "type": "panel",
+  "size": [14, 14],
+  "controls": [
+   {
+    "box_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icon_box",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.news.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "box_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icon_box_gold",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.news.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_news",
+     "size": [10, 10],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.news.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_news",
+     "size": [10, 10],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.news.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ],
+  "anchor_from": "center",
+  "anchor_to": "center"
+ },
+ "h32": {
+  "type": "panel",
+  "size": ["fill", "100%"],
+  "clips_children": true,
+  "controls": [
+   {
+    "off": {
+     "type": "label",
+     "text": "ui.dbe.news.title",
+     "size": ["100%", 10],
+     "color": [0.659, 0.714, 0.816],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.news.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "on": {
+     "type": "label",
+     "text": "ui.dbe.news.title",
+     "size": ["100%", 10],
+     "color": [1.0, 1.0, 1.0],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.news.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h33": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.news.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.news.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h31": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h32": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h34": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_hover",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.news.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.news.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h31": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h32": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h35": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_pressed",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.news.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.news.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h31": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h32": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h36": {
+  "type": "panel",
+  "size": [14, 14],
+  "controls": [
+   {
+    "box_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icon_box",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.help.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "box_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icon_box_gold",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.help.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_help",
+     "size": [10, 10],
+     "color": [0.965, 0.725, 0.263],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.help.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_help",
+     "size": [10, 10],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.help.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ],
+  "anchor_from": "center",
+  "anchor_to": "center"
+ },
+ "h37": {
+  "type": "panel",
+  "size": ["fill", "100%"],
+  "clips_children": true,
+  "controls": [
+   {
+    "off": {
+     "type": "label",
+     "text": "ui.dbe.help.title",
+     "size": ["100%", 10],
+     "color": [0.659, 0.714, 0.816],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.help.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "on": {
+     "type": "label",
+     "text": "ui.dbe.help.title",
+     "size": ["100%", 10],
+     "color": [1.0, 1.0, 1.0],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle",
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.help.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h38": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.help.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.help.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h36": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h37": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h39": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_hover",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.help.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.help.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h36": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h37": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h40": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_pressed",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.help.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.help.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {"cell": {"type": "panel", "size": [14, "100%"], "controls": [{"x@du2.h36": {}}]}},
+      {"pad": {"type": "panel", "size": [5, "100%"]}},
+      {"name@du2.h37": {}},
+      {"pad": {"type": "panel", "size": [3, "100%"]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h41": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.statistics.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.statistics.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_statistics",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.statistics.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_statistics",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.statistics.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h42": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_hover",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.statistics.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.statistics.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_statistics",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.statistics.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_statistics",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.statistics.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h43": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_pressed",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.statistics.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.statistics.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_statistics",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.statistics.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_statistics",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.statistics.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h44": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.skills.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.skills.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_skills",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.skills.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_skills",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.skills.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h45": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_hover",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.skills.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.skills.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_skills",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.skills.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_skills",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.skills.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h46": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_pressed",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.skills.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.skills.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_skills",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.skills.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_skills",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.skills.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h47": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.transformations.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.transformations.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_transformations",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.transformations.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_transformations",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.transformations.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h48": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_hover",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.transformations.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.transformations.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_transformations",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.transformations.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_transformations",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.transformations.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h49": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_pressed",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.transformations.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.transformations.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_transformations",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.transformations.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_transformations",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.transformations.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h50": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.quest_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.quest_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_quests",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.quest_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_quests",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.quest_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h51": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_hover",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.quest_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.quest_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_quests",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.quest_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_quests",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.quest_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h52": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_pressed",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.quest_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.quest_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_quests",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.quest_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_quests",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.quest_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h53": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.training.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.training.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_training",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.training.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_training",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.training.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h54": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_hover",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.training.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.training.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_training",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.training.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_training",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.training.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h55": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_pressed",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.training.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.training.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_training",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.training.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_training",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.training.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h56": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.achievement_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.achievement_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_achievements",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.achievement_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_achievements",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.achievement_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h57": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_hover",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.achievement_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.achievement_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_achievements",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.achievement_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_achievements",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.achievement_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h58": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_pressed",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.achievement_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.achievement_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_achievements",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.achievement_list.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_achievements",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.achievement_list.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h59": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.news.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.news.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_news",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.news.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_news",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.news.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h60": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_hover",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.news.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.news.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_news",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.news.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_news",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.news.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h61": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_pressed",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.news.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.news.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_news",
+     "size": [13, 13],
+     "color": [0.137, 0.843, 1.0],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.news.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_news",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.news.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h62": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.help.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.help.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_help",
+     "size": [13, 13],
+     "color": [0.965, 0.725, 0.263],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.help.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_help",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.help.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h63": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_hover",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.help.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.help.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_help",
+     "size": [13, 13],
+     "color": [0.965, 0.725, 0.263],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.help.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_help",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.help.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h64": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {
+    "bg_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_pressed",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.help.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "bg_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/tab_icon_active",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.help.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_off": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_help",
+     "size": [13, 13],
+     "color": [0.965, 0.725, 0.263],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#title_text = 'ui.dbe.help.title'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "i_on": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/tab_help",
+     "size": [13, 13],
+     "color": [0.047, 0.09, 0.188],
+     "bindings": [
+      {"binding_name": "#title_text"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = 'ui.dbe.help.title')",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h65": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%c", "100%"],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {
+    "cell": {
+     "type": "panel",
+     "size": [10, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/info",
+        "size": [9, 9],
+        "color": [0.137, 0.843, 1.0],
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "cell": {
+     "type": "panel",
+     "size": [70, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "label",
+        "text": "ui.dbe.du2.details",
+        "size": ["100%", 10],
+        "color": [0.902, 0.925, 0.969],
+        "font_type": "smooth",
+        "shadow": false,
+        "text_alignment": "left",
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h66": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%c", "100%"],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {
+    "cell": {
+     "type": "panel",
+     "size": [10, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/close",
+        "size": [9, 9],
+        "color": [0.965, 0.725, 0.263],
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "cell": {
+     "type": "panel",
+     "size": [70, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "label",
+        "text": "ui.dbe.du2.details",
+        "size": ["100%", 10],
+        "color": [0.902, 0.925, 0.969],
+        "font_type": "smooth",
+        "shadow": false,
+        "text_alignment": "left",
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h67": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%c", "100%"],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {
+    "cell": {
+     "type": "panel",
+     "size": [10, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/info",
+        "size": [9, 9],
+        "color": [0.137, 0.843, 1.0],
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "cell": {
+     "type": "panel",
+     "size": [70, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "label",
+        "text": "ui.dbe.du2.more_details",
+        "size": ["100%", 10],
+        "color": [0.902, 0.925, 0.969],
+        "font_type": "smooth",
+        "shadow": false,
+        "text_alignment": "left",
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h68": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%c", "100%"],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {
+    "cell": {
+     "type": "panel",
+     "size": [10, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/close",
+        "size": [9, 9],
+        "color": [0.965, 0.725, 0.263],
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "cell": {
+     "type": "panel",
+     "size": [70, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "label",
+        "text": "ui.dbe.du2.more_details",
+        "size": ["100%", 10],
+        "color": [0.902, 0.925, 0.969],
+        "font_type": "smooth",
+        "shadow": false,
+        "text_alignment": "left",
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

@@ -6274,6 +6274,15 @@
          "path" : "ui/custom_server_form.json"
       },
       {
+         "path" : "ui/du2/du2_common.json"
+      },
+      {
+         "path" : "ui/du2/du2_select_race.json"
+      },
+      {
+         "path" : "ui/du2/du2_statistics.json"
+      },
+      {
          "path" : "ui/debug_screen.json"
       },
       {
@@ -6308,6 +6317,9 @@
       },
       {
          "path" : "ui/menus/functions_form.json"
+      },
+      {
+         "path" : "ui/menus/help_form.json"
       },
       {
          "path" : "ui/menus/gravity_machine_form.json"
