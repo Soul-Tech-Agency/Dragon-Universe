@@ -1837,6 +1837,9 @@
          "path" : "scripts/data/achievements_data.js"
       },
       {
+         "path" : "scripts/data/bills_tree_cells.js"
+      },
+      {
          "path" : "scripts/data/challenge_quests_data.js"
       },
       {

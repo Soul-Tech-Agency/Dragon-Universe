@@ -23,7 +23,8 @@ const distXZ = (x, z, p) => Math.hypot(Math.max(p.x - x, 0, x - (p.x + p.sx)), M
 
 /**
  * label, dimId, item, events { go, back, rebuild? }, spawn, rotation?, fogTag, fogId? (default dbe:fog_space), originProp, stateProp, fallY,
- * pieces [{ id, x, y, z, sx, sy, sz }], arrivalRadius, loadRadius, arrivalClear? { height }, arrivalFloor?, protectBlocks?, removeMobs?
+ * pieces [{ id, x, y, z, sx, sy, sz, afterMigration? }] (afterMigration: placed only once the migration is done and every
+ *   other piece is placed, so a build added on top never goes down before what it covers), arrivalRadius, loadRadius, arrivalClear? { height }, arrivalFloor?, protectBlocks?, removeMobs?
  * rebuildWarning?: what the rebuild command says before asking for confirmation.
  * migration? { prop, version, piece: function* (dim, piece) }: pieces already placed when the files changed are updated in
  *   the world, one per turn, while a player is in the dimension; prop = version once all are done (a world with nothing
@@ -56,6 +57,13 @@ export function createSpaceArena(cfg) {
 
   const savePlaced = () => world.setDynamicProperty(cfg.stateProp, JSON.stringify([...placed]));
 
+  /** A piece marked afterMigration waits for the migration and for all the pieces without the mark. */
+  function waiting(index) {
+    if (!cfg.pieces[index].afterMigration) return false;
+    if (cfg.migration && (migrating || world.getDynamicProperty(cfg.migration.prop) !== cfg.migration.version)) return true;
+    return cfg.pieces.some((p, i) => !p.afterMigration && !loadPlaced().has(i));
+  }
+
   async function placePiece(dim, index) {
     const p = cfg.pieces[index];
     const area = await acquireLoadedArea(dim, { x: p.x, y: p.y, z: p.z }, { x: p.x + p.sx - 1, y: p.y, z: p.z + p.sz - 1 }, cfg.label + " " + p.id);
@@ -76,7 +84,7 @@ export function createSpaceArena(cfg) {
     placing = true;
     try {
       for (const i of pending) {
-        if (!loadPlaced().has(i)) await placePiece(dim, i);
+        if (!loadPlaced().has(i) && !waiting(i)) await placePiece(dim, i);
         await new Promise((resolve) => system.runTimeout(resolve, 2));
       }
     } finally {
@@ -312,7 +320,7 @@ export function createSpaceArena(cfg) {
     if (!players.length) return;
     let best = -1, bestDistance = Infinity;
     cfg.pieces.forEach((piece, i) => {
-      if (placed.has(i) || (retry.get(i)?.at ?? 0) > system.currentTick) return;
+      if (placed.has(i) || (retry.get(i)?.at ?? 0) > system.currentTick || waiting(i)) return;
       for (const p of players) {
         const d = distXZ(p.location.x, p.location.z, piece);
         if (d <= cfg.loadRadius && d < bestDistance) { best = i; bestDistance = d; }
