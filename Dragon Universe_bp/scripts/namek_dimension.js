@@ -113,6 +113,7 @@ function offsetsWithin(r) {
 }
 const OFFSETS_TERRAIN = offsetsWithin(TERRAIN_RADIUS);
 const OFFSETS_DECOR = offsetsWithin(DECOR_RADIUS);
+const OFFSETS_NEAR = offsetsWithin(1); // the 3x3 under a player: the only scan work while a trip is being prepared
 const NEIGHBOURS = offsetsWithin(1).filter((o) => o[0] !== 0 || o[1] !== 0);
 
 // ---------------------------------------------------------------- villages
@@ -433,6 +434,10 @@ function* decorateJob(dim, cx, cz) {
 
 let busy = false;
 const retryAt = new Map();
+// Trips being prepared right now (any player): while > 0 the scan keeps to the 3x3 under each player, so the arrival
+// chunks of a second traveller are not starved by the terrain generated around a player who already arrived (H10).
+let travelPreparing = 0;
+let jobsFinished = 0;
 let unloadedScanJobs = 0; // scan jobs whose chunk unloaded mid-job (diagnostic count)
 
 const waitTicks = (n) => new Promise((resolve) => system.runTimeout(resolve, n));
@@ -453,8 +458,11 @@ function runJobAsync(gen) {
 }
 
 async function runExclusive(gen, key, strict = false) {
-  const deadline = system.currentTick + 600;
+  // The 30 s limit counts from the last finished job, not from the request: a trip queued behind other jobs that keep
+  // finishing is waiting its turn, not stuck (H10: a second traveller timed out behind the scan of the first one).
+  let deadline = system.currentTick + 600, seen = jobsFinished;
   while (busy) {
+    if (jobsFinished !== seen) { seen = jobsFinished; deadline = system.currentTick + 600; }
     if (system.currentTick >= deadline) {
       if (strict) throw new Error("Terrain preparation queue timed out");
       return;
@@ -476,6 +484,7 @@ async function runExclusive(gen, key, strict = false) {
     if (strict) throw e;
   } finally {
     busy = false;
+    jobsFinished++;
     // keep generating straight away instead of waiting for the next scan tick, so fast travellers
     // (flying nimbus etc.) do not outrun the terrain
     system.run(() => {
@@ -579,7 +588,7 @@ function scan() {
     const pcx = chunkOf(x);
     const pcz = chunkOf(z);
 
-    for (const [dx, dz] of OFFSETS_TERRAIN) {
+    for (const [dx, dz] of travelPreparing > 0 ? OFFSETS_NEAR : OFFSETS_TERRAIN) {
       const cx = pcx + dx;
       const cz = pcz + dz;
       const k = cx + "," + cz;
@@ -589,7 +598,7 @@ function scan() {
         return;
       }
     }
-    for (const [dx, dz] of OFFSETS_DECOR) {
+    for (const [dx, dz] of travelPreparing > 0 ? OFFSETS_NEAR : OFFSETS_DECOR) {
       const cx = pcx + dx;
       const cz = pcz + dz;
       const k = cx + "," + cz;
@@ -659,8 +668,14 @@ async function sendToNamek(player) {
     const origin = travelOrigin(player);
     const s = findSpawn();
     rememberOrigin(player); // so the pod can bring the player back to this exact spot
-    player.sendMessage("§aTravelling to Namek...");
-    areaId = await prepareArea(dim, chunkOf(s.x), chunkOf(s.z), player);
+    player.sendMessage({ translate: "dbe.space.launching", with: { rawtext: [{ translate: "dbe.space.dest.namek" }] } });
+    if (travelPreparing > 0) player.sendMessage({ translate: "dbe.space.travel_queued" });
+    travelPreparing++;
+    try {
+      areaId = await prepareArea(dim, chunkOf(s.x), chunkOf(s.z), player);
+    } finally {
+      travelPreparing--;
+    }
     phase = "teleport";
     // The arrival spot does not depend on where the player is: moving (or flying) while Namek is prepared does not
     // cancel the trip; only leaving the origin dimension does. The return point was saved above.

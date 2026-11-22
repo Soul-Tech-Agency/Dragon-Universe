@@ -1500,6 +1500,7 @@ dbe.space.fell=§eYou drifted away and were pulled back to the station.
 dbe.space.launch=§bYou broke through the atmosphere... heading to the Orbital Station!
 dbe.space.progress=§bPreparing the arrival site: %s of %s areas ready...
 dbe.space.travel_busy=§eA trip is already being prepared. Wait for the arrival before choosing another destination.
+dbe.space.travel_queued=§eAnother player is preparing a trip. Yours starts in a moment…
 entity.dbe:saiyan_villager.name=Saiyan Villager
 entity.dbe:frieza_villager.name=Frieza Race Villager
 entity.dbe:yardrat_villager.name=Yardrat Villager

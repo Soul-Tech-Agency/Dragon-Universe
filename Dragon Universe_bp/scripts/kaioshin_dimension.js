@@ -202,6 +202,7 @@ function offsetsWithin(r) {
 }
 const OFFSETS_TERRAIN = offsetsWithin(TERRAIN_RADIUS);
 const OFFSETS_DECOR = offsetsWithin(DECOR_RADIUS);
+const OFFSETS_NEAR = offsetsWithin(1); // the 3x3 under a player: the only scan work while a trip is being prepared
 const NEIGHBOURS = offsetsWithin(1).filter((o) => o[0] !== 0 || o[1] !== 0);
 
 // ---------------------------------------------------------------- spawn point
@@ -577,6 +578,10 @@ function* decorateJob(dim, cx, cz) {
 let busy = false;
 let repairing = false;
 const retryAt = new Map();
+// Trips being prepared right now (any player): while > 0 the scan keeps to the 3x3 under each player, so the arrival
+// chunks of a second traveller are not starved by the terrain generated around a player who already arrived (H10).
+let travelPreparing = 0;
+let jobsFinished = 0;
 
 function runJobAsync(gen) {
   return runTerrainJob(gen, { label: "Kaioshin preparation" });
@@ -589,8 +594,11 @@ async function runExclusive(gen, key, strict = false, chunk) {
     if (strict) throw new Error("Kaioshin terrain repair is active; retry after it finishes");
     return;
   }
-  const deadline = system.currentTick + 600;
+  // The 30 s limit counts from the last finished job, not from the request: a trip queued behind other jobs that keep
+  // finishing is waiting its turn, not stuck (H10: a second traveller timed out behind the scan of the first one).
+  let deadline = system.currentTick + 600, seen = jobsFinished;
   while (busy) {
+    if (jobsFinished !== seen) { seen = jobsFinished; deadline = system.currentTick + 600; }
     if (system.currentTick >= deadline) {
       if (strict) throw new Error("Terrain preparation queue timed out");
       return;
@@ -617,6 +625,7 @@ async function runExclusive(gen, key, strict = false, chunk) {
   } finally {
     if (area) releaseLoadedArea(area);
     busy = false;
+    jobsFinished++;
     // keep generating straight away so fast travellers do not outrun the terrain
     system.run(() => {
       try {
@@ -677,7 +686,7 @@ function scan() {
     const pcx = chunkOf(x);
     const pcz = chunkOf(z);
 
-    for (const [dx, dz] of OFFSETS_TERRAIN) {
+    for (const [dx, dz] of travelPreparing > 0 ? OFFSETS_NEAR : OFFSETS_TERRAIN) {
       const cx = pcx + dx;
       const cz = pcz + dz;
       const k = cx + "," + cz;
@@ -689,7 +698,7 @@ function scan() {
         return;
       }
     }
-    for (const [dx, dz] of OFFSETS_DECOR) {
+    for (const [dx, dz] of travelPreparing > 0 ? OFFSETS_NEAR : OFFSETS_DECOR) {
       const cx = pcx + dx;
       const cz = pcz + dz;
       const k = cx + "," + cz;
@@ -884,6 +893,7 @@ async function prepareArea(dim, cx, cz, timing) {
 
 const travelling = new Set();
 const lastUse = new Map();
+const busyNoticeAt = new Map(); // player id -> tick of the last travel_busy notice
 
 /** Remembers where (dimension, exact position, facing) the player left for Kaioshin. Saved with the player. */
 const SPACE_ORIGIN_PROP = "dbe:namek_origin"; // "where you left Earth from", kept by the space system
@@ -909,7 +919,15 @@ function rememberOrigin(player) {
 }
 
 async function sendToKaioshin(player) {
-  if (travelling.has(player.id)) return;
+  if (travelling.has(player.id)) {
+    // Say so instead of ignoring a second request while the destination is still being prepared (once per tick:
+    // the Navigator and the scriptevent can both fire in the same tick).
+    if (busyNoticeAt.get(player.id) !== system.currentTick) {
+      busyNoticeAt.set(player.id, system.currentTick);
+      try { player.sendMessage({ translate: "dbe.space.travel_busy" }); } catch (e) { /* player left */ }
+    }
+    return;
+  }
   if (system.currentTick - (lastUse.get(player.id) ?? -1000) < 100) return;
   lastUse.set(player.id, system.currentTick);
   travelling.add(player.id);
@@ -923,8 +941,14 @@ async function sendToKaioshin(player) {
     const origin = travelOrigin(player);
     const s = findSpawn();
     rememberOrigin(player);
-    player.sendMessage("§dTravelling to Kaioshin Planet...");
-    areaId = await prepareArea(dim, chunkOf(s.x), chunkOf(s.z), timing);
+    player.sendMessage({ translate: "dbe.space.launching", with: { rawtext: [{ translate: "dbe.space.dest.kaioshin" }] } });
+    if (travelPreparing > 0) player.sendMessage({ translate: "dbe.space.travel_queued" });
+    travelPreparing++;
+    try {
+      areaId = await prepareArea(dim, chunkOf(s.x), chunkOf(s.z), timing);
+    } finally {
+      travelPreparing--;
+    }
     phase = "teleport";
     timing?.mark("teleport:start", "arrival area + checks");
     // Fixed arrival point, prepared independently of the player: moving or flying meanwhile does not cancel the trip;
