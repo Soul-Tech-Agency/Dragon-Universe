@@ -17,6 +17,7 @@ import { acquireLoadedArea, releaseLoadedArea, safeTeleport, travelOrigin, safeR
 import * as mc from "@minecraft/server";
 import { registerVillagePlanet } from "./planet_villages.js";
 import { MIN_Y, LEVEL, PLAZA_Y, CENTER, PLAZA_R, CORE, GROUND, heightAt, liquidAt, topBlock, distCenter, mulberry32 } from "./hell_terrain.js";
+import { every } from "./core/scheduler.js";
 
 const { world, system, BlockVolume } = mc;
 
@@ -555,13 +556,14 @@ try {
   // dimensions/hell.json owns the native dimension definition and its biome/height settings.
 
   world.afterEvents.worldLoad.subscribe(() => {
-    system.runInterval(() => {
+    // O3-4: relógio único (core/scheduler.js), fase 2 (O3_DETALHE.md §2)
+    every(SCAN_TICKS, "hell.scan", () => {
       try {
         scan();
       } catch (e) {
         console.warn("[Hell] scan error: " + e);
       }
-    }, SCAN_TICKS);
+    }, { phase: 2 });
 
     system.afterEvents.scriptEventReceive.subscribe((ev) => {
       const src = ev.sourceEntity;
