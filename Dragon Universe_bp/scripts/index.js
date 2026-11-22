@@ -10208,15 +10208,19 @@ var kq = class t8 extends jY {
         this.addButton("ui.dbe.customization.button.confirm", () => {}),
         this.setBody(this.generateCustomizationData());
     }
+    // 12d (CONTRATO §10.4): 2-17 = setas da linha k (2+2k ◀, 3+2k ▶), 18-25 = nome da linha k (com ícone cust_<id>),
+    // 26-33 = valor "<n>/<total>". Sempre 8 linhas: as que sobram vêm vazias. Body = nomes, como reserva.
     generateCustomizationData() {
       let { playerCustomization: sG } = hO(this.initiator),
         { activeCustomizations: sH, gender: sI } = sG,
-        sK = [];
+        sK = [],
+        rows = [];
       if (sH.hasGender) {
         sK.push({ translate: "customization.gender" }, { text: "\n" });
         // lê o gênero na hora do clique: um formulário reexibido não pode desfazer a escolha
         let sL = () => sG.setGender(sG.gender === "male" ? "female" : "male");
         this.addButton(" ", sL), this.addButton(" ", sL);
+        rows.push({ id: "gender", value: (sI === "female" ? 2 : 1) + "/2" });
       }
       for (let sM in sH.options) {
         let sN = sG.getOption(sM);
@@ -10231,7 +10235,9 @@ var kq = class t8 extends jY {
         // reexibido ou atrasado aplicava "antigo ± 1" e a opção voltava para a anterior)
         this.addButton(" ", () => sG.setOptionValue(sM, sG.getOptionValue(sM) - 1)),
           this.addButton(" ", () => sG.setOptionValue(sM, sG.getOptionValue(sM) + 1));
+        rows.push({ id: sM, value: duOptionValue(sG, sM, sN) });
       }
+      duCustomizationSlots(this, rows, 8);
       return sK.length ? { rawtext: sK } : "";
     }
   },
@@ -10363,6 +10369,19 @@ function duQuestIcon(quest) {
     name = !objective ? "quest_done" : !quest.isStarted && !objective.canStart ? "lock" : DU_QUEST_TYPE_ICON[quest.type];
   return name ? DU_ICON + name : "";
 }
+// 12d: valor atual de uma opção de customização, "<n>/<total>" com n a partir de 1.
+function duOptionValue(customization, id, option) {
+  const total = option.type === "variant" ? option.optionCount : option.palette.length;
+  return customization.getOptionValue(id) + 1 + "/" + total;
+}
+// 12d: completa as setas até `max` linhas (pares vazios, sem clique) e manda os nomes (com ícone) e os valores.
+function duCustomizationSlots(form, rows, max) {
+  const noop = () => {};
+  for (let k = rows.length; k < max; k++) form.addButton("", noop), form.addButton("", noop);
+  for (let k = 0; k < max; k++)
+    rows[k] ? form.addButton("customization." + rows[k].id, noop, { iconPatch: DU_ICON + "cust_" + rows[k].id }) : form.addButton("", noop);
+  for (let k = 0; k < max; k++) form.addButton(rows[k]?.value ?? "", noop);
+}
 // Concluída > categoria (o type da 1ª tarefa). Categoria sem ícone: "" (a linha fica sem ícone).
 function duAchievementIcon(achievement) {
   const name = achievement.isCompleted ? "ach_done" : DU_ACHIEVEMENT_ICON[achievement.achievementData?.tasks?.[0]?.type];
@@ -10491,7 +10510,7 @@ var kB = class extends jY {
   kE = new Map(),
   kF = class extends jZ {
     // Layout do redesign 1.7.17 (redesign/CONTRATO.md, seção 3): 10 = Informações, 11-13 = x1/x10/x100, 14-18 = comprar
-    // atributo, 19 reservado, 20-47 = slots de dado (botões que o JSON UI só lê, sem clique). Body = flags ("du2;", "ozr;").
+    // atributo, 19 reservado, 20-47 = slots de dado (botões que o JSON UI só lê, sem clique). Body = flag "du2;".
     constructor(sG) {
       super(sG);
       let sH = hO(sG),
@@ -10539,7 +10558,7 @@ var kB = class extends jY {
       for (const sL of rows) slot(sL ? duMultiplierText(sI.modifiers.getMultiplier(sL.id)) : ""); // 37-41
       for (const sL of rows) slot(sL ? d6(sL.getUpgradeCost(sK), "attribute_points") : ""); // 42-46
       slot(training !== 1 ? "x" + parseFloat(Number(training).toFixed(2)) : ""); // 47
-      this.setBody(form.isOozaru ? "du2;ozr;" : "du2;"); // du2; = layout novo (o kf, mesmo título, não manda)
+      this.setBody("du2;"); // du2; = layout novo (o kf, mesmo título, não manda). "ozr;" saiu: a UI não lê mais (5ba9258)
     }
     tryBuyAttribute(sG, sH, sI) {
       if (sG.value + sH >= sG.maxValue) return;
@@ -10601,7 +10620,8 @@ var kH = class extends jZ {
     generateCustomizationData() {
       let { playerCustomization: sG } = hO(this.initiator),
         { activeCustomizations: sH, gender: sI } = sG,
-        sK = [];
+        sK = [],
+        rows = [];
       for (let sL in sH.options) {
         let sM = sG.getOption(sL);
         if (
@@ -10613,9 +10633,11 @@ var kH = class extends jZ {
         sK.push({ translate: "customization." + sL }, { text: "\n" });
         this.addButton(" ", () => sG.setOptionValue(sL, sG.getOptionValue(sL) - 1)),
           this.addButton(" ", () => sG.setOptionValue(sL, sG.getOptionValue(sL) + 1));
+        rows.push({ id: sL, value: duOptionValue(sG, sL, sM) });
       }
-      // Marca invisível (só códigos de formatação) para a UI usar a prévia menor no Oozaru (select_hair_form.json)
-      sK.length && hO(this.initiator).transformations.currentTransformation.isOozaru && sK.push({ text: "§r§o§r" });
+      // 12d (CONTRATO §10.4): 0-9 = setas, 10-14 = nomes, 15-19 = valores; sempre 5 linhas. O marcador "§r§o§r" do
+      // Oozaru saiu: a UI não lê mais (5ba9258).
+      duCustomizationSlots(this, rows, 5);
       return sK.length ? { rawtext: sK } : "";
     }
     playShearSoundEffect() {
