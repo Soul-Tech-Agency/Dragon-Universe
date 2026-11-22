@@ -255,16 +255,22 @@ TABS = [(1, "tab_statistics", "ui.dbe.statistics.title", STATS_TITLE),
         (2, "tab_skills", "ui.dbe.skills.title", "ui.dbe.skills.title"),
         (7, "tab_transformations", "ui.dbe.transformations.title", "ui.dbe.transformations.title"),
         (3, "tab_quests", "ui.dbe.quest_list.title", "ui.dbe.quest_list.title"),
-        (4, "tab_training", "ui.dbe.training.title", "ui.dbe.training.title"),
+        (4, "tab_training", "ui.dbe.training.title", ("ui.dbe.training.title", "ui.dbe.training_mental.title")),
         (6, "tab_achievements", "ui.dbe.achievement_list.title", "ui.dbe.achievement_list.title"),
         (5, "tab_news", "ui.dbe.news.title", "ui.dbe.news.title")]
 HELP_TAB = (0, "tab_help", "ui.dbe.help.title", "ui.dbe.help.title")
 
 
+def title_on(title):
+    """Aba acesa: o título é o da aba (ou um dos títulos, se vier uma tupla)."""
+    titles = title if isinstance(title, tuple) else (title,)
+    return "(" + " or ".join(f"(#title_text = '{t}')" for t in titles) + ")"
+
+
 def tab_pc(t, help_tab=False):
     idx, icon, label, title = t
-    on = f"(#title_text = '{title}')"
-    off = f"(not (#title_text = '{title}'))"
+    on = title_on(title)
+    off = f"(not {on})"
     icol = "gold" if help_tab else "cyan"
 
     def face(state_tex):
@@ -295,8 +301,8 @@ def tab_pc(t, help_tab=False):
 
 def tab_mobile(t, help_tab=False):
     idx, icon, label, title = t
-    on = f"(#title_text = '{title}')"
-    off = f"(not (#title_text = '{title}'))"
+    on = title_on(title)
+    off = f"(not {on})"
     icol = "gold" if help_tab else "cyan"
 
     def face(state_tex):
@@ -1534,6 +1540,37 @@ def write(name, data):
     print("ok", path)
 
 
+# ---- Treino mental (CONTRATO.md §12): lista de réplicas (com abas) e confirmação (sem abas)
+mt = {"namespace": "du2_mental"}
+DAY = "(not ((#form_button_text - 'day;') = #form_button_text))"
+MENTAL_TINTS = [("lock", "weak"), ("quest_done", "green"), ("train_mental", "purple")]
+mt["row_pc"] = list_item(30, lines=2, tints=MENTAL_TINTS, extra_hide=DAY)
+mt["row_mobile"] = list_item(32, lines=2, tints=MENTAL_TINTS, extra_hide=DAY)
+
+
+def mental_daily_header(h):
+    """Slot 10 "day;n/max" (ícone train_mental do slot): some inteiro sem o prefixo."""
+    icon = img("", [10, 10], "purple", bindings=coll_tex())
+    value = lbl("#du2_day", ["default", 10], "value", None, "smooth", "left",
+                bindings=[coll_text(), view("(#form_button_text - 'day;')", "#du2_day")])
+    row = H(["100%", h], [
+        centered(12, icon), pad(4),
+        c("cap", lbl("ui.dbe.training.mental.daily", ["default", 10], "weak", None, "smooth", "left")), pad(6),
+        c("v", value),
+    ])
+    return P(["100%", h], [c("row", row)], collection_index=10, clips_children=True, bindings=[coll_text(), view(DAY)])
+
+
+def mental_list_content(mobile):
+    m = "mobile" if mobile else "pc"
+    return [c("scroll", P(["100%", "100%"], [scroll_area(mt, "scroll_" + m, [
+        c("daily", mental_daily_header(14)), pad("100%", 2),
+        c("list", factory_list("du2_mental.row_" + m))], COL)]))]
+
+
+tab_screen(mt, "mental_list_form", mental_list_content)
+
+
 # ---- HUD: painel de treino (CONTRATO.md §11). Tokens no título (#hud_title_text_string, valores com ';'),
 # números no subtítulo "train_vals:" (uma linha por número), via templates.preserved_title_display.
 th = {"namespace": "du2_training_hud"}
@@ -1690,3 +1727,4 @@ write("du2_help.json", hp)
 write("du2_customization.json", cu)
 write("du2_statistics_view.json", sv)
 write("du2_training_hud.json", th)
+write("du2_mental.json", mt)

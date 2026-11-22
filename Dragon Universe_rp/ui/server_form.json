@@ -338,6 +338,20 @@
                 }
             },
             {
+                "training_mental@du2_mental.mental_list_form": {
+                    "bindings": [
+                        {
+                            "binding_name": "#title_text"
+                        },
+                        {
+                            "binding_type": "view",
+                            "source_property_name": "(#title_text = 'ui.dbe.training_mental.title')",
+                            "target_property_name": "#visible"
+                        }
+                    ]
+                }
+            },
+            {
                 "training@du2_training.training_form": {
                     "bindings": [
                         {
