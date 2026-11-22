@@ -21,6 +21,15 @@ Nada aqui foi testado no Minecraft pela equipe.
 - [ ] Namek: ida e volta 3 vezes sem `LocationInUnloadedChunkError` no log
 - [ ] **2 jogadores viajando juntos (H10, sem teste na 1.7.15):** os dois chegam? O que aparece para cada um? ____
 
+## 2b. 2 jogadores (H10)
+- [ ] A e B escolhem o mesmo planeta nunca visitado (Vegeta ou Freeza) quase ao mesmo tempo: os dois chegam na plataforma; B vê 'Partindo para…' e a mensagem de fila
+- [ ] A chega num planeta novo e logo depois B escolhe o mesmo planeta: B chega em poucos segundos
+- [ ] A está num planeta e B escolhe outro planeta novo: B chega, sem 'Não foi possível iniciar a viagem…'
+- [ ] A e B vão juntos para Kaioshin e depois para Namek: os dois chegam, com a mensagem no idioma do jogo
+- [ ] Uma vez em inglês ou espanhol: a mensagem de fila aparece traduzida
+- [ ] Se aparecer só '!': print do chat e Content Log do anfitrião
+- [ ] Content Log sem 'Terrain preparation queue timed out' e sem `LocationInUnloadedChunkError`
+
 ## 3. Construções do mundo normal
 **Como chegar:** `/scriptevent dbe:landmarks` lista os pontos. **As coordenadas agora são do centro** da construção. Ir com `/tp @s X 200 Z` e descer. No mundo normal, a construção começa a ser feita quando o jogador está a 160 blocos dela.
 - [ ] `dbe:landmarks` antes e depois de cada visita: copiar as linhas `[Landmarks]`
