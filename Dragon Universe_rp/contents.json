@@ -6445,6 +6445,9 @@
          "path" : "textures/ui/du2/icons/chevron_down.png"
       },
       {
+         "path" : "textures/ui/du2/icons/reward_xp.png"
+      },
+      {
          "path" : "ui/_ui_defs.json"
       },
       {

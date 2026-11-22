@@ -208,7 +208,9 @@ const P = {
   mental: 'M15 21v-3a6 6 0 0 0 3-5.5C18 7.5 14.5 4 10.5 4S3 7 3 11c0 2 1 3.5 2 4.5V21M10.5 7.5l1 2.2 2.2 1-2.2 1-1 2.2-1-2.2-2.2-1 2.2-1z',
   clock: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 6.5V12l3.5 2.5',
   chevron_up: 'M5 15l7-7 7 7',
-  chevron_down: 'M5 9l7 7 7-7'
+  chevron_down: 'M5 9l7 7 7-7',
+  // recompensa de XP de nível (z_points): 'XP' com seta para cima
+  xp: 'M3 11l5.5 9M8.5 11 3 20M13 20v-9h4a2.75 2.75 0 0 1 0 5.5h-4M7.5 7 12 3l4.5 4'
 };
 const ICONS = {
   tab_statistics: 'stats', tab_skills: 'skills', tab_transformations: 'bolt', tab_quests: 'missions', tab_training: 'training',
@@ -265,13 +267,14 @@ const ICONS = {
   train_mental: 'mental',
   clock: 'clock',
   chevron_up: 'chevron_up',
-  chevron_down: 'chevron_down'
+  chevron_down: 'chevron_down',
+  reward_xp: 'xp'
 };
 // ajuste óptico (unidades do viewBox 24): centro de massa no meio do 32x32
 const NUDGE = { stat_damage: [0.32, 0.32], train_concentration: [0, -1.36], train_shadow: [0, -0.4], restart: [0.78, 0.76],
   quest_main: [0, -0.51], quest_side: [0.41, 1.15], quest_challenge: [0, 0.53], ach_skill: [0.31, 1.82], ach_requirement: [0.12, 0.58],
   ach_done: [0, 0.74], skill_points: [-1.15, -0.42], skill_max: [0, 1.62], quest_mentor: [-0.89, 0.64],
-  train_physical: [0.3, -1.6], train_mental: [1.55, 0.5] };
+  train_physical: [0.3, -1.6], train_mental: [1.55, 0.5], reward_xp: [0.8, -0.77] };
 for (const [name, key] of Object.entries(ICONS)) {
   // viewBox 24 com 1 un. de respiro -> escala 32/26; traço 2.4 -> ~3 px
   const [nx, ny] = NUDGE[name] || [0, 0];
