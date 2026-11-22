@@ -1948,6 +1948,9 @@
          "path" : "scripts/core/13_ki_attack_hud_level.js"
       },
       {
+         "path" : "scripts/core/14_player.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
