@@ -14,6 +14,7 @@
  */
 import * as mc from "@minecraft/server";
 import { areaReady } from "./travel_safety.js";
+import { every } from "./core/scheduler.js";
 
 const { world, system } = mc;
 
@@ -349,4 +350,5 @@ system.afterEvents.scriptEventReceive.subscribe((ev) => {
   if (src?.typeId === "minecraft:player") report(src);
 });
 
-world.afterEvents.worldLoad.subscribe(() => system.runInterval(tickResidents, 20)); // the single scheduler (O3) swaps this line
+// O3-11: relógio único (core/scheduler.js), fase 15; registrado no mesmo lugar de antes (worldLoad)
+world.afterEvents.worldLoad.subscribe(() => every(20, "residents", tickResidents, { phase: 15 }));
