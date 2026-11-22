@@ -2050,6 +2050,27 @@
          "path" : "structures/dbe/bills_planet/bills_5.mcstructure"
       },
       {
+         "path" : "structures/dbe/bills_planet/prop_cushion_1.mcstructure"
+      },
+      {
+         "path" : "structures/dbe/bills_planet/prop_cushion_2.mcstructure"
+      },
+      {
+         "path" : "structures/dbe/bills_planet/prop_fish_oracle.mcstructure"
+      },
+      {
+         "path" : "structures/dbe/bills_planet/prop_fish_puffer.mcstructure"
+      },
+      {
+         "path" : "structures/dbe/bills_planet/prop_fish_tropical_1.mcstructure"
+      },
+      {
+         "path" : "structures/dbe/bills_planet/prop_fish_tropical_2.mcstructure"
+      },
+      {
+         "path" : "structures/dbe/bills_planet/prop_fish_tropical_3.mcstructure"
+      },
+      {
          "path" : "structures/dbe/cell_arena.mcstructure"
       },
       {

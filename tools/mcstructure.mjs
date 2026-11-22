@@ -13,6 +13,8 @@
 //       remove as entidades salvas (todas, ou só as dos identificadores dados)
 //   node tools/mcstructure.mjs set <entrada> <saída> <lista.json>
 //       troca blocos por posição local ([{piece?, x, y, z, from, to}] ou {edits: [...]}); só onde o bloco atual é from
+//   node tools/mcstructure.mjs extract-entity <entrada> <saída> <índice>
+//       estrutura 1x1x1 só com a entidade de índice dado (NBT exato), na posição dela dentro do bloco
 //   node tools/mcstructure.mjs roundtrip <arquivo ...>
 //       lê e regrava em memória; confere que o resultado é igual byte a byte
 import fs from "node:fs";
@@ -309,6 +311,29 @@ export function setBlocks(root, edits) {
   return { applied, skipped };
 }
 
+/**
+ * Reduz a estrutura a 1x1x1 vazia (vazio de estrutura nas camadas, sem paleta nem block entities) com só a entidade de
+ * índice `index`, com o NBT exato dela (variantes, rotação). A origem passa a ser o bloco onde ela está, então colocar a
+ * estrutura num bloco põe a entidade no mesmo ponto dentro dele. Devolve o identificador e a posição original.
+ */
+export function extractEntity(root, index) {
+  const { structure, entities, palette, positionData } = structureParts(root);
+  const entity = listOf(entities)[index];
+  if (!entity) throw new Error("não há entidade de índice " + index);
+  const pos = Array.from(listOf(child({ t: T.COMPOUND, v: entity }, "Pos")), (f) => f.v);
+  if (pos.length !== 3 || !pos.every(Number.isFinite)) throw new Error("entidade sem Pos");
+  const origin = child(root, "structure_world_origin");
+  const cell = pos.map(Math.floor);
+  origin.v.items = Int32Array.from(cell);
+  child(root, "size").v.items = Int32Array.of(1, 1, 1);
+  const indices = child(structure, "block_indices");
+  indices.v.items = indices.v.items.map((l) => (l instanceof Int32Array ? Int32Array.of(-1) : { et: l.et, items: Int32Array.of(-1) }));
+  palette.v.items = [];
+  if (positionData) positionData.v = [];
+  entities.v.items = [entity];
+  return { identifier: toJs(T.COMPOUND, entity).identifier, pos };
+}
+
 /** Remove entidades salvas: todas, ou só as dos identificadores dados. Devolve quantas saíram. */
 export function stripEntities(root, ids = []) {
   const { entities } = structureParts(root);
@@ -326,7 +351,7 @@ export function roundtrip(file) {
 
 // ---------------------------------------------------------------- CLI
 function usage() {
-  console.log(fs.readFileSync(fileURLToPath(import.meta.url), "utf8").split("\n").filter((l) => l.startsWith("//")).slice(0, 18).map((l) => l.slice(3)).join("\n"));
+  console.log(fs.readFileSync(fileURLToPath(import.meta.url), "utf8").split("\n").filter((l) => l.startsWith("//")).slice(0, 20).map((l) => l.slice(3)).join("\n"));
   process.exit(2);
 }
 
@@ -393,6 +418,14 @@ function main(argv) {
     writeMcstructureNew(out, root);
     console.log(out + ": " + applied.length + " de " + edits.length + " troca(s) aplicada(s), " + skipped.length + " pulada(s); só essas posições mudaram");
     return skipped.length ? 1 : 0;
+  }
+  if (cmd === "extract-entity" && args.length === 3) {
+    const [src, out, n] = args;
+    const root = readMcstructure(src);
+    const r = extractEntity(root, Number(n));
+    writeMcstructureNew(out, root);
+    console.log(out + ": " + r.identifier + " em " + r.pos.map((v) => v.toFixed(2)).join(" ") + " (Pos salva)");
+    return 0;
   }
   if (cmd === "strip-entities" && args.length >= 2) {
     const [src, out, ...ids] = args;

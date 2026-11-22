@@ -42,13 +42,15 @@ let turn = 0;
 
 /**
  * Registers a resident (on module load; the order does not matter).
- * { id, formerIds?, type, dim, at: pos | () => pos | undefined, yaw?, radius?, near?, drift?, adopt?, enabled?, onPresent? }
+ * { id, formerIds?, type, dim, at: pos | () => pos | undefined, yaw?, radius?, near?, drift?, adopt?, structure?, floor?, enabled?, onPresent? }
+ * structure: created by placing this structure (one entity with its exact NBT: variants, rotation) in the block of `at`,
+ *   instead of spawnEntity. floor: false for a resident that does not stand on a block (fish).
  * at as a function: a place that depends on a landmark spot (undefined = not there yet).
  * adopt: an entity of the same type without the tag inside the radius becomes the resident instead of a new one.
  */
 export function addResident(def) {
   if (residents.some((r) => r.id === def.id)) throw new Error("[Residents] duplicate id " + def.id);
-  residents.push({ formerIds: [], yaw: 0, radius: 24, near: 48, drift: DRIFT, adopt: false, ...def });
+  residents.push({ formerIds: [], yaw: 0, radius: 24, near: 48, drift: DRIFT, adopt: false, floor: true, ...def });
   types.add(def.type);
 }
 
@@ -99,6 +101,14 @@ function oldest(copies, at, st) {
   return copies.reduce((a, b) => (st.created.indexOf(b.id) < st.created.indexOf(a.id) ? b : a));
 }
 
+/** Places the resident's structure in the block of `at` and returns the new entity (untagged, not there before). */
+function placeCopy(dim, r, at) {
+  const near = { type: r.type, location: at, maxDistance: 1.5 };
+  const before = new Set(dim.getEntities(near).map((e) => e.id));
+  world.structureManager.place(r.structure, dim, { x: Math.floor(at.x), y: Math.floor(at.y), z: Math.floor(at.z) }, { includeBlocks: false });
+  return dim.getEntities(near).find((e) => !before.has(e.id));
+}
+
 function step(r, players) {
   const st = stateOf(r.id);
   const now = system.currentTick;
@@ -111,8 +121,7 @@ function step(r, players) {
   const dim = world.getDimension(r.dim);
   if (!areaReady(dim, { x: at.x - r.radius, y: at.y, z: at.z - r.radius }, { x: at.x + r.radius, y: at.y, z: at.z + r.radius }))
     return idle(st, "not loaded");
-  const floor = dim.getBlock({ x: Math.floor(at.x), y: Math.floor(at.y) - 1, z: Math.floor(at.z) });
-  if (!floor?.isSolid) return idle(st, "no floor");
+  if (r.floor && !dim.getBlock({ x: Math.floor(at.x), y: Math.floor(at.y) - 1, z: Math.floor(at.z) })?.isSolid) return idle(st, "no floor");
   st.readySince ??= now;
 
   const copies = copiesOf(dim, r);
@@ -131,9 +140,10 @@ function step(r, players) {
         if (st.status !== "stopped") console.warn("[Residents] " + r.id + ": created " + st.spawns.length + "x in 10 min; creation stopped for now");
         return void (st.status = "stopped");
       }
-      entity = dim.spawnEntity(r.type, at);
+      entity = r.structure ? placeCopy(dim, r, at) : dim.spawnEntity(r.type, at);
+      if (!entity) return void (st.status = "not created");
       entity.addTag(TAG + r.id);
-      entity.setRotation({ x: 0, y: r.yaw });
+      if (!r.structure) entity.setRotation({ x: 0, y: r.yaw });
       st.spawns.push(now);
       st.created.push(entity.id);
       st.waitUntil = now + AFTER_SPAWN;
@@ -163,6 +173,11 @@ function step(r, players) {
 
 /** One step of the cycle: at most PER_CALL residents of dimensions with players, in turns; a copy that just loaded goes first. */
 export function tickResidents() {
+  try {
+    billsCleanup();
+  } catch (e) {
+    console.warn("[Residents] Bills' planet cleanup: " + e);
+  }
   if (!residents.length) return;
   const playersOf = new Map();
   const players = (dimId) => {
@@ -229,15 +244,60 @@ addResident({ id: "bills_whis", type: "dbe:whis", dim: "dbe:bills_planet", at: B
 // saved in bills_3 and doubled on every rebuild; now they are residents. adopt: in older worlds the fish already in the
 // tank are adopted instead of new ones being created (radius 4 keeps it to the tank). drift: they swim, so only one that
 // left the tank is put back.
-const AQUARIUM = [
-  ["bills_fish_tropical_1", "minecraft:tropicalfish", -4.5, -20.5],
-  ["bills_fish_tropical_2", "minecraft:tropicalfish", -4.5, -18.5],
-  ["bills_fish_tropical_3", "minecraft:tropicalfish", -2.5, -20.5],
-  ["bills_fish_puffer", "minecraft:pufferfish", -3.5, -19.5],
-  ["bills_fish_oracle", "dbe:giant_fish", -6.5, -19.5],
+// Same positions as in the old bills_3; each one is created from its own structure (tools/mcstructure.mjs extract-entity),
+// so variants, colors and rotation are the saved ones. The 2 cushions are the seats at the dining table.
+const BILLS_PROPS = [
+  ["bills_cushion_1", "minecraft:cushion", "prop_cushion_1", 0.5, 130.5, -12.5, 90, { radius: 2, floor: true }],
+  ["bills_cushion_2", "minecraft:cushion", "prop_cushion_2", -4.5, 130.5, -14.5, -180, { radius: 2, floor: true }],
+  ["bills_fish_tropical_1", "minecraft:tropicalfish", "prop_fish_tropical_1", -5.11, 131, -20.71, 0, {}],
+  ["bills_fish_tropical_2", "minecraft:tropicalfish", "prop_fish_tropical_2", -4.88, 131, -17.33, 0, {}],
+  ["bills_fish_tropical_3", "minecraft:tropicalfish", "prop_fish_tropical_3", -4.8, 132.01, -20.72, 0, {}],
+  ["bills_fish_puffer", "minecraft:pufferfish", "prop_fish_puffer", -4.15, 131, -19.8, 0, {}],
+  ["bills_fish_oracle", "dbe:giant_fish", "prop_fish_oracle", -5.8, 131, -19.12, 0, {}],
 ];
-for (const [id, type, x, z] of AQUARIUM)
-  addResident({ id, type, dim: "dbe:bills_planet", at: { x, y: 131, z }, radius: 4, drift: 5, adopt: true });
+for (const [id, type, structure, x, y, z, yaw, extra] of BILLS_PROPS)
+  addResident({ id, type, dim: "dbe:bills_planet", at: { x, y, z }, yaw, structure: "dbe:bills_planet/" + structure, radius: 4, drift: 5, adopt: true, floor: false, ...extra });
+
+/**
+ * Once per world (dbe:bills_props_cleanup): rebuilds before 1.7.18 placed bills_3 again with its saved entities, so old
+ * worlds may hold extra cushions, fish and empty armor stands. With every prop resident present (tagged), the untagged ones
+ * of those types inside three small boxes (aquarium, dining table, the two stands) are removed. Risk, accepted: a fish, cushion
+ * or armor stand a player put inside one of those boxes goes too. Entities with dbe:spawned_by are never touched.
+ */
+const CLEANUP_PROP = "dbe:bills_props_cleanup";
+const CLEANUP_BOXES = [
+  { types: ["minecraft:tropicalfish", "minecraft:pufferfish", "dbe:giant_fish"], from: { x: -7, y: 130, z: -22 }, to: { x: -2, y: 134, z: -16 } },
+  { types: ["minecraft:cushion"], from: { x: -6, y: 129, z: -16 }, to: { x: 2, y: 132, z: -11 } },
+  { types: ["minecraft:armor_stand"], from: { x: 9, y: 129, z: -1 }, to: { x: 12, y: 132, z: 3 } },
+];
+let cleanupDone, cleanupReadySince;
+
+function billsCleanup() {
+  cleanupDone ??= world.getDynamicProperty(CLEANUP_PROP) === 1;
+  if (cleanupDone) return;
+  const dim = world.getDimension("dbe:bills_planet");
+  if (!dim.getPlayers().some((p) => Math.hypot(p.location.x + 2, p.location.z + 15) <= 48) || !areaReady(dim, { x: -8, y: 130, z: -23 }, { x: 13, y: 130, z: 4 })) {
+    cleanupReadySince = undefined;
+    return;
+  }
+  cleanupReadySince ??= system.currentTick;
+  if (system.currentTick - cleanupReadySince < SETTLE) return;
+  for (const [id, type] of BILLS_PROPS) if (!dim.getEntities({ type, tags: [TAG + id] }).length) return; // residents first
+  let removed = 0;
+  for (const box of CLEANUP_BOXES) {
+    const volume = { x: box.to.x - box.from.x, y: box.to.y - box.from.y, z: box.to.z - box.from.z };
+    for (const type of box.types) {
+      for (const e of dim.getEntities({ type, location: box.from, volume })) {
+        if (e.getTags().some((t) => t.startsWith(TAG)) || e.getDynamicProperty("dbe:spawned_by") !== undefined) continue;
+        e.remove();
+        removed++;
+      }
+    }
+  }
+  world.setDynamicProperty(CLEANUP_PROP, 1);
+  cleanupDone = true;
+  console.warn("[Residents] Bills' planet: removed " + removed + " extra cushion(s), fish and armor stand(s) left by older rebuilds");
+}
 
 world.afterEvents.entityLoad.subscribe(({ entity }) => {
   try {
