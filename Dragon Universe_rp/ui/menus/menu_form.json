@@ -59,7 +59,15 @@
                                 "$default_button_texture": "textures/ui/buttons/training_button",
                                 "$hover_button_texture": "textures/ui/buttons/training_button_hover"
                             }
-                        } 
+                        },
+                        {
+                            "transformations_button@menu_form.fixed_menu_button": {
+                                "collection_index": 7,
+                                "$default_button_texture": "textures/ui/du2/tab_icon",
+                                "$hover_button_texture": "textures/ui/du2/tab_icon_hover",
+                                "$button_type_panel": "menu_form.transformations_icon"
+                            }
+                        }
                     ]
                 }
             },
@@ -129,11 +137,21 @@
                 "binding_name": "#title_text"
             },
             {
+                "binding_name": "#form_text"
+            },
+            {
                 "binding_type": "view",
-                "source_property_name": "((#title_text = 'ui.dbe.statistics.title') or (#title_text = 'ui.dbe.skills.title') or (#title_text = 'ui.dbe.quest_list.title') or (#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.news.title') or (#title_text = 'ui.dbe.achievement_list.title') or (#title_text = 'ui.dbe.transformations.title'))",
+                "source_property_name": "(((#title_text = 'ui.dbe.statistics.title') and ((#form_text - 'du2;') = #form_text)))",
                 "target_property_name": "#visible"
             }
         ]
+    },
+
+    "transformations_icon": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/tab_transformations",
+        "size": [ 12, 12 ],
+        "color": [ 0.137, 0.843, 1.0 ]
     },
 
     "fixed_menu_button@custom_server_form.button": {

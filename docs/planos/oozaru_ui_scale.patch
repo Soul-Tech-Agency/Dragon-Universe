@@ -1,0 +1,56 @@
+diff --git a/Dragon Universe_rp/animations/player/oozaru_ui.animation.json b/Dragon Universe_rp/animations/player/oozaru_ui.animation.json
+new file mode 100644
+index 0000000..f5f654a
+--- /dev/null
++++ b/Dragon Universe_rp/animations/player/oozaru_ui.animation.json	
+@@ -0,0 +1,13 @@
++{
++	"format_version": "1.8.0",
++	"animations": {
++		"animation.player.oozaru_ui_scale": {
++			"loop": true,
++			"bones": {
++				"root": {
++					"scale": 0.33
++				}
++			}
++		}
++	}
++}
+diff --git a/Dragon Universe_rp/contents.json b/Dragon Universe_rp/contents.json
+index 71ca546..388f0a7 100644
+--- a/Dragon Universe_rp/contents.json	
++++ b/Dragon Universe_rp/contents.json	
+@@ -207,6 +207,9 @@
+       {
+          "path" : "animations/player/player.dbe.animation.json"
+       },
++      {
++         "path" : "animations/player/oozaru_ui.animation.json"
++      },
+       {
+          "path" : "animations/projectiles/ki_attack.animation.json"
+       },
+diff --git a/Dragon Universe_rp/entity/player.entity.json b/Dragon Universe_rp/entity/player.entity.json
+index dd938b4..7d9efef 100644
+--- a/Dragon Universe_rp/entity/player.entity.json	
++++ b/Dragon Universe_rp/entity/player.entity.json	
+@@ -891,7 +891,9 @@
+ 				],
+ 				"animate": [
+ 					"root",
+-					{ "dbe_general": "v.isLive" }
++					{ "dbe_general": "v.isLive" },
++					// Oozaru/Golden nas prévias de UI (inventário, Estatísticas, barbeiro): ~1/3 do tamanho, só fora do mundo
++					{ "oozaru_ui_scale": "v.is_oozaru && v.is_paperdoll" }
+ 				],
+ 				"variables": {
+ 					"variable.fp_melee_spear_use_attachable_rotation_z": "public",
+@@ -1048,6 +1050,7 @@
+ 				"melee_attack_6": "animation.player.melee.attack_6",
+ 				"muscular_body": "animation.player.muscular",
+ 				"oozaru_setup": "animation.player.oozaru_setup",
++				"oozaru_ui_scale": "animation.player.oozaru_ui_scale",
+ 				"sfx_charge_god_loop": "animation.aura.charge_god_loop",
+ 				"sfx_charge_loop": "animation.aura.charge_loop",
+ 				"slim_body": "animation.player.slim_body",
