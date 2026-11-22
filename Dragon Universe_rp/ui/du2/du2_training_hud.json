@@ -172,6 +172,92 @@
    }
   ]
  },
+ "mental": {
+  "type": "panel",
+  "size": [136, "100%c"],
+  "controls": [
+   {
+    "pc": {
+     "type": "panel",
+     "size": [136, 58],
+     "anchor_from": "top_right",
+     "anchor_to": "top_right",
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'train_hud:ment;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/panel_dark", "size": ["100%", "100%"]}},
+      {"inner@du2_training_hud.h56": {}},
+      {
+       "count": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "layer": 5,
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "((not ((#hud_title_text_string - 'train_count:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:2;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:1;') = #hud_title_text_string)))",
+          "target_property_name": "#visible"
+         }
+        ],
+        "controls": [
+         {"dim": {"type": "image", "texture": "textures/ui/du2/panel_overlay", "size": ["100%", "100%"]}},
+         {"pill@du2_training_hud.h25": {}}
+        ]
+       }
+      }
+     ],
+     "ignored": "$du2_mobile"
+    }
+   },
+   {
+    "mobile": {
+     "type": "panel",
+     "size": [136, 42],
+     "anchor_from": "top_right",
+     "anchor_to": "top_right",
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'train_hud:ment;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/panel_dark", "size": ["100%", "100%"]}},
+      {"inner@du2_training_hud.h57": {}},
+      {
+       "count": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "layer": 5,
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "((not ((#hud_title_text_string - 'train_count:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:2;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:1;') = #hud_title_text_string)))",
+          "target_property_name": "#visible"
+         }
+        ],
+        "controls": [
+         {"dim": {"type": "image", "texture": "textures/ui/du2/panel_overlay", "size": ["100%", "100%"]}},
+         {"pill@du2_training_hud.h25": {}}
+        ]
+       }
+      }
+     ],
+     "ignored": "$du2_pc"
+    }
+   }
+  ]
+ },
  "panel": {
   "type": "panel",
   "size": [136, "100%c"],
@@ -182,7 +268,11 @@
   "$du2_pc|default": true,
   "$du2_mobile|default": false,
   "variables": [{"requires": "$pocket_edition", "$du2_pc": false, "$du2_mobile": true}],
-  "controls": [{"concentration@du2_training_hud.concentration": {}}, {"physical@du2_training_hud.physical": {}}],
+  "controls": [
+   {"concentration@du2_training_hud.concentration": {}},
+   {"physical@du2_training_hud.physical": {}},
+   {"mental@du2_training_hud.mental": {}}
+  ],
   "bindings": [
    {"binding_name": "#hud_title_text_string"},
    {
@@ -2323,6 +2413,505 @@
        }
       },
       {"bar": {"type": "panel", "size": ["fill", "100%"], "controls": [{"b@du2_training_hud.h42": {}}]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h45": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"pad": {"type": "panel", "size": [3, "100%"]}},
+   {
+    "cell": {
+     "type": "panel",
+     "size": [10, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/train_mental",
+        "size": [8, 8],
+        "color": [0.047, 0.09, 0.188],
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [3, "100%"]}},
+   {
+    "t": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "clips_children": true,
+     "controls": [
+      {
+       "l": {
+        "type": "label",
+        "text": "ui.dbe.training.mental.title",
+        "size": ["100%", 10],
+        "color": [0.047, 0.09, 0.188],
+        "font_type": "default",
+        "shadow": false,
+        "text_alignment": "left",
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h46": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": [126, 20],
+  "controls": [
+   {
+    "icons": {
+     "type": "stack_panel",
+     "orientation": "vertical",
+     "size": [12, "100%"],
+     "controls": [
+      {
+       "i0": {
+        "type": "panel",
+        "size": [12, 10],
+        "controls": [
+         {
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/clock",
+           "size": [9, 9],
+           "color": [0.137, 0.843, 1.0]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "i1": {
+        "type": "panel",
+        "size": [12, 10],
+        "controls": [
+         {
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/train_mental",
+           "size": [9, 9],
+           "color": [0.765, 0.545, 1.0]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "caps": {
+     "type": "stack_panel",
+     "orientation": "vertical",
+     "size": [58, "100%"],
+     "controls": [
+      {
+       "c0": {
+        "type": "label",
+        "text": "ui.dbe.du2.time",
+        "size": ["100%", 10],
+        "color": [0.561, 0.627, 0.749],
+        "font_type": "default",
+        "shadow": true,
+        "text_alignment": "left"
+       }
+      },
+      {
+       "c1": {
+        "type": "label",
+        "text": "ui.dbe.du2.mode",
+        "size": ["100%", 10],
+        "color": [0.561, 0.627, 0.749],
+        "font_type": "default",
+        "shadow": true,
+        "text_alignment": "left"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "vals": {
+     "type": "panel",
+     "size": [56, "100%"],
+     "clips_children": true,
+     "controls": [
+      {
+       "v@templates.preserved_title_display": {
+        "$update_string": "train_vals:",
+        "size": ["100%", "default"],
+        "color": [0.333, 1.0, 1.0],
+        "font_type": "default",
+        "text_alignment": "right",
+        "shadow": true,
+        "anchor_from": "top_right",
+        "anchor_to": "top_right"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h47": {
+  "type": "image",
+  "texture": "textures/ui/du2/bar_red_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'ment_boss_hp:1;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:2;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:4;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:5;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h48": {
+  "type": "image",
+  "texture": "textures/ui/du2/bar_red_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'ment_boss_hp:2;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:4;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:5;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h49": {
+  "type": "image",
+  "texture": "textures/ui/du2/bar_red_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'ment_boss_hp:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:4;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:5;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h50": {
+  "type": "image",
+  "texture": "textures/ui/du2/bar_red_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'ment_boss_hp:4;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:5;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h51": {
+  "type": "image",
+  "texture": "textures/ui/du2/bar_red_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'ment_boss_hp:5;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h52": {
+  "type": "image",
+  "texture": "textures/ui/du2/bar_red_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'ment_boss_hp:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h53": {
+  "type": "panel",
+  "size": ["10%", "100%"],
+  "controls": [
+   {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+   {
+    "on": {
+     "type": "image",
+     "texture": "textures/ui/du2/bar_red_on",
+     "size": ["100% - 1px", 5],
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "((not ((#hud_title_text_string - 'ment_boss_hp:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:10;') = #hud_title_text_string)))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h54": {
+  "type": "panel",
+  "size": ["10%", "100%"],
+  "controls": [
+   {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+   {
+    "on": {
+     "type": "image",
+     "texture": "textures/ui/du2/bar_red_on",
+     "size": ["100% - 1px", 5],
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "((not ((#hud_title_text_string - 'ment_boss_hp:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:10;') = #hud_title_text_string)))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h55": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["fill", 5],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h47": {}}
+     ]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h48": {}}
+     ]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h49": {}}
+     ]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h50": {}}
+     ]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h51": {}}
+     ]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h52": {}}
+     ]
+    }
+   },
+   {"seg7@du2_training_hud.h53": {}},
+   {"seg8@du2_training_hud.h54": {}},
+   {
+    "seg9": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {
+       "on": {
+        "type": "image",
+        "texture": "textures/ui/du2/bar_red_on",
+        "size": ["100% - 1px", 5],
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "((not ((#hud_title_text_string - 'ment_boss_hp:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'ment_boss_hp:10;') = #hud_title_text_string)))",
+          "target_property_name": "#visible"
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "seg10": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {
+       "on": {
+        "type": "image",
+        "texture": "textures/ui/du2/bar_red_on",
+        "size": ["100% - 1px", 5],
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "((not ((#hud_title_text_string - 'ment_boss_hp:10;') = #hud_title_text_string)))",
+          "target_property_name": "#visible"
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h56": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": [126, 50],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {
+    "head": {
+     "type": "panel",
+     "size": ["100%", 12],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/pill_gold", "size": ["100%", "100%"]}},
+      {"row@du2_training_hud.h45": {}}
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {"vals@du2_training_hud.h46": {}},
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {
+    "boss": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 10],
+     "controls": [
+      {
+       "cell": {
+        "type": "panel",
+        "size": [12, "100%"],
+        "controls": [
+         {
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/ach_defeat",
+           "size": [9, 9],
+           "color": [1.0, 0.42, 0.478],
+           "anchor_from": "center",
+           "anchor_to": "center"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "cap": {
+        "type": "label",
+        "text": "ui.dbe.du2.boss_hp",
+        "size": [42, 10],
+        "color": [0.561, 0.627, 0.749],
+        "font_type": "default",
+        "shadow": true,
+        "text_alignment": "left"
+       }
+      },
+      {"bar": {"type": "panel", "size": ["fill", "100%"], "controls": [{"b@du2_training_hud.h55": {}}]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h57": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": [126, 34],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {"vals@du2_training_hud.h46": {}},
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {
+    "boss": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 10],
+     "controls": [
+      {
+       "cell": {
+        "type": "panel",
+        "size": [12, "100%"],
+        "controls": [
+         {
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/ach_defeat",
+           "size": [9, 9],
+           "color": [1.0, 0.42, 0.478],
+           "anchor_from": "center",
+           "anchor_to": "center"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "cap": {
+        "type": "label",
+        "text": "ui.dbe.du2.boss_hp",
+        "size": [42, 10],
+        "color": [0.561, 0.627, 0.749],
+        "font_type": "default",
+        "shadow": true,
+        "text_alignment": "left"
+       }
+      },
+      {"bar": {"type": "panel", "size": ["fill", "100%"], "controls": [{"b@du2_training_hud.h55": {}}]}}
      ]
     }
    }

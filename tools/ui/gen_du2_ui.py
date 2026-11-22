@@ -1823,6 +1823,13 @@ th["physical"] = hud_card("phys", "train_physical", "ui.dbe.training.physical.ti
     c("stamina", hud_bar_row("tab_training", "gold", "ui.dbe.du2.stamina", "phys_stamina", "bar_gold_on")),
 ])
 
+th["mental"] = hud_card("ment", "train_mental", "ui.dbe.training.mental.title", [
+    c("vals", hud_values([("clock", "cyan", "ui.dbe.du2.time"), ("train_mental", "purple", "ui.dbe.du2.mode")],
+                         58, HUD_W - 10 - 12 - 58)),
+    pad("100%", 4),
+    c("boss", hud_bar_row("ach_defeat", "red", "ui.dbe.du2.boss_hp", "ment_boss_hp", "bar_red_on")),
+])
+
 th["panel"] = {
     "type": "panel", "size": [HUD_W, "100%c"], "anchor_from": "top_right", "anchor_to": "top_right",
     "offset": [-24, 34], "layer": 10,
@@ -1831,6 +1838,7 @@ th["panel"] = {
     "controls": [
         c("concentration@du2_training_hud.concentration", {}),
         c("physical@du2_training_hud.physical", {}),
+        c("mental@du2_training_hud.mental", {}),
     ],
     "bindings": has_token("train_hud:"),
 }
