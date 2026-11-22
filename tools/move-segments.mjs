@@ -11,6 +11,7 @@
 //   - os imports de outros segmentos (cabeçalho, módulos já extraídos, late) cujos nomes a faixa usa, repetidos;
 //   - export { … } de todos os nomes de topo declarados na faixa;
 // - o index.js perde a faixa e ganha, no fim do bloco de imports do topo, import { nomes usados } from "<módulo>";
+//   os imports que estavam DENTRO da faixa e que o resto do index.js ainda usa ficam também no index.js (repetidos);
 // - o contents.json do BP ganha o arquivo (CRLF preservado).
 // A lista de nomes usados é um superconjunto (não olha escopo): sobra import sem uso, nunca falta.
 // Antes de mover, rode o --plan do recorte (core-split-report) e confira 0 problemas; depois, compare-scripts na ordem.
@@ -157,16 +158,30 @@ const moduleText =
   body + "\n" +
   `export { ${declared.join(", ")} };\n`;
 
+// imports que estavam dentro da faixa e que o resto do index.js usa: ficam repetidos no index.js
+const keptImports = [];
+for (const st of moved.filter((x) => x.type === "ImportDeclaration")) {
+  const keep = st.specifiers.filter((sp) => usedByRest.has(sp.local.name) && !outsideImports.has(sp.local.name));
+  if (!keep.length) continue;
+  const ns = keep.filter((sp) => sp.type === "ImportNamespaceSpecifier").map((sp) => `import * as ${sp.local.name} from "${st.source.value}";`);
+  const def = keep.filter((sp) => sp.type === "ImportDefaultSpecifier").map((sp) => `import ${sp.local.name} from "${st.source.value}";`);
+  const named = keep.filter((sp) => sp.type === "ImportSpecifier").map((sp) => {
+    const i = sp.imported.name ?? sp.imported.value;
+    return i === sp.local.name ? i : `${i} as ${sp.local.name}`;
+  });
+  keptImports.push(...ns, ...def, ...(named.length ? [`import { ${named.join(", ")} } from "${st.source.value}";`] : []));
+}
 // index.js: tira a faixa e importa o módulo no fim do bloco de imports do topo
 const importedBack = declared.filter((n) => usedByRest.has(n));
 const spec = "./" + target.split(path.sep).join("/");
 const importLine = importedBack.length ? `import { ${importedBack.join(", ")} } from "${spec}";` : `import "${spec}";`;
 const headerEnd = src.indexOf("\n", header.at(-1).end); // fim da LINHA do último import (pode ter comentário)
 let newIndex = src.slice(0, start).replace(/\n+$/, "\n") + src.slice(end).replace(/^\n+/, "");
-newIndex = newIndex.slice(0, headerEnd) + "\n" + importLine + " // O4: movido do index.js" + newIndex.slice(headerEnd);
+const keptText = keptImports.map((l) => "\n" + l + " // O4: import que ficou no index.js (estava no trecho movido)").join("");
+newIndex = newIndex.slice(0, headerEnd) + keptText + "\n" + importLine + " // O4: movido do index.js" + newIndex.slice(headerEnd);
 
 console.log(`segmentos 1–${last} (linhas ${segFrom}–${segTo}, ${segTo - segFrom + 1} linhas) → ${target}`);
-console.log(`  declara ${declared.length} nome(s); o index.js importa de volta ${importedBack.length}; imports repetidos de ${borrowed.length} origem(ns)`);
+console.log(`  declara ${declared.length} nome(s); o index.js importa de volta ${importedBack.length}; imports repetidos de ${borrowed.length} origem(ns); ${keptImports.length} import(s) do trecho ficam também no index.js`);
 if (toIndex.length) console.log(`  AVISO: nomes do index.js usados pela faixa (superconjunto; o --plan diz se algum é de verdade): ${toIndex.join(", ")}`);
 if (dry) process.exit(0);
 
