@@ -6214,6 +6214,12 @@
          "path" : "textures/ui/du2/icons/reward_zeni.png"
       },
       {
+         "path" : "textures/ui/du2/icons/train_physical.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/train_mental.png"
+      },
+      {
          "path" : "textures/ui/du2/panel_dark.json"
       },
       {

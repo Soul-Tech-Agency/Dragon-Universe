@@ -199,7 +199,10 @@ const P = {
   sk_points: 'M11 3c.5 4 2 6.5 6 7.5-4 1-5.5 3.5-6 7.5-.5-4-2-6.5-6-7.5 4-1 5.5-3.5 6-7.5zM19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z',
   sk_max: 'M6 13l6-6 6 6M6 19l6-6 6 6M5 3.5h14',
   q_mentor: 'M2 9l10-5 10 5-10 5L2 9zM6 11v5c3 2 9 2 12 0v-5M22 9v6.5',
-  zeni: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM8.5 8h7l-7 8h7'
+  zeni: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM8.5 8h7l-7 8h7',
+  // treinos novos (1.7.19, dec. 33)
+  physical: 'M5.5 11a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM8.5 10 21 17M10.5 11l-2 4 2 4.5M21 17v2.5M2 20.5h20',
+  mental: 'M15 21v-3a6 6 0 0 0 3-5.5C18 7.5 14.5 4 10.5 4S3 7 3 11c0 2 1 3.5 2 4.5V21M10.5 7.5l1 2.2 2.2 1-2.2 1-1 2.2-1-2.2-2.2-1 2.2-1z'
 };
 const ICONS = {
   tab_statistics: 'stats', tab_skills: 'skills', tab_transformations: 'bolt', tab_quests: 'missions', tab_training: 'training',
@@ -251,12 +254,15 @@ const ICONS = {
   skill_points: 'sk_points',
   skill_max: 'sk_max',
   quest_mentor: 'q_mentor',
-  reward_zeni: 'zeni'
+  reward_zeni: 'zeni',
+  train_physical: 'physical',
+  train_mental: 'mental'
 };
 // ajuste óptico (unidades do viewBox 24): centro de massa no meio do 32x32
 const NUDGE = { stat_damage: [0.32, 0.32], train_concentration: [0, -1.36], train_shadow: [0, -0.4], restart: [0.78, 0.76],
   quest_main: [0, -0.51], quest_side: [0.41, 1.15], quest_challenge: [0, 0.53], ach_skill: [0.31, 1.82], ach_requirement: [0.12, 0.58],
-  ach_done: [0, 0.74], skill_points: [-1.15, -0.42], skill_max: [0, 1.62], quest_mentor: [-0.89, 0.64] };
+  ach_done: [0, 0.74], skill_points: [-1.15, -0.42], skill_max: [0, 1.62], quest_mentor: [-0.89, 0.64],
+  train_physical: [0.3, -1.6], train_mental: [1.55, 0.5] };
 for (const [name, key] of Object.entries(ICONS)) {
   // viewBox 24 com 1 un. de respiro -> escala 32/26; traço 2.4 -> ~3 px
   const [nx, ny] = NUDGE[name] || [0, 0];
