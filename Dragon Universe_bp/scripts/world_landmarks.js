@@ -22,6 +22,7 @@ import { friezaLandmarkEnv } from "./space_planets.js";
 import { namekLandmarkEnv } from "./namek_dimension.js";
 import { tournaments_data } from "./data/tournaments_data.js";
 import { addResident } from "./world_residents.js";
+import { every } from "./core/scheduler.js";
 
 const { world, system, BlockVolume } = mc;
 
@@ -1213,13 +1214,14 @@ world.afterEvents.worldLoad.subscribe(() => {
   const site = loadPlan().spots.martial_arts_tournament;
   if (site?.placed && martialArtsMode() === "relative") applyMartialSite(site);
 
-  system.runInterval(() => {
+  // O3-8: relógio único (core/scheduler.js), fase 27 (não cai no mesmo tick que world_structures, também de 40)
+  every(SCAN_TICKS, "landmarks.scan", () => {
     try {
       scan();
     } catch (e) {
       console.warn("[Landmarks] scan error: " + e);
     }
-  }, SCAN_TICKS);
+  }, { phase: 27 });
 
   system.afterEvents.scriptEventReceive.subscribe((ev) => {
     const src = ev.sourceEntity;
