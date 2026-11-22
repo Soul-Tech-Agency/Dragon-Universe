@@ -1534,6 +1534,124 @@ def write(name, data):
     print("ok", path)
 
 
+# ---- HUD: painel de treino (CONTRATO.md §11). Tokens no título (#hud_title_text_string, valores com ';'),
+# números no subtítulo "train_vals:" (uma linha por número), via templates.preserved_title_display.
+th = {"namespace": "du2_training_hud"}
+HUD_W = 136
+
+
+def has_token(tok):
+    return [{"binding_name": "#hud_title_text_string"},
+            view(f"(not ((#hud_title_text_string - '{tok}') = #hud_title_text_string))")]
+
+
+def hud_lbl(text, size, color="text", align="left", **kw):
+    return lbl(text, size, color, None, "default", align, shadow=True, **kw)
+
+
+def hud_segments(key, h=5):
+    """Barra de 10 segmentos: o segmento k acende com key:k; … key:10;."""
+    segs = []
+    for k in range(1, 11):
+        expr = "(" + " or ".join(f"(not ((#hud_title_text_string - '{key}:{j};') = #hud_title_text_string))"
+                                 for j in range(k, 11)) + ")"
+        segs.append(c(f"seg{k}", P(["10%", "100%"], [
+            c("off", img(T + "xp_off", ["100% - 1px", h])),
+            c("on", img(T + "xp_on", ["100% - 1px", h], bindings=[{"binding_name": "#hud_title_text_string"},
+                                                                 view(expr)])),
+        ])))
+    return H(["fill", h], segs)
+
+
+def hud_bar_row(cap_key, key):
+    return H(["100%", 10], [
+        c("cap", hud_lbl(cap_key, [44, 10], "weak")),
+        c("bar", P(["fill", "100%"], [c("b", hud_segments(key))])),
+    ])
+
+
+def hud_values(cap_keys, w_caps, w_vals):
+    """Legendas traduzidas à esquerda e, à direita, as linhas do subtítulo train_vals (mesma fonte = mesmas linhas)."""
+    caps = [c(f"c{i}", hud_lbl(k, ["100%", 10], "weak")) for i, k in enumerate(cap_keys)]
+    vals = c("v@templates.preserved_title_display", {
+        "$update_string": "train_vals:", "size": ["100%", "default"], "color": C["value"], "font_type": "default",
+        "text_alignment": "right", "shadow": True, "anchor_from": "top_right", "anchor_to": "top_right"})
+    return H([w_caps + w_vals, 10 * len(cap_keys)], [
+        c("caps", V([w_caps, "100%"], caps)),
+        c("vals", P([w_vals, "100%"], [vals], clips_children=True)),
+    ])
+
+
+ORB_COLORS = [("g", "green"), ("r", "red"), ("k", "dark"), ("o", "weak")]
+
+
+def orb_grid(cell=9, gap=1):
+    """Grade 3×3 espelhando os orbs (conc_c0..8 = g/r/k/o). Ícone attr_spirit (orbe) tingido."""
+    rows = []
+    for r in range(3):
+        cells = []
+        for col in range(3):
+            i = 3 * r + col
+            imgs = [c("bg", img(T + "xp_off", [cell, cell]))]
+            for code, colr in ORB_COLORS:
+                imgs.append(c("o_" + code, img(I + "attr_spirit", [cell - 1, cell - 1], colr,
+                                               alpha=0.45 if code == "o" else 1.0,
+                                               bindings=has_token(f"conc_c{i}:{code};"))))
+            if col:
+                cells.append(pad(gap, cell))
+            cells.append(c(f"cell{i}", P([cell, cell], imgs)))
+        if r:
+            rows.append(pad("100%", gap))
+        rows.append(c(f"row{r}", H(["100%", cell], cells)))
+    return V([3 * cell + 2 * gap, 3 * cell + 2 * gap], rows)
+
+
+def countdown():
+    """3-2-1 por cima dos dados (train_count:n;)."""
+    nums = [c(f"n{n}", lbl(str(n), ["100%", "default"], "gold", 2.0, "MinecraftTen", "center", shadow=True,
+                           anchor_from="center", anchor_to="center", bindings=has_token(f"train_count:{n};")))
+            for n in (3, 2, 1)]
+    any_n = " or ".join(f"(not ((#hud_title_text_string - 'train_count:{n};') = #hud_title_text_string))"
+                        for n in (3, 2, 1))
+    return P(["100%", "100%"], [c("dim", img(T + "panel_overlay", ["100%", "100%"])), *nums], layer=5,
+             bindings=[{"binding_name": "#hud_title_text_string"}, view("(" + any_n + ")")])
+
+
+def hud_header(icon, icol, key):
+    return H(["100%", 12], [
+        centered(12, img(I + icon, [10, 10], icol)), pad(4),
+        c("t", P(["fill", "100%"], [c("l", hud_lbl(key, ["100%", 10], "gold", anchor_from="left_middle",
+                                                   anchor_to="left_middle"))], clips_children=True)),
+    ])
+
+
+def hud_card(mode, h, content):
+    return P([HUD_W, h], [
+        bg(T + "panel_dark"),
+        c("inner", V([HUD_W - 10, h - 8], content, anchor_from="center", anchor_to="center")),
+        c("count", countdown()),
+    ], bindings=has_token(f"train_hud:{mode};"))
+
+
+th["concentration"] = hud_card("conc", 92, [
+    c("head", hud_header("train_concentration", "cyan", "ui.dbe.training.concentration.title")),
+    pad("100%", 4),
+    c("mid", H(["100%", 50], [
+        c("vals", hud_values(["ui.dbe.du2.score", "ui.dbe.du2.reward", "ui.dbe.du2.tries", "ui.dbe.du2.combo",
+                              "ui.dbe.du2.time"], 62, 30)),
+        c("fill", P(["fill", "100%"])),
+        c("grid", P([29, "100%"], [c("g", orb_grid() | {"anchor_from": "center", "anchor_to": "center"})])),
+    ])),
+    pad("100%", 4),
+    c("pace", hud_bar_row("ui.dbe.du2.pace", "conc_pace")),
+])
+
+th["panel"] = P([HUD_W, "100%c"], [
+    c("concentration@du2_training_hud.concentration", {}),
+], anchor_from="top_right", anchor_to="top_right", offset=[-24, 34], layer=10,
+    bindings=has_token("train_hud:"))
+
+
 write("du2_common.json", common)
 write("du2_statistics.json", st)
 write("du2_select_race.json", rc)
@@ -1547,3 +1665,4 @@ write("du2_news.json", nw)
 write("du2_help.json", hp)
 write("du2_customization.json", cu)
 write("du2_statistics_view.json", sv)
+write("du2_training_hud.json", th)

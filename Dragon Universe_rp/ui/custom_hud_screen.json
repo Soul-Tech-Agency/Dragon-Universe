@@ -38,6 +38,9 @@
             },
             {
                 "zeni_indicator@zeni_indicator.zeni_panel": { }
+            },
+            {
+                "training_panel@du2_training_hud.panel": { }
             }
         ]
     }

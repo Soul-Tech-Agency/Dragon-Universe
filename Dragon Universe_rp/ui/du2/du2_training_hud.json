@@ -1,0 +1,1272 @@
+{
+ "namespace": "du2_training_hud",
+ "concentration": {
+  "type": "panel",
+  "size": [136, 92],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'train_hud:conc;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/panel_dark", "size": ["100%", "100%"]}},
+   {
+    "inner": {
+     "type": "stack_panel",
+     "orientation": "vertical",
+     "size": [126, 84],
+     "anchor_from": "center",
+     "anchor_to": "center",
+     "controls": [
+      {"head@du2_training_hud.h1": {}},
+      {"pad": {"type": "panel", "size": ["100%", 4]}},
+      {"mid@du2_training_hud.h13": {}},
+      {"pad": {"type": "panel", "size": ["100%", 4]}},
+      {
+       "pace": {
+        "type": "stack_panel",
+        "orientation": "horizontal",
+        "size": ["100%", 10],
+        "controls": [
+         {
+          "cap": {
+           "type": "label",
+           "text": "ui.dbe.du2.pace",
+           "size": [44, 10],
+           "color": [0.561, 0.627, 0.749],
+           "font_type": "default",
+           "shadow": true,
+           "text_alignment": "left"
+          }
+         },
+         {"bar": {"type": "panel", "size": ["fill", "100%"], "controls": [{"b@du2_training_hud.h22": {}}]}}
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "count": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "layer": 5,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "((not ((#hud_title_text_string - 'train_count:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:2;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:1;') = #hud_title_text_string)))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"dim": {"type": "image", "texture": "textures/ui/du2/panel_overlay", "size": ["100%", "100%"]}},
+      {
+       "n3": {
+        "type": "label",
+        "text": "3",
+        "size": ["100%", "default"],
+        "color": [0.965, 0.725, 0.263],
+        "font_type": "MinecraftTen",
+        "shadow": true,
+        "text_alignment": "center",
+        "font_scale_factor": 2.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "(not ((#hud_title_text_string - 'train_count:3;') = #hud_title_text_string))",
+          "target_property_name": "#visible"
+         }
+        ]
+       }
+      },
+      {
+       "n2": {
+        "type": "label",
+        "text": "2",
+        "size": ["100%", "default"],
+        "color": [0.965, 0.725, 0.263],
+        "font_type": "MinecraftTen",
+        "shadow": true,
+        "text_alignment": "center",
+        "font_scale_factor": 2.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "(not ((#hud_title_text_string - 'train_count:2;') = #hud_title_text_string))",
+          "target_property_name": "#visible"
+         }
+        ]
+       }
+      },
+      {
+       "n1": {
+        "type": "label",
+        "text": "1",
+        "size": ["100%", "default"],
+        "color": [0.965, 0.725, 0.263],
+        "font_type": "MinecraftTen",
+        "shadow": true,
+        "text_alignment": "center",
+        "font_scale_factor": 2.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "(not ((#hud_title_text_string - 'train_count:1;') = #hud_title_text_string))",
+          "target_property_name": "#visible"
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "panel": {
+  "type": "panel",
+  "size": [136, "100%c"],
+  "anchor_from": "top_right",
+  "anchor_to": "top_right",
+  "offset": [-24, 34],
+  "layer": 10,
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'train_hud:') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [{"concentration@du2_training_hud.concentration": {}}]
+ },
+ "h1": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 12],
+  "controls": [
+   {
+    "cell": {
+     "type": "panel",
+     "size": [12, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/train_concentration",
+        "size": [10, 10],
+        "color": [0.137, 0.843, 1.0],
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "t": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "clips_children": true,
+     "controls": [
+      {
+       "l": {
+        "type": "label",
+        "text": "ui.dbe.training.concentration.title",
+        "size": ["100%", 10],
+        "color": [0.965, 0.725, 0.263],
+        "font_type": "default",
+        "shadow": true,
+        "text_alignment": "left",
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h2": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": [62, "100%"],
+  "controls": [
+   {
+    "c0": {
+     "type": "label",
+     "text": "ui.dbe.du2.score",
+     "size": ["100%", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "left"
+    }
+   },
+   {
+    "c1": {
+     "type": "label",
+     "text": "ui.dbe.du2.reward",
+     "size": ["100%", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "left"
+    }
+   },
+   {
+    "c2": {
+     "type": "label",
+     "text": "ui.dbe.du2.tries",
+     "size": ["100%", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "left"
+    }
+   },
+   {
+    "c3": {
+     "type": "label",
+     "text": "ui.dbe.du2.combo",
+     "size": ["100%", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "left"
+    }
+   },
+   {
+    "c4": {
+     "type": "label",
+     "text": "ui.dbe.du2.time",
+     "size": ["100%", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "left"
+    }
+   }
+  ]
+ },
+ "h3": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c0:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c0:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.047, 0.09, 0.188],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c0:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c0:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h4": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c1:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c1:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.047, 0.09, 0.188],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c1:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c1:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h5": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c2:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c2:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.047, 0.09, 0.188],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c2:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c2:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h6": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c3:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c3:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.047, 0.09, 0.188],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c3:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c3:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h7": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c4:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c4:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.047, 0.09, 0.188],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c4:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c4:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h8": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c5:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c5:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.047, 0.09, 0.188],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c5:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c5:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h9": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c6:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c6:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.047, 0.09, 0.188],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c6:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c6:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h10": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c7:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c7:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.047, 0.09, 0.188],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c7:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c7:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h11": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c8:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c8:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.047, 0.09, 0.188],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c8:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c8:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h12": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": [29, 29],
+  "controls": [
+   {
+    "row0": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 9],
+     "controls": [
+      {"cell0@du2_training_hud.h3": {}},
+      {"pad": {"type": "panel", "size": [1, 9]}},
+      {"cell1@du2_training_hud.h4": {}},
+      {"pad": {"type": "panel", "size": [1, 9]}},
+      {"cell2@du2_training_hud.h5": {}}
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 1]}},
+   {
+    "row1": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 9],
+     "controls": [
+      {"cell3@du2_training_hud.h6": {}},
+      {"pad": {"type": "panel", "size": [1, 9]}},
+      {"cell4@du2_training_hud.h7": {}},
+      {"pad": {"type": "panel", "size": [1, 9]}},
+      {"cell5@du2_training_hud.h8": {}}
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 1]}},
+   {
+    "row2": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 9],
+     "controls": [
+      {"cell6@du2_training_hud.h9": {}},
+      {"pad": {"type": "panel", "size": [1, 9]}},
+      {"cell7@du2_training_hud.h10": {}},
+      {"pad": {"type": "panel", "size": [1, 9]}},
+      {"cell8@du2_training_hud.h11": {}}
+     ]
+    }
+   }
+  ],
+  "anchor_from": "center",
+  "anchor_to": "center"
+ },
+ "h13": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 50],
+  "controls": [
+   {
+    "vals": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": [92, 50],
+     "controls": [
+      {"caps@du2_training_hud.h2": {}},
+      {
+       "vals": {
+        "type": "panel",
+        "size": [30, "100%"],
+        "clips_children": true,
+        "controls": [
+         {
+          "v@templates.preserved_title_display": {
+           "$update_string": "train_vals:",
+           "size": ["100%", "default"],
+           "color": [0.333, 1.0, 1.0],
+           "font_type": "default",
+           "text_alignment": "right",
+           "shadow": true,
+           "anchor_from": "top_right",
+           "anchor_to": "top_right"
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"fill": {"type": "panel", "size": ["fill", "100%"]}},
+   {"grid": {"type": "panel", "size": [29, "100%"], "controls": [{"g@du2_training_hud.h12": {}}]}}
+  ]
+ },
+ "h14": {
+  "type": "image",
+  "texture": "textures/ui/du2/xp_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'conc_pace:1;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:2;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:4;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:5;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h15": {
+  "type": "image",
+  "texture": "textures/ui/du2/xp_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'conc_pace:2;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:4;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:5;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h16": {
+  "type": "image",
+  "texture": "textures/ui/du2/xp_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'conc_pace:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:4;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:5;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h17": {
+  "type": "image",
+  "texture": "textures/ui/du2/xp_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'conc_pace:4;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:5;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h18": {
+  "type": "image",
+  "texture": "textures/ui/du2/xp_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'conc_pace:5;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h19": {
+  "type": "image",
+  "texture": "textures/ui/du2/xp_on",
+  "size": ["100% - 1px", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "((not ((#hud_title_text_string - 'conc_pace:6;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:10;') = #hud_title_text_string)))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h20": {
+  "type": "panel",
+  "size": ["10%", "100%"],
+  "controls": [
+   {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+   {
+    "on": {
+     "type": "image",
+     "texture": "textures/ui/du2/xp_on",
+     "size": ["100% - 1px", 5],
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "((not ((#hud_title_text_string - 'conc_pace:7;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:10;') = #hud_title_text_string)))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h21": {
+  "type": "panel",
+  "size": ["10%", "100%"],
+  "controls": [
+   {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+   {
+    "on": {
+     "type": "image",
+     "texture": "textures/ui/du2/xp_on",
+     "size": ["100% - 1px", 5],
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "((not ((#hud_title_text_string - 'conc_pace:8;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:10;') = #hud_title_text_string)))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h22": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["fill", 5],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h14": {}}
+     ]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h15": {}}
+     ]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h16": {}}
+     ]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h17": {}}
+     ]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h18": {}}
+     ]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {"on@du2_training_hud.h19": {}}
+     ]
+    }
+   },
+   {"seg7@du2_training_hud.h20": {}},
+   {"seg8@du2_training_hud.h21": {}},
+   {
+    "seg9": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {
+       "on": {
+        "type": "image",
+        "texture": "textures/ui/du2/xp_on",
+        "size": ["100% - 1px", 5],
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "((not ((#hud_title_text_string - 'conc_pace:9;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'conc_pace:10;') = #hud_title_text_string)))",
+          "target_property_name": "#visible"
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "seg10": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [
+      {"off": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}},
+      {
+       "on": {
+        "type": "image",
+        "texture": "textures/ui/du2/xp_on",
+        "size": ["100% - 1px", 5],
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "((not ((#hud_title_text_string - 'conc_pace:10;') = #hud_title_text_string)))",
+          "target_property_name": "#visible"
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}
