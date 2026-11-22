@@ -5,7 +5,10 @@
  * Travel: Bills Invitation (dbe:bills_invitation, craftable): use it to go, use it again inside to return.
  *   /scriptevent dbe:bills_planet        -> go
  *   /scriptevent dbe:bills_planet_return -> go back
- *   /scriptevent dbe:bills_planet_rebuild -> place the build again (operators)
+ *   /scriptevent dbe:bills_planet_rebuild -> place the build again (operators; run it twice within 10 s to confirm)
+ *
+ * Bills, Whis, the table cushions and the aquarium fish are residents (world_residents.js), not saved in the pieces, so a
+ * rebuild never doubles them.
  */
 import { createSpaceArena } from "./space_arena.js";
 
@@ -26,5 +29,6 @@ createSpaceArena({
   fallY: 20,
   pieces: [piece(1, 0, 0, 64, 64), piece(2, 0, 64, 64, 42), piece(3, 64, 0, 64, 64), piece(4, 64, 64, 64, 42), piece(5, 128, 0, 10, 64)],
   arrivalRadius: 1000,
+  rebuildWarning: "the whole planet is placed again: whatever players built, broke or changed on it goes back to the original (built blocks are lost).",
   loadRadius: 1000,
 });
