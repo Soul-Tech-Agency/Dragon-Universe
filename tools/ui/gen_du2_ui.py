@@ -1216,6 +1216,24 @@ def news_content(mobile):
 tab_screen(nw, "news_form", news_content)
 
 
+# ---- Guia de ajuda (help): body = texto do tópico; 10+ = tópicos
+hp = {"namespace": "du2_help"}
+hp["row_pc"] = list_item(20)
+hp["row_mobile"] = list_item(22)
+
+
+def help_content(mobile):
+    m = "mobile" if mobile else "pc"
+    return [c("scroll", P(["100%", "100%"], [scroll_area(hp, "scroll_" + m, [
+        body_label("text"),
+        pad("100%", 6),
+        c("list", factory_list("du2_help.row_" + m)),
+    ])]))]
+
+
+tab_screen(hp, "help_form", help_content)
+
+
 # --------------------------------------------------------------------------- escrita
 
 def fmt(v, ind=0):
@@ -1283,3 +1301,4 @@ write("du2_detail.json", qd)
 write("du2_training.json", tn)
 write("du2_achievements.json", ac)
 write("du2_news.json", nw)
+write("du2_help.json", hp)

@@ -6283,6 +6283,9 @@
          "path" : "ui/du2/du2_statistics.json"
       },
       {
+         "path" : "ui/du2/du2_help.json"
+      },
+      {
          "path" : "ui/du2/du2_news.json"
       },
       {
@@ -6338,9 +6341,6 @@
       },
       {
          "path" : "ui/menus/functions_form.json"
-      },
-      {
-         "path" : "ui/menus/help_form.json"
       },
       {
          "path" : "ui/menus/gravity_machine_form.json"

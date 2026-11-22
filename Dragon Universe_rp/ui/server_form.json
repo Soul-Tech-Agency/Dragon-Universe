@@ -324,7 +324,7 @@
                 }
             },
             {
-                "help@help_form.help_form": {
+                "help@du2_help.help_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"
