@@ -179,3 +179,50 @@ Preparar: CONFIG.DEBUG_PERF = true e reabrir o mundo.
 - [ ] 60 min com 2 jogadores entrando e saindo: sem crescimento de memória ou lag
 - [ ] /reload: um relógio só, avisos do clear lag sem duplicar
 - [ ] (se CUSTOM_CHAT ligado) mensagem a cada 3 min
+- [ ] (1.7.19) Palácio: a escada interna sobe para leste e liga ao salão; luz dos andares; Bills e Whis no terraço com o palácio completo
+- [ ] (1.7.19) Escada interna do palácio sobe para leste (+x); se estiver invertida vira parede de degraus. Descer e subir nos dois sentidos
+- [ ] (1.7.19) Dentro da sala de jantar, a escada corta o tronco de mangue, uma placa e tijolos de lama perto de x=5..8 (esperado); Aquarela confere a aparência
+- [ ] (1.7.19) Mundo novo: ilha, depois palácio, Bills e Whis no terraço; CÓPIA 1.7.18: migração da árvore, palácio, e os dois sobem da sala; rebuild: voltam à sala e depois sobem
+
+## O3 Marco (guardado até o piloto): landmarks, arenas, residents
+- [ ] /scriptevent dbe:landmarks report: marcos aparecem ao chegar perto
+- [ ] Arenas do Bills e do TP: peças carregam perto, sair sem chave, cair volta
+- [ ] Moradores nos lugares depois de sair e entrar
+- [ ] Sonda 60 s: 'every landmarks.scan' ~30, cada arena ~120, 'every residents' ~60; intervalos vivos 4 a menos (landmarks 1 + arenas 2 + residents 1)
+
+## Decisão 30 (32bf9a3, 7c23c5e) — só depois da confirmação do usuário
+- [ ] Vegeta e Trunks DMZ em SSJ3: juba nas costas de frente, de lado e de trás; correndo balança e não atravessa o corpo
+- [ ] Beast do Vegeta igual ao de hoje
+- [ ] Beast Flare A sem os cubinhos, com a forma geral igual
+- [ ] SSJ/SSJ2/Blue do Flare A e SSJ/SSJ2 do Vegeta e do Trunks iguais à 1.7.18
+
+## (1.7.19) O4.0 ligação tardia (781eebf..e76a098)
+- [ ] Mundo existente e novo (criação de personagem); sair e entrar com 2 jogadores
+- [ ] Combate corpo a corpo e com ki contra NPC; morrer, Outro Mundo e voltar
+- [ ] Transformar e destransformar; menus de status, skills, missões e conquistas
+- [ ] Comprar skill com requisito faltando (mensagem) e uma que cumpre
+- [ ] Movimento Rápido (teleporte ao alvo); missão do Power Pole
+- [ ] Star Navigator, voltar à Terra e viagem do torneio
+- [ ] Fusão; Sentir Ki avisando NPC mais forte; sombra de treino
+- [ ] 10 min sem erro no log
+- [ ] Sonda 1.7.18 x O4.0 com aura + Kaioken numa vila de Vegeta: p95 do tick não sobe mais de 0,2 ms
+
+## O3 completo (guardado: viagens O3-0/O3-12, marcos O3-7..11 + 75158a4, menus-o3 O3-1..6)
+Integração: juntar os 3 e o compare contra a base antes deles tem que dar IDÊNTICO na ordem. Sonda: intervalos vivos 21 a menos que a 1.7.17 (20 com o chat desligado).
+- [ ] Espaço: lançar em y 500 do Overworld, Namek e Kaioshin; entrar na esfera de um planeta; cair abaixo de y 30 volta à estação; efeitos dos planetas
+- [ ] Kaioshin: névoa, chunks novos, resgate de queda
+- [ ] Outro Mundo: entrar no planeta do Kaio e cair para o Inferno, 3 vezes cada, nunca viagem dupla
+- [ ] Kai/Kaioshin: subir até y 300 vindo do Outro Mundo volta, sem lançar ao espaço
+- [ ] Inferno: névoa, ambiente, fuga pelo topo, chunks
+- [ ] Vilas: bater num aldeão, golems atacam, a tag sai em 5 min; golem demoníaco fora do Inferno some em até 10 s
+- [ ] Universo 6: névoa, Goku presente, queda volta ao spawn
+- [ ] 2 jogadores em dimensões diferentes por 5 min
+- [ ] Sonda: space/kaioshin/hell ~300 por minuto, kai 240, universe6 120, golem_memory 12, demon_golems 6
+
+## (1.7.19) Registro de chefes derrotados (1744f5b, f009ae2)
+- [ ] Save antigo com a saga Saiyajin concluída: /scriptevent dbe:bosses lista Raditz, Nappa e Vegeta
+- [ ] Save com a saga_beerus_1 concluída: o Beerus NÃO aparece (luta de sobrevivência)
+- [ ] Matar um chefe de missão marca; matar de novo mostra x2; Saibaman não marca
+- [ ] Kill em grupo: só quem deu o golpe final ganha o registro (o outro jogador não)
+- [ ] Chefe com a tag dbe:mental_replica (/tag @e[type=dbe:raditz] add dbe:mental_replica) morto não marca
+- [ ] Sair e entrar: o registro continua

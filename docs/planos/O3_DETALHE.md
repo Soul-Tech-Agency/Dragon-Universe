@@ -93,7 +93,7 @@ export function playersIn(dimId)    // players() filtrado por p.dimension.id
 | D6 universe_6 | 10 | 5 |
 | D7 arena do Bills / arena do TP | 10 | 6 / 8 |
 | D11 future_terrain | 20 | 10 |
-| D14 world_residents | 20 | 15 |
+| D14 world_residents | 20 | 3 (era 15: caía a cada 20 ticks junto com o U6, fase 5 de 10; corrigido em 2026-11-22) |
 | G4 gerador de terreno | 30 | 17 |
 | D4 world_structures | 40 | 7 |
 | D10 world_landmarks | 40 | 27 |
@@ -103,6 +103,8 @@ export function playersIn(dimId)    // players() filtrado por p.dimension.id
 | G1 / G2 / G3 cleanups | 1200 | 101 / 401 / 701 |
 | G5 clear lag | 1 | 0 |
 | G6 mensagens | 3600 | 1801 |
+
+**Colisões que sobram, de propósito:** as 4 varreduras de 4 ticks ocupam todos os restos de 4, então toda tarefa cai junto com uma delas. Fora isso, só há coincidências raras: G4 com D4 e D10 a cada 120 ticks; D14 (fase 3) com o hub `% 600 === 3` a cada 600; e as tarefas de 1200 entre si nunca coincidem.
 
 A fase de hoje já é arbitrária: depende do tick em que o `worldLoad` acontece em cada sessão. Por isso fixar uma fase não muda nenhuma garantia que exista hoje. O que muda é a ordem entre tarefas que hoje caem no mesmo tick (§6).
 

@@ -106,6 +106,15 @@ Os nomes tocados são o jogador, os wrappers, os requisitos, a recompensa, a ski
 7. Viajar pelo Star Navigator, voltar à Terra e usar a viagem do torneio (`duTravel` nos #5, #6, #17, #87 e #98).
 8. Content Log sem erro novo em 10 minutos.
 
+## 6a. Feito (2026-11-22, `agent/viagens`): `781eebf`, `8a4000a`, `b416ff4`, `d57f19b`, `e76a098`
+
+- Revisado e aprovado pelo Arquiteto. `compare-scripts` IDÊNTICO na ordem nos 5 commits. O `--plan` fino sobre `e76a098` (128 segmentos) dá **0 ligações tardias e 0 problemas**.
+- **Regra nova da ferramenta (`781eebf`):** o segmento 0 é **só o bloco de imports do topo**, e o primeiro código depois dele abre o segmento 1. Sem isso, tirar o `duTravel` fazia o código do antigo segmento 1 grudar no 0, que nunca sai do `index.js`.
+  - **Consequência para o O4.1:** os imports que eram do antigo segmento 1 (`namek_dimension`, `race_info`, `dragon_balls_data`, `vanilla_data`) agora ficam no cabeçalho. O módulo que receber o segmento 1 precisa importá-los de novo; o relatório lista isso em "imports de outro segmento".
+- **Custo do getter:** `late.hN`/`hO`/`i3`/`i0` aparecem em 98 usos. Os frequentes ficam no `onTick` das skills toggle (`index.js:1577`, `1483`), no `handleKi` (4141), na carga de ki (4114), no `update` dos stats (2450, 2487) e no `detectNearestDBEEntity` (7050).
+  - Estimativa: cerca de 0,1 ms/tick no pior caso (QuickJS, sem JIT).
+  - **Medir com a sonda** antes e depois; se o p95 subir mais de 0,2 ms, ler `late.hN` uma vez numa variável nesses métodos, num commit separado.
+
 ## 7. Depois do O4.0
 
 - O **O4.1** (`core/`) e os seguintes viram **só mover**: faixas contíguas na ordem do bundle (`core/01_….js`…). Cada módulo novo importa `late` e chama `bindLate` para os nomes que declara (o `bindLate` vai junto com a declaração, porque está no mesmo segmento).

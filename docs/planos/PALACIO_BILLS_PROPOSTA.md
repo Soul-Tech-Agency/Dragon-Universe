@@ -49,3 +49,14 @@
 - As peças do palácio só são colocadas **depois** da migração e de todas as peças da ilha: o palácio nunca sai cortado.
 - Testar em três mundos: novo (sem árvore desde o início), com a ilha inteira (a árvore some na 1ª visita, depois o palácio aparece) e um mundo onde o jogador construiu ao lado da árvore (a construção fica).
 - O rebuild por comando continua como opção do operador (pede confirmação e leva todos para a chegada).
+
+## Layout final confirmado (2026-11-22) e peças geradas (Marco)
+Gerado por `node tools/bills-palace.mjs palace planos/palacio_bills_modelo.json <pasta>`, a partir deste modelo. Mudanças sobre o modelo:
+- **Posição:** centro do modelo (22, 22) no mundo (0, 0); y 0 do modelo = y 140, a superfície da ilha. No lugar da árvore (tronco em -8, 1), a praça batia numa árvore azul do anel.
+- **Entrada do planeta:** a sala de jantar (chegada, y 130) **já tem saída**: escada de pedra que sobe para o sul e sai em x -7..-3, z 18..22, com lanternas nos cantos e o arco de mangue com viga de dark oak em z 24..25. Ela fica como está; a praça não cobre a caixa x -8..-2, z 17..22.
+- **Terraço, mesa e assentos:** 7 blocos a leste do modelo, em x 0..14, z 18..26 (o modelo punha o assento do Bills sobre a saída). Assento do Bills (lã roxa) em (3, 141, 22), do Whis (lã azul-clara) em (11, 141, 22).
+- **Lago:** espelhado para oeste, em x -24..-10, z 18..27 (a leste batia numa árvore do anel). 1 de fundo, todo cercado de bloco sólido.
+- **Escada por dentro do palácio** (ajustada pela revisão da Aquarela, nota A: agora em **z 7..9**, alinhada com a porta da sala; o pilar de z 10 fica inteiro, a placa da porta foi pendurada de novo junto ao pilar de z 6, em (4, 135, 6), e o furo do teto ganhou moldura de `stripped_mangrove_log`): antes era 3 de largura (z 8..10), desce para oeste do piso do palácio (y 141, x 14) até o salão da sala de jantar (x 2, y 130); passa por cima de um quarto dos fundos. Escada de arenito liso; a direção (sobe para leste) precisa de conferência no jogo.
+- **Fora do modelo:** sem o caminho de quartzo (a entrada é a saída da sala) e sem vitórias-régias (id não confirmado). Luz invisível no meio de cada andar oco, para não nascer mob no escuro.
+- **Peças:** `bills_palace_b` 47x3x50 em (-24, 140, -22): praça, terraço, lago; `bills_palace_a` 31x58x31 em (-15, 130, -15): palácio, templo e escada. Fora da forma tudo é vazio de estrutura (não apaga a ilha).
+- **Para a Aquarela revisar no jogo:** silhueta e faixas, terraço deslocado, lago a oeste, a saída/arco como entrada em frente ao palácio, luz dos andares.
