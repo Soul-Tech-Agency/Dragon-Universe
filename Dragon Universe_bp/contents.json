@@ -1912,6 +1912,9 @@
          "path" : "scripts/core/01_util.js"
       },
       {
+         "path" : "scripts/core/02_forms_timers.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
