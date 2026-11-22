@@ -5,8 +5,60 @@
  * Travel: Tournament of Power Invitation (dbe:power_tournament_invitation, craftable): use it to go, use it again to return.
  *   /scriptevent dbe:tournament_of_power        -> go
  *   /scriptevent dbe:tournament_of_power_return -> go back
+ *   /scriptevent dbe:tournament_of_power_rebuild -> place the whole arena again (operators; blocks built inside are lost)
+ *
+ * 1.7.18: the pieces were recolored offline (tools/tp-arena.mjs: light stone, gold ring, invisible light as structure void).
+ * Worlds that already had pieces placed get them updated in place (migration below, dbe:top_palette = 2).
  */
+import * as mc from "@minecraft/server";
 import { createSpaceArena } from "./space_arena.js";
+
+// Same table as tools/tp-arena.mjs (PALETTE, LIGHT, RING): change both together. new block <- old blocks
+const RECOLOR = [
+  ["minecraft:smooth_quartz", ["minecraft:white_terracotta", "minecraft:white_concrete"]],
+  ["minecraft:polished_diorite", ["minecraft:light_gray_concrete", "minecraft:light_gray_terracotta", "minecraft:blue_terracotta"]],
+  ["minecraft:calcite", ["minecraft:cyan_terracotta"]],
+  ["minecraft:smooth_stone", ["minecraft:brown_terracotta", "minecraft:brown_concrete", "minecraft:hardened_clay", "minecraft:purple_terracotta"]],
+  ["minecraft:polished_andesite", ["minecraft:gray_concrete", "minecraft:gray_terracotta", "minecraft:red_terracotta"]],
+  ["minecraft:stone", ["minecraft:green_terracotta", "minecraft:lime_terracotta"]],
+  ["minecraft:polished_deepslate", ["minecraft:black_concrete", "minecraft:black_terracotta", "minecraft:dark_prismarine"]],
+  ["minecraft:air", ["minecraft:light_block_15"]],
+];
+const RING = { block: "minecraft:gold_block", cx: 2.5, cz: 8, r0: 21, r1: 24, y: 86 };
+const FLOOR = new Set(RECOLOR.flatMap(([to, from]) => (to === "minecraft:air" ? [] : [to, ...from])));
+const SLICE = 32; // fillBlocks volumes of at most 32x32x32
+
+/**
+ * Updates one placed piece: each color by a filtered fill, in small volumes (one native call per step of the job), then the
+ * gold ring on the floor. Idempotent. A block of the same type a player put inside the arena is recolored too (rare).
+ */
+function* migratePiece(dim, p) {
+  for (let x = p.x; x < p.x + p.sx; x += SLICE) {
+    for (let y = p.y; y < p.y + p.sy; y += SLICE) {
+      for (let z = p.z; z < p.z + p.sz; z += SLICE) {
+        const volume = new mc.BlockVolume({ x, y, z }, {
+          x: Math.min(x + SLICE, p.x + p.sx) - 1, y: Math.min(y + SLICE, p.y + p.sy) - 1, z: Math.min(z + SLICE, p.z + p.sz) - 1,
+        });
+        for (const [to, from] of RECOLOR) {
+          dim.fillBlocks(volume, to, { blockFilter: { includeTypes: from } });
+          yield;
+        }
+      }
+    }
+  }
+  if (RING.y < p.y || RING.y >= p.y + p.sy) return;
+  let n = 0;
+  for (let x = p.x; x < p.x + p.sx; x++) {
+    for (let z = p.z; z < p.z + p.sz; z++) {
+      const r = Math.hypot(x + 0.5 - RING.cx, z + 0.5 - RING.cz);
+      if (r < RING.r0 || r >= RING.r1) continue;
+      const block = dim.getBlock({ x, y: RING.y, z });
+      if (!block || !FLOOR.has(block.typeId) || !dim.getBlock({ x, y: RING.y + 1, z })?.isAir) continue;
+      block.setType(RING.block);
+      if (++n % 32 === 0) yield;
+    }
+  }
+}
 
 // [piece, x, y, z (lowest corner), size x, y, z]
 const PIECES = [
@@ -79,7 +131,7 @@ createSpaceArena({
   label: "the Tournament of Power",
   dimId: "dbe:tournament_of_power",
   item: "dbe:power_tournament_invitation",
-  events: { go: "dbe:tournament_of_power", back: "dbe:tournament_of_power_return" },
+  events: { go: "dbe:tournament_of_power", back: "dbe:tournament_of_power_return", rebuild: "dbe:tournament_of_power_rebuild" },
   spawn: { x: 0.5, y: 87, z: 0.5 }, // the map floor is at y = 86
   fogTag: "dbe_tournament_of_power",
   originProp: "dbe:top_origin",
@@ -92,4 +144,5 @@ createSpaceArena({
   loadRadius: 96,
   protectBlocks: true,
   removeMobs: true,
+  migration: { prop: "dbe:top_palette", version: 2, piece: migratePiece },
 });

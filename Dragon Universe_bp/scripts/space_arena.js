@@ -24,6 +24,9 @@ const distXZ = (x, z, p) => Math.hypot(Math.max(p.x - x, 0, x - (p.x + p.sx)), M
 /**
  * label, dimId, item, events { go, back, rebuild? }, spawn, rotation?, fogTag, originProp, stateProp, fallY,
  * pieces [{ id, x, y, z, sx, sy, sz }], arrivalRadius, loadRadius, arrivalClear? { height }, arrivalFloor?, protectBlocks?, removeMobs?
+ * migration? { prop, version, piece: function* (dim, piece) }: pieces already placed when the files changed are updated in
+ *   the world, one per turn, while a player is in the dimension; prop = version once all are done (a world with nothing
+ *   placed yet gets it at once). A closed world starts the remaining ones again on the next load (the step must be idempotent).
  */
 export function createSpaceArena(cfg) {
   const FOG_PUSH = "fog @s push dbe:fog_space " + cfg.fogTag;
@@ -229,9 +232,80 @@ export function createSpaceArena(cfg) {
     }
   }
 
-  /** At most one piece per cycle: the unplaced one closest to a player. */
+  // ---- migration of pieces placed before the files changed
+  let migrating = null; // Set of piece indices still to update, or null
+  let migrateTurn = false;
+
+  function startMigration() {
+    if (!cfg.migration) return;
+    if (world.getDynamicProperty(cfg.migration.prop) === cfg.migration.version) return;
+    if (!loadPlaced().size) {
+      world.setDynamicProperty(cfg.migration.prop, cfg.migration.version);
+      return;
+    }
+    migrating = new Set(placed);
+    console.warn("[" + cfg.label + "] updating " + migrating.size + " placed piece(s) to version " + cfg.migration.version);
+  }
+
+  const runJobAsync = (gen) => new Promise((resolve, reject) => {
+    system.runJob((function* () {
+      try {
+        yield* gen;
+        resolve();
+      } catch (e) {
+        reject(e);
+      }
+    })());
+  });
+
+  async function migratePiece(dim, index) {
+    const p = cfg.pieces[index];
+    const area = await acquireLoadedArea(dim, { x: p.x, y: p.y, z: p.z }, { x: p.x + p.sx - 1, y: p.y, z: p.z + p.sz - 1 }, cfg.label + " update " + p.id);
+    try {
+      await runJobAsync(cfg.migration.piece(dim, p));
+    } finally {
+      releaseLoadedArea(area);
+    }
+    migrating.delete(index);
+    retry.delete("m" + index);
+    if (!migrating.size) {
+      migrating = null;
+      world.setDynamicProperty(cfg.migration.prop, cfg.migration.version);
+      console.warn("[" + cfg.label + "] placed pieces updated to version " + cfg.migration.version);
+    }
+  }
+
+  /** One piece per turn, the closest to a player; failures wait like placements. */
+  function migrateNearby(dim, players) {
+    let best = -1, bestDistance = Infinity;
+    for (const i of migrating) {
+      if ((retry.get("m" + i)?.at ?? 0) > system.currentTick) continue;
+      for (const p of players) {
+        const d = distXZ(p.location.x, p.location.z, cfg.pieces[i]);
+        if (d < bestDistance) { best = i; bestDistance = d; }
+      }
+    }
+    if (best < 0) return false;
+    placing = true;
+    migratePiece(dim, best).catch((e) => {
+      const fails = (retry.get("m" + best)?.fails ?? 0) + 1;
+      retry.set("m" + best, { fails, at: system.currentTick + Math.min(MAX_RETRY_TICKS, 20 * 2 ** fails) });
+      if (fails === 1 || fails % 10 === 0) console.warn("[" + cfg.label + "] update of " + cfg.pieces[best].id + " failed " + fails + " time(s): " + e);
+    }).finally(() => { placing = false; });
+    return true;
+  }
+
+  /** At most one piece per cycle: the unplaced one closest to a player (taking turns with the migration, if any). */
   function loadNearby() {
-    if (placing || loadPlaced().size >= cfg.pieces.length) return;
+    if (placing) return;
+    if (migrating) {
+      const dim = world.getDimension(cfg.dimId);
+      const players = dim.getPlayers();
+      if (!players.length) return;
+      migrateTurn = !migrateTurn;
+      if ((migrateTurn || loadPlaced().size >= cfg.pieces.length) && migrateNearby(dim, players)) return;
+    }
+    if (loadPlaced().size >= cfg.pieces.length) return;
     const dim = world.getDimension(cfg.dimId);
     const players = dim.getPlayers();
     if (!players.length) return;
@@ -253,7 +327,10 @@ export function createSpaceArena(cfg) {
   }
 
   function rebuild(player) {
-    if (!(player.commandPermissionLevel >= 1) || placing) return;
+    if (!(player.commandPermissionLevel >= 1)) return;
+    if (placing) return player.sendMessage("§e[" + cfg.label + "] busy placing a piece; try again in a few seconds.");
+    // the migration queue, if any, stays: the pieces are placed again and the queue still clears what the new files skip
+    player.sendMessage("§e[" + cfg.label + "] placing the whole build again: blocks players built or broke inside it are lost.");
     loadPlaced().clear();
     savePlaced();
     retry.clear();
@@ -262,6 +339,11 @@ export function createSpaceArena(cfg) {
 
   try {
     world.afterEvents.worldLoad.subscribe(() => {
+      try {
+        startMigration();
+      } catch (e) {
+        console.warn("[" + cfg.label + "] update check failed: " + e);
+      }
       system.runInterval(() => {
         try {
           scanPlayers();
