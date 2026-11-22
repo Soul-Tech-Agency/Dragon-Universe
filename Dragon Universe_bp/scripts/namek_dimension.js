@@ -19,6 +19,7 @@ import { acquireLoadedArea, releaseLoadedArea, safeTeleport, travelOrigin, safeR
  */
 import * as mc from "@minecraft/server";
 import { isSpaceDimension } from "./space_planets.js"; // loads the space system too
+import { every } from "./core/scheduler.js";
 
 const { world, system, BlockVolume } = mc;
 
@@ -742,13 +743,14 @@ try {
   // dimensions/namek.json owns the native dimension definition and its biome/height settings.
 
   world.afterEvents.worldLoad.subscribe(() => {
-    system.runInterval(() => {
+    // O3 piloto: relógio único (core/scheduler.js), fase 3 (as varreduras de 4 ticks não caem mais no mesmo tick)
+    every(SCAN_TICKS, "namek.scan", () => {
       try {
         scan();
       } catch (e) {
         console.warn("[Namek] scan error: " + e);
       }
-    }, SCAN_TICKS);
+    }, { phase: 3 });
 
     world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
       if (!itemStack || itemStack.typeId !== POD_ITEM) return;
@@ -811,4 +813,4 @@ function populateVillages() {
   }
 }
 
-system.runInterval(populateVillages, 100);
+every(100, "namek.villages", populateVillages, { phase: 51 });

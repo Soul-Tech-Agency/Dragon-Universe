@@ -3,6 +3,10 @@
 // e cada função passada ao "jogo" (eventos, intervalos, map/forEach...) fica em `callbacks` para ser executada depois.
 export const log = [];
 export const callbacks = [];
+// system.currentTick (e qualquer .currentTick) é um número de verdade: começa em 0 e o run-with-stub avança 1 a cada
+// callback executado. Código que faz conta com o tick (agendadores por período, cooldowns) segue um caminho
+// determinístico, igual nos dois lados de uma comparação.
+export const clock = { tick: 0 };
 const MAX_CALLBACKS = 5000;
 
 /** Texto, número e booleano entram com o valor; objetos com as chaves, para detectar mudanças de parâmetros. */
@@ -23,6 +27,7 @@ function make(path) {
       if (typeof k === "symbol") return undefined;
       if (k === "then") return undefined; // não é uma Promise
       if (k === "prototype") return make(path + ".prototype");
+      if (k === "currentTick") return clock.tick;
       return make(path + "." + k);
     },
     apply(t, self, args) {
