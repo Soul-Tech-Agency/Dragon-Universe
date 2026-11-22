@@ -168,6 +168,7 @@ QUEST_TINTS = [("lock", "weak"), ("quest_done", "green"), ("quest_main", "gold")
 ACH_TINTS = [("ach_done", "green"), ("ach_battle_power", "gold"), ("ach_defeat", "red"), ("ach_item", "orange"),
              ("ach_skill", "purple"), ("ach_requirement", "cyan")]
 LOCK_TINTS = [("lock", "weak")]
+SKILL_TINTS = [("skill_max", "gold")]
 
 
 ACTIVE = "(not ((#form_button_text - '*') = #form_button_text))"
@@ -1030,9 +1031,15 @@ def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1, key_ic
         if icon:
             row += [pad(4), centered(16, tinted_icon([16, 16], LOCK_TINTS))]
         if plus:
-            maxed = "(not ((#form_button_text - 'maximized_skill') = #form_button_text))"
-            row += [pad(4), centered(20, P([20, h - 6], [bg(T + plus_tex), c("i", img(I + "plus", [8, 8], "gold"))],
-                                           bindings=[coll_text(), view("(not " + maxed + ")")]))]
+            # no máximo: ícone skill_max do script (CONTRATO.md §10.5) ou, com script antigo, a chave no texto
+            tex_b = {"binding_type": "collection", "binding_collection_name": COL, "binding_name": "#form_button_texture"}
+            maxed = ("((not ((#form_button_text - 'maximized_skill') = #form_button_text)) or "
+                     + tex_is("skill_max") + ")")
+            row += [pad(4), c("plus", P([20, "100%"], [
+                c("b", P([20, h - 6], [bg(T + plus_tex), c("i", img(I + "plus", [8, 8], "gold"))],
+                         bindings=[coll_text(), tex_b, view("(not " + maxed + ")")])),
+                c("max", tinted_icon([12, 12], SKILL_TINTS)),
+            ]))]
         row += [pad(5)]
         return [bg(T + tex), c("row", H(["100%", "100%"], row))]
     button = form_button(None, ["100%", h], {"default": face("panel_row", "btn_plus"),
@@ -1096,17 +1103,34 @@ def scroll_area(nsd, name, controls):
     return c("s@common.scrolling_panel", scroll(nsd["namespace"] + "." + name))
 
 
-# ---- Habilidades (kD): body = pontos; 10 = Transformações; 11+ = melhorar habilidade
+# ---- Habilidades (kD): 10 = Transformações; 11 = pontos "pts;<n>" (ícone skill_points); 12+ = habilidades
+# (CONTRATO.md §10.5). Script antigo: pontos no body e habilidades a partir do 11.
 sk = {"namespace": "du2_skills"}
-sk["row_pc"] = list_item(20, plus=True, extra_hide="(#form_button_text = 'ui.dbe.skills.button.transformations')")
-sk["row_mobile"] = list_item(22, plus=True, extra_hide="(#form_button_text = 'ui.dbe.skills.button.transformations')")
+PTS = "(not ((#form_button_text - 'pts;') = #form_button_text))"
+SKILL_HIDE = "(#form_button_text = 'ui.dbe.skills.button.transformations') or " + PTS
+sk["row_pc"] = list_item(20, plus=True, extra_hide=SKILL_HIDE)
+sk["row_mobile"] = list_item(22, plus=True, extra_hide=SKILL_HIDE)
+
+
+def skill_points_header(h):
+    icon = img("", [10, 10], "gold", bindings=coll_tex())
+    value = lbl("#du2_pts", ["default", 10], "value", None, "smooth", "left",
+                bindings=[coll_text(), view("(#form_button_text - 'pts;')", "#du2_pts")])
+    row = H(["100%", h], [
+        centered(12, icon), pad(4),
+        c("cap", lbl("ui.dbe.skills.caption.points", ["default", 10], "weak", None, "smooth", "left")), pad(6),
+        c("v", value),
+    ])
+    inner = P(["100%", h], [c("row", row)], collection_index=11, bindings=[coll_text(), view(PTS)])
+    return P(["100%", h], [c("s", inner)], collection_name=COL, clips_children=True)
 
 
 def skills_content(mobile):
     m = "mobile" if mobile else "pc"
     return [c("col", V(["100%", "100%"], [
         c("scroll", P(["100%", "fill"], [scroll_area(sk, "scroll_" + m, [
-            body_label(), pad("100%", 4), c("list", factory_list("du2_skills.row_" + m))])])),
+            c("points", skill_points_header(14)), body_label(), pad("100%", 4),
+            c("list", factory_list("du2_skills.row_" + m))])])),
         pad("100%", 4),
         c("bottom", H(["100%", 22], [
             c("fill", P(["fill", "100%"])),
