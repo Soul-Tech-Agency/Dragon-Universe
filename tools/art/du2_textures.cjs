@@ -197,7 +197,9 @@ const P = {
   a_req: 'M10 6h10M10 12h10M10 18h10M3.5 6l1.5 1.5L7.5 5M3.5 12l1.5 1.5 2.5-2.5M5 18h.01',
   a_done: 'M12 22a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM9.5 16l1.8 1.8 3.2-3.5M8.5 10.8 6 2h4l2 4 2-4h4l-2.5 8.8',
   sk_points: 'M11 3c.5 4 2 6.5 6 7.5-4 1-5.5 3.5-6 7.5-.5-4-2-6.5-6-7.5 4-1 5.5-3.5 6-7.5zM19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z',
-  sk_max: 'M6 13l6-6 6 6M6 19l6-6 6 6M5 3.5h14'
+  sk_max: 'M6 13l6-6 6 6M6 19l6-6 6 6M5 3.5h14',
+  q_mentor: 'M2 9l10-5 10 5-10 5L2 9zM6 11v5c3 2 9 2 12 0v-5M22 9v6.5',
+  zeni: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM8.5 8h7l-7 8h7'
 };
 const ICONS = {
   tab_statistics: 'stats', tab_skills: 'skills', tab_transformations: 'bolt', tab_quests: 'missions', tab_training: 'training',
@@ -247,12 +249,14 @@ const ICONS = {
   ach_requirement: 'a_req',
   ach_done: 'a_done',
   skill_points: 'sk_points',
-  skill_max: 'sk_max'
+  skill_max: 'sk_max',
+  quest_mentor: 'q_mentor',
+  reward_zeni: 'zeni'
 };
 // ajuste óptico (unidades do viewBox 24): centro de massa no meio do 32x32
 const NUDGE = { stat_damage: [0.32, 0.32], train_concentration: [0, -1.36], train_shadow: [0, -0.4], restart: [0.78, 0.76],
   quest_main: [0, -0.51], quest_side: [0.41, 1.15], quest_challenge: [0, 0.53], ach_skill: [0.31, 1.82], ach_requirement: [0.12, 0.58],
-  ach_done: [0, 0.74], skill_points: [-1.15, -0.42], skill_max: [0, 1.62] };
+  ach_done: [0, 0.74], skill_points: [-1.15, -0.42], skill_max: [0, 1.62], quest_mentor: [-0.89, 0.64] };
 for (const [name, key] of Object.entries(ICONS)) {
   // viewBox 24 com 1 un. de respiro -> escala 32/26; traço 2.4 -> ~3 px
   const [nx, ny] = NUDGE[name] || [0, 0];

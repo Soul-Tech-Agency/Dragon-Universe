@@ -6199,6 +6199,12 @@
          "path" : "textures/ui/du2/icons/skill_max.png"
       },
       {
+         "path" : "textures/ui/du2/icons/quest_mentor.png"
+      },
+      {
+         "path" : "textures/ui/du2/icons/reward_zeni.png"
+      },
+      {
          "path" : "textures/ui/du2/panel_dark.json"
       },
       {
