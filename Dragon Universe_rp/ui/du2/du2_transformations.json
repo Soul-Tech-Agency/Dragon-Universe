@@ -29,10 +29,7 @@
        "default": {
         "type": "panel",
         "size": ["100%", "100%"],
-        "controls": [
-         {"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}},
-         {"row@du2_transformations.h3": {}}
-        ]
+        "controls": [{"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}}]
        }
       },
       {
@@ -40,8 +37,7 @@
         "type": "panel",
         "size": ["100%", "100%"],
         "controls": [
-         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
-         {"row@du2_transformations.h3": {}}
+         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}}
         ]
        }
       },
@@ -52,9 +48,16 @@
         "controls": [
          {
           "bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}
-         },
-         {"row@du2_transformations.h3": {}}
+         }
         ]
+       }
+      },
+      {
+       "content": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "layer": 1,
+        "controls": [{"row@du2_transformations.h3": {}}]
        }
       }
      ],
@@ -94,10 +97,7 @@
        "default": {
         "type": "panel",
         "size": ["100%", "100%"],
-        "controls": [
-         {"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}},
-         {"row@du2_transformations.h3": {}}
-        ]
+        "controls": [{"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}}]
        }
       },
       {
@@ -105,8 +105,7 @@
         "type": "panel",
         "size": ["100%", "100%"],
         "controls": [
-         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
-         {"row@du2_transformations.h3": {}}
+         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}}
         ]
        }
       },
@@ -117,9 +116,16 @@
         "controls": [
          {
           "bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}
-         },
-         {"row@du2_transformations.h3": {}}
+         }
         ]
+       }
+      },
+      {
+       "content": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "layer": 1,
+        "controls": [{"row@du2_transformations.h3": {}}]
        }
       }
      ],

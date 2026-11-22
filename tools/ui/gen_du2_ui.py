@@ -1023,7 +1023,9 @@ def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1, key_ic
     hide = HIDDEN_ITEM + (" or " + extra_hide if extra_hide else "")
     anchor = "left_middle" if lines == 1 else "top_left"
 
-    def face(tex, plus_tex):
+    def content():
+        """Conteúdo da linha, uma vez só, por cima das 3 faces (planos/UI_DESEMPENHO.md, item 4). As faces
+        ficam só com os fundos, que são o que muda entre normal, hover e pressionado."""
         row = [pad(6)]
         if key_icons:
             row += [centered(14, P([14, 14], [c("i_" + ic, img(I + ic, [12, 12], col, bindings=[
@@ -1050,16 +1052,34 @@ def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1, key_ic
             maxed = ("((not ((#form_button_text - 'maximized_skill') = #form_button_text)) or "
                      + tex_is("skill_max") + ")")
             row += [pad(4), c("plus", P([20, "100%"], [
-                c("b", P([20, h - 6], [bg(T + plus_tex), c("i", img(I + "plus", [8, 8], "gold"))],
+                c("b", P([20, h - 6], [c("i", img(I + "plus", [8, 8], "gold"))],
                          bindings=[coll_text(), tex_b, view("(not " + maxed + ")")])),
                 c("max", tinted_icon([12, 12], SKILL_TINTS)),
             ]))]
         row += [pad(5)]
-        return [bg(T + tex), c("row", H(["100%", "100%"], row))]
+        return H(["100%", "100%"], row)
+
+    def plus_visible():
+        tex_b = {"binding_type": "collection", "binding_collection_name": COL, "binding_name": "#form_button_texture"}
+        maxed = ("((not ((#form_button_text - 'maximized_skill') = #form_button_text)) or "
+                 + tex_is("skill_max") + ")")
+        return [coll_text(), tex_b, view("(not " + maxed + ")")]
+
+    def face(tex, plus_tex):
+        """Face do botão: só fundos. O fundo do "+" fica no mesmo lugar da linha de conteúdo."""
+        out = [bg(T + tex)]
+        if plus:
+            out.append(c("plus_row", H(["100%", "100%"], [
+                c("fill", P(["fill", "100%"])),
+                c("plus", P([20, "100%"], [c("b", P([20, h - 6], [bg(T + plus_tex)], bindings=plus_visible()))])),
+                pad(5),
+            ])))
+        return out
     button = form_button(None, ["100%", h], {"default": face("panel_row", "btn_plus"),
                                              "hover": face("btn_secondary_hover", "btn_plus_hover"),
                                              "pressed": face("btn_secondary_pressed", "btn_plus_pressed")},
                          hide_empty=False, anchor_from="top_left", anchor_to="top_left")
+    button["controls"].append(c("content", P(["100%", "100%"], [c("row", content())], layer=1)))
     return P(["100%", h + gap], [c("b@common.button", button)],
              bindings=[{"binding_type": "collection_details", "binding_collection_name": COL},
                        coll_text(), view("(not (" + hide + "))")])
