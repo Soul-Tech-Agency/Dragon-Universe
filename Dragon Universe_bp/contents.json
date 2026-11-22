@@ -1903,6 +1903,9 @@
          "path" : "scripts/namek_dimension.js"
       },
       {
+         "path" : "scripts/navigator_extras.js"
+      },
+      {
          "path" : "scripts/other_world_kai.js"
       },
       {
