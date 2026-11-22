@@ -65,7 +65,7 @@
                         {
                             "image": {
                                 "type": "image",
-                                "texture": "textures/ui/images/patreon_items"
+                                "texture": "textures/ui/images/patron_items"
                             }
                         }
                     ]
@@ -81,7 +81,7 @@
                         {
                             "image": {
                                 "type": "image",
-                                "texture": "textures/ui/images/patreon_chat"
+                                "texture": "textures/ui/images/patron_chat"
                             }
                         }
                     ]
