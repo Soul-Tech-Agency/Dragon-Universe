@@ -869,7 +869,7 @@
                         /*ssjr          */ "Geometry.du_flare_a_ssj",
                         /*ssjbe         */ "Geometry.du_flare_a_ssj",
                         /*ssjre         */ "Geometry.du_flare_a_ssj",
-                        /*beast         */ "Geometry.du_flare_a_ssj",
+                        /*beast         */ "Geometry.du_flare_a_beast",
                         /*ultra_ego     */ "Geometry.du_flare_a_ssj"
                     ],
                     "Array.du_caulifla_geo": [
