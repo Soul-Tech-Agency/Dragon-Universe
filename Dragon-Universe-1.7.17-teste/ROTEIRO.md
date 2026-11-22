@@ -92,3 +92,224 @@ Nada aqui foi testado no Minecraft pela equipe.
 
 ## 10. Enviar
 - [ ] Este roteiro marcado + Content Log (PC e celular) + prints numa pasta "Testes"
+
+## 11. Menu e seleção de raça novos (redesign)
+
+Roteiro detalhado, escrito pela Sentinela 2. Marque também nesta parte.
+
+### Como usar este roteiro
+
+- Marque **[x]** no que funcionou. Se algo deu errado, deixe **[ ]** e escreva ao lado o que aconteceu.
+- Tire **print** de tudo que parecer estranho: texto cortado, texto saindo da caixa, botão que não responde, imagem faltando.
+- Anote em todos os prints **onde** você estava: PC ou celular, e qual escala de interface.
+- Se aparecer erro no chat ou no Content Log, copie a mensagem.
+- Não precisa testar tudo de uma vez. Faça uma seção por vez.
+
+### 11.0. Preparação
+
+- [ ] Instalei o pacote novo (BP e RP da mesma versão) e ativei os dois no mundo.
+- [ ] O Content Log está ligado (Configurações → Criador → "Content Log" e "Mostrar na tela").
+- [ ] Tenho **dois mundos**:
+  - (A) um **mundo novo**, para ver a seleção de raça;
+  - (B) uma **CÓPIA** de um mundo antigo da 1.7.15 ou 1.7.16, com personagem já criado (nunca o original).
+- [ ] No mundo antigo, anotei antes **raça, nível, pontos de atributo e forma** do personagem, para comparar depois.
+
+#### Onde mudar a escala da interface (PC)
+
+Configurações → Vídeo → **"Escala da interface"** (GUI scale). Faça o roteiro do PC **três vezes**:
+- [ ] **Pequena** (o menor valor);
+- [ ] **Média** (o valor do meio / padrão);
+- [ ] **Grande** (o maior valor que a sua tela aceita).
+
+No **celular**, faça uma vez com a escala padrão. Se der, repita com a escala maior.
+
+---
+
+### 11.1. Seleção de raça (mundo novo)
+
+Para abrir: entre no mundo novo e use qualquer item do addon (ex.: o item de menu). A tela "Escolha sua raça" deve abrir.
+
+#### 11.1.1 PC (repita nas 3 escalas: P / M / G)
+
+| O que testar | P | M | G |
+|---|---|---|---|
+| A tela abre com o título **ESCOLHA SUA RAÇA** e o ícone **DU** em cima, sem cobrir o título. | [ ] | [ ] | [ ] |
+| Aparecem as etapas **1 Raça · 2 Aparência · 3 Começar**, com a etapa 1 em destaque. | [ ] | [ ] | [ ] |
+| Aparecem as **7 raças**, cada uma com ícone e nome: Terráqueo, Saiyajin, Namekuseijin, Frost Demon, Majin, Bio Androide, Glind. | [ ] | [ ] | [ ] |
+| Os nomes compridos (**Namekuseijin**, **Bio Androide**, **Frost Demon**) **cabem** no cartão, sem cortar nem sair da borda. | [ ] | [ ] | [ ] |
+| Clicar no ícone de uma raça **seleciona** essa raça: o cartão fica destacado (borda ciano, faixa dourada). | [ ] | [ ] | [ ] |
+| Clicar na raça **já selecionada** não quebra nada (a tela só reabre). | [ ] | [ ] | [ ] |
+| As **setas** ◀ ▶ trocam de raça. Da última, ▶ volta para a primeira, e da primeira, ◀ vai para a última. | [ ] | [ ] | [ ] |
+| O **contador** "N / 7" muda junto com a raça. | [ ] | [ ] | [ ] |
+| A **prévia ao vivo** mostra o personagem com a raça escolhida e muda ao trocar de raça. | [ ] | [ ] | [ ] |
+| A prévia **não sai da caixa** e não fica cortada no meio do corpo. | [ ] | [ ] | [ ] |
+| O nome e a descrição da raça aparecem inteiros, sem texto vazando para fora do painel. | [ ] | [ ] | [ ] |
+| **BÔNUS DA RAÇA** aparece com ícone e valor (ex.: Saiyajin: Força x1.5). | [ ] | [ ] | [ ] |
+| Aparecem **Regeneração**, **Transformações** (número) e **Escolha de gênero** (Sim/Não). | [ ] | [ ] | [ ] |
+| **PRIMEIRAS FORMAS** e **PERSONALIZAÇÃO NA ETAPA 2** aparecem e não vazam. | [ ] | [ ] | [ ] |
+| O botão **Aleatório** sorteia uma raça e abre a etapa de aparência com a aparência sorteada. | [ ] | [ ] | [ ] |
+| O botão **Selecionar ⟨raça⟩** mostra o nome da raça certa e abre a etapa de aparência. | [ ] | [ ] | [ ] |
+| O texto do botão **Selecionar Namekuseijin** (o nome mais longo) cabe no botão. | [ ] | [ ] | [ ] |
+
+**Confira os dados de cada raça.** Escolha uma por uma e compare com a tabela. Se algum número for diferente, anote.
+
+| Raça | Bônus | Regeneração | Transformações | Gênero | [ ] |
+|---|---|---|---|---|---|
+| Terráqueo | Ki Máximo x1.25, Poder de Ki x1.25 | x1.0 | 6 | Sim | [ ] |
+| Saiyajin | Força x1.5 | x1.0 | 16 | Sim | [ ] |
+| Namekuseijin | Constituição x1.5, Tamanho x1.05 | x1.6 | 6 | Não | [ ] |
+| Frost Demon | Destreza x1.25, Poder de Ki x1.25, Tamanho x0.95 | x1.2 | **10** | Não | [ ] |
+| Majin | Constituição x1.25, Destreza x1.25, Tamanho x0.95 | x2.0 | 6 | Sim | [ ] |
+| Bio Androide | Constituição x1.25, Força x1.25, Tamanho x1.05 | x1.7 | 7 | Não | [ ] |
+| Glind | Força x1.25, Ki Máximo x1.15, Constituição x1.1, Poder de Ki x1.1 | x1.5 | 8 | Sim | [ ] |
+
+#### 11.1.2 Etapa 2: aparência (customização)
+
+- [ ] Depois de "Selecionar", abre a tela de aparência com a etapa **2** em destaque.
+- [ ] Cada opção (Gênero, Barba, Olhos, Cabelo, Cor do cabelo, Pele…) tem setas ◀ ▶.
+- [ ] Clicar várias vezes **rápido** na mesma seta **só avança**: nunca volta para a opção anterior.
+- [ ] A prévia muda a cada clique.
+- [ ] Fechar a tela com **X** ou **Esc** e reabrir **mantém** o que eu escolhi.
+- [ ] Trocar o **gênero** e voltar mantém a escolha. As opções que só existem para um gênero (ex.: barba) somem e voltam certinho.
+- [ ] O botão **Voltar** leva de volta à escolha de raça. Isso **zera** a aparência, e é o esperado.
+- [ ] O botão **Confirmar** começa a aventura (etapa 3) e a raça escolhida fica salva.
+- [ ] Nada de texto vazando nas linhas de opção, nem na escala Grande.
+
+#### 11.1.3 Celular (escolha de raça)
+
+- [ ] A tela abre inteira, sem precisar rolar para ver os botões principais.
+- [ ] O título mostra **ESCOLHA SUA RAÇA** e "**Etapa 1 de 3**".
+- [ ] As raças aparecem **só com ícone**, e o nome da raça escolhida aparece em destaque.
+- [ ] Os ícones de raça são fáceis de tocar com o dedo, sem tocar o vizinho por engano.
+- [ ] As setas ◀ ▶ e o contador "N / 7" funcionam.
+- [ ] A descrição aparece na versão **curta** (uma frase).
+- [ ] Bônus, Regeneração, Transformações e Gênero aparecem sem vazar.
+- [ ] O botão **Mais detalhes** abre a descrição completa, as **Primeiras formas** e a **Personalização na etapa 2**.
+- [ ] Tocar de novo (ou no fechar) **esconde** os detalhes. Isso acontece **na hora**, sem a tela piscar ou recarregar.
+- [ ] **Selecionar ⟨raça⟩** funciona e o texto cabe no botão.
+- [ ] **Aleatório** existe e funciona (se o layout do celular tiver esse botão; anote se não tiver).
+- [ ] A prévia do personagem aparece e não fica cortada.
+- [ ] A etapa 2 (aparência) funciona no celular: setas tocáveis, prévia mudando, Confirmar.
+
+---
+
+### 11.2. Menu principal (mundo antigo e mundo novo, depois de começar)
+
+Para abrir: use o **item de menu**. Ele abre na última aba que você usou.
+
+#### 11.2.1 Comum a todas as abas (PC, nas 3 escalas)
+
+| O que testar | P | M | G |
+|---|---|---|---|
+| O ícone **DU** fica em cima do painel, **sem cobrir o título** e sem sair da tela. | [ ] | [ ] | [ ] |
+| Na escala Grande, o ícone pode diminuir ou sumir, mas **não** fica cortado nem cobre o título. | [ ] | [ ] | [ ] |
+| A lista de abas mostra **ícone + nome**: Estatísticas, Habilidades, Transformações, Missões, Treino, Conquistas, Notícias, e **Ajuda**. | [ ] | [ ] | [ ] |
+| O nome **Transformações** (o mais comprido) cabe na aba. | [ ] | [ ] | [ ] |
+| A aba aberta fica destacada (fundo mais claro, borda ciano, faixa dourada). | [ ] | [ ] | [ ] |
+| Clicar em cada aba abre a tela certa, e o título muda para o nome dela. | [ ] | [ ] | [ ] |
+| Passar o mouse por cima das abas e botões muda o visual (hover) e não deixa nenhum quadrado vazio ou textura faltando. | [ ] | [ ] | [ ] |
+| O visual é liso, com cantos arredondados e borda ciano fina. Nada fica "quadriculado" ou esticado de um jeito feio. | [ ] | [ ] | [ ] |
+| Fechar com **X** / **Esc** fecha o menu normalmente. | [ ] | [ ] | [ ] |
+
+#### 11.2.2 Estatísticas (PC, nas 3 escalas)
+
+| O que testar | P | M | G |
+|---|---|---|---|
+| No topo aparecem o **BP** (pontos de batalha) e os chips **Raça**, **Forma**, **Alinhamento**, **Mentor** com os valores certos do meu personagem. | [ ] | [ ] | [ ] |
+| **NÍVEL** e o XP ("atual / próximo") estão certos. No mundo antigo, comparar com o que eu anotei. | [ ] | [ ] | [ ] |
+| **ATRIBUTOS** mostra "N pontos livres" com o número certo. | [ ] | [ ] | [ ] |
+| Os 5 atributos (Constituição, Destreza, Ki Máximo, Força, Poder de Ki) mostram ícone, valor, multiplicador (ex.: x1.5) e custo (ex.: 1 AP). | [ ] | [ ] | [ ] |
+| São **3 botões separados**, **x1 / x10 / x100**. Clicar num deles destaca esse e a tela reabre com a nova quantidade (antes era um botão só, "Quantidade N"). | [ ] | [ ] | [ ] |
+| A quantidade escolhida **continua** ao fechar e reabrir o menu na mesma sessão. | [ ] | [ ] | [ ] |
+| Os 10 quadradinhos de XP enchem de acordo com o XP (ex.: 340/1200 = 2 cheios). Com o nível recém-subido, 0 cheios. | [ ] | [ ] | [ ] |
+| Com treino ativo, o multiplicador de **Treino** (ex.: x2) aparece. Sem treino, ele não aparece. | [ ] | [ ] | [ ] |
+| Com **x1**, clicar no **+** de um atributo gasta 1 ponto e soma 1 ao atributo. | [ ] | [ ] | [ ] |
+| Com **x10** e **x100**, o + gasta 10 / 100. Com menos pontos que isso, nada acontece ou só gasta o que tem (anote qual dos dois). | [ ] | [ ] | [ ] |
+| Cada **+** sobe **o atributo da mesma linha** (ex.: o + da Força sobe Força, não Destreza). Teste os 5. | [ ] | [ ] | [ ] |
+| Com **0 pontos livres**, o + não faz nada e não dá erro. | [ ] | [ ] | [ ] |
+| A **prévia do personagem** (SEU PERSONAGEM) aparece, segue o mouse e não sai da caixa. | [ ] | [ ] | [ ] |
+| Em **Oozaru / Golden Oozaru** a prévia fica menor e o personagem aparece **inteiro**. | [ ] | [ ] | [ ] |
+| **Dano**, **Defesa** e **Energia** aparecem com valores. | [ ] | [ ] | [ ] |
+| O botão **Informações completas** abre a lista detalhada (Corpo, Defesa, Esquiva, Velocidade de voo…). A tela **não fica vazia**, aparece no layout de lista (não no layout novo das Estatísticas, com campos vazios), e as abas funcionam a partir dela. | [ ] | [ ] | [ ] |
+| Usar o item de menu depois de ter fechado em "Informações completas" reabre essa mesma tela, e não uma tela vazia. | [ ] | [ ] | [ ] |
+| Números grandes (nível 100+, atributo 1000+, BP com muitos dígitos) **não vazam** da caixa. | [ ] | [ ] | [ ] |
+
+#### 11.2.3 Habilidades
+
+- [ ] A tela mostra "Pontos de Habilidade" e a lista de habilidades.
+- [ ] Clicar numa habilidade gasta pontos e sobe o nível. A **mesma** habilidade sobe, não a de cima ou a de baixo.
+- [ ] Nomes compridos de habilidade não vazam.
+- [ ] Sem habilidades disponíveis, aparece a mensagem de aviso, e não uma tela vazia.
+
+#### 11.2.4 Transformações (agora é aba própria)
+
+- [ ] A aba **Transformações** abre a lista de formas da minha raça.
+- [ ] As formas bloqueadas mostram **cadeado**, e as liberadas não.
+- [ ] Clicar numa forma liberada (com ki suficiente) **transforma**. Na bloqueada, nada acontece ou aparece um aviso.
+- [ ] Os nomes e requisitos compridos não vazam.
+- [ ] O botão antigo "Transformações" dentro de Habilidades, se ainda existir, abre a mesma tela.
+
+#### 11.2.5 Missões
+
+- [ ] A lista de missões aparece. Clicar numa abre os detalhes, com Iniciar/Reiniciar e voltar.
+- [ ] Os nomes de missão compridos não vazam.
+
+#### 11.2.6 Treino
+
+- [ ] Aparecem "Sombra de treinamento" e "Treino de concentração" (se eu tiver tentativas).
+- [ ] Cada botão faz o que diz.
+
+#### 11.2.7 Conquistas
+
+- [ ] A lista aparece com nome, progresso [P/100] ou "Concluído", e a descrição.
+- [ ] Clicar numa abre os detalhes, e o voltar funciona.
+
+#### 11.2.8 Notícias
+
+- [ ] O texto de boas-vindas aparece inteiro.
+- [ ] As **2 imagens** aparecem: a de **itens** (mais alta) e a do **chat** (faixa comprida).
+- [ ] As imagens não ficam esticadas, cortadas ou por cima do texto.
+
+#### 11.2.9 Ajuda / Guia
+
+- [ ] A aba **Ajuda** (ícone "?", dourado, no rodapé da barra de abas) **abre a tela "Ajuda"**. Antes ela não fazia nada.
+- [ ] Ao abrir, aparecem uma **introdução** e uma **lista de tópicos** (ex.: evoluir, transformações e ki, missões e mestres, Esferas do Dragão, planetas e Star Navigator, comandos).
+- [ ] Clicar num tópico mostra o texto **daquele** tópico, e a lista continua visível para escolher outro.
+- [ ] O Guia explica o básico em português (como abrir o menu, treinar, transformar, viajar…).
+- [ ] As abas também funcionam a partir da Ajuda, e a aba **Ajuda** fica destacada.
+- [ ] Os textos do Guia não vazam, e dá para rolar se for longo.
+- [ ] Do Guia dá para voltar ao menu.
+- [ ] Mude o jogo para **inglês** e **espanhol** e abra o Guia. O texto aparece traduzido, e não como uma chave do tipo `dbe.guide.algo`.
+
+#### 11.2.10 Celular: menu
+
+- [ ] As abas aparecem **só com ícone**, numa coluna, com a **Ajuda** separada embaixo (em dourado).
+- [ ] Tocar numa aba muda o **título** para o nome dela (ex.: "TRANSFORMAÇÕES").
+- [ ] Todas as abas são fáceis de tocar, sem acertar a vizinha.
+- [ ] Estatísticas: aparecem **BP**, **Raça** e **Forma**, **NV**, XP e "N pontos livres".
+- [ ] Os botões **x1 / x10 / x100** e os **+** têm **tamanho de dedo** e funcionam (mesmos testes do PC: cada + sobe o atributo da sua linha).
+- [ ] O botão **Detalhes** mostra **Alinhamento, Mentor, Dano, Defesa, Energia**, o multiplicador de **Treino** (se houver) e o botão **Informações completas**. Tocar de novo esconde, **na hora**.
+- [ ] Com Detalhes aberto, o botão **Informações completas** funciona.
+- [ ] A prévia do personagem aparece (ou fica em Detalhes; anote onde está).
+- [ ] Nenhum texto fica pequeno demais para ler, nem vaza.
+- [ ] As outras abas (Habilidades, Transformações, Missões, Treino, Conquistas, Notícias com as 2 imagens, Ajuda) abrem e funcionam.
+- [ ] Girar o aparelho ou abrir e fechar o teclado não quebra o layout.
+
+---
+
+### 11.3. Mundo antigo: nada foi perdido
+
+- [ ] Raça, nível, pontos, forma, alinhamento e mentor estão **iguais** ao que eu anotei antes da atualização.
+- [ ] A aparência do personagem (cabelo, cor, pele) continua igual.
+- [ ] As missões em andamento e as conquistas continuam lá.
+- [ ] O barbeiro (item de trocar cabelo) ainda funciona: as setas não voltam, e em Oozaru a prévia fica pequena.
+- [ ] Os outros formulários que não fazem parte do redesign (loja, NPCs, Shenlong, máquina de gravidade, funções) abrem normais, **sem** o ícone DU e sem layout quebrado.
+
+### 11.4. O que enviar de volta
+
+1. Este arquivo com as caixas marcadas, ou uma lista do que ficou **[ ]**.
+2. Os prints, com o nome dizendo onde: ex. `pc_grande_estatisticas.png`, `celular_racas_detalhes.png`.
+3. O Content Log, se apareceu algum erro em vermelho ou amarelo do Dragon Universe.
+
+---
+

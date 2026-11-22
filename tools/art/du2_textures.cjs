@@ -142,7 +142,8 @@ const P = {
   fist: 'M6 11V7a2 2 0 0 1 4 0v4M10 10V6a2 2 0 0 1 4 0v4M14 10V7a2 2 0 0 1 4 0v6a7 7 0 0 1-7 7h-1a6 6 0 0 1-6-6v-2a2 2 0 0 1 4 0',
   burst: 'M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M5 19l3-3M16 8l3-3M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z',
   size: 'M4 20 20 4M14 4h6v6M10 20H4v-6',
-  sword: 'M14 4h6v6L9 21l-6-6L14 4zM5 13l6 6',
+  // espada: lâmina diagonal com ponta, guarda e cabo
+  sword: 'M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2',
   shield: 'M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6l8-3z',
   regen: 'M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-3 4.5 4.5 0 0 1 8 3c0 6-8 11-8 11zM12 9v6M9 12h6',
   plus: 'M12 5v14M5 12h14',
@@ -158,7 +159,32 @@ const P = {
   frost: 'M12 2v20M3.3 7l17.4 10M20.7 7 3.3 17M9 4l3 2 3-2M9 20l3-2 3 2',
   majin: 'M12 3c4 5 7 8 7 12a7 7 0 0 1-14 0c0-4 3-7 7-12z',
   bio: 'M12 2l9 5v10l-9 5-9-5V7l9-5zM12 8l4 2v4l-4 2-4-2v-4z',
-  glind: 'M5 3c0 5 2 8 5 9M19 3c0 5-2 8-5 9M12 21a5 5 0 0 0 5-5v-2H7v2a5 5 0 0 0 5 5z'
+  glind: 'M5 3c0 5 2 8 5 9M19 3c0 5-2 8-5 9M12 21a5 5 0 0 0 5-5v-2H7v2a5 5 0 0 0 5 5z',
+  // lote 2 (telas antigas -> du2): customização, treino e gerais
+  hair: 'M7 21c-3-5-3-11 1-15 3-3 8-3 10 0M10 21c-1-5 0-9 3-11M14 21c0-4 1-7 4-9',
+  hair_color: 'M5 20c-2-4-2-9 1-12 2-2 6-2 8 0M8 20c-1-4 0-7 2-9M18 13c2 3 3 4 3 5.5a3 3 0 0 1-6 0c0-1.5 1-2.5 3-5.5z',
+  eye: 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z',
+  eye_color: 'M1.5 10s3-5 7.5-5 7.5 5 7.5 5-3 5-7.5 5-7.5-5-7.5-5zM9 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM19 14c2 3 3 4 3 5.5a3 3 0 0 1-6 0c0-1.5 1-2.5 3-5.5z',
+  hand: 'M7 11V5a1.5 1.5 0 0 1 3 0v5M10 10V3.5a1.5 1.5 0 0 1 3 0V10M13 10V5a1.5 1.5 0 0 1 3 0v6M16 11V8a1.5 1.5 0 0 1 3 0v5a8 8 0 0 1-8 8h-1a6 6 0 0 1-5-3l-3-5a1.5 1.5 0 0 1 2.5-1.5L7 14',
+  skin_details: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM9 8.5h.01M15 9.5h.01M8.5 14h.01M12 12h.01M15.5 15h.01M11 16.5h.01',
+  face: 'M12 22c-5 0-8-4-8-10S7 2 12 2s8 4 8 10-3 10-8 10zM9 10h.01M15 10h.01M9 15c2 1.5 4 1.5 6 0',
+  beard: 'M5 10c0-4.5 3-8 7-8s7 3.5 7 8M5 10c0 7 3 12 7 12s7-5 7-12M5 12c2 1.5 4.5 1.5 7 0 2.5 1.5 5 1.5 7 0M10 17h4',
+  antennas: 'M12 22a6 6 0 0 0 6-6v-1a6 6 0 0 0-12 0v1a6 6 0 0 0 6 6zM9 9.5 6.5 4.5M15 9.5l2.5-5M6 4.5a1.5 1.5 0 1 0 0-.01M18 4.5a1.5 1.5 0 1 0 0-.01',
+  horns: 'M4 21a8 8 0 0 1 16 0M7.5 14.5C4.5 11.5 3.5 7 5 3c1 4 3 6 5.5 7M16.5 14.5c3-3 4-7.5 2.5-11.5-1 4-3 6-5.5 7',
+  shoulder_pads: 'M8 5h8v16H8zM8 7H5a3 3 0 0 0-3 3v4h6M16 7h3a3 3 0 0 1 3 3v4h-6',
+  tail_color: 'M3 8c0-3 2-5 5-5s5 2 5 5-2 4-4 4-3-1-3-3M13 8c0 6-3 10-9 12M18 13c2 3 3 4 3 5.5a3 3 0 0 1-6 0c0-1.5 1-2.5 3-5.5z',
+  palette: 'M12 21a9 9 0 1 1 9-9c0 3-2 4-4 4h-2a2 2 0 0 0-1.2 3.6c.8.7.4 1.4-1.8 1.4zM7.5 11.5h.01M9.5 7h.01M14.5 7h.01',
+  shadow: 'M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2 21a7 7 0 0 1 14 0M16 4.3a3.5 3.5 0 0 1 0 6.4M18 14.5a7 7 0 0 1 4 6.5',
+  concentration: 'M12 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM12 8v6M6 11l6 3 6-3M3 19c3-3 6-4 9-4s6 1 9 4H3z',
+  stop: 'M7 5h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z',
+  weights: 'M9 8a3 3 0 1 1 6 0M5 21 7 9h10l2 12z',
+  gravity: 'M12 3v12M7 10l5 5 5-5M4 20h16',
+  fuel: 'M4 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16zM2.5 21h13M7 7h4M14 9h2a2 2 0 0 1 2 2v5a1.5 1.5 0 0 0 3 0V8l-3-3',
+  lock: 'M6 11h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1zM8 11V7a4 4 0 0 1 8 0v4M12 15v2',
+  back: 'M9 14 4 9l5-5M4 9h11a5 5 0 0 1 0 10h-4',
+  tail: 'M20 21c-1-4-4-6-8-6-4 0-7-3-7-7s3-6 6-6 5 2 5 5-2 4-4 4-3-1-3-3',
+  play: 'M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.8l-12-7.5A1 1 0 0 0 7 4.5z',
+  restart: 'M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5'
 };
 const ICONS = {
   tab_statistics: 'stats', tab_skills: 'skills', tab_transformations: 'bolt', tab_quests: 'missions', tab_training: 'training',
@@ -169,11 +195,40 @@ const ICONS = {
   fact_regen: 'regen', fact_forms: 'bolt', fact_gender: 'person',
   race_earthling: 'globe', race_saiyan: 'spikes', race_namekian: 'namek', race_frost_demon: 'frost', race_majin: 'majin',
   race_bio_android: 'bio', race_glind: 'glind',
-  plus: 'plus', close: 'close', chevron_left: 'chevron_left', chevron_right: 'chevron_right', random: 'random', check: 'check', info: 'info'
+  plus: 'plus', close: 'close', chevron_left: 'chevron_left', chevron_right: 'chevron_right', random: 'random', check: 'check', info: 'info',
+  // lote 2
+  cust_hair: 'hair',
+  cust_hair_color: 'hair_color',
+  cust_eyes: 'eye',
+  cust_eye_color: 'eye_color',
+  cust_skin: 'hand',
+  cust_skin_details: 'skin_details',
+  cust_face: 'face',
+  cust_beard: 'beard',
+  cust_gender: 'person',
+  cust_antennas: 'antennas',
+  cust_horns: 'horns',
+  cust_shoulder_pads: 'shoulder_pads',
+  cust_tail_color: 'tail_color',
+  palette: 'palette',
+  train_shadow: 'shadow',
+  train_concentration: 'concentration',
+  train_stop: 'stop',
+  train_weights: 'weights',
+  gravity: 'gravity',
+  fuel: 'fuel',
+  lock: 'lock',
+  back: 'back',
+  tail: 'tail',
+  play: 'play',
+  restart: 'restart'
 };
+// ajuste óptico (unidades do viewBox 24): centro de massa no meio do 32x32
+const NUDGE = { stat_damage: [0.32, 0.32], train_concentration: [0, -1.36], train_shadow: [0, -0.4], restart: [0.78, 0.76] };
 for (const [name, key] of Object.entries(ICONS)) {
   // viewBox 24 com 1 un. de respiro -> escala 32/26; traço 2.4 -> ~3 px
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="-1 -1 26 26"><path d="${P[key]}" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  const [nx, ny] = NUDGE[name] || [0, 0];
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="${-1 - nx} ${-1 - ny} 26 26"><path d="${P[key]}" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   save(`icons/${name}.png`, render(svg, 32, 32));
   made.push({ name: `icons/${name}`, rel: `icons/${name}.png`, w: 32, h: 32, ns: 0, group: 'icon' });
 }
