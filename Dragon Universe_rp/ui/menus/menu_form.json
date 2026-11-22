@@ -5,17 +5,6 @@
         "type": "panel",
         "controls": [
             {
-                "du_icon": {
-                    "type": "image",
-                    "texture": "textures/ui/images/du_icon",
-                    "size": [ 24, 24 ],
-                    "offset": [ 0, -4 ],
-                    "anchor_from": "top_middle",
-                    "anchor_to": "bottom_middle",
-                    "layer": 10
-                }
-            },
-            {
                 "help_button": {
                     "type": "stack_panel",
                     "offset": [ 6, 0 ],
@@ -111,6 +100,36 @@
                         }
                     ]
                 }
+            }
+        ]
+    },
+
+    "du_icon_overlay": {
+        "type": "panel",
+        "size": [ "100%", "50% - 92px" ],
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "layer": 50,
+        "controls": [
+            {
+                "du_icon": {
+                    "type": "image",
+                    "texture": "textures/ui/images/du_icon",
+                    "size": [ "100%y", "100%" ],
+                    "max_size": [ 21, 21 ],
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle"
+                }
+            }
+        ],
+        "bindings": [
+            {
+                "binding_name": "#title_text"
+            },
+            {
+                "binding_type": "view",
+                "source_property_name": "((#title_text = 'ui.dbe.statistics.title') or (#title_text = 'ui.dbe.skills.title') or (#title_text = 'ui.dbe.quest_list.title') or (#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.news.title') or (#title_text = 'ui.dbe.achievement_list.title') or (#title_text = 'ui.dbe.transformations.title'))",
+                "target_property_name": "#visible"
             }
         ]
     },
