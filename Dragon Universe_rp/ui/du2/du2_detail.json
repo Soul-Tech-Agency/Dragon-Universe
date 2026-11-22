@@ -842,6 +842,7 @@
       }
      ],
      "controls": [
+      {"pad": {"type": "panel", "size": ["100%", 4]}},
       {
        "row": {
         "type": "stack_panel",
@@ -1793,6 +1794,7 @@
       }
      ],
      "controls": [
+      {"pad": {"type": "panel", "size": ["100%", 4]}},
       {
        "row": {
         "type": "stack_panel",

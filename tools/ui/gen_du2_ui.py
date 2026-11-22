@@ -1199,10 +1199,10 @@ def tex_icon_at(idx, size, tints):
     return P(size, [c("s", P(size, [c("i", tinted_icon(size, tints))], collection_index=idx))], collection_name=COL)
 
 
-def qrow(idx, vis, children, gap_after=2, name=None):
+def qrow(idx, vis, children, gap_after=2, name=None, gap_before=0):
     """Linha do detalhe (filha direta do stack com collection_name): some quando vis é falso."""
-    return c(name or f"slot{idx}", V(["100%", "100%c"], [c("row", H(["100%", "100%c"], children)),
-                                                             pad("100%", gap_after)],
+    return c(name or f"slot{idx}", V(["100%", "100%c"], ([pad("100%", gap_before)] if gap_before else []) + [
+        c("row", H(["100%", "100%c"], children)), pad("100%", gap_after)],
                                         collection_index=idx, bindings=[coll_text(), view(vis)]))
 
 
@@ -1255,7 +1255,7 @@ def quest_detail_rows():
                              wrap_label("text")]) for i in range(18, 26)],
         c("gap_end", P(["100%", 4], collection_index=26, bindings=[coll_text(), view(NONEMPTY)])),
         qrow(26, NONEMPTY, [wrap_label("weak")]),
-        qrow(27, NONEMPTY, [wrap_label("red")]),
+        qrow(27, NONEMPTY, [wrap_label("red")], gap_before=4),  # o próprio espaço: o erro pode vir sem a espera
         # script antigo / conquista: body inteiro
         qrow(2, "(#form_button_text = '')", [c("body", lbl("#form_text", ["fill", "default"], "text", None,
                                                             "smooth", "left"))], 0, "old_body"),
