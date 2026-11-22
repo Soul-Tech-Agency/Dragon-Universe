@@ -1,0 +1,1895 @@
+12:55:44[Scripting][verbose]-Plugin Discovered [Dragon Universe] PackId [30f1e0c0-ded2-4f7d-b101-6863a4d94abe_1.7.15] ModuleId [ed72aea2-84a4-45ae-819f-981acef841a6]
+
+12:55:46[Scripting][warning]-[World] BP dimensions loaded 10/10: dbe:vegeta[-64..320], dbe:frieza_planet[-64..320], dbe:yardrat[-64..320], dbe:kai[-64..320], dbe:universe_6_arena[-64..320], dbe:hell[-64..320], dbe:space[-64..320], dbe:namek[-64..320], dbe:bills_planet[-64..320], dbe:tournament_of_power[-64..320]
+
+12:55:51[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:51[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:51[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:51[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:51[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:51[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:52[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:52[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:52[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:52[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:52[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:52[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:53[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:53[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:53[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:53[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:54[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:54[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:54[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:57[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:59[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:55:59[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:02[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:03[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:11[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:13[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:13[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:14[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:14[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:14[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:14[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:14[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:14[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:17[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:18[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:18[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:21[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:22[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:24[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:24[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:31[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:34[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:40[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:45[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:48[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:50[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:50[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:52[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:54[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:58[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:56:59[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:02[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:05[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:11[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:12[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:13[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:13[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:19[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:20[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:20[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:23[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:38[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:38[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:38[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:38[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:38[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:39[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:39[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:39[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:39[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:39[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:40[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:40[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:40[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:40[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:40[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:40[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:45[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:47[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:48[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:48[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:49[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:50[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:50[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:51[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:52[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:53[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:55[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:55[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:56[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:57[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:57:58[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:07[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:07[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:08[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:08[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:09[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:09[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:10[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:10[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:11[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:11[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:11[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:12[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:12[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:13[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:14[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:14[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:16[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:18[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:19[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:22[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:23[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:24[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:31[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:31[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:34[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:39[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:43[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:47[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:48[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:51[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:53[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:58:54[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:59:04[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:59:05[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:59:07[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:59:08[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:59:10[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:59:15[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:59:19[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:59:23[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:59:24[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:59:24[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:59:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:59:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+12:59:39[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:16[Scripting][verbose]-Plugin Discovered [Dragon Universe] PackId [30f1e0c0-ded2-4f7d-b101-6863a4d94abe_1.7.15] ModuleId [ed72aea2-84a4-45ae-819f-981acef841a6]
+
+13:01:18[Scripting][warning]-[World] BP dimensions loaded 10/10: dbe:vegeta[-64..320], dbe:frieza_planet[-64..320], dbe:yardrat[-64..320], dbe:kai[-64..320], dbe:universe_6_arena[-64..320], dbe:hell[-64..320], dbe:space[-64..320], dbe:namek[-64..320], dbe:bills_planet[-64..320], dbe:tournament_of_power[-64..320]
+
+13:01:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:30[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:34[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:38[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:39[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:41[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:42[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:42[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:43[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:47[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:48[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:48[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:48[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:49[Scripting][warning]-[Timing] Space vegeta #1 travel:start currentTick=403 now=1794499309087 dTicks=0 dMs=0 tTicks=0 tMs=0
+
+13:01:49[Scripting][warning]-[Timing] Space vegeta #1 area+loading:start (9 chunks) currentTick=403 now=1794499309088 dTicks=0 dMs=1 tTicks=0 tMs=1
+
+13:01:49[Scripting][warning]-[Timing] Space vegeta #1 area+loading:end currentTick=406 now=1794499309235 dTicks=3 dMs=147 tTicks=3 tMs=148
+
+13:01:49[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,0 terrain:start (state=undefined) currentTick=406 now=1794499309235 dTicks=0 dMs=0 tTicks=3 tMs=148
+
+13:01:49[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,0 terrain queue:end currentTick=406 now=1794499309235 dTicks=0 dMs=0 tTicks=3 tMs=148
+
+13:01:49[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,0 terrain area+loading:end (9 chunks) currentTick=406 now=1794499309235 dTicks=0 dMs=0 tTicks=3 tMs=148
+
+13:01:49[Scripting][warning]-[Terrain] dbe:vegeta: block queries do not report air; using per-block verification
+
+13:01:49[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:49[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:50[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:51[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:51[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:52[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:52[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:53[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:53[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:53[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:53[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:55[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:56[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:56[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:56[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:56[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:56[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:57[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,0 terrain buffers:end currentTick=559 now=1794499317423 dTicks=153 dMs=8188 tTicks=156 tMs=8336
+
+13:01:58[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:58[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,0 write:end currentTick=585 now=1794499318743 dTicks=26 dMs=1320 tTicks=182 tMs=9656
+
+13:01:58[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:59[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:59[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:01:59[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:00[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:00[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,0 verify:end currentTick=615 now=1794499320267 dTicks=30 dMs=1524 tTicks=212 tMs=11180
+
+13:02:00[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,0 terrain job:end (markers written) currentTick=615 now=1794499320272 dTicks=0 dMs=5 tTicks=212 tMs=11185
+
+13:02:00[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,0 terrain:end (1/9) currentTick=615 now=1794499320273 dTicks=0 dMs=1 tTicks=212 tMs=11186
+
+13:02:00[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,0 terrain:start (state=building) currentTick=615 now=1794499320273 dTicks=0 dMs=0 tTicks=212 tMs=11186
+
+13:02:00[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,0 terrain queue:end currentTick=615 now=1794499320273 dTicks=0 dMs=0 tTicks=212 tMs=11186
+
+13:02:00[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,0 terrain area+loading:end (9 chunks) currentTick=617 now=1794499320367 dTicks=2 dMs=94 tTicks=214 tMs=11280
+
+13:02:00[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:00[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:01[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:01[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:02[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:02[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:02[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:03[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:03[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:03[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:03[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:04[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:04[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:05[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:05[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:06[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:06[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:06[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,0 terrain buffers:end currentTick=747 now=1794499326938 dTicks=130 dMs=6571 tTicks=344 tMs=17851
+
+13:02:06[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:07[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:08[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,0 write:end currentTick=772 now=1794499328198 dTicks=25 dMs=1260 tTicks=369 tMs=19111
+
+13:02:08[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:08[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:09[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:09[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:09[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:09[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,0 verify:end currentTick=803 now=1794499329749 dTicks=31 dMs=1551 tTicks=400 tMs=20662
+
+13:02:09[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,0 terrain job:end (markers written) currentTick=803 now=1794499329760 dTicks=0 dMs=11 tTicks=400 tMs=20673
+
+13:02:09[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,0 terrain:end (2/9) currentTick=803 now=1794499329760 dTicks=0 dMs=0 tTicks=400 tMs=20673
+
+13:02:09[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,-1 terrain:start (state=building) currentTick=803 now=1794499329760 dTicks=0 dMs=0 tTicks=400 tMs=20673
+
+13:02:09[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,-1 terrain queue:end currentTick=803 now=1794499329760 dTicks=0 dMs=0 tTicks=400 tMs=20673
+
+13:02:09[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,-1 terrain area+loading:end (9 chunks) currentTick=805 now=1794499329855 dTicks=2 dMs=95 tTicks=402 tMs=20768
+
+13:02:10[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:11[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:11[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:11[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:14[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:14[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:15[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:15[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:15[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:15[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:16[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,-1 terrain buffers:end currentTick=930 now=1794499336096 dTicks=125 dMs=6241 tTicks=527 tMs=27009
+
+13:02:16[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:16[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:16[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:17[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:17[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:17[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:17[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,-1 write:end currentTick=953 now=1794499337249 dTicks=23 dMs=1153 tTicks=550 tMs=28162
+
+13:02:17[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:17[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:18[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:18[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:18[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,-1 verify:end currentTick=983 now=1794499338753 dTicks=30 dMs=1504 tTicks=580 tMs=29666
+
+13:02:18[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,-1 terrain job:end (markers written) currentTick=984 now=1794499338801 dTicks=1 dMs=48 tTicks=581 tMs=29714
+
+13:02:18[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,-1 terrain:end (3/9) currentTick=984 now=1794499338801 dTicks=0 dMs=0 tTicks=581 tMs=29714
+
+13:02:18[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,1 terrain:start (state=building) currentTick=984 now=1794499338801 dTicks=0 dMs=0 tTicks=581 tMs=29714
+
+13:02:18[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,1 terrain queue:end currentTick=984 now=1794499338801 dTicks=0 dMs=0 tTicks=581 tMs=29714
+
+13:02:18[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:18[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,1 terrain area+loading:end (9 chunks) currentTick=986 now=1794499338895 dTicks=2 dMs=94 tTicks=583 tMs=29808
+
+13:02:19[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:19[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:20[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:20[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:20[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:21[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:21[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:21[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:22[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:22[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:22[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:23[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:23[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:24[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:25[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,1 terrain buffers:end currentTick=1112 now=1794499345185 dTicks=126 dMs=6290 tTicks=709 tMs=36098
+
+13:02:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:26[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:26[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,1 write:end currentTick=1137 now=1794499346444 dTicks=25 dMs=1259 tTicks=734 tMs=37357
+
+13:02:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:27[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,1 verify:end currentTick=1168 now=1794499347981 dTicks=31 dMs=1537 tTicks=765 tMs=38894
+
+13:02:27[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,1 terrain job:end (markers written) currentTick=1168 now=1794499347992 dTicks=0 dMs=11 tTicks=765 tMs=38905
+
+13:02:27[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,1 terrain:end (4/9) currentTick=1168 now=1794499347992 dTicks=0 dMs=0 tTicks=765 tMs=38905
+
+13:02:27[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,0 terrain:start (state=building) currentTick=1168 now=1794499347992 dTicks=0 dMs=0 tTicks=765 tMs=38905
+
+13:02:27[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,0 terrain queue:end currentTick=1168 now=1794499347992 dTicks=0 dMs=0 tTicks=765 tMs=38905
+
+13:02:28[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,0 terrain area+loading:end (9 chunks) currentTick=1170 now=1794499348100 dTicks=2 dMs=108 tTicks=767 tMs=39013
+
+13:02:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:30[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:30[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:31[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:34[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,0 terrain buffers:end currentTick=1295 now=1794499354347 dTicks=125 dMs=6247 tTicks=892 tMs=45260
+
+13:02:35[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,0 write:end currentTick=1318 now=1794499355491 dTicks=23 dMs=1144 tTicks=915 tMs=46404
+
+13:02:36[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,0 verify:end currentTick=1346 now=1794499356902 dTicks=28 dMs=1411 tTicks=943 tMs=47815
+
+13:02:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:36[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,0 terrain job:end (markers written) currentTick=1347 now=1794499356949 dTicks=1 dMs=47 tTicks=944 tMs=47862
+
+13:02:36[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,0 terrain:end (5/9) currentTick=1347 now=1794499356950 dTicks=0 dMs=1 tTicks=944 tMs=47863
+
+13:02:36[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,-1 terrain:start (state=building) currentTick=1347 now=1794499356950 dTicks=0 dMs=0 tTicks=944 tMs=47863
+
+13:02:36[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,-1 terrain queue:end currentTick=1347 now=1794499356950 dTicks=0 dMs=0 tTicks=944 tMs=47863
+
+13:02:37[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,-1 terrain area+loading:end (9 chunks) currentTick=1349 now=1794499357044 dTicks=2 dMs=94 tTicks=946 tMs=47957
+
+13:02:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:38[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:38[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:40[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:40[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:41[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:43[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,-1 terrain buffers:end currentTick=1471 now=1794499363145 dTicks=122 dMs=6101 tTicks=1068 tMs=54058
+
+13:02:44[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,-1 write:end currentTick=1496 now=1794499364391 dTicks=25 dMs=1246 tTicks=1093 tMs=55304
+
+13:02:45[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:45[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,-1 verify:end currentTick=1525 now=1794499365844 dTicks=29 dMs=1453 tTicks=1122 tMs=56757
+
+13:02:45[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,-1 terrain job:end (markers written) currentTick=1525 now=1794499365854 dTicks=0 dMs=10 tTicks=1122 tMs=56767
+
+13:02:45[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,-1 terrain:end (6/9) currentTick=1525 now=1794499365854 dTicks=0 dMs=0 tTicks=1122 tMs=56767
+
+13:02:45[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,1 terrain:start (state=building) currentTick=1525 now=1794499365854 dTicks=0 dMs=0 tTicks=1122 tMs=56767
+
+13:02:45[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,1 terrain queue:end currentTick=1525 now=1794499365854 dTicks=0 dMs=0 tTicks=1122 tMs=56767
+
+13:02:45[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,1 terrain area+loading:end (9 chunks) currentTick=1527 now=1794499365948 dTicks=2 dMs=94 tTicks=1124 tMs=56861
+
+13:02:47[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:47[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:51[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:52[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:52[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,1 terrain buffers:end currentTick=1652 now=1794499372193 dTicks=125 dMs=6245 tTicks=1249 tMs=63106
+
+13:02:52[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:53[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,1 write:end currentTick=1678 now=1794499373493 dTicks=26 dMs=1300 tTicks=1275 tMs=64406
+
+13:02:53[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:53[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:54[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:54[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:54[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:54[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,1 verify:end currentTick=1708 now=1794499374999 dTicks=30 dMs=1506 tTicks=1305 tMs=65912
+
+13:02:55[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,1 terrain job:end (markers written) currentTick=1708 now=1794499375004 dTicks=0 dMs=5 tTicks=1305 tMs=65917
+
+13:02:55[Scripting][warning]-[Timing] Space vegeta #1 chunk 0,1 terrain:end (7/9) currentTick=1708 now=1794499375004 dTicks=0 dMs=0 tTicks=1305 tMs=65917
+
+13:02:55[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,-1 terrain:start (state=building) currentTick=1708 now=1794499375005 dTicks=0 dMs=1 tTicks=1305 tMs=65918
+
+13:02:55[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,-1 terrain queue:end currentTick=1708 now=1794499375005 dTicks=0 dMs=0 tTicks=1305 tMs=65918
+
+13:02:55[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,-1 terrain area+loading:end (9 chunks) currentTick=1710 now=1794499375098 dTicks=2 dMs=93 tTicks=1307 tMs=66011
+
+13:02:55[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:55[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:57[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:57[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:57[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:57[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:57[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:58[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:58[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:58[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:58[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:02:59[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:00[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:00[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:01[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:01[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:01[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,-1 terrain buffers:end currentTick=1835 now=1794499381333 dTicks=125 dMs=6235 tTicks=1432 tMs=72246
+
+13:03:01[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:01[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:02[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:02[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:02[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,-1 write:end currentTick=1857 now=1794499382442 dTicks=22 dMs=1109 tTicks=1454 tMs=73355
+
+13:03:02[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:03[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:03[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:03[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,-1 verify:end currentTick=1885 now=1794499383849 dTicks=28 dMs=1407 tTicks=1482 tMs=74762
+
+13:03:03[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:03[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,-1 terrain job:end (markers written) currentTick=1886 now=1794499383896 dTicks=1 dMs=47 tTicks=1483 tMs=74809
+
+13:03:03[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,-1 terrain:end (8/9) currentTick=1886 now=1794499383896 dTicks=0 dMs=0 tTicks=1483 tMs=74809
+
+13:03:03[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,1 terrain:start (state=building) currentTick=1886 now=1794499383897 dTicks=0 dMs=1 tTicks=1483 tMs=74810
+
+13:03:03[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,1 terrain queue:end currentTick=1886 now=1794499383897 dTicks=0 dMs=0 tTicks=1483 tMs=74810
+
+13:03:03[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,1 terrain area+loading:end (9 chunks) currentTick=1888 now=1794499383991 dTicks=2 dMs=94 tTicks=1485 tMs=74904
+
+13:03:04[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:04[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:04[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:05[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:08[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:08[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:09[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:10[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,1 terrain buffers:end currentTick=2013 now=1794499390246 dTicks=125 dMs=6255 tTicks=1610 tMs=81159
+
+13:03:10[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:10[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:11[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,1 write:end currentTick=2039 now=1794499391532 dTicks=26 dMs=1286 tTicks=1636 tMs=82445
+
+13:03:12[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:12[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:12[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,1 verify:end currentTick=2068 now=1794499392986 dTicks=29 dMs=1454 tTicks=1665 tMs=83899
+
+13:03:12[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,1 terrain job:end (markers written) currentTick=2068 now=1794499392992 dTicks=0 dMs=6 tTicks=1665 tMs=83905
+
+13:03:12[Scripting][warning]-[Timing] Space vegeta #1 chunk 2,1 terrain:end (9/9) currentTick=2068 now=1794499392992 dTicks=0 dMs=0 tTicks=1665 tMs=83905
+
+13:03:12[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,0 decoration:start currentTick=2068 now=1794499392992 dTicks=0 dMs=0 tTicks=1665 tMs=83905
+
+13:03:12[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,0 decoration queue:end currentTick=2068 now=1794499392992 dTicks=0 dMs=0 tTicks=1665 tMs=83905
+
+13:03:12[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,0 decoration area+loading:end (9 chunks) currentTick=2068 now=1794499392992 dTicks=0 dMs=0 tTicks=1665 tMs=83905
+
+13:03:13[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:13[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,0 decoration job:end (markers written) currentTick=2074 now=1794499393381 dTicks=6 dMs=389 tTicks=1671 tMs=84294
+
+13:03:13[Scripting][warning]-[Timing] Space vegeta #1 chunk 1,0 decoration:end currentTick=2074 now=1794499393381 dTicks=0 dMs=0 tTicks=1671 tMs=84294
+
+13:03:13[Scripting][warning]-[Timing] Space vegeta #1 teleport:start (arrival area + checks) currentTick=2074 now=1794499393381 dTicks=0 dMs=0 tTicks=1671 tMs=84294
+
+13:03:13[Scripting][warning]-[Timing] Space vegeta #1 teleport:end (arrived) currentTick=2076 now=1794499393483 dTicks=2 dMs=102 tTicks=1673 tMs=84396
+
+13:03:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:36[Scripting][warning]-[Timing] Space frieza #2 travel:start currentTick=2537 now=1794499416529 dTicks=0 dMs=0 tTicks=0 tMs=0
+
+13:03:36[Scripting][warning]-[Timing] Space frieza #2 area+loading:start (9 chunks) currentTick=2537 now=1794499416530 dTicks=0 dMs=1 tTicks=0 tMs=1
+
+13:03:36[Scripting][warning]-[Timing] Space frieza #2 area+loading:end currentTick=2540 now=1794499416671 dTicks=3 dMs=141 tTicks=3 tMs=142
+
+13:03:36[Scripting][warning]-[Timing] Space frieza #2 chunk 0,0 terrain:start (state=undefined) currentTick=2540 now=1794499416672 dTicks=0 dMs=1 tTicks=3 tMs=143
+
+13:03:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:40[Scripting][warning]-[Timing] Space frieza #2 chunk 0,0 terrain queue:end currentTick=2616 now=1794499420473 dTicks=76 dMs=3801 tTicks=79 tMs=3944
+
+13:03:40[Scripting][warning]-[Timing] Space frieza #2 chunk 0,0 terrain area+loading:end (9 chunks) currentTick=2616 now=1794499420473 dTicks=0 dMs=0 tTicks=79 tMs=3944
+
+13:03:40[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:40[Scripting][warning]-[Terrain] dbe:frieza_planet: block queries do not report air; using per-block verification
+
+13:03:42[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:43[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:43[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:44[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:46[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:47[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:47[Scripting][warning]-[Timing] Space frieza #2 chunk 0,0 terrain buffers:end currentTick=2752 now=1794499427267 dTicks=136 dMs=6794 tTicks=215 tMs=10738
+
+13:03:47[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:47[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:48[Scripting][warning]-[Timing] Space frieza #2 chunk 0,0 write:end currentTick=2775 now=1794499428429 dTicks=23 dMs=1162 tTicks=238 tMs=11900
+
+13:03:49[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:49[Scripting][warning]-[Timing] Space frieza #2 chunk 0,0 verify:end currentTick=2805 now=1794499429918 dTicks=30 dMs=1489 tTicks=268 tMs=13389
+
+13:03:49[Scripting][warning]-[Timing] Space frieza #2 chunk 0,0 terrain job:end (markers written) currentTick=2806 now=1794499429967 dTicks=1 dMs=49 tTicks=269 tMs=13438
+
+13:03:49[Scripting][warning]-[Timing] Space frieza #2 chunk 0,0 terrain:end (1/9) currentTick=2806 now=1794499429967 dTicks=0 dMs=0 tTicks=269 tMs=13438
+
+13:03:49[Scripting][warning]-[Timing] Space frieza #2 chunk -1,0 terrain:start (state=building) currentTick=2806 now=1794499429968 dTicks=0 dMs=1 tTicks=269 tMs=13439
+
+13:03:49[Scripting][warning]-[Timing] Space frieza #2 chunk -1,0 terrain queue:end currentTick=2806 now=1794499429968 dTicks=0 dMs=0 tTicks=269 tMs=13439
+
+13:03:50[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:50[Scripting][warning]-[Timing] Space frieza #2 chunk -1,0 terrain area+loading:end (9 chunks) currentTick=2808 now=1794499430077 dTicks=2 dMs=109 tTicks=271 tMs=13548
+
+13:03:50[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:50[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:50[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:51[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:51[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:51[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:52[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:53[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:54[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:54[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:55[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:56[Scripting][warning]-[Timing] Space frieza #2 chunk -1,0 terrain buffers:end currentTick=2940 now=1794499436675 dTicks=132 dMs=6598 tTicks=403 tMs=20146
+
+13:03:57[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:57[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:57[Scripting][warning]-[Timing] Space frieza #2 chunk -1,0 write:end currentTick=2965 now=1794499437929 dTicks=25 dMs=1254 tTicks=428 tMs=21400
+
+13:03:59[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:03:59[Scripting][warning]-[Timing] Space frieza #2 chunk -1,0 verify:end currentTick=2996 now=1794499439470 dTicks=31 dMs=1541 tTicks=459 tMs=22941
+
+13:03:59[Scripting][warning]-[Timing] Space frieza #2 chunk -1,0 terrain job:end (markers written) currentTick=2996 now=1794499439478 dTicks=0 dMs=8 tTicks=459 tMs=22949
+
+13:03:59[Scripting][warning]-[Timing] Space frieza #2 chunk -1,0 terrain:end (2/9) currentTick=2996 now=1794499439478 dTicks=0 dMs=0 tTicks=459 tMs=22949
+
+13:03:59[Scripting][warning]-[Timing] Space frieza #2 chunk 0,-1 terrain:start (state=building) currentTick=2996 now=1794499439479 dTicks=0 dMs=1 tTicks=459 tMs=22950
+
+13:03:59[Scripting][warning]-[Timing] Space frieza #2 chunk 0,-1 terrain queue:end currentTick=2996 now=1794499439479 dTicks=0 dMs=0 tTicks=459 tMs=22950
+
+13:03:59[Scripting][warning]-[Timing] Space frieza #2 chunk 0,-1 terrain area+loading:end (9 chunks) currentTick=2998 now=1794499439572 dTicks=2 dMs=93 tTicks=461 tMs=23043
+
+13:04:00[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:00[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:01[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:01[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:03[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:04[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:04[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:05[Scripting][warning]-[Timing] Space frieza #2 chunk 0,-1 terrain buffers:end currentTick=3126 now=1794499445965 dTicks=128 dMs=6393 tTicks=589 tMs=29436
+
+13:04:06[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:07[Scripting][warning]-[Timing] Space frieza #2 chunk 0,-1 write:end currentTick=3151 now=1794499447225 dTicks=25 dMs=1260 tTicks=614 tMs=30696
+
+13:04:07[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:08[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:08[Scripting][warning]-[Timing] Space frieza #2 chunk 0,-1 verify:end currentTick=3182 now=1794499448765 dTicks=31 dMs=1540 tTicks=645 tMs=32236
+
+13:04:08[Scripting][warning]-[Timing] Space frieza #2 chunk 0,-1 terrain job:end (markers written) currentTick=3182 now=1794499448775 dTicks=0 dMs=10 tTicks=645 tMs=32246
+
+13:04:08[Scripting][warning]-[Timing] Space frieza #2 chunk 0,-1 terrain:end (3/9) currentTick=3182 now=1794499448775 dTicks=0 dMs=0 tTicks=645 tMs=32246
+
+13:04:08[Scripting][warning]-[Timing] Space frieza #2 chunk 0,1 terrain:start (state=building) currentTick=3182 now=1794499448775 dTicks=0 dMs=0 tTicks=645 tMs=32246
+
+13:04:08[Scripting][warning]-[Timing] Space frieza #2 chunk 0,1 terrain queue:end currentTick=3182 now=1794499448775 dTicks=0 dMs=0 tTicks=645 tMs=32246
+
+13:04:08[Scripting][warning]-[Timing] Space frieza #2 chunk 0,1 terrain area+loading:end (9 chunks) currentTick=3184 now=1794499448868 dTicks=2 dMs=93 tTicks=647 tMs=32339
+
+13:04:09[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:11[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:11[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:13[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:15[Scripting][warning]-[Timing] Space frieza #2 chunk 0,1 terrain buffers:end currentTick=3311 now=1794499455223 dTicks=127 dMs=6355 tTicks=774 tMs=38694
+
+13:04:16[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:16[Scripting][warning]-[Timing] Space frieza #2 chunk 0,1 write:end currentTick=3334 now=1794499456370 dTicks=23 dMs=1147 tTicks=797 tMs=39841
+
+13:04:16[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:17[Scripting][warning]-[Timing] Space frieza #2 chunk 0,1 verify:end currentTick=3364 now=1794499457865 dTicks=30 dMs=1495 tTicks=827 tMs=41336
+
+13:04:17[Scripting][warning]-[Timing] Space frieza #2 chunk 0,1 terrain job:end (markers written) currentTick=3364 now=1794499457872 dTicks=0 dMs=7 tTicks=827 tMs=41343
+
+13:04:17[Scripting][warning]-[Timing] Space frieza #2 chunk 0,1 terrain:end (4/9) currentTick=3364 now=1794499457873 dTicks=0 dMs=1 tTicks=827 tMs=41344
+
+13:04:17[Scripting][warning]-[Timing] Space frieza #2 chunk 1,0 terrain:start (state=building) currentTick=3364 now=1794499457873 dTicks=0 dMs=0 tTicks=827 tMs=41344
+
+13:04:17[Scripting][warning]-[Timing] Space frieza #2 chunk 1,0 terrain queue:end currentTick=3364 now=1794499457873 dTicks=0 dMs=0 tTicks=827 tMs=41344
+
+13:04:17[Scripting][warning]-[Timing] Space frieza #2 chunk 1,0 terrain area+loading:end (9 chunks) currentTick=3366 now=1794499457982 dTicks=2 dMs=109 tTicks=829 tMs=41453
+
+13:04:22[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:23[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:23[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:24[Scripting][warning]-[Timing] Space frieza #2 chunk 1,0 terrain buffers:end currentTick=3491 now=1794499464221 dTicks=125 dMs=6239 tTicks=954 tMs=47692
+
+13:04:24[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:25[Scripting][warning]-[Timing] Space frieza #2 chunk 1,0 write:end currentTick=3513 now=1794499465310 dTicks=22 dMs=1089 tTicks=976 tMs=48781
+
+13:04:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:26[Scripting][warning]-[Timing] Space frieza #2 chunk 1,0 verify:end currentTick=3542 now=1794499466767 dTicks=29 dMs=1457 tTicks=1005 tMs=50238
+
+13:04:26[Scripting][warning]-[Timing] Space frieza #2 chunk 1,0 terrain job:end (markers written) currentTick=3543 now=1794499466818 dTicks=1 dMs=51 tTicks=1006 tMs=50289
+
+13:04:26[Scripting][warning]-[Timing] Space frieza #2 chunk 1,0 terrain:end (5/9) currentTick=3543 now=1794499466818 dTicks=0 dMs=0 tTicks=1006 tMs=50289
+
+13:04:26[Scripting][warning]-[Timing] Space frieza #2 chunk -1,-1 terrain:start (state=building) currentTick=3543 now=1794499466819 dTicks=0 dMs=1 tTicks=1006 tMs=50290
+
+13:04:26[Scripting][warning]-[Timing] Space frieza #2 chunk -1,-1 terrain queue:end currentTick=3543 now=1794499466819 dTicks=0 dMs=0 tTicks=1006 tMs=50290
+
+13:04:26[Scripting][warning]-[Timing] Space frieza #2 chunk -1,-1 terrain area+loading:end (9 chunks) currentTick=3545 now=1794499466928 dTicks=2 dMs=109 tTicks=1008 tMs=50399
+
+13:04:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:30[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:33[Scripting][warning]-[Timing] Space frieza #2 chunk -1,-1 terrain buffers:end currentTick=3679 now=1794499473620 dTicks=134 dMs=6692 tTicks=1142 tMs=57091
+
+13:04:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:34[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:34[Scripting][warning]-[Timing] Space frieza #2 chunk -1,-1 write:end currentTick=3703 now=1794499474820 dTicks=24 dMs=1200 tTicks=1166 tMs=58291
+
+13:04:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:36[Scripting][warning]-[Timing] Space frieza #2 chunk -1,-1 verify:end currentTick=3733 now=1794499476318 dTicks=30 dMs=1498 tTicks=1196 tMs=59789
+
+13:04:36[Scripting][warning]-[Timing] Space frieza #2 chunk -1,-1 terrain job:end (markers written) currentTick=3733 now=1794499476326 dTicks=0 dMs=8 tTicks=1196 tMs=59797
+
+13:04:36[Scripting][warning]-[Timing] Space frieza #2 chunk -1,-1 terrain:end (6/9) currentTick=3733 now=1794499476326 dTicks=0 dMs=0 tTicks=1196 tMs=59797
+
+13:04:36[Scripting][warning]-[Timing] Space frieza #2 chunk -1,1 terrain:start (state=building) currentTick=3733 now=1794499476326 dTicks=0 dMs=0 tTicks=1196 tMs=59797
+
+13:04:36[Scripting][warning]-[Timing] Space frieza #2 chunk -1,1 terrain queue:end currentTick=3733 now=1794499476326 dTicks=0 dMs=0 tTicks=1196 tMs=59797
+
+13:04:36[Scripting][warning]-[Timing] Space frieza #2 chunk -1,1 terrain area+loading:end (9 chunks) currentTick=3735 now=1794499476420 dTicks=2 dMs=94 tTicks=1198 tMs=59891
+
+13:04:40[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:42[Scripting][warning]-[Timing] Space frieza #2 chunk -1,1 terrain buffers:end currentTick=3862 now=1794499482768 dTicks=127 dMs=6348 tTicks=1325 tMs=66239
+
+13:04:44[Scripting][warning]-[Timing] Space frieza #2 chunk -1,1 write:end currentTick=3887 now=1794499484017 dTicks=25 dMs=1249 tTicks=1350 tMs=67488
+
+13:04:45[Scripting][warning]-[Timing] Space frieza #2 chunk -1,1 verify:end currentTick=3917 now=1794499485528 dTicks=30 dMs=1511 tTicks=1380 tMs=68999
+
+13:04:45[Scripting][warning]-[Timing] Space frieza #2 chunk -1,1 terrain job:end (markers written) currentTick=3918 now=1794499485577 dTicks=1 dMs=49 tTicks=1381 tMs=69048
+
+13:04:45[Scripting][warning]-[Timing] Space frieza #2 chunk -1,1 terrain:end (7/9) currentTick=3918 now=1794499485577 dTicks=0 dMs=0 tTicks=1381 tMs=69048
+
+13:04:45[Scripting][warning]-[Timing] Space frieza #2 chunk 1,-1 terrain:start (state=building) currentTick=3918 now=1794499485577 dTicks=0 dMs=0 tTicks=1381 tMs=69048
+
+13:04:45[Scripting][warning]-[Timing] Space frieza #2 chunk 1,-1 terrain queue:end currentTick=3918 now=1794499485577 dTicks=0 dMs=0 tTicks=1381 tMs=69048
+
+13:04:45[Scripting][warning]-[Timing] Space frieza #2 chunk 1,-1 terrain area+loading:end (9 chunks) currentTick=3920 now=1794499485671 dTicks=2 dMs=94 tTicks=1383 tMs=69142
+
+13:04:50[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:04:52[Scripting][warning]-[Timing] Space frieza #2 chunk 1,-1 terrain buffers:end currentTick=4047 now=1794499492017 dTicks=127 dMs=6346 tTicks=1510 tMs=75488
+
+13:04:53[Scripting][warning]-[Timing] Space frieza #2 chunk 1,-1 write:end currentTick=4072 now=1794499493277 dTicks=25 dMs=1260 tTicks=1535 tMs=76748
+
+13:04:54[Scripting][warning]-[Timing] Space frieza #2 chunk 1,-1 verify:end currentTick=4102 now=1794499494764 dTicks=30 dMs=1487 tTicks=1565 tMs=78235
+
+13:04:54[Scripting][warning]-[Timing] Space frieza #2 chunk 1,-1 terrain job:end (markers written) currentTick=4103 now=1794499494821 dTicks=1 dMs=57 tTicks=1566 tMs=78292
+
+13:04:54[Scripting][warning]-[Timing] Space frieza #2 chunk 1,-1 terrain:end (8/9) currentTick=4103 now=1794499494821 dTicks=0 dMs=0 tTicks=1566 tMs=78292
+
+13:04:54[Scripting][warning]-[Timing] Space frieza #2 chunk 1,1 terrain:start (state=building) currentTick=4103 now=1794499494821 dTicks=0 dMs=0 tTicks=1566 tMs=78292
+
+13:04:54[Scripting][warning]-[Timing] Space frieza #2 chunk 1,1 terrain queue:end currentTick=4103 now=1794499494821 dTicks=0 dMs=0 tTicks=1566 tMs=78292
+
+13:04:54[Scripting][warning]-[Timing] Space frieza #2 chunk 1,1 terrain area+loading:end (9 chunks) currentTick=4105 now=1794499494929 dTicks=2 dMs=108 tTicks=1568 tMs=78400
+
+13:05:01[Scripting][warning]-[Timing] Space frieza #2 chunk 1,1 terrain buffers:end currentTick=4232 now=1794499501269 dTicks=127 dMs=6340 tTicks=1695 tMs=84740
+
+13:05:02[Scripting][warning]-[Timing] Space frieza #2 chunk 1,1 write:end currentTick=4253 now=1794499502325 dTicks=21 dMs=1056 tTicks=1716 tMs=85796
+
+13:05:03[Scripting][warning]-[Timing] Space frieza #2 chunk 1,1 verify:end currentTick=4282 now=1794499503776 dTicks=29 dMs=1451 tTicks=1745 tMs=87247
+
+13:05:03[Scripting][warning]-[Timing] Space frieza #2 chunk 1,1 terrain job:end (markers written) currentTick=4282 now=1794499503780 dTicks=0 dMs=4 tTicks=1745 tMs=87251
+
+13:05:03[Scripting][warning]-[Timing] Space frieza #2 chunk 1,1 terrain:end (9/9) currentTick=4282 now=1794499503780 dTicks=0 dMs=0 tTicks=1745 tMs=87251
+
+13:05:03[Scripting][warning]-[Timing] Space frieza #2 chunk 0,0 decoration:start currentTick=4282 now=1794499503781 dTicks=0 dMs=1 tTicks=1745 tMs=87252
+
+13:05:03[Scripting][warning]-[Timing] Space frieza #2 chunk 0,0 decoration queue:end currentTick=4282 now=1794499503781 dTicks=0 dMs=0 tTicks=1745 tMs=87252
+
+13:05:03[Scripting][warning]-[Timing] Space frieza #2 chunk 0,0 decoration area+loading:end (9 chunks) currentTick=4282 now=1794499503781 dTicks=0 dMs=0 tTicks=1745 tMs=87252
+
+13:05:04[Scripting][warning]-[Timing] Space frieza #2 chunk 0,0 decoration job:end (markers written) currentTick=4288 now=1794499504146 dTicks=6 dMs=365 tTicks=1751 tMs=87617
+
+13:05:04[Scripting][warning]-[Timing] Space frieza #2 chunk 0,0 decoration:end currentTick=4288 now=1794499504147 dTicks=0 dMs=1 tTicks=1751 tMs=87618
+
+13:05:04[Scripting][warning]-[Timing] Space frieza #2 teleport:start (arrival area + checks) currentTick=4288 now=1794499504148 dTicks=0 dMs=1 tTicks=1751 tMs=87619
+
+13:05:04[Scripting][warning]-[Timing] Space frieza #2 teleport:end (arrived) currentTick=4290 now=1794499504238 dTicks=2 dMs=90 tTicks=1753 tMs=87709
+
+13:05:18[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:18[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:18[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:30[Scripting][warning]-[Timing] Space yardrat #3 travel:start currentTick=4818 now=1794499530640 dTicks=0 dMs=0 tTicks=0 tMs=0
+
+13:05:30[Scripting][warning]-[Timing] Space yardrat #3 area+loading:start (9 chunks) currentTick=4818 now=1794499530643 dTicks=0 dMs=3 tTicks=0 tMs=3
+
+13:05:30[Scripting][warning]-[Timing] Space yardrat #3 area+loading:end currentTick=4821 now=1794499530799 dTicks=3 dMs=156 tTicks=3 tMs=159
+
+13:05:30[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,0 terrain:start (state=undefined) currentTick=4821 now=1794499530799 dTicks=0 dMs=0 tTicks=3 tMs=159
+
+13:05:31[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,0 terrain queue:end currentTick=4837 now=1794499531594 dTicks=16 dMs=795 tTicks=19 tMs=954
+
+13:05:31[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,0 terrain area+loading:end (9 chunks) currentTick=4837 now=1794499531594 dTicks=0 dMs=0 tTicks=19 tMs=954
+
+13:05:31[Scripting][warning]-[Terrain] dbe:yardrat: block queries do not report air; using per-block verification
+
+13:05:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:38[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,0 terrain buffers:end currentTick=4978 now=1794499538640 dTicks=141 dMs=7046 tTicks=160 tMs=8000
+
+13:05:39[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,0 write:end currentTick=5000 now=1794499539733 dTicks=22 dMs=1093 tTicks=182 tMs=9093
+
+13:05:41[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,0 verify:end currentTick=5029 now=1794499541186 dTicks=29 dMs=1453 tTicks=211 tMs=10546
+
+13:05:41[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,0 terrain job:end (markers written) currentTick=5029 now=1794499541192 dTicks=0 dMs=6 tTicks=211 tMs=10552
+
+13:05:41[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,0 terrain:end (1/9) currentTick=5029 now=1794499541192 dTicks=0 dMs=0 tTicks=211 tMs=10552
+
+13:05:41[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,0 terrain:start (state=building) currentTick=5029 now=1794499541193 dTicks=0 dMs=1 tTicks=211 tMs=10553
+
+13:05:41[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,0 terrain queue:end currentTick=5029 now=1794499541193 dTicks=0 dMs=0 tTicks=211 tMs=10553
+
+13:05:41[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,0 terrain area+loading:end (9 chunks) currentTick=5031 now=1794499541288 dTicks=2 dMs=95 tTicks=213 tMs=10648
+
+13:05:41[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:45[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:46[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:46[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:47[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:48[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,0 terrain buffers:end currentTick=5166 now=1794499548038 dTicks=135 dMs=6750 tTicks=348 tMs=17398
+
+13:05:49[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,0 write:end currentTick=5187 now=1794499549092 dTicks=21 dMs=1054 tTicks=369 tMs=18452
+
+13:05:49[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:50[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,0 verify:end currentTick=5217 now=1794499550580 dTicks=30 dMs=1488 tTicks=399 tMs=19940
+
+13:05:50[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,0 terrain job:end (markers written) currentTick=5217 now=1794499550589 dTicks=0 dMs=9 tTicks=399 tMs=19949
+
+13:05:50[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,0 terrain:end (2/9) currentTick=5217 now=1794499550590 dTicks=0 dMs=1 tTicks=399 tMs=19950
+
+13:05:50[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,-1 terrain:start (state=building) currentTick=5217 now=1794499550590 dTicks=0 dMs=0 tTicks=399 tMs=19950
+
+13:05:50[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,-1 terrain queue:end currentTick=5217 now=1794499550590 dTicks=0 dMs=0 tTicks=399 tMs=19950
+
+13:05:50[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,-1 terrain area+loading:end (9 chunks) currentTick=5219 now=1794499550700 dTicks=2 dMs=110 tTicks=401 tMs=20060
+
+13:05:51[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:52[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:53[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:53[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:54[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:57[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,-1 terrain buffers:end currentTick=5352 now=1794499557337 dTicks=133 dMs=6637 tTicks=534 tMs=26697
+
+13:05:57[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:05:58[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,-1 write:end currentTick=5374 now=1794499558427 dTicks=22 dMs=1090 tTicks=556 tMs=27787
+
+13:05:59[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,-1 verify:end currentTick=5404 now=1794499559926 dTicks=30 dMs=1499 tTicks=586 tMs=29286
+
+13:05:59[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,-1 terrain job:end (markers written) currentTick=5404 now=1794499559938 dTicks=0 dMs=12 tTicks=586 tMs=29298
+
+13:05:59[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,-1 terrain:end (3/9) currentTick=5404 now=1794499559938 dTicks=0 dMs=0 tTicks=586 tMs=29298
+
+13:05:59[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,1 terrain:start (state=building) currentTick=5404 now=1794499559938 dTicks=0 dMs=0 tTicks=586 tMs=29298
+
+13:05:59[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,1 terrain queue:end currentTick=5404 now=1794499559938 dTicks=0 dMs=0 tTicks=586 tMs=29298
+
+13:06:00[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,1 terrain area+loading:end (9 chunks) currentTick=5406 now=1794499560048 dTicks=2 dMs=110 tTicks=588 tMs=29408
+
+13:06:06[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:06[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,1 terrain buffers:end currentTick=5538 now=1794499566627 dTicks=132 dMs=6579 tTicks=720 tMs=35987
+
+13:06:07[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,1 write:end currentTick=5559 now=1794499567682 dTicks=21 dMs=1055 tTicks=741 tMs=37042
+
+13:06:07[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:09[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,1 verify:end currentTick=5588 now=1794499569141 dTicks=29 dMs=1459 tTicks=770 tMs=38501
+
+13:06:09[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,1 terrain job:end (markers written) currentTick=5589 now=1794499569193 dTicks=1 dMs=52 tTicks=771 tMs=38553
+
+13:06:09[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,1 terrain:end (4/9) currentTick=5589 now=1794499569193 dTicks=0 dMs=0 tTicks=771 tMs=38553
+
+13:06:09[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,0 terrain:start (state=building) currentTick=5589 now=1794499569194 dTicks=0 dMs=1 tTicks=771 tMs=38554
+
+13:06:09[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,0 terrain queue:end currentTick=5589 now=1794499569194 dTicks=0 dMs=0 tTicks=771 tMs=38554
+
+13:06:09[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,0 terrain area+loading:end (9 chunks) currentTick=5591 now=1794499569288 dTicks=2 dMs=94 tTicks=773 tMs=38648
+
+13:06:09[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:15[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,0 terrain buffers:end currentTick=5722 now=1794499575829 dTicks=131 dMs=6541 tTicks=904 tMs=45189
+
+13:06:16[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:16[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:16[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,0 write:end currentTick=5743 now=1794499576881 dTicks=21 dMs=1052 tTicks=925 tMs=46241
+
+13:06:18[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:18[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:18[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,0 verify:end currentTick=5772 now=1794499578332 dTicks=29 dMs=1451 tTicks=954 tMs=47692
+
+13:06:18[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,0 terrain job:end (markers written) currentTick=5772 now=1794499578343 dTicks=0 dMs=11 tTicks=954 tMs=47703
+
+13:06:18[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,0 terrain:end (5/9) currentTick=5772 now=1794499578343 dTicks=0 dMs=0 tTicks=954 tMs=47703
+
+13:06:18[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,-1 terrain:start (state=building) currentTick=5772 now=1794499578343 dTicks=0 dMs=0 tTicks=954 tMs=47703
+
+13:06:18[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,-1 terrain queue:end currentTick=5772 now=1794499578343 dTicks=0 dMs=0 tTicks=954 tMs=47703
+
+13:06:18[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,-1 terrain area+loading:end (9 chunks) currentTick=5774 now=1794499578435 dTicks=2 dMs=92 tTicks=956 tMs=47795
+
+13:06:20[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:21[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:24[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:24[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,-1 terrain buffers:end currentTick=5905 now=1794499584995 dTicks=131 dMs=6560 tTicks=1087 tMs=54355
+
+13:06:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:26[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,-1 write:end currentTick=5927 now=1794499586081 dTicks=22 dMs=1086 tTicks=1109 tMs=55441
+
+13:06:27[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,-1 verify:end currentTick=5956 now=1794499587531 dTicks=29 dMs=1450 tTicks=1138 tMs=56891
+
+13:06:27[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,-1 terrain job:end (markers written) currentTick=5956 now=1794499587537 dTicks=0 dMs=6 tTicks=1138 tMs=56897
+
+13:06:27[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,-1 terrain:end (6/9) currentTick=5956 now=1794499587537 dTicks=0 dMs=0 tTicks=1138 tMs=56897
+
+13:06:27[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,1 terrain:start (state=building) currentTick=5956 now=1794499587537 dTicks=0 dMs=0 tTicks=1138 tMs=56897
+
+13:06:27[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,1 terrain queue:end currentTick=5956 now=1794499587538 dTicks=0 dMs=1 tTicks=1138 tMs=56898
+
+13:06:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:27[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,1 terrain area+loading:end (9 chunks) currentTick=5958 now=1794499587648 dTicks=2 dMs=110 tTicks=1140 tMs=57008
+
+13:06:30[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:34[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,1 terrain buffers:end currentTick=6088 now=1794499594128 dTicks=130 dMs=6480 tTicks=1270 tMs=63488
+
+13:06:35[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,1 write:end currentTick=6109 now=1794499595185 dTicks=21 dMs=1057 tTicks=1291 tMs=64545
+
+13:06:36[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,1 verify:end currentTick=6138 now=1794499596636 dTicks=29 dMs=1451 tTicks=1320 tMs=65996
+
+13:06:36[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,1 terrain job:end (markers written) currentTick=6139 now=1794499596686 dTicks=1 dMs=50 tTicks=1321 tMs=66046
+
+13:06:36[Scripting][warning]-[Timing] Space yardrat #3 chunk -3,1 terrain:end (7/9) currentTick=6139 now=1794499596687 dTicks=0 dMs=1 tTicks=1321 tMs=66047
+
+13:06:36[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,-1 terrain:start (state=building) currentTick=6139 now=1794499596687 dTicks=0 dMs=0 tTicks=1321 tMs=66047
+
+13:06:36[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,-1 terrain queue:end currentTick=6139 now=1794499596687 dTicks=0 dMs=0 tTicks=1321 tMs=66047
+
+13:06:36[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,-1 terrain area+loading:end (9 chunks) currentTick=6141 now=1794499596796 dTicks=2 dMs=109 tTicks=1323 tMs=66156
+
+13:06:43[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,-1 terrain buffers:end currentTick=6270 now=1794499603248 dTicks=129 dMs=6452 tTicks=1452 tMs=72608
+
+13:06:44[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:44[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,-1 write:end currentTick=6292 now=1794499604332 dTicks=22 dMs=1084 tTicks=1474 tMs=73692
+
+13:06:45[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,-1 verify:end currentTick=6321 now=1794499605786 dTicks=29 dMs=1454 tTicks=1503 tMs=75146
+
+13:06:45[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,-1 terrain job:end (markers written) currentTick=6321 now=1794499605796 dTicks=0 dMs=10 tTicks=1503 tMs=75156
+
+13:06:45[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,-1 terrain:end (8/9) currentTick=6321 now=1794499605797 dTicks=0 dMs=1 tTicks=1503 tMs=75157
+
+13:06:45[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,1 terrain:start (state=building) currentTick=6321 now=1794499605797 dTicks=0 dMs=0 tTicks=1503 tMs=75157
+
+13:06:45[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,1 terrain queue:end currentTick=6321 now=1794499605797 dTicks=0 dMs=0 tTicks=1503 tMs=75157
+
+13:06:45[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,1 terrain area+loading:end (9 chunks) currentTick=6323 now=1794499605890 dTicks=2 dMs=93 tTicks=1505 tMs=75250
+
+13:06:48[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:48[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:52[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,1 terrain buffers:end currentTick=6452 now=1794499612325 dTicks=129 dMs=6435 tTicks=1634 tMs=81685
+
+13:06:53[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,1 write:end currentTick=6473 now=1794499613384 dTicks=21 dMs=1059 tTicks=1655 tMs=82744
+
+13:06:54[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:06:54[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,1 verify:end currentTick=6502 now=1794499614842 dTicks=29 dMs=1458 tTicks=1684 tMs=84202
+
+13:06:54[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,1 terrain job:end (markers written) currentTick=6502 now=1794499614848 dTicks=0 dMs=6 tTicks=1684 tMs=84208
+
+13:06:54[Scripting][warning]-[Timing] Space yardrat #3 chunk -1,1 terrain:end (9/9) currentTick=6502 now=1794499614848 dTicks=0 dMs=0 tTicks=1684 tMs=84208
+
+13:06:54[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,0 decoration:start currentTick=6502 now=1794499614848 dTicks=0 dMs=0 tTicks=1684 tMs=84208
+
+13:06:54[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,0 decoration queue:end currentTick=6502 now=1794499614849 dTicks=0 dMs=1 tTicks=1684 tMs=84209
+
+13:06:54[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,0 decoration area+loading:end (9 chunks) currentTick=6502 now=1794499614849 dTicks=0 dMs=0 tTicks=1684 tMs=84209
+
+13:06:55[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,0 decoration job:end (markers written) currentTick=6507 now=1794499615151 dTicks=5 dMs=302 tTicks=1689 tMs=84511
+
+13:06:55[Scripting][warning]-[Timing] Space yardrat #3 chunk -2,0 decoration:end currentTick=6507 now=1794499615151 dTicks=0 dMs=0 tTicks=1689 tMs=84511
+
+13:06:55[Scripting][warning]-[Timing] Space yardrat #3 teleport:start (arrival area + checks) currentTick=6507 now=1794499615152 dTicks=0 dMs=1 tTicks=1689 tMs=84512
+
+13:06:55[Scripting][warning]-[Timing] Space yardrat #3 teleport:end (arrived) currentTick=6509 now=1794499615223 dTicks=2 dMs=71 tTicks=1691 tMs=84583
+
+13:07:04[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:04[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:05[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:05[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:11[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:12[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:13[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:13[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:13[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:14[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:14[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:23[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:23[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:24[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:24[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:24[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:28[Scripting][warning]-[Timing] Kaioshin #4 travel:start currentTick=7180 now=1794499648771 dTicks=0 dMs=0 tTicks=0 tMs=0
+
+13:07:28[Scripting][warning]-[Timing] Kaioshin #4 area+loading:start currentTick=7180 now=1794499648772 dTicks=0 dMs=1 tTicks=0 tMs=1
+
+13:07:28[Scripting][warning]-[Timing] Kaioshin #4 area+loading:end currentTick=7183 now=1794499648928 dTicks=3 dMs=156 tTicks=3 tMs=157
+
+13:07:28[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,0 terrain:start (queue + job) currentTick=7183 now=1794499648928 dTicks=0 dMs=0 tTicks=3 tMs=157
+
+13:07:28[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,0 inspect:end currentTick=7184 now=1794499648971 dTicks=1 dMs=43 tTicks=4 tMs=200
+
+13:07:28[Scripting][warning]-[Terrain] dbe:kai: air-only fill is not reliable (air in an untouched sub-chunk not filled (observed minecraft:air)); using per-block writes
+
+13:07:28[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,0 write:start (per-block) currentTick=7184 now=1794499648971 dTicks=0 dMs=0 tTicks=4 tMs=200
+
+13:07:30[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,0 write:end currentTick=7208 now=1794499650168 dTicks=24 dMs=1197 tTicks=28 tMs=1397
+
+13:07:30[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:30[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:30[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,0 verify:end (ok) currentTick=7224 now=1794499650972 dTicks=16 dMs=804 tTicks=44 tMs=2201
+
+13:07:30[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,0 terrain:end currentTick=7224 now=1794499650984 dTicks=0 dMs=12 tTicks=44 tMs=2213
+
+13:07:30[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,0 terrain:start (queue + job) currentTick=7224 now=1794499650984 dTicks=0 dMs=0 tTicks=44 tMs=2213
+
+13:07:31[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,0 inspect:end currentTick=7225 now=1794499651024 dTicks=1 dMs=40 tTicks=45 tMs=2253
+
+13:07:31[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,0 write:start (per-block) currentTick=7225 now=1794499651024 dTicks=0 dMs=0 tTicks=45 tMs=2253
+
+13:07:31[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:32[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,0 write:end currentTick=7246 now=1794499652069 dTicks=21 dMs=1045 tTicks=66 tMs=3298
+
+13:07:32[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,0 verify:end (ok) currentTick=7262 now=1794499652864 dTicks=16 dMs=795 tTicks=82 tMs=4093
+
+13:07:32[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,0 terrain:end currentTick=7262 now=1794499652873 dTicks=0 dMs=9 tTicks=82 tMs=4102
+
+13:07:32[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,-1 terrain:start (queue + job) currentTick=7262 now=1794499652873 dTicks=0 dMs=0 tTicks=82 tMs=4102
+
+13:07:32[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,-1 inspect:end currentTick=7263 now=1794499652915 dTicks=1 dMs=42 tTicks=83 tMs=4144
+
+13:07:32[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,-1 write:start (per-block) currentTick=7263 now=1794499652916 dTicks=0 dMs=1 tTicks=83 tMs=4145
+
+13:07:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:34[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,-1 write:end currentTick=7286 now=1794499654079 dTicks=23 dMs=1163 tTicks=106 tMs=5308
+
+13:07:34[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,-1 verify:end (ok) currentTick=7302 now=1794499654871 dTicks=16 dMs=792 tTicks=122 tMs=6100
+
+13:07:34[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,-1 terrain:end currentTick=7302 now=1794499654883 dTicks=0 dMs=12 tTicks=122 tMs=6112
+
+13:07:34[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,1 terrain:start (queue + job) currentTick=7302 now=1794499654883 dTicks=0 dMs=0 tTicks=122 tMs=6112
+
+13:07:34[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,1 inspect:end currentTick=7303 now=1794499654923 dTicks=1 dMs=40 tTicks=123 tMs=6152
+
+13:07:34[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,1 write:start (per-block) currentTick=7303 now=1794499654923 dTicks=0 dMs=0 tTicks=123 tMs=6152
+
+13:07:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:35[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,1 write:end currentTick=7324 now=1794499655971 dTicks=21 dMs=1048 tTicks=144 tMs=7200
+
+13:07:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:36[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,1 verify:end (ok) currentTick=7340 now=1794499656768 dTicks=16 dMs=797 tTicks=160 tMs=7997
+
+13:07:36[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,1 terrain:end currentTick=7340 now=1794499656780 dTicks=0 dMs=12 tTicks=160 tMs=8009
+
+13:07:36[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,0 terrain:start (queue + job) currentTick=7340 now=1794499656780 dTicks=0 dMs=0 tTicks=160 tMs=8009
+
+13:07:36[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,0 inspect:end currentTick=7341 now=1794499656821 dTicks=1 dMs=41 tTicks=161 tMs=8050
+
+13:07:36[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,0 write:start (per-block) currentTick=7341 now=1794499656821 dTicks=0 dMs=0 tTicks=161 tMs=8050
+
+13:07:37[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,0 write:end currentTick=7362 now=1794499657881 dTicks=21 dMs=1060 tTicks=182 tMs=9110
+
+13:07:38[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,0 verify:end (ok) currentTick=7378 now=1794499658666 dTicks=16 dMs=785 tTicks=198 tMs=9895
+
+13:07:38[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,0 terrain:end currentTick=7378 now=1794499658678 dTicks=0 dMs=12 tTicks=198 tMs=9907
+
+13:07:38[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,-1 terrain:start (queue + job) currentTick=7378 now=1794499658678 dTicks=0 dMs=0 tTicks=198 tMs=9907
+
+13:07:38[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,-1 inspect:end currentTick=7379 now=1794499658720 dTicks=1 dMs=42 tTicks=199 tMs=9949
+
+13:07:38[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,-1 write:start (per-block) currentTick=7379 now=1794499658720 dTicks=0 dMs=0 tTicks=199 tMs=9949
+
+13:07:39[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:39[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,-1 write:end currentTick=7400 now=1794499659775 dTicks=21 dMs=1055 tTicks=220 tMs=11004
+
+13:07:39[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:07:40[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,-1 verify:end (ok) currentTick=7416 now=1794499660563 dTicks=16 dMs=788 tTicks=236 tMs=11792
+
+13:07:40[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,-1 terrain:end currentTick=7416 now=1794499660574 dTicks=0 dMs=11 tTicks=236 tMs=11803
+
+13:07:40[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,1 terrain:start (queue + job) currentTick=7416 now=1794499660575 dTicks=0 dMs=1 tTicks=236 tMs=11804
+
+13:07:40[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,1 inspect:end currentTick=7417 now=1794499660615 dTicks=1 dMs=40 tTicks=237 tMs=11844
+
+13:07:40[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,1 write:start (per-block) currentTick=7417 now=1794499660615 dTicks=0 dMs=0 tTicks=237 tMs=11844
+
+13:07:41[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,1 write:end currentTick=7438 now=1794499661675 dTicks=21 dMs=1060 tTicks=258 tMs=12904
+
+13:07:42[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,1 verify:end (ok) currentTick=7454 now=1794499662470 dTicks=16 dMs=795 tTicks=274 tMs=13699
+
+13:07:42[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,1 terrain:end currentTick=7454 now=1794499662482 dTicks=0 dMs=12 tTicks=274 tMs=13711
+
+13:07:42[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,-1 terrain:start (queue + job) currentTick=7454 now=1794499662482 dTicks=0 dMs=0 tTicks=274 tMs=13711
+
+13:07:42[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,-1 inspect:end currentTick=7455 now=1794499662522 dTicks=1 dMs=40 tTicks=275 tMs=13751
+
+13:07:42[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,-1 write:start (per-block) currentTick=7455 now=1794499662522 dTicks=0 dMs=0 tTicks=275 tMs=13751
+
+13:07:43[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,-1 write:end currentTick=7476 now=1794499663575 dTicks=21 dMs=1053 tTicks=296 tMs=14804
+
+13:07:44[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,-1 verify:end (ok) currentTick=7492 now=1794499664360 dTicks=16 dMs=785 tTicks=312 tMs=15589
+
+13:07:44[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,-1 terrain:end currentTick=7492 now=1794499664372 dTicks=0 dMs=12 tTicks=312 tMs=15601
+
+13:07:44[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,1 terrain:start (queue + job) currentTick=7492 now=1794499664372 dTicks=0 dMs=0 tTicks=312 tMs=15601
+
+13:07:44[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,1 inspect:end currentTick=7493 now=1794499664413 dTicks=1 dMs=41 tTicks=313 tMs=15642
+
+13:07:44[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,1 write:start (per-block) currentTick=7493 now=1794499664413 dTicks=0 dMs=0 tTicks=313 tMs=15642
+
+13:07:45[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,1 write:end currentTick=7514 now=1794499665476 dTicks=21 dMs=1063 tTicks=334 tMs=16705
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,1 verify:end (ok) currentTick=7530 now=1794499666271 dTicks=16 dMs=795 tTicks=350 tMs=17500
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,1 terrain:end currentTick=7530 now=1794499666283 dTicks=0 dMs=12 tTicks=350 tMs=17512
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,0 decoration:start currentTick=7530 now=1794499666283 dTicks=0 dMs=0 tTicks=350 tMs=17512
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,0 decoration:end currentTick=7531 now=1794499666334 dTicks=1 dMs=51 tTicks=351 tMs=17563
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,0 decoration:start currentTick=7531 now=1794499666334 dTicks=0 dMs=0 tTicks=351 tMs=17563
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,0 decoration:end currentTick=7533 now=1794499666428 dTicks=2 dMs=94 tTicks=353 tMs=17657
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,-1 decoration:start currentTick=7533 now=1794499666428 dTicks=0 dMs=0 tTicks=353 tMs=17657
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,-1 decoration:end currentTick=7535 now=1794499666522 dTicks=2 dMs=94 tTicks=355 tMs=17751
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,1 decoration:start currentTick=7535 now=1794499666522 dTicks=0 dMs=0 tTicks=355 tMs=17751
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk 0,1 decoration:end currentTick=7537 now=1794499666622 dTicks=2 dMs=100 tTicks=357 tMs=17851
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,0 decoration:start currentTick=7537 now=1794499666622 dTicks=0 dMs=0 tTicks=357 tMs=17851
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,0 decoration:end currentTick=7539 now=1794499666726 dTicks=2 dMs=104 tTicks=359 tMs=17955
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,-1 decoration:start currentTick=7539 now=1794499666726 dTicks=0 dMs=0 tTicks=359 tMs=17955
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,-1 decoration:end currentTick=7541 now=1794499666822 dTicks=2 dMs=96 tTicks=361 tMs=18051
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,1 decoration:start currentTick=7541 now=1794499666822 dTicks=0 dMs=0 tTicks=361 tMs=18051
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk -1,1 decoration:end currentTick=7543 now=1794499666931 dTicks=2 dMs=109 tTicks=363 tMs=18160
+
+13:07:46[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,-1 decoration:start currentTick=7543 now=1794499666931 dTicks=0 dMs=0 tTicks=363 tMs=18160
+
+13:07:47[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,-1 decoration:end currentTick=7545 now=1794499667024 dTicks=2 dMs=93 tTicks=365 tMs=18253
+
+13:07:47[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,1 decoration:start currentTick=7545 now=1794499667025 dTicks=0 dMs=1 tTicks=365 tMs=18254
+
+13:07:47[Scripting][warning]-[Timing] Kaioshin #4 chunk 1,1 decoration:end currentTick=7547 now=1794499667120 dTicks=2 dMs=95 tTicks=367 tMs=18349
+
+13:07:47[Scripting][warning]-[Timing] Kaioshin #4 teleport:start (arrival area + checks) currentTick=7547 now=1794499667120 dTicks=0 dMs=0 tTicks=367 tMs=18349
+
+13:07:47[Scripting][warning]-[Timing] Kaioshin #4 teleport:end (arrived) currentTick=7549 now=1794499667220 dTicks=2 dMs=100 tTicks=369 tMs=18449
+
+13:09:24[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:25[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:26[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:26[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:26[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:26[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:26[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:26[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:26[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:26[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:26[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:26[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:26[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:26[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:27[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:28[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:29[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:30[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:30[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:30[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:30[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:30[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:30[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:30[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:30[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:30[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:31[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:31[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:31[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:31[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:31[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:31[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:31[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:31[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:31[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:31[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:31[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:32[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:33[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:34[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:34[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:34[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:34[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:34[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:34[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:34[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:34[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:34[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:34[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:34[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:34[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:35[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:36[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:37[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:38[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:38[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:38[Sound][verbose]-No sound found for block type 'normal' and event type 'fly'
+
+13:09:38[Sound][verbose]-No sound f
