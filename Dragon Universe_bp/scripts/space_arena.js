@@ -10,6 +10,7 @@
 import { acquireLoadedArea, releaseLoadedArea, safeTeleport, travelOrigin, safeReturnToEarth, reportTravelFailure, physicalDestinationId } from "./travel_safety.js";
 import * as mc from "@minecraft/server";
 import { isSpaceDimension } from "./space_planets.js";
+import { every } from "./core/scheduler.js";
 
 const { world, system } = mc;
 
@@ -18,6 +19,8 @@ const LOAD_TICKS = 10;
 const MAX_RETRY_TICKS = 2400;
 const EXIT_HOLD_TICKS = 100; // hold sneak this long, without the item, to leave
 const HINT_TICKS = 200;
+// O3-10: fase de cada arena no relógio único (core/scheduler.js), para as duas não caírem no mesmo tick
+const CLOCK_PHASE = { "dbe:bills_planet": 6, "dbe:tournament_of_power": 8 };
 
 const distXZ = (x, z, p) => Math.hypot(Math.max(p.x - x, 0, x - (p.x + p.sx)), Math.max(p.z - z, 0, z - (p.z + p.sz)));
 
@@ -381,14 +384,14 @@ export function createSpaceArena(cfg) {
       } catch (e) {
         console.warn("[" + cfg.label + "] update check failed: " + e);
       }
-      system.runInterval(() => {
+      every(LOAD_TICKS, "arena " + cfg.dimId, () => {
         try {
           scanPlayers();
           loadNearby();
         } catch (e) {
           console.warn("[" + cfg.label + "] scan error: " + e);
         }
-      }, LOAD_TICKS);
+      }, { phase: CLOCK_PHASE[cfg.dimId] ?? 6 });
 
       world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
         if (!itemStack || itemStack.typeId !== cfg.item) return;
