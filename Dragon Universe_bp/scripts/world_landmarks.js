@@ -1039,58 +1039,66 @@ function garrisonPoint(dim, spot, mob) {
 
 function garrisons(plan) {
   for (const spec of SPECS) {
-    if (!spec.garrison || !enabled(spec)) continue;
-    const spot = plan.spots[spec.key];
-    if (!spot?.placed || spot.y === undefined) continue;
-    const key = spec.key;
-    const now = world.getAbsoluteTime();
-    if (spot.garrisonAt !== undefined && now < spot.garrisonAt) {
-      spot.garrisonAt = now; // the time went back (command): count again from now
-      savePlan(plan);
+    try {
+      garrisonOf(plan, spec);
+    } catch (e) {
+      console.warn("[Landmarks] " + spec.key + " garrison: " + e); // one spec never stops the others
     }
-    if (!garrisonOpen.has(key) && spot.garrisonAt !== undefined && now - spot.garrisonAt < spec.garrison.every) continue;
-    const dim = dimensionOf(spec);
-    const near = dim.getPlayers().some((p) => {
-      const dx = Math.max(spot.x - p.location.x, 0, p.location.x - (spot.x + spec.size.x));
-      const dz = Math.max(spot.z - p.location.z, 0, p.location.z - (spot.z + spec.size.z));
-      return Math.hypot(dx, dz) <= GARRISON_NEAR;
-    });
-    if (!near || !areaReady(dim, { x: spot.x, y: spot.y, z: spot.z }, { x: spot.x + spec.size.x - 1, y: spot.y, z: spot.z + spec.size.z - 1 })) continue;
-    let batch = garrisonOpen.get(key);
-    if (!batch) {
-      // presences are counted once, when the batch opens; after that only the creations of this batch count, so killing
-      // guards while the batch is open does not make more come (no farm)
-      batch = { scans: 0, created: spec.garrison.mobs.map(() => 0), present: spec.garrison.mobs.map((mob, i) => dim.getEntities({ type: mob.type, tags: ["dbe_garrison:" + key + ":" + i] }).length) };
-      garrisonOpen.set(key, batch);
-    }
-    const scans = ++batch.scans;
-    let budget = GARRISON_PER_SCAN, missing = 0;
-    spec.garrison.mobs.forEach((mob, i) => {
-      const tag = "dbe_garrison:" + key + ":" + i;
-      let need = mob.n - batch.present[i] - batch.created[i];
-      while (need > 0 && budget > 0) {
-        const at = garrisonPoint(dim, spot, mob);
-        if (!at) break;
-        budget--;
-        try {
-          const entity = dim.spawnEntity(mob.type, at);
-          entity.addTag("dbe_garrison:" + key);
-          entity.addTag(tag);
-          batch.created[i]++;
-          need--;
-        } catch (e) {
-          console.warn("[Landmarks] " + key + ": guard " + mob.type + " not spawned: " + e); // one failure never stops the others
-          break;
-        }
-      }
-      missing += Math.max(0, need);
-    });
-    if (missing && scans < GARRISON_MAX_SCANS) continue;
-    if (missing) console.warn("[Landmarks] " + key + ": garrison closed with " + missing + " missing (no standing room)");
-    garrisonOpen.delete(key);
-    spot.garrisonAt = now;
+  }
+}
+
+function garrisonOf(plan, spec) {
+  if (!spec.garrison || !enabled(spec)) return;
+  const spot = plan.spots[spec.key];
+  if (!spot?.placed || spot.y === undefined) return;
+  const key = spec.key;
+  const now = world.getAbsoluteTime();
+  if (spot.garrisonAt !== undefined && now < spot.garrisonAt) {
+    spot.garrisonAt = now; // the time went back (command): count again from now
     savePlan(plan);
   }
+  if (!garrisonOpen.has(key) && spot.garrisonAt !== undefined && now - spot.garrisonAt < spec.garrison.every) return;
+  const dim = dimensionOf(spec);
+  const near = dim.getPlayers().some((p) => {
+    const dx = Math.max(spot.x - p.location.x, 0, p.location.x - (spot.x + spec.size.x));
+    const dz = Math.max(spot.z - p.location.z, 0, p.location.z - (spot.z + spec.size.z));
+    return Math.hypot(dx, dz) <= GARRISON_NEAR;
+  });
+  if (!near || !areaReady(dim, { x: spot.x, y: spot.y, z: spot.z }, { x: spot.x + spec.size.x - 1, y: spot.y, z: spot.z + spec.size.z - 1 })) return;
+  let batch = garrisonOpen.get(key);
+  if (!batch) {
+    // presences are counted once, when the batch opens; after that only the creations of this batch count, so killing
+    // guards while the batch is open does not make more come (no farm)
+    batch = { scans: 0, created: spec.garrison.mobs.map(() => 0), present: spec.garrison.mobs.map((mob, i) => dim.getEntities({ type: mob.type, tags: ["dbe_garrison:" + key + ":" + i] }).length) };
+    garrisonOpen.set(key, batch);
+  }
+  const scans = ++batch.scans;
+  let budget = GARRISON_PER_SCAN, missing = 0;
+  spec.garrison.mobs.forEach((mob, i) => {
+    const tag = "dbe_garrison:" + key + ":" + i;
+    let need = mob.n - batch.present[i] - batch.created[i];
+    while (need > 0 && budget > 0) {
+      const at = garrisonPoint(dim, spot, mob);
+      if (!at) break;
+      budget--;
+      try {
+        const entity = dim.spawnEntity(mob.type, at);
+        entity.addTag("dbe_garrison:" + key);
+        entity.addTag(tag);
+        batch.created[i]++;
+        need--;
+      } catch (e) {
+        console.warn("[Landmarks] " + key + ": guard " + mob.type + " not spawned: " + e); // one failure never stops the others
+        break;
+      }
+    }
+    missing += Math.max(0, need);
+  });
+  if (missing && scans < GARRISON_MAX_SCANS) return;
+  if (missing) console.warn("[Landmarks] " + key + ": garrison closed with " + missing + " missing (no standing room)");
+  garrisonOpen.delete(key);
+  spot.garrisonAt = now;
+  savePlan(plan);
 }
 
 function scan() {

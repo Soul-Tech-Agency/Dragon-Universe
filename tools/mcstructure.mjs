@@ -11,6 +11,8 @@
 //       troca o bloco por vazio de estrutura (-1) nas duas camadas, opcionalmente só entre as camadas N..M
 //   node tools/mcstructure.mjs strip-entities <entrada> <saída> [identificador ...]
 //       remove as entidades salvas (todas, ou só as dos identificadores dados)
+//   node tools/mcstructure.mjs set <entrada> <saída> <lista.json>
+//       troca blocos por posição local ([{piece?, x, y, z, from, to}] ou {edits: [...]}); só onde o bloco atual é from
 //   node tools/mcstructure.mjs roundtrip <arquivo ...>
 //       lê e regrava em memória; confere que o resultado é igual byte a byte
 import fs from "node:fs";
@@ -269,6 +271,44 @@ export function voidBlock(root, name, { yFrom = -Infinity, yTo = Infinity } = {}
   return cleared.size;
 }
 
+/**
+ * Troca blocos por posição (camada 0). edits: [{ x, y, z, from, to }] em coordenadas locais; cada troca só vale se o bloco
+ * atual se chama `from` (senão é pulada e listada). `to` entra sem estados: reusa uma entrada da paleta com esse nome e
+ * states vazio, ou cria uma com a version da entrada de `from`. Devolve { applied: [índices], skipped: [motivos] }.
+ */
+export function setBlocks(root, edits) {
+  const { size, layers, palette } = structureParts(root);
+  const [sx, sy, sz] = size;
+  const entries = listOf(palette);
+  const field = (e, k) => e.find(([n]) => n.v === k)?.[1];
+  const nameAt = (i) => (i < 0 ? "structure_void" : entryName(entries[i])?.v);
+  const applied = [], skipped = [];
+  for (const ed of edits) {
+    const { x, y, z, from, to } = ed;
+    if (![x, y, z].every((v) => Number.isInteger(v)) || x < 0 || y < 0 || z < 0 || x >= sx || y >= sy || z >= sz) {
+      skipped.push(x + "," + y + "," + z + ": fora da peça");
+      continue;
+    }
+    const i = (x * sy + y) * sz + z;
+    const cur = layers[0][i];
+    if (nameAt(cur) !== from) {
+      skipped.push(x + "," + y + "," + z + ": é " + nameAt(cur) + ", esperado " + from);
+      continue;
+    }
+    let idx = entries.findIndex((e) => entryName(e)?.v === to && !field(e, "states").v.length);
+    if (idx < 0) {
+      const version = field(entries[cur], "version");
+      const entry = [[{ v: "name" }, { t: T.STRING, v: { v: to } }], [{ v: "states" }, { t: T.COMPOUND, v: [] }]];
+      if (version) entry.push([{ v: "version" }, { t: version.t, v: version.v }]);
+      idx = entries.length;
+      entries.push(entry);
+    }
+    layers[0][i] = idx;
+    applied.push(i);
+  }
+  return { applied, skipped };
+}
+
 /** Remove entidades salvas: todas, ou só as dos identificadores dados. Devolve quantas saíram. */
 export function stripEntities(root, ids = []) {
   const { entities } = structureParts(root);
@@ -286,7 +326,7 @@ export function roundtrip(file) {
 
 // ---------------------------------------------------------------- CLI
 function usage() {
-  console.log(fs.readFileSync(fileURLToPath(import.meta.url), "utf8").split("\n").filter((l) => l.startsWith("//")).slice(0, 16).map((l) => l.slice(3)).join("\n"));
+  console.log(fs.readFileSync(fileURLToPath(import.meta.url), "utf8").split("\n").filter((l) => l.startsWith("//")).slice(0, 18).map((l) => l.slice(3)).join("\n"));
   process.exit(2);
 }
 
@@ -328,6 +368,31 @@ function main(argv) {
     writeMcstructureNew(out, root);
     console.log(out + ": " + n + " célula(s) de " + name + " viraram vazio");
     return 0;
+  }
+  if (cmd === "set" && args.length === 3) {
+    const [src, out, list] = args;
+    const data = JSON.parse(fs.readFileSync(list, "utf8"));
+    const piece = path.basename(src, ".mcstructure");
+    const edits = (Array.isArray(data) ? data : data.edits).filter((e) => !e.piece || e.piece === piece);
+    const root = readMcstructure(src);
+    const { applied, skipped } = setBlocks(root, edits);
+    for (const s of skipped) console.log("  pulado " + s);
+    // conferência: relida do zero, a peça nova só difere da original nas posições aplicadas
+    const before = structureParts(readMcstructure(src)), after = structureParts(parseNbt(writeNbt(root)));
+    const name = (p, i) => (i < 0 ? "structure_void" : entryName(listOf(p.palette)[i])?.v);
+    const want = new Set(applied);
+    let diff = 0;
+    for (let l = 0; l < before.layers.length; l++) {
+      for (let i = 0; i < before.layers[l].length; i++) {
+        if (name(before, before.layers[l][i]) === name(after, after.layers[l][i])) continue;
+        diff++;
+        if (l !== 0 || !want.has(i)) throw new Error("mudou uma posição fora da lista: camada " + l + ", célula " + i);
+      }
+    }
+    if (diff !== applied.length) throw new Error("esperava " + applied.length + " posições mudadas, achei " + diff);
+    writeMcstructureNew(out, root);
+    console.log(out + ": " + applied.length + " de " + edits.length + " troca(s) aplicada(s), " + skipped.length + " pulada(s); só essas posições mudaram");
+    return skipped.length ? 1 : 0;
   }
   if (cmd === "strip-entities" && args.length >= 2) {
     const [src, out, ...ids] = args;
