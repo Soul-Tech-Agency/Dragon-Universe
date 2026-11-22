@@ -149,7 +149,7 @@ const SPECS = [
     // 2 at the doors (north and south), 1 on the floor of the top (y=48)
     garrison: { every: GARRISON_EVERY, mobs: [{ type: "dbe:battle_jacket", n: 1, at: [16, 1, 1] }, { type: "dbe:battle_jacket", n: 1, at: [17, 1, 28] }, { type: "dbe:battle_jacket", n: 1, at: [10, 48, 14] }] } },
   { key: "frieza_army_base", dim: "frieza", size: { x: 59, y: 46, z: 59 }, pieces: single("dbe:landmarks/frieza_army_base", { x: 59, z: 59 }), maxRange: 7, foundation: "dbe:frieza_soil", floor: FRIEZA_FLOOR, followUp: touchUp("frieza_army_base"),
-    garrison: { every: GARRISON_EVERY, mobs: [{ type: "dbe:frieza_soldier", n: 5, at: [29, 1, 29], spread: 6 }] } }, // ground floor around the center
+    garrison: { every: GARRISON_EVERY, mobs: [{ type: "dbe:frieza_soldier", n: 5, at: [23, 1, 23], spread: 4 }] } }, // ground floor, a corner of the yard (off the stage)
   { key: "guru_house", dim: "namek", size: { x: 91, y: 105, z: 91 }, pieces: grid("dbe:landmarks/guru_house_", [64, 27], [64, 27]), maxRange: 12, foundation: "dbe:namek_stone",
     residents: [{ id: "guru", type: "dbe:grand_elder_guru", at: [45.5, 75, 45.5] }] }, // center of the dome, on the carpet
   { key: "capsule_corp", dim: "overworld", size: { x: 141, y: 42, z: 154 }, pieces: grid("dbe:landmarks/capsule_corp_", [64, 64, 13], [64, 64, 26]), biomes: ["minecraft:plains", "dbe:dirtstone_plains", "dbe:west_forest"], maxRange: 10, foundation: "minecraft:dirt",
@@ -1010,7 +1010,7 @@ function moveLookoutResidents(plan) {
 const GARRISON_NEAR = 48;
 const GARRISON_PER_SCAN = 3;
 const GARRISON_MAX_SCANS = 15; // a batch that cannot be completed (no standing room) closes after this many scans
-const garrisonOpen = new Map(); // key -> scans while open
+const garrisonOpen = new Map(); // key -> { scans, created: [per entry] } while a batch is open
 
 function checkGarrisonSpecs() {
   for (const spec of SPECS) {
@@ -1043,7 +1043,12 @@ function garrisons(plan) {
     const spot = plan.spots[spec.key];
     if (!spot?.placed || spot.y === undefined) continue;
     const key = spec.key;
-    if (!garrisonOpen.has(key) && spot.garrisonAt !== undefined && world.getAbsoluteTime() - spot.garrisonAt < spec.garrison.every) continue;
+    const now = world.getAbsoluteTime();
+    if (spot.garrisonAt !== undefined && now < spot.garrisonAt) {
+      spot.garrisonAt = now; // the time went back (command): count again from now
+      savePlan(plan);
+    }
+    if (!garrisonOpen.has(key) && spot.garrisonAt !== undefined && now - spot.garrisonAt < spec.garrison.every) continue;
     const dim = dimensionOf(spec);
     const near = dim.getPlayers().some((p) => {
       const dx = Math.max(spot.x - p.location.x, 0, p.location.x - (spot.x + spec.size.x));
@@ -1051,27 +1056,39 @@ function garrisons(plan) {
       return Math.hypot(dx, dz) <= GARRISON_NEAR;
     });
     if (!near || !areaReady(dim, { x: spot.x, y: spot.y, z: spot.z }, { x: spot.x + spec.size.x - 1, y: spot.y, z: spot.z + spec.size.z - 1 })) continue;
-    const scans = (garrisonOpen.get(key) ?? 0) + 1;
-    garrisonOpen.set(key, scans);
+    let batch = garrisonOpen.get(key);
+    if (!batch) {
+      // presences are counted once, when the batch opens; after that only the creations of this batch count, so killing
+      // guards while the batch is open does not make more come (no farm)
+      batch = { scans: 0, created: spec.garrison.mobs.map(() => 0), present: spec.garrison.mobs.map((mob, i) => dim.getEntities({ type: mob.type, tags: ["dbe_garrison:" + key + ":" + i] }).length) };
+      garrisonOpen.set(key, batch);
+    }
+    const scans = ++batch.scans;
     let budget = GARRISON_PER_SCAN, missing = 0;
     spec.garrison.mobs.forEach((mob, i) => {
       const tag = "dbe_garrison:" + key + ":" + i;
-      let need = mob.n - dim.getEntities({ type: mob.type, tags: [tag] }).length;
+      let need = mob.n - batch.present[i] - batch.created[i];
       while (need > 0 && budget > 0) {
         const at = garrisonPoint(dim, spot, mob);
         if (!at) break;
-        const entity = dim.spawnEntity(mob.type, at);
-        entity.addTag("dbe_garrison:" + key);
-        entity.addTag(tag);
-        need--;
         budget--;
+        try {
+          const entity = dim.spawnEntity(mob.type, at);
+          entity.addTag("dbe_garrison:" + key);
+          entity.addTag(tag);
+          batch.created[i]++;
+          need--;
+        } catch (e) {
+          console.warn("[Landmarks] " + key + ": guard " + mob.type + " not spawned: " + e); // one failure never stops the others
+          break;
+        }
       }
       missing += Math.max(0, need);
     });
     if (missing && scans < GARRISON_MAX_SCANS) continue;
     if (missing) console.warn("[Landmarks] " + key + ": garrison closed with " + missing + " missing (no standing room)");
     garrisonOpen.delete(key);
-    spot.garrisonAt = world.getAbsoluteTime();
+    spot.garrisonAt = now;
     savePlan(plan);
   }
 }
