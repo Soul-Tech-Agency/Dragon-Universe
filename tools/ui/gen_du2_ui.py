@@ -1646,7 +1646,7 @@ th["concentration"] = hud_card("conc", 92, [
     c("pace", hud_bar_row("ui.dbe.du2.pace", "conc_pace")),
 ])
 
-PHYS_ICON = "tab_training"  # troca por train_physical quando a Aquarela entregar (CONTRATO.md §11.6)
+PHYS_ICON = "train_physical"  # Aquarela, 3b86cde (agent/oozaru)
 
 
 def phys_cue():

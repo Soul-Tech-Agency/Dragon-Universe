@@ -1449,7 +1449,7 @@
       {
        "x": {
         "type": "image",
-        "texture": "textures/ui/du2/icons/tab_training",
+        "texture": "textures/ui/du2/icons/train_physical",
         "size": [10, 10],
         "color": [0.965, 0.725, 0.263],
         "anchor_from": "center",
