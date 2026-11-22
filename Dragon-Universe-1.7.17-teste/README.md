@@ -4,9 +4,9 @@
 
 | Item | Valor |
 |---|---|
-| Arquivo | `Dragon-Universe-1.7.17.mcaddon` (21.727.204 bytes, 3051 arquivos) |
-| SHA-256 | `f9692e844a72551f397f0d304f8705e23953eab3c8a671a7c2c29b9df8c3e4ae` |
-| Fonte | commit `9b3dbd7` (branch `integration/1.7.17`): 1.7.16 com as frentes de viagens, construções, menus e Oozaru |
+| Arquivo | `Dragon-Universe-1.7.17.mcaddon` (21.825.820 bytes, 3195 arquivos) |
+| SHA-256 | `d95bfa71ff21088fe66af41fe62346afb718a09d505243255264acb1fad7e69a` |
+| Fonte | commit `711ce10` (branch `integration/1.7.17`): 1.7.16 com as frentes de viagens, construções, menus e Oozaru, e o redesign do menu e da seleção de raça |
 | Alvo | Minecraft Bedrock 26.60, PC (Windows) e Android |
 | Versão dos packs | BP e RP `[1,7,17]`, `min_engine_version` `[1,26,50]`, UUIDs iguais aos da 1.7.11 |
 
@@ -35,6 +35,15 @@ A 1.7.16 trouxe o Raditz com SSJ2 e SSJ3 próprios, a Casa do Guru sem o recorte
 - Setas da customização e do barbeiro não voltam mais para a opção anterior.
 - Estatísticas e barbeiro em Oozaru e Golden Oozaru: prévia menor, com o corpo inteiro.
 
+**Menu e seleção de raça novos (redesign)**
+- Visual novo nas Estatísticas e na seleção de raça: painel com cantos arredondados, ícones em abas, atributos e raças, e barra de XP em 10 partes.
+- Layout próprio para celular (abas e raças só com ícone, "Detalhes" e "Mais detalhes" para o que é secundário) e para PC.
+- Seleção de raça com os bônus reais de cada raça, regeneração, número de transformações, primeiras formas, gênero e o que dá para personalizar.
+- Aba Transformações própria. O botão de ajuda abre um Guia com 6 tópicos (pt/en/es).
+- Notícias voltam a mostrar as 2 imagens; o botão de ajuda tem imagem.
+- Os convites do Planeta do Bills e do Torneio do Poder têm ícones próprios.
+- As outras telas (Habilidades, Missões, Treino, Conquistas, Customização, Barbeiro) ainda estão no visual antigo.
+
 **Oozaru e cabelos**
 - Oozaru, Golden Oozaru e Vegeta Oozaru sem o tufo de quadradinhos no topo da cabeça.
 - SSJ3 do Goku e do Gohan (estilos DMZ): cabelo comprido, dourado e opaco, caindo nas costas. O Beast do Goku continua como antes.
@@ -47,6 +56,7 @@ A 1.7.16 trouxe o Raditz com SSJ2 e SSJ3 próprios, a Casa do Guru sem o recorte
 - Erro conhecido, ainda sem correção (H11): usar um comando do addon logo ao entrar, antes de o personagem existir, pode gerar `setPermissionCategory ... restricted execution` no log. Se aparecer, copie a linha e o comando usado.
 - Quem já tinha escolhido castanho continua com o tom antigo até escolher a cor de novo no barbeiro.
 - Em telas muito baixas, o ícone DU pode ficar bem pequeno ou sumir.
+- O Oozaru ainda pode sair para fora da prévia do inventário do jogo (a correção vai para a 1.7.18).
 - Os arquivos da West City continuam no pacote, mas nada mais os usa.
 - **Medição temporária:** as linhas `[Timing]` continuam no log das viagens. Existem só nos pacotes de teste.
 
