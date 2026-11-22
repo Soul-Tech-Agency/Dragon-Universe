@@ -1004,7 +1004,7 @@ ui.dbe.npc.whis.weight.button.catch=Tomar Peso
 ## raças e formas
 ## terráqueo
 earthling=Terrícola
-earthling.description=Más débiles al principio, los terrícolas lo compensan con técnica: empiezan con más Ki Máximo y Poder de Ki. Entrenando alcanzan la Fuerza Aumentada, el Poder Total y, con el ki divino, la Forma Divina.
+earthling.description=Más débiles al principio, los terrícolas lo compensan con técnica: tienen Ki Máximo y Poder de Ki x1.25. Entrenando alcanzan la Fuerza Aumentada (nivel 10) y el Poder Total (nivel 30); con el Ki Divino y nivel 56, la Forma Divina.
 earthling.transformation.base=Forma Base
 earthling.transformation.buffed=Fuerza Aumentada
 earthling.transformation.full_released=Poder Total
@@ -1014,7 +1014,7 @@ earthling.transformation.beast=Forma Bestial
 earthling.transformation.ultra_ego=Ultra Ego
 ## saiyajin
 saiyan=Saiyajin
-saiyan.description=Guerreros natos, con Fuerza x1.5. Con la cola se convierten en Oozaru de noche; entrenando despiertan el Super Saiyajin y pasan por más formas que cualquier otra raza, hasta el Super Saiyajin Dios y el Super Saiyajin Blue.
+saiyan.description=Guerreros natos, con Fuerza x1.5. Con la cola pueden convertirse en Oozaru de noche en la Tierra; desde el nivel 32 despiertan el Super Saiyajin y tienen más formas que cualquier otra raza, incluidos el Super Saiyajin Dios y el Super Saiyajin Blue.
 saiyan.transformation.base=Forma Base
 saiyan.transformation.oozaru=Ozaru
 saiyan.transformation.ssj=Super Saiyajin
@@ -1034,7 +1034,7 @@ saiyan.transformation.beast=Forma Bestial
 saiyan.transformation.ultra_ego=Ultra Ego
 ## namekuseijin
 namekian=Namekuseijin
-namekian.description=Pacíficos y sabios, con Constitución x1.5, regeneración rápida y un cuerpo algo mayor. Empiezan sabiendo curar y son el pueblo de las Esferas del Dragón de Namek, que traen a Porunga.
+namekian.description=Pacíficos y sabios, con Constitución x1.5, regeneración x1.6 y un cuerpo algo mayor. Solo Porunga, de las Esferas del Dragón de Namek, puede liberar el Potencial de los Namekuseijin.
 namekian.transformation.base=Forma Base
 namekian.transformation.full_released=Poder Completo
 namekian.transformation.potential_unleashed=Potencial Liberado
@@ -1044,7 +1044,7 @@ namekian.transformation.beast=Forma Bestial
 namekian.transformation.ultra_ego=Ultra Ego
 ## frost demon
 frost_demon=Frost Demon
-frost_demon.description=Temidos en toda la galaxia, los Frost Demon tienen Destreza y Poder de Ki extra y un cuerpo más pequeño. Evolucionan por formas desde temprano: Segunda, Tercera y Cuarta Forma, Poder Completo y más.
+frost_demon.description=Temidos en toda la galaxia, los Frost Demon tienen Destreza y Poder de Ki x1.25 y un cuerpo más pequeño. Evolucionan por formas desde temprano: Segunda Forma en el nivel 10, luego Tercera, Cuarta, Poder Completo y más.
 frost_demon.transformation.base=Primera Forma 
 frost_demon.transformation.second_form=Segunda Forma
 frost_demon.transformation.third_form=Tercera Forma
@@ -1058,7 +1058,7 @@ frost_demon.transformation.beast=Forma Bestial
 frost_demon.transformation.ultra_ego=Ultra Ego
 ## majin
 majin=Majin
-majin.description=Hechos de una sustancia mágica y maleable, los Majin regeneran más rápido que cualquier raza y tienen Constitución y Destreza extra. Empiezan sabiendo absorber a otros y curar.
+majin.description=Hechos de una sustancia mágica, los Majin tienen la mayor regeneración del juego (x2) y Constitución y Destreza x1.25. Son la única raza que puede usar la Absorción, que empieza desbloqueada.
 majin.transformation.base=Forma Base
 majin.transformation.pure_majin=Forma Pura
 majin.transformation.super_majin=Super Majin
@@ -1068,7 +1068,7 @@ majin.transformation.beast=Forma Bestial
 majin.transformation.ultra_ego=Ultra Ego
 ## bio android
 bio_android=Bioandroide
-bio_android.description=Seres artificiales hechos con las células de los mayores guerreros, con Constitución y Fuerza extra y regeneración alta. Empiezan sabiendo curar y evolucionan hasta la Forma Perfecta y más.
+bio_android.description=Seres artificiales hechos con las células de los mayores guerreros, con Constitución y Fuerza x1.25 y regeneración x1.7. Evolucionan por formas: Semi-Perfecta en el nivel 14, Perfecta en el 28, y más.
 bio_android.transformation.base=Forma Base
 bio_android.transformation.semi_perfect=Forma Semi-Perfecta
 bio_android.transformation.perfect=Forma Perfecta
@@ -1089,7 +1089,7 @@ demon.transformation.abyssal_king=Rey del Abismo
 demon.transformation.true_oni_rage=Furia Oni Verdadera
 ## glind
 glind=Glind
-glind.description=Raza demoníaca con bonificaciones en cuatro atributos, regeneración alta y 10% más de XP. Sus formas empiezan pronto, con la Forma Cornuda, y llegan hasta el Rey del Abismo y la Furia Oni Verdadera.
+glind.description=Raza demoníaca con bonificaciones en cuatro atributos (Fuerza, Ki Máximo, Constitución y Poder de Ki), regeneración x1.5 y un 10% más de XP. Sus formas empiezan en el nivel 10 con la Forma Cornuda e incluyen al Rey del Abismo y la Furia Oni Verdadera.
 glind.transformation.base=Forma Base
 glind.transformation.ultra_ego=Ultra Ego
 glind.transformation.ultimate_form=Forma Mística
@@ -1636,7 +1636,7 @@ namekian.description.short=Resistentes y sabios, regeneran rápido.
 frost_demon.description.short=Ágiles y crueles, evolucionan forma tras forma.
 majin.description.short=Cuerpo mágico, con la mayor regeneración del juego.
 bio_android.description.short=Creados con células de guerreros; fuertes y resistentes.
-glind.description.short=Demoníacos, fuertes en todo y ganan más XP.
+glind.description.short=Demoníacos, con bonificaciones en cuatro atributos y más XP.
 earthling.customization=6 barbas, 3 ojos, 5 colores de ojos, 11 peinados, 4 colores de pelo, 5 tonos de piel
 saiyan.customization=6 barbas, 2 ojos, 5 colores de ojos, 10 peinados, 6 colores de pelo, 5 tonos de piel
 namekian.customization=4 tonos de piel, 2 detalles de piel, 3 caras, 2 antenas

@@ -1004,7 +1004,7 @@ ui.dbe.npc.whis.weight.button.catch=Pick Up Weight
 ## raças e formas
 ## earthling
 earthling=Earthling
-earthling.description=Weaker at first, earthlings make up for it with technique: they start with more Max Ki and Ki Power. Through training they reach Buffed, Full Released and, with divine ki, the Divine Form.
+earthling.description=Weaker at first, earthlings make up for it with technique: they have Max Ki and Ki Power x1.25. Through training they reach Buffed (level 10) and Full Released (level 30); with Divine Ki and level 56, the Divine Form.
 earthling.transformation.base=Base Form
 earthling.transformation.buffed=Buffed
 earthling.transformation.full_released=Full Released
@@ -1014,7 +1014,7 @@ earthling.transformation.beast=Beast
 earthling.transformation.ultra_ego=Ultra Ego
 ## saiyajin
 saiyan=Saiyan
-saiyan.description=Born warriors, with Strength x1.5. With their tail they turn Oozaru at night; through training they awaken Super Saiyan and go through more forms than any other race, up to Super Saiyan God and Super Saiyan Blue.
+saiyan.description=Born warriors, with Strength x1.5. With their tail they can turn Oozaru at night on Earth; from level 32 they awaken Super Saiyan and have more forms than any other race, including Super Saiyan God and Super Saiyan Blue.
 saiyan.transformation.base=Base Form
 saiyan.transformation.oozaru=Oozaru
 saiyan.transformation.ssj=Super Saiyan
@@ -1034,7 +1034,7 @@ saiyan.transformation.beast=Beast
 saiyan.transformation.ultra_ego=Ultra Ego
 ## namekuseijin
 namekian=Namekian
-namekian.description=Peaceful and wise, with Constitution x1.5, fast regeneration and a slightly larger body. They start knowing how to heal and are the people of Namek's Dragon Balls, which bring Porunga.
+namekian.description=Peaceful and wise, with Constitution x1.5, regeneration x1.6 and a slightly larger body. Only Porunga, from Namek's Dragon Balls, can unlock the Namekians' Potential.
 namekian.transformation.base=Base Form
 namekian.transformation.full_released=Full Released
 namekian.transformation.potential_unleashed=Potential Unleashed
@@ -1044,7 +1044,7 @@ namekian.transformation.beast=Beast
 namekian.transformation.ultra_ego=Ultra Ego
 ## frost demon
 frost_demon=Frost Demon
-frost_demon.description=Feared across the galaxy, Frost Demons have extra Dexterity and Ki Power and a smaller body. They evolve through forms early on: Second, Third and Fourth Form, Full Power and beyond.
+frost_demon.description=Feared across the galaxy, Frost Demons have Dexterity and Ki Power x1.25 and a smaller body. They evolve through forms early on: Second Form at level 10, then Third, Fourth, Full Power and beyond.
 frost_demon.transformation.base=First Form
 frost_demon.transformation.second_form=Second Form
 frost_demon.transformation.third_form=Third Form
@@ -1058,7 +1058,7 @@ frost_demon.transformation.beast=Beast
 frost_demon.transformation.ultra_ego=Ultra Ego
 ## majin
 majin=Majin
-majin.description=Made of a magical, malleable substance, Majins regenerate faster than any race and have extra Constitution and Dexterity. They start knowing how to absorb others and heal.
+majin.description=Made of a magical substance, Majins have the highest regeneration in the game (x2) and Constitution and Dexterity x1.25. They are the only race that can use Absorption, which starts unlocked.
 majin.transformation.base=Base Form
 majin.transformation.pure_majin=Pure Form
 majin.transformation.super_majin=Super Majin
@@ -1068,7 +1068,7 @@ majin.transformation.beast=Beast
 majin.transformation.ultra_ego=Ultra Ego
 ## bio android
 bio_android=Bio Android
-bio_android.description=Artificial beings made from the cells of the greatest warriors, with extra Constitution and Strength and high regeneration. They start knowing how to heal and evolve up to the Perfect Form and beyond.
+bio_android.description=Artificial beings made from the cells of the greatest warriors, with Constitution and Strength x1.25 and regeneration x1.7. They evolve through forms: Semi-Perfect at level 14, Perfect at 28, and beyond.
 bio_android.transformation.base=Imperfect Form
 bio_android.transformation.semi_perfect=Semi-Perfect Form
 bio_android.transformation.perfect=Perfect Form
@@ -1089,7 +1089,7 @@ demon.transformation.abyssal_king=Abyssal King
 demon.transformation.true_oni_rage=True Oni Rage
 ## glind
 glind=Glind
-glind.description=A demonic race with bonuses in four attributes, high regeneration and 10% more XP. Their forms start early, with the Horned Form, and go up to the Abyssal King and True Oni Rage.
+glind.description=A demonic race with bonuses in four attributes (Strength, Max Ki, Constitution and Ki Power), regeneration x1.5 and 10% more XP. Their forms start at level 10 with the Horned Form and include the Abyssal King and True Oni Rage.
 glind.transformation.base=Base Form
 glind.transformation.ultra_ego=Ultra Ego
 glind.transformation.ultimate_form=Ultimate Form
@@ -1636,7 +1636,7 @@ namekian.description.short=Tough and wise, they regenerate quickly.
 frost_demon.description.short=Agile and cruel, they evolve form after form.
 majin.description.short=Magic body with the highest regeneration in the game.
 bio_android.description.short=Made from warriors' cells; strong and tough.
-glind.description.short=Demonic, strong at everything and gain more XP.
+glind.description.short=Demonic, with bonuses in four attributes and more XP.
 earthling.customization=6 beards, 3 eyes, 5 eye colors, 11 hairstyles, 4 hair colors, 5 skin tones
 saiyan.customization=6 beards, 2 eyes, 5 eye colors, 10 hairstyles, 6 hair colors, 5 skin tones
 namekian.customization=4 skin tones, 2 skin details, 3 faces, 2 antennas

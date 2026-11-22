@@ -16434,7 +16434,11 @@ function kp(sG) {
 }
 // Redesign 1.7.17 (redesign/CONTRATO.md): ordem dos atributos nas Estatísticas e no bônus de raça; multiplicador como texto.
 const DU_ATTRIBUTE_ORDER = ["constitution", "dexterity", "spirit", "strength", "willpower"];
-const duMultiplierText = (value) => (Number(value) === 1 ? "x1.0" : "x" + parseFloat(Number(value).toFixed(2)));
+// sempre com pelo menos 1 casa (x1.0, x2.0, x1.5) e no máximo 2, para não arredondar dado real (x1.25, x1.15)
+const duMultiplierText = (value) => {
+  const n = parseFloat(Number(value).toFixed(2));
+  return "x" + (Number.isInteger(n * 10) ? n.toFixed(1) : String(n));
+};
 const DU_RACE_GRID = 8; // botões 4-11 da seleção de raça
 // Jogadores com o formulário de customização aberto (ver showCustomizationForm e afterItemUse).
 var duCustomizationOpen = new Set();
@@ -16475,7 +16479,7 @@ var kq = class t8 extends jY {
       slot(sM.id + ".description.short"); // 12
       slot(info ? duMultiplierText(info.regen) : ""); // 13
       slot(info ? "" + info.formCount : ""); // 14
-      slot(info?.gender ? "ui.dbe.yes" : "ui.dbe.no"); // 15
+      slot(info ? (info.gender ? "ui.dbe.yes" : "ui.dbe.no") : ""); // 15
       slot(info ? { rawtext: duFirstFormsRawtext(info) } : ""); // 16
       slot(sM.id + ".customization"); // 17
       slot(sH + 1 + " / " + sK.length); // 18
