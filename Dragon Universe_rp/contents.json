@@ -5545,6 +5545,18 @@
          "path" : "textures/ui/buttons/gravity_machine_button_hover.png"
       },
       {
+         "path" : "textures/ui/buttons/help_button.json"
+      },
+      {
+         "path" : "textures/ui/buttons/help_button.png"
+      },
+      {
+         "path" : "textures/ui/buttons/help_button_hover.json"
+      },
+      {
+         "path" : "textures/ui/buttons/help_button_hover.png"
+      },
+      {
          "path" : "textures/ui/buttons/menu_button.json"
       },
       {
