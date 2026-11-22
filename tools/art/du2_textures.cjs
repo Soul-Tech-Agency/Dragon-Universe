@@ -73,7 +73,7 @@ tex('icon_box_gold', 16, 16, 4, box(16, 16, { r: 3, fill: '#F6B943' }), '', 'pil
 tex('xp_on', 6, 6, 2, `<path d="${rr(0, 0, 6, 6, 2)}" fill="#23D7FF" fill-opacity="0.35"/><path d="${rr(1, 1, 4, 4, 1)}" fill="#23D7FF"/>`, '', 'pill');
 tex('xp_off', 6, 6, 2, `<path d="${rr(1, 1, 4, 4, 1)}" fill="#1D3F73"/>`, '', 'pill');
 // barras dos treinos (1.7.19): mesmo formato do xp_on, outras cores
-tex('bar_red_on', 6, 6, 2, `<path d="${rr(0, 0, 6, 6, 2)}" fill="#FF5A5A" fill-opacity="0.35"/><path d="${rr(1, 1, 4, 4, 1)}" fill="#FF5A5A"/>`, '', 'pill');
+tex('bar_red_on', 6, 6, 2, `<path d="${rr(0, 0, 6, 6, 2)}" fill="#FF6B7A" fill-opacity="0.35"/><path d="${rr(1, 1, 4, 4, 1)}" fill="#FF6B7A"/>`, '', 'pill');
 tex('bar_gold_on', 6, 6, 2, `<path d="${rr(0, 0, 6, 6, 2)}" fill="#F6B943" fill-opacity="0.35"/><path d="${rr(1, 1, 4, 4, 1)}" fill="#F6B943"/>`, '', 'pill');
 
 // ---------- 7.3 Botões ----------
