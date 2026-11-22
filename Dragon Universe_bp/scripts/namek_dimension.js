@@ -466,7 +466,10 @@ async function runExclusive(gen, key, strict = false) {
     retryAt.delete(key);
   } catch (e) {
     retryAt.set(key, system.currentTick + 100);
-    console.warn("[Namek] chunk " + key + " failed: " + e);
+    // A scan job (no loaded-area lease) whose chunk unloaded mid-job, e.g. a player flying past: expected, the chunk
+    // has no markers yet and is generated again when a player comes back. Leased (strict) jobs still report it.
+    const unloaded = !strict && /UnloadedChunksError|LocationInUnloadedChunkError/.test(String(e?.name) + ": " + String(e));
+    if (!unloaded) console.warn("[Namek] chunk " + key + " failed: " + e);
     if (strict) throw e;
   } finally {
     busy = false;
