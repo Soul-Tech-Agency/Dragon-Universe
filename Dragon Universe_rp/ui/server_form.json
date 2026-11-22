@@ -352,7 +352,7 @@
                 }
             },
             {
-                "transformations@transformations_form.transformations_form": {
+                "transformations@du2_transformations.transformations_form": {
                     "bindings": [
                         {
                             "binding_name": "#title_text"

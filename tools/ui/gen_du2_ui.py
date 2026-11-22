@@ -980,14 +980,22 @@ def body_label(color="desc"):
     return c("body", lbl("#form_text", ["100%", "default"], color, None, "smooth", "left"))
 
 
-def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1):
-    """Item de factory: linha com fundo, texto do botão e ícone opcional (cadeado do script) ou "+"."""
+def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1, key_icons=None):
+    """Item de factory: linha com fundo, texto do botão e ícone opcional (cadeado do script) ou "+".
+    key_icons: [(chave do texto, ícone, cor)] = ícone à esquerda quando o texto é igual à chave."""
     hide = HIDDEN_ITEM + (" or " + extra_hide if extra_hide else "")
+    anchor = "left_middle" if lines == 1 else "top_left"
 
     def face(tex, plus_tex):
-        row = [pad(6), c("t", P(["fill", "100%"], [c("l", btn_label(
-            "text", None, size=["100%", 10 if lines == 1 else "default"], align="left",
-            anchor_from="left_middle", anchor_to="left_middle"))], clips_children=True))]
+        row = [pad(6)]
+        if key_icons:
+            row += [centered(14, P([14, 14], [c("i_" + ic, img(I + ic, [12, 12], col, bindings=[
+                coll_text(), view(f"(#form_button_text = '{key}')")])) for key, ic, col in key_icons])), pad(5)]
+        label = btn_label("text", None, size=["100%", 10 if lines == 1 else "default"], align="left",
+                          anchor_from=anchor, anchor_to=anchor)
+        if lines > 1:
+            label["offset"] = [0, 4]
+        row += [c("t", P(["fill", "100%"], [c("l", label)], clips_children=True))]
         if icon:
             row += [pad(4), centered(16, btn_icon([16, 16], None))]
         if plus:
@@ -1079,6 +1087,21 @@ def skills_content(mobile):
 tab_screen(sk, "skills_form", skills_content)
 
 
+# ---- Transformações (kj): 10+ = formas (texto com requisitos; ícone = cadeado do script)
+tr = {"namespace": "du2_transformations"}
+tr["row_pc"] = list_item(72, icon=True, lines=6)
+tr["row_mobile"] = list_item(76, icon=True, lines=6)
+
+
+def transformations_content(mobile):
+    m = "mobile" if mobile else "pc"
+    return [c("scroll", P(["100%", "100%"], [scroll_area(tr, "scroll_" + m, [
+        c("list", factory_list("du2_transformations.row_" + m))])]))]
+
+
+tab_screen(tr, "transformations_form", transformations_content)
+
+
 # --------------------------------------------------------------------------- escrita
 
 def fmt(v, ind=0):
@@ -1140,3 +1163,4 @@ write("du2_common.json", common)
 write("du2_statistics.json", st)
 write("du2_select_race.json", rc)
 write("du2_skills.json", sk)
+write("du2_transformations.json", tr)

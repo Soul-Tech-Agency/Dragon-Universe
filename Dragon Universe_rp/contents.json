@@ -6283,6 +6283,9 @@
          "path" : "ui/du2/du2_statistics.json"
       },
       {
+         "path" : "ui/du2/du2_transformations.json"
+      },
+      {
          "path" : "ui/du2/du2_skills.json"
       },
       {
