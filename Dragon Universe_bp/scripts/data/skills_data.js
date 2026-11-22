@@ -287,6 +287,9 @@ const skills_data = [
       // "dbe:king_kai"
     ],
     tiers: [],
+    // Passo A (decisões 16-17): +25% de regeneração de vida (stat regen_rate). A cura ativa e de aliados (passo B)
+    // fica para depois da separação das habilidades.
+    multipliers: { regen_rate: 1.25 },
   },
   {
     type: "toggle",
@@ -702,6 +705,8 @@ const skills_data = [
   {
     type: "toggle",
     id: "limiter",
+    // Decisão 20: só para administradores (/dbe:learn <jogador> limiter). Sem price e sem availableTrainers, não
+    // aparece na loja de nenhum mestre, nem em desejo ou missão.
     activationSound: "common.force",
     functionSlot: 12,
     canSwitchTier: true,
@@ -818,17 +823,19 @@ const skills_data = [
     isPassive: true,
     price: 10,
     availableTrainers: ["dbe:king_kai"],
+    // Decisão 18: +2% de Força, Destreza e Poder de Ki por nível, até x1,2 no nível 10. O nível 10 continua sendo o
+    // requisito da Forma Bestial.
     tiers: [
-      { upgradeCost: 1 },
-      { upgradeCost: 1 },
-      { upgradeCost: 1 },
-      { upgradeCost: 1 },
-      { upgradeCost: 1 },
-      { upgradeCost: 1 },
-      { upgradeCost: 1 },
-      { upgradeCost: 1 },
-      { upgradeCost: 1 },
-      {},
+      { upgradeCost: 1, multipliers: { dexterity: 1.02, strength: 1.02, willpower: 1.02 } },
+      { upgradeCost: 1, multipliers: { dexterity: 1.04, strength: 1.04, willpower: 1.04 } },
+      { upgradeCost: 1, multipliers: { dexterity: 1.06, strength: 1.06, willpower: 1.06 } },
+      { upgradeCost: 1, multipliers: { dexterity: 1.08, strength: 1.08, willpower: 1.08 } },
+      { upgradeCost: 1, multipliers: { dexterity: 1.1, strength: 1.1, willpower: 1.1 } },
+      { upgradeCost: 1, multipliers: { dexterity: 1.12, strength: 1.12, willpower: 1.12 } },
+      { upgradeCost: 1, multipliers: { dexterity: 1.14, strength: 1.14, willpower: 1.14 } },
+      { upgradeCost: 1, multipliers: { dexterity: 1.16, strength: 1.16, willpower: 1.16 } },
+      { upgradeCost: 1, multipliers: { dexterity: 1.18, strength: 1.18, willpower: 1.18 } },
+      { multipliers: { dexterity: 1.2, strength: 1.2, willpower: 1.2 } },
     ],
   },
   {

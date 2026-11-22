@@ -1,5 +1,10 @@
 const CONFIG = {
   /**
+   * Sonda de desempenho (scripts/core/perf.js, /scriptevent dbe:perf start|stop|report). Só para medir;
+   * desligada, não instala nada.
+   */
+  DEBUG_PERF: false,
+  /**
    * Valor máximo de cada atributo do jogador.
    */
   ATTRIBUTE_LIMIT: {
