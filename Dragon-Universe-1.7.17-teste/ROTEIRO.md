@@ -313,3 +313,15 @@ Para abrir: use o **item de menu**. Ele abre na última aba que você usou.
 
 ---
 
+
+## 12. Construções e habilidades (adicionado)
+
+- [ ] Casa do Yamcha (mundo novo e casa antiga, chegando perto): sem laje marrom; piso de areia/arenito.
+- [ ] Casas do Piccolo e do Yamcha: rampa em volta, sem rampa sobre árvore/cacto/água. Log com 'skirt done'.
+- [ ] Jogador encostado na casa quando a rampa é feita: não fica preso nem leva dano.
+- [ ] Casa do Guru num Namek novo: árvores ao lado inteiras, sem copa solta.
+- [ ] Punho de Ki e Foice de Ki DESLIGADOS (menu Funções): bater num mob não gasta ki. Ligados: gasta, e sem ki desligam sozinhos.
+- [ ] Hakai: ligar o Instinto Superior (Hakai some), desligar (Hakai volta). Sair e entrar com o Instinto desligado: Hakai ativo.
+- [ ] Punho Amigável ligado: criatura do Dragon Universe fica com 1 de vida; descrição nas 3 línguas.
+- [ ] Customização e Barbeiro no celular: a lista rola, e cada nome continua ao lado das suas setas; o toque nas setas acerta a opção certa.
+- [ ] Transformações e Conquistas em inglês/espanhol: textos longos não cortados.
