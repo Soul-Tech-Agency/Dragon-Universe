@@ -13,6 +13,11 @@
 // O tempo vem de Date.now() (resolução de 1 ms): tarefas rápidas aparecem como 0 ms e contam pelas chamadas.
 // O local (arquivo:linha) de runInterval/runJob é calculado no registro (uma vez por tarefa, também antes do start);
 // o de run/runTimeout só com a medição ligada.
+// Jobs de terreno: runTerrainJob (terrain_repair.js) é tratado como embrulho, e o job vai para quem o chamou, com o nome
+// do sistema (espaço/planetas, Kaioshin, Futuro, reparo). Um job do espaço iniciado com jogador perto da base do Freeza
+// ainda não colocada (no planeta) ganha a marca "base do Freeza?" (estimativa: o job não diz para que é). Os jobs
+// mostram quantos foram iniciados durante a medição e quantos passos (yields) rodaram. O report lista a dimensão e o
+// chunk de cada jogador. Tudo só leitura: nada disso muda o jogo.
 // As tarefas do relógio único (core/scheduler.js, O3) passam por perfTask e aparecem como "every <nome>"; sem isso,
 // todas apareceriam como o intervalo do scheduler.js.
 import * as mc from "@minecraft/server";
@@ -56,16 +61,50 @@ function install() {
     for (const f of String(new Error().stack ?? "").split("\n")) {
       if (/perf\.m?js/.test(f)) continue;
       const m = /([\w./-]+\.m?js):(\d+)/.exec(f);
-      if (m) frames.push({ at: m[1].split("/").pop() + ":" + m[2], wrapper: /\b(runInterval|runTimeout)\b/.test(f) });
+      if (m) frames.push({ at: m[1].split("/").pop() + ":" + m[2], wrapper: /\b(runInterval|runTimeout|runTerrainJob)\b/.test(f) });
       if (frames.length === 2) break;
     }
     if (!frames.length) return "?";
     if (frames[0].wrapper && frames[1]) return frames[1].at + " (via " + frames[0].at + ")";
     return frames[0].at;
   };
-  const record = (key, ms) => {
+  const entry = (key) => {
     let t = tasks.get(key);
-    if (!t) tasks.set(key, (t = { calls: 0, total: 0, max: 0, samples: [] }));
+    if (!t) tasks.set(key, (t = { calls: 0, total: 0, max: 0, samples: [], jobs: 0 }));
+    return t;
+  };
+  // leitura do jogo sem contar nos próprios contadores (getPlayers/getEntities/s)
+  const quiet = (fn) => {
+    const wasRunning = running;
+    running = false;
+    try {
+      return fn();
+    } finally {
+      running = wasRunning;
+    }
+  };
+  const TERRAIN = [["space_planets.js", "espaço/planetas"], ["kaioshin_dimension.js", "Kaioshin"], ["future_terrain.js", "Futuro"], ["terrain_repair.js", "reparo"]];
+  const FRIEZA_DIM = "dbe:frieza_planet", FRIEZA_BASE = { key: "frieza_army_base", size: 59, margin: 64 };
+  const friezaBaseNear = () => {
+    try {
+      const spot = JSON.parse(world.getDynamicProperty("dbe:world_landmarks") ?? "{}")?.spots?.[FRIEZA_BASE.key];
+      if (!spot || spot.placed || spot.none || !Number.isFinite(spot.x) || !Number.isFinite(spot.z)) return false;
+      return world.getDimension(FRIEZA_DIM).getPlayers().some(({ location: l }) => {
+        const dx = Math.max(spot.x - l.x, 0, l.x - (spot.x + FRIEZA_BASE.size)), dz = Math.max(spot.z - l.z, 0, l.z - (spot.z + FRIEZA_BASE.size));
+        return Math.hypot(dx, dz) < FRIEZA_BASE.margin;
+      });
+    } catch {
+      return false;
+    }
+  };
+  // nome do sistema de um job de terreno (o local já vem como "chamador (via terrain_repair.js:158)")
+  const terrainName = (where) => {
+    if (!/via terrain_repair\.m?js:/.test(where)) return "";
+    const name = TERRAIN.find(([file]) => where.startsWith(file.replace(/\.js$/, ".")))?.[1] ?? "terreno";
+    return " [terreno: " + name + (name === "espaço/planetas" && quiet(friezaBaseNear) ? ", base do Freeza?" : "") + "]";
+  };
+  const record = (key, ms) => {
+    const t = entry(key);
     t.calls++;
     t.total += ms;
     if (ms > t.max) t.max = ms;
@@ -115,7 +154,8 @@ function install() {
     return orig.call(system, id);
   });
   patch(system, "runJob", (orig) => function (gen) {
-    const where = site(true);
+    const at = site(true), where = at + terrainName(at);
+    if (running) entry("job " + where).jobs++;
     // cada passo do gerador é uma execução da tarefa
     const wrapped = (function* () {
       const it = gen;
@@ -182,6 +222,23 @@ function install() {
     return { dbe, players };
   }
 
+  // dimensão e chunk de cada jogador no momento do report (e a marca da base do Freeza)
+  function playerLines() {
+    return quiet(() => {
+      const lines = [];
+      try {
+        const near = friezaBaseNear();
+        for (const p of world.getPlayers()) {
+          const { x, z } = p.location, dim = p.dimension.id;
+          lines.push(`  jogador ${p.name}: ${dim} chunk ${Math.floor(x / 16)},${Math.floor(z / 16)}` + (dim === FRIEZA_DIM && near ? " (perto da base do Freeza não colocada)" : ""));
+        }
+      } catch (e) {
+        lines.push("  jogadores: indisponível (" + e + ")");
+      }
+      return lines.length ? ["§e[perf] jogadores agora:", ...lines] : [];
+    });
+  }
+
   function report() {
     const endTick = running ? system.currentTick : stoppedTick;
     const endMs = running ? Date.now() : stoppedMs;
@@ -192,8 +249,9 @@ function install() {
     const lines = [
       `§e[perf] ${ticks} ticks em ${fmt(seconds)} s (${running ? "medindo" : "parado"}). Tick: média ${fmt(tickGaps.reduce((a, b) => a + b, 0) / Math.max(1, tickGaps.length))} ms, p95 ${p95(tickGaps)} ms.`,
       `§e[perf] intervalos vivos ${liveIntervals.size}; setProperty ${fmt(setProperties / seconds)}/s; getEntities ${fmt(getEntitiesCalls / seconds)}/s; getPlayers ${fmt(getPlayersCalls / seconds)}/s; entidades dbe: ${dbe}, jogadores ${players}.`,
-      `§e[perf] tarefas (top ${rows.length} por tempo total): chamadas · média · p95 · máx (ms) · ms/tick. O relógio do O3 não entra nos intervalos: as tarefas dele são as linhas "every".`,
-      ...rows.map(([k, t]) => `  ${k}: ${t.calls} · ${fmt(t.total / t.calls)} · ${p95(t.samples)} · ${t.max} · ${fmt(t.total / ticks)}`),
+      `§e[perf] tarefas (top ${rows.length} por tempo total): chamadas · média · p95 · máx (ms) · ms/tick. Nos jobs, "chamadas" = jobs iniciados na medição · passos (yields). O relógio do O3 não entra nos intervalos: as tarefas dele são as linhas "every".`,
+      ...rows.map(([k, t]) => `  ${k}: ${k.startsWith("job ") ? t.jobs + " job(s) iniciado(s) · " + t.calls + " passo(s)" : t.calls} · ${fmt(t.total / Math.max(1, t.calls))} · ${p95(t.samples)} · ${t.max} · ${fmt(t.total / ticks)}`),
+      ...playerLines(),
     ];
     if (failures.length) lines.push("§c[perf] não instrumentado: " + failures.join("; "));
     return lines;
