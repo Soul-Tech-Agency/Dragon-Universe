@@ -1990,6 +1990,9 @@
          "path" : "scripts/core/23_commands.js"
       },
       {
+         "path" : "scripts/core/24_npc_registries.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
