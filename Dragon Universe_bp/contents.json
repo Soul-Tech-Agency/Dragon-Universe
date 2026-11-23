@@ -1987,6 +1987,9 @@
          "path" : "scripts/core/22_blocks.js"
       },
       {
+         "path" : "scripts/core/23_commands.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
