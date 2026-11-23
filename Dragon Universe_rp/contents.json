@@ -82,6 +82,9 @@
          "path" : "animation_controllers/player/player.dbe.animation_controllers.json"
       },
       {
+         "path" : "animation_controllers/training_orb.animation_controllers.json"
+      },
+      {
          "path" : "animation_controllers/player/weapons.animation_controllers.json"
       },
       {
@@ -209,6 +212,9 @@
       },
       {
          "path" : "animations/player/oozaru_ui.animation.json"
+      },
+      {
+         "path" : "animations/player/pushup.animation.json"
       },
       {
          "path" : "animations/projectiles/ki_attack.animation.json"

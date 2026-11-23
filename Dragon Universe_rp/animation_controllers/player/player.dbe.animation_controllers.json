@@ -36,6 +36,12 @@
                         "weapons_controller",
                         "walk_controller",
                         {
+                            "pushup": "v.is_pushup && !v.is_first_person && !v.is_oozaru"
+                        },
+                        {
+                            "pushup_tail": "v.is_pushup && !v.is_first_person && !v.is_oozaru && !v.tail_curled"
+                        },
+                        {
                             "holding_attachable": "v.is_first_person && q.equipped_item_any_tag('slot.weapon.mainhand', 'hold')"
                         }
                     ]
@@ -310,7 +316,7 @@
                     "blend_transition": 0.1,
                     "transitions": [
                         {
-                            "jump": "!q.is_on_ground && !v.is_defending"
+                            "jump": "!q.is_on_ground && !v.is_defending && !v.is_pushup"
                         }
                     ]
                 },
@@ -323,10 +329,13 @@
                     ],
                     "transitions": [
                         {
+                            "default": "v.is_pushup"
+                        },
+                        {
                             "fall": "v.is_falling && v.fly_mode == 'none'"
                         },
                         {
-                            "air": "v.fly_mode != 'none'"
+                            "air": "v.fly_mode != 'none' && !v.is_pushup"
                         },
                         {
                             "default": "q.is_on_ground || v.is_defending"
@@ -342,7 +351,10 @@
                     ],
                     "transitions": [
                         {
-                            "air": "(!q.is_on_ground && !v.is_falling) || v.fly_mode != 'none'"
+                            "default": "v.is_pushup"
+                        },
+                        {
+                            "air": "(!q.is_on_ground && !v.is_falling) || (v.fly_mode != 'none' && !v.is_pushup)"
                         },
                         {
                             "land": "q.is_on_ground"
@@ -352,6 +364,9 @@
                 "air": {
                     "blend_transition": 0.1,
                     "transitions": [
+                        {
+                            "default": "v.is_pushup"
+                        },
                         {
                             "fall": "v.is_falling && v.fly_mode == 'none'"
                         },
@@ -368,6 +383,9 @@
                         }
                     ],
                     "transitions": [
+                        {
+                            "default": "v.is_pushup"
+                        },
                         {
                             "jump": "!q.is_on_ground"
                         },
