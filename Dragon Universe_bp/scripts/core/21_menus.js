@@ -4,6 +4,7 @@ import { ActionFormData as jX } from "@minecraft/server-ui";
 import { cj } from "./02_forms_timers.js";
 import { hN, hO } from "./14_player.js";
 import { removeOrphanOrb } from "../training/concentration.js";
+import { listDefeated as duListDefeated } from "../progression/progression.js";
 import { EntityComponentTypes as g, system as gU, EntitySwingSource as i, EquipmentSlot as l, Player as m, system as n, world as o, system as r } from "@minecraft/server";
 import { eJ, eO, eP, ex } from "./08_fusion_regions.js";
 import { hZ, i0, i3 } from "./15_entities.js";
@@ -831,6 +832,18 @@ function kA(sG) {
 // Item 12 da 1.7.18 (redesign/CONTRATO.md §10): ícones do du2, sempre "textures/ui/du2/icons/<nome>" sem extensão. A
 // cor é fixa por ícone e decidida no JSON, que compara o caminho: o script manda só o caminho exato.
 const DU_ICON = "textures/ui/du2/icons/";
+// Tela Treino (§13): linha 1 (ação) + "\n" + linha 2 (estado); com a linha 2 vazia, só a chave da linha 1.
+function duTrainingLine(action, state) {
+  const part = (v) => (typeof v === "string" ? [{ translate: v }] : Array.isArray(v) ? v : [v]);
+  if (state === "" || state === undefined) return action;
+  return { rawtext: [...part(action), { text: "\n" }, ...part(state)] };
+}
+// "Recarrega em <tempo>" de um cooldown (§13.1)
+function duRecharge(cooldown) {
+  return { translate: "ui.dbe.training.status.recharge", with: { rawtext: [aM.convertTimeToRawText(cooldown.getRemainingTicks() * 50)] } };
+}
+// multiplicador de treino no código "mul;x<n>" (§13.1): inteiro sem casas, senão até 2
+const duTrainingMult = (value) => "x" + parseFloat(Number(value).toFixed(2));
 const DU_QUEST_TYPE_ICON = { main: "quest_main", mentor: "quest_mentor", side: "quest_side", challenge: "quest_challenge" };
 const DU_ACHIEVEMENT_ICON = { battle_power: "ach_battle_power", defeat_enemy: "ach_defeat", item: "ach_item",
   learn_skill: "ach_skill", requirement: "ach_requirement" };
@@ -1066,20 +1079,64 @@ var kB = class extends jY {
   };
 import { CONFIG as kG } from "../config/config.js";
 var kH = class extends jZ {
+    // Tela Treino (CONTRATO §13.1, Engrenagem): 10 = "mul;x<n>" (multiplicador de treino, "" em x1), 11 = "",
+    // 12 sombra, 13 concentração, 14 flexões, 15 treino mental. As 4 linhas vêm sempre; o estado decide o texto (duas
+    // linhas: ação e estado), o ícone (iconPatch) e o clique. Prioridade: em andamento > outro treino ativo > bloqueado
+    // > recarga/limite > disponível. Linha bloqueada ou em recarga: mensagem do motivo e reabre a tela.
     constructor(sG) {
-      super(sG), jZ.lastMenuId.set(sG.id, "training"), this.setTitle("ui.dbe.training.title");
+      super(sG), jZ.lastMenuId.set(sG.id, "training"), this.setTitle("ui.dbe.training.title"), this.setBody("");
       let sH = hO(sG),
-        { concentrationTraining: sI } = sH,
-        { isTraining: sK } = sI;
-      sI.checkAndUpdateAttempts(),
-        sK || this.addButton("ui.dbe.training.button.shadow_dummy", () => this.shadowTraining()),
-        (sK || sI.remainingAttempts > 0) &&
-          this.addButton(
-            sK ? "ui.dbe.training.button.stop_concentration" : "ui.dbe.training.button.concentration",
-            () => {
-              sK ? sI.stopTraining() : sI.startTraining();
-            },
-          );
+        { concentrationTraining: sI, physicalTraining: sK } = sH,
+        sL = sH.mentalTraining,
+        sM = sI.isTraining ? "concentration" : sK?.active ? "physical" : sL?.active ? "mental" : void 0,
+        reopen = () => cj.displayForm(sG, "training"),
+        warn = (key) => () => (sG.sendMessage({ translate: key }), reopen()),
+        mult = sH.trainingMultiplier ?? 1;
+      sI.checkAndUpdateAttempts();
+      this.addButton(mult === 1 ? "" : "mul;" + duTrainingMult(mult), reopen, { iconPatch: DU_ICON + "tab_training" }); // 10
+      this.addButton("", reopen); // 11
+      // 12 sombra
+      let shadowCd = sH.cooldowns.getCooldown("shadow_dummy");
+      if (sM) this.addButton(duTrainingLine("ui.dbe.training.button.shadow_dummy", "ui.dbe.training.status.busy"), warn("ui.dbe.training.physical.blocked.busy"), { iconPatch: DU_ICON + "lock" });
+      else if (shadowCd && !shadowCd.isExpired())
+        this.addButton(duTrainingLine("ui.dbe.training.button.shadow_dummy", duRecharge(shadowCd)), () => (this.shadowTraining(), reopen()), { iconPatch: DU_ICON + "clock" });
+      else this.addButton("ui.dbe.training.button.shadow_dummy", () => this.shadowTraining(), { iconPatch: DU_ICON + "train_shadow" });
+      // 13 concentração
+      let concCd = sH.cooldowns.getCooldown("concentration_training"),
+        maxTries = kG.CONCENTRATION?.MAX_ATTEMPTS ?? 5;
+      if (sM === "concentration")
+        this.addButton(duTrainingLine("ui.dbe.training.button.stop_concentration", "ui.dbe.training.status.active"), () => sI.stopTraining(), { iconPatch: DU_ICON + "train_stop" });
+      else if (sM) this.addButton(duTrainingLine("ui.dbe.training.button.concentration", "ui.dbe.training.status.busy"), warn("ui.dbe.training.physical.blocked.busy"), { iconPatch: DU_ICON + "lock" });
+      else if (sI.remainingAttempts <= 0)
+        this.addButton(duTrainingLine("ui.dbe.training.button.concentration", concCd ? duRecharge(concCd) : ""), warn("ui.dbe.training.concentration.no_tries"), { iconPatch: DU_ICON + "clock" });
+      else
+        this.addButton(duTrainingLine("ui.dbe.training.button.concentration", [{ translate: "ui.dbe.du2.tries" }, { text: " " + sI.remainingAttempts + "/" + maxTries }]),
+          () => sI.startTraining(), { iconPatch: DU_ICON + "train_concentration" });
+      // 14 flexões
+      let physCd = sK?.checkSeries(),
+        maxSeries = sK?.config.DAILY_SERIES ?? 3;
+      if (sM === "physical")
+        this.addButton(duTrainingLine("ui.dbe.training.button.stop_physical", "ui.dbe.training.status.active"), () => sK.stop(), { iconPatch: DU_ICON + "train_stop" });
+      else if (sM) this.addButton(duTrainingLine("ui.dbe.training.button.physical", "ui.dbe.training.status.busy"), warn("ui.dbe.training.physical.blocked.busy"), { iconPatch: DU_ICON + "lock" });
+      else if (!sK || sK.data.seriesLeft <= 0)
+        this.addButton(duTrainingLine("ui.dbe.training.button.physical", physCd ? duRecharge(physCd) : ""), warn("ui.dbe.training.physical.blocked.daily"), { iconPatch: DU_ICON + "clock" });
+      else
+        this.addButton(duTrainingLine("ui.dbe.training.button.physical", [{ translate: "ui.dbe.du2.series" }, { text: " " + sK.seriesDone + "/" + maxSeries }]),
+          () => cj.displayForm(sG, "training_physical"), { iconPatch: DU_ICON + "train_physical" });
+      // 15 treino mental (a lista é o §12.1; até o script dela existir, a linha mostra o estado e reabre a tela)
+      let defeated = duListDefeated(sH).length,
+        mentalDaily = sL?.dailyDone ?? 0,
+        mentalMax = kG.MENTAL?.DAILY_REPEATS ?? 3;
+      if (sM === "mental")
+        this.addButton(duTrainingLine("ui.dbe.training.button.stop_mental", "ui.dbe.training.status.active"), () => sL.stop(), { iconPatch: DU_ICON + "train_stop" });
+      else if (sM) this.addButton(duTrainingLine("ui.dbe.training.button.mental", "ui.dbe.training.status.busy"), warn("ui.dbe.training.physical.blocked.busy"), { iconPatch: DU_ICON + "lock" });
+      else if (!defeated)
+        this.addButton(duTrainingLine("ui.dbe.training.button.mental", "ui.dbe.training.mental.locked"), warn("ui.dbe.training.mental.locked"), { iconPatch: DU_ICON + "lock" });
+      else if (sL?.dailyCooldown?.())
+        this.addButton(duTrainingLine("ui.dbe.training.button.mental", duRecharge(sL.dailyCooldown())), reopen, { iconPatch: DU_ICON + "clock" });
+      else
+        this.addButton(duTrainingLine("ui.dbe.training.button.mental", [{ translate: "ui.dbe.training.mental.daily" }, { text: " " + mentalDaily + "/" + mentalMax }]),
+          () => cj.displayForm(sG, "training_mental"), { iconPatch: DU_ICON + "train_mental" });
     }
     shadowTraining() {
       let sG = hO(this.initiator),
@@ -1099,6 +1156,39 @@ var kH = class extends jZ {
           with: { rawtext: [{ ...sM }] },
         });
       }
+    }
+  },
+  // Séries das flexões (CONTRATO §13.2): 10 = "day;<feitas>/<máx>", 11 = "", 12–14 = séries 20/30/50, 15 = modo
+  // alternativo. Clique numa série: confere os requisitos; se falhar, mensagem do motivo e reabre; senão a contagem
+  // começa (a tela fecha).
+  kHPhysical = class extends jZ {
+    constructor(sG) {
+      super(sG), jZ.lastMenuId.set(sG.id, "training"), this.setTitle("ui.dbe.training_physical.title"), this.setBody("");
+      let sH = hO(sG).physicalTraining,
+        reopen = () => cj.displayForm(sG, "training_physical"),
+        sI = sH.config,
+        sK = sH.checkSeries();
+      this.addButton("day;" + sH.seriesDone + "/" + sI.DAILY_SERIES, reopen, { iconPatch: DU_ICON + "train_physical" }); // 10
+      this.addButton("", reopen); // 11
+      for (let sL of [20, 30, 50]) {
+        let sM = { translate: "ui.dbe.training.physical.series", with: ["" + sL] },
+          sN = sI.SERIES_MIN_LEVEL?.[sL] ?? 0;
+        if (sN > hO(sG).level.currentLevel)
+          this.addButton(duTrainingLine(sM, { translate: "ui.dbe.training.physical.locked_level", with: ["" + sN] }),
+            () => (sG.sendMessage({ translate: "ui.dbe.training.physical.blocked.level" }), reopen()), { iconPatch: DU_ICON + "lock" });
+        else if (sH.data.seriesLeft <= 0)
+          this.addButton(duTrainingLine(sM, sK ? duRecharge(sK) : ""),
+            () => (sG.sendMessage({ translate: "ui.dbe.training.physical.blocked.daily" }), reopen()), { iconPatch: DU_ICON + "clock" });
+        else
+          this.addButton(duTrainingLine(sM, { translate: "ui.dbe.training.physical.reward", with: [Math.round(100 * sH.rewardShare(sL)) + "%"] }),
+            () => {
+              let sO = sH.start(sL);
+              sO && (sG.sendMessage({ translate: "ui.dbe.training.physical.blocked." + sO }), reopen());
+            }, { iconPatch: DU_ICON + "train_physical" });
+      }
+      let sP = !!sH.data.altMode; // 15
+      this.addButton(duTrainingLine("ui.dbe.training.physical.alt_mode", sP ? "ui.dbe.yes" : "ui.dbe.no"),
+        () => (sH.toggleAltMode(), reopen()), { iconPatch: DU_ICON + (sP ? "check" : "close") });
     }
   },
   kI = class extends jY {
@@ -1175,7 +1265,8 @@ function kJ() {
     cj.registerActionForm("statistics", kF),
     cj.registerActionForm("statistics_view", kf),
     cj.registerActionForm("training", kH),
+    cj.registerActionForm("training_physical", kHPhysical),
     cj.registerActionForm("transformations", kj);
 }
 kJ();
-export { jY, jZ, k0, k1, k2, k3, k4, k5, removeTimeChamberHostile, duNpcInteractions, duHandleNpcInteraction, k6, k7, k8, k9, kb, kf, kj, kk, kpPick, kp, DU_ATTRIBUTE_ORDER, duMultiplierText, DU_RACE_GRID, duCustomizationOpen, kq, kv, kw, kx, ky, kz, kA, DU_ICON, DU_QUEST_TYPE_ICON, DU_ACHIEVEMENT_ICON, duQuestIcon, duOptionValue, duCustomizationSlots, duAchievementIcon, kB, kC, kD, kE, kF, kH, kI, DU_HELP_PARAGRAPHS, DU_HELP_TOPICS, duHelpForm, kJ };
+export { jY, jZ, k0, k1, k2, k3, k4, k5, removeTimeChamberHostile, duNpcInteractions, duHandleNpcInteraction, k6, k7, k8, k9, kb, kf, kj, kk, kpPick, kp, DU_ATTRIBUTE_ORDER, duMultiplierText, DU_RACE_GRID, duCustomizationOpen, kq, kv, kw, kx, ky, kz, kA, DU_ICON, DU_QUEST_TYPE_ICON, DU_ACHIEVEMENT_ICON, duQuestIcon, duOptionValue, duCustomizationSlots, duAchievementIcon, kB, kC, kD, kE, kF, kH, kHPhysical, kI, DU_HELP_PARAGRAPHS, DU_HELP_TOPICS, duHelpForm, kJ };

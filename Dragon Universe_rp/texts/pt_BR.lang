@@ -1707,3 +1707,19 @@ ui.dbe.training.physical.blocked.ground=§cFique no chão para treinar.
 ui.dbe.training.physical.blocked.tournament=§cNão dá para treinar durante o torneio.
 ui.dbe.training.physical.blocked.damage=§cVocê levou dano agora há pouco: espere alguns segundos.
 ui.dbe.training.physical.blocked.quest=§cTermine a luta da missão antes de treinar.
+
+## Treinos 1.7.20 (Bússola): tela Treino e séries das flexões (CONTRATO §13.4)
+ui.dbe.training_physical.title=Flexões: escolha a série
+ui.dbe.training.button.physical=Treino físico (flexões)
+ui.dbe.training.button.stop_physical=Encerrar flexões
+ui.dbe.training.button.mental=Treino mental
+ui.dbe.training.button.stop_mental=Desistir da réplica
+ui.dbe.training.status.active=Em andamento
+ui.dbe.training.status.busy=Outro treino em andamento
+ui.dbe.training.status.recharge=Recarrega em %s
+ui.dbe.training.physical.series=%s flexões
+ui.dbe.training.physical.reward=≈ %s de um nível
+ui.dbe.training.physical.locked_level=Libera no nível %s
+ui.dbe.training.physical.alt_mode=Modo alternativo (item do menu)
+ui.dbe.training.mental.locked=Derrote na campanha
+ui.dbe.training.concentration.no_tries=§cSem tentativas de concentração: espere a recarga.

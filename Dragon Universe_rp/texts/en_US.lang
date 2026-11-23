@@ -1703,3 +1703,19 @@ ui.dbe.training.physical.blocked.ground=§cStand on the ground to train.
 ui.dbe.training.physical.blocked.tournament=§cYou cannot train during the tournament.
 ui.dbe.training.physical.blocked.damage=§cYou were hurt just now: wait a few seconds.
 ui.dbe.training.physical.blocked.quest=§cFinish the quest fight before training.
+
+## Treinos 1.7.20 (Bússola): tela Treino e séries das flexões (CONTRATO §13.4)
+ui.dbe.training_physical.title=Push-ups: choose the series
+ui.dbe.training.button.physical=Physical training (push-ups)
+ui.dbe.training.button.stop_physical=Stop push-ups
+ui.dbe.training.button.mental=Mental training
+ui.dbe.training.button.stop_mental=Give up on the replica
+ui.dbe.training.status.active=In progress
+ui.dbe.training.status.busy=Another training in progress
+ui.dbe.training.status.recharge=Recharges in %s
+ui.dbe.training.physical.series=%s push-ups
+ui.dbe.training.physical.reward=≈ %s of a level
+ui.dbe.training.physical.locked_level=Unlocks at level %s
+ui.dbe.training.physical.alt_mode=Alternative mode (menu item)
+ui.dbe.training.mental.locked=Defeat it in the campaign
+ui.dbe.training.concentration.no_tries=§cNo concentration attempts left: wait for the recharge.
