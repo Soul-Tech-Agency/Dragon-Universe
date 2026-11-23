@@ -1054,7 +1054,7 @@
       {"fill": {"type": "panel", "size": ["fill", "100%"]}},
       {
        "transformations": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [130, 22],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_skills.h16": {}}]
@@ -1128,7 +1128,7 @@
       {"fill": {"type": "panel", "size": ["fill", "100%"]}},
       {
        "transformations": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [130, 22],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_skills.h16": {}}]
