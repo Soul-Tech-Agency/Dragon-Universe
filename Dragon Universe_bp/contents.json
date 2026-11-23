@@ -1984,6 +1984,9 @@
          "path" : "scripts/core/21_menus.js"
       },
       {
+         "path" : "scripts/core/22_blocks.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
