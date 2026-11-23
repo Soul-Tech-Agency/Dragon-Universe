@@ -53,7 +53,32 @@
        }
       },
       {
-       "content": {"type": "panel", "size": ["100%", "100%"], "layer": 1, "controls": [{"row@du2_help.h1": {}}]}
+       "content": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "layer": 1,
+        "controls": [
+         {
+          "row": {
+           "type": "stack_panel",
+           "orientation": "horizontal",
+           "size": ["100%", "100%"],
+           "controls": [
+            {"pad": {"type": "panel", "size": [6, "100%"]}},
+            {
+             "t": {
+              "type": "panel",
+              "size": ["fill", "100%"],
+              "clips_children": true,
+              "controls": [{"l@du2_help.h2": {}}]
+             }
+            },
+            {"pad": {"type": "panel", "size": [5, "100%"]}}
+           ]
+          }
+         }
+        ]
+       }
       }
      ],
      "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}],
@@ -116,7 +141,32 @@
        }
       },
       {
-       "content": {"type": "panel", "size": ["100%", "100%"], "layer": 1, "controls": [{"row@du2_help.h1": {}}]}
+       "content": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "layer": 1,
+        "controls": [
+         {
+          "row": {
+           "type": "stack_panel",
+           "orientation": "horizontal",
+           "size": ["100%", "100%"],
+           "controls": [
+            {"pad": {"type": "panel", "size": [6, "100%"]}},
+            {
+             "t": {
+              "type": "panel",
+              "size": ["fill", "100%"],
+              "clips_children": true,
+              "controls": [{"l@du2_help.h2": {}}]
+             }
+            },
+            {"pad": {"type": "panel", "size": [5, "100%"]}}
+           ]
+          }
+         }
+        ]
+       }
       }
      ],
      "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}],
@@ -179,11 +229,11 @@
         "size": ["100%", 24],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_help.h2": {}}
+         {"row@du2_help.h3": {}}
         ]
        }
       },
-      {"body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"row@du2_help.h3": {}}]}}
+      {"body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"row@du2_help.h4": {}}]}}
      ]
     }
    }
@@ -239,7 +289,7 @@
         "size": ["100%", 20],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_help.h4": {}}
+         {"row@du2_help.h5": {}}
         ]
        }
       },
@@ -253,7 +303,7 @@
            "type": "stack_panel",
            "orientation": "horizontal",
            "size": ["100%", "100%"],
-           "controls": [{"nav@du2.nav_mobile": {}}, {"content@du2_help.h5": {}}]
+           "controls": [{"nav@du2.nav_mobile": {}}, {"content@du2_help.h6": {}}]
           }
          }
         ]
@@ -265,49 +315,68 @@
   ]
  },
  "h1": {
-  "type": "stack_panel",
-  "orientation": "horizontal",
-  "size": ["100%", "100%"],
-  "controls": [
-   {"pad": {"type": "panel", "size": [6, "100%"]}},
+  "type": "label",
+  "text": "#du2_text",
+  "size": ["100%", 10],
+  "color": [0.902, 0.925, 0.969],
+  "font_type": "smooth",
+  "shadow": false,
+  "text_alignment": "left",
+  "bindings": [
    {
-    "t": {
-     "type": "panel",
-     "size": ["fill", "100%"],
-     "clips_children": true,
-     "controls": [
-      {
-       "l": {
-        "type": "label",
-        "text": "#du2_text",
-        "size": ["100%", 10],
-        "color": [0.902, 0.925, 0.969],
-        "font_type": "smooth",
-        "shadow": false,
-        "text_alignment": "left",
-        "bindings": [
-         {
-          "binding_type": "collection",
-          "binding_collection_name": "form_buttons",
-          "binding_name": "#form_button_text"
-         },
-         {
-          "binding_type": "view",
-          "source_property_name": "(#form_button_text - '*')",
-          "target_property_name": "#du2_text"
-         }
-        ],
-        "anchor_from": "left_middle",
-        "anchor_to": "left_middle"
-       }
-      }
-     ]
-    }
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_text"
    },
-   {"pad": {"type": "panel", "size": [5, "100%"]}}
-  ]
+   {
+    "binding_type": "view",
+    "source_property_name": "(('§r' + #form_button_text) - '§r*')",
+    "target_property_name": "#du2_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((('§r' + #form_button_text) - '§r*') = ('§r' + #form_button_text)))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "anchor_from": "left_middle",
+  "anchor_to": "left_middle"
  },
  "h2": {
+  "type": "panel",
+  "size": ["100%", 10],
+  "anchor_from": "left_middle",
+  "anchor_to": "left_middle",
+  "controls": [
+   {
+    "off": {
+     "type": "label",
+     "text": "#form_button_text",
+     "size": ["100%", 10],
+     "color": [0.902, 0.925, 0.969],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "bindings": [
+      {
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (not ((('§r' + #form_button_text) - '§r*') = ('§r' + #form_button_text))))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle"
+    }
+   },
+   {"on@du2_help.h1": {}}
+  ]
+ },
+ "h3": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -334,7 +403,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h3": {
+ "h4": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -381,7 +450,7 @@
    }
   ]
  },
- "h4": {
+ "h5": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -408,7 +477,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h5": {
+ "h6": {
   "type": "panel",
   "size": ["fill", "100%"],
   "controls": [

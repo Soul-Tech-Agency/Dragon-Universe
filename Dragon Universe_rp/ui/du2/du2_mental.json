@@ -53,7 +53,7 @@
        }
       },
       {
-       "content": {"type": "panel", "size": ["100%", "100%"], "layer": 1, "controls": [{"row@du2_mental.h5": {}}]}
+       "content": {"type": "panel", "size": ["100%", "100%"], "layer": 1, "controls": [{"row@du2_mental.h7": {}}]}
       }
      ],
      "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}],
@@ -116,7 +116,7 @@
        }
       },
       {
-       "content": {"type": "panel", "size": ["100%", "100%"], "layer": 1, "controls": [{"row@du2_mental.h5": {}}]}
+       "content": {"type": "panel", "size": ["100%", "100%"], "layer": 1, "controls": [{"row@du2_mental.h7": {}}]}
       }
      ],
      "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}],
@@ -153,7 +153,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_mental.h6": {}}]
+     "controls": [{"row@du2_mental.h8": {}}]
     }
    },
    {"pad": {"type": "panel", "size": ["100%", 2]}},
@@ -190,7 +190,7 @@
         "size": ["100%", 24],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_mental.h7": {}}
+         {"row@du2_mental.h9": {}}
         ]
        }
       },
@@ -204,7 +204,7 @@
            "type": "stack_panel",
            "orientation": "horizontal",
            "size": ["100%", "100%"],
-           "controls": [{"nav@du2.nav_pc": {}}, {"content@du2_mental.h8": {}}]
+           "controls": [{"nav@du2.nav_pc": {}}, {"content@du2_mental.h10": {}}]
           }
          }
         ]
@@ -239,7 +239,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_mental.h6": {}}]
+     "controls": [{"row@du2_mental.h8": {}}]
     }
    },
    {"pad": {"type": "panel", "size": ["100%", 2]}},
@@ -276,7 +276,7 @@
         "size": ["100%", 20],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_mental.h9": {}}
+         {"row@du2_mental.h11": {}}
         ]
        }
       },
@@ -290,7 +290,7 @@
            "type": "stack_panel",
            "orientation": "horizontal",
            "size": ["100%", "100%"],
-           "controls": [{"nav@du2.nav_mobile": {}}, {"content@du2_mental.h10": {}}]
+           "controls": [{"nav@du2.nav_mobile": {}}, {"content@du2_mental.h12": {}}]
           }
          }
         ]
@@ -322,11 +322,11 @@
         "size": ["100%", 24],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_mental.h12": {}}
+         {"row@du2_mental.h14": {}}
         ]
        }
       },
-      {"body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_mental.h34": {}}]}}
+      {"body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_mental.h40": {}}]}}
      ]
     }
    }
@@ -353,11 +353,11 @@
         "size": ["100%", 20],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_mental.h35": {}}
+         {"row@du2_mental.h41": {}}
         ]
        }
       },
-      {"body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_mental.h36": {}}]}}
+      {"body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_mental.h42": {}}]}}
      ]
     }
    }
@@ -490,6 +490,69 @@
   ]
  },
  "h5": {
+  "type": "label",
+  "text": "#du2_text",
+  "size": ["100%", "default"],
+  "color": [0.902, 0.925, 0.969],
+  "font_type": "smooth",
+  "shadow": false,
+  "text_alignment": "left",
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(('§r' + #form_button_text) - '§r*')",
+    "target_property_name": "#du2_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((('§r' + #form_button_text) - '§r*') = ('§r' + #form_button_text)))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "anchor_from": "top_left",
+  "anchor_to": "top_left"
+ },
+ "h6": {
+  "type": "panel",
+  "size": ["100%", "100%c"],
+  "anchor_from": "top_left",
+  "anchor_to": "top_left",
+  "controls": [
+   {
+    "off": {
+     "type": "label",
+     "text": "#form_button_text",
+     "size": ["100%", "default"],
+     "color": [0.902, 0.925, 0.969],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "left",
+     "bindings": [
+      {
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (not ((('§r' + #form_button_text) - '§r*') = ('§r' + #form_button_text))))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left"
+    }
+   },
+   {"on@du2_mental.h5": {}}
+  ],
+  "offset": [0, 4]
+ },
+ "h7": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -549,44 +612,12 @@
     }
    },
    {
-    "t": {
-     "type": "panel",
-     "size": ["fill", "100%"],
-     "clips_children": true,
-     "controls": [
-      {
-       "l": {
-        "type": "label",
-        "text": "#du2_text",
-        "size": ["100%", "default"],
-        "color": [0.902, 0.925, 0.969],
-        "font_type": "smooth",
-        "shadow": false,
-        "text_alignment": "left",
-        "bindings": [
-         {
-          "binding_type": "collection",
-          "binding_collection_name": "form_buttons",
-          "binding_name": "#form_button_text"
-         },
-         {
-          "binding_type": "view",
-          "source_property_name": "(#form_button_text - '*')",
-          "target_property_name": "#du2_text"
-         }
-        ],
-        "anchor_from": "top_left",
-        "anchor_to": "top_left",
-        "offset": [0, 4]
-       }
-      }
-     ]
-    }
+    "t": {"type": "panel", "size": ["fill", "100%"], "clips_children": true, "controls": [{"l@du2_mental.h6": {}}]}
    },
    {"pad": {"type": "panel", "size": [5, "100%"]}}
   ]
  },
- "h6": {
+ "h8": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", 14],
@@ -661,7 +692,7 @@
    }
   ]
  },
- "h7": {
+ "h9": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -688,7 +719,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h8": {
+ "h10": {
   "type": "panel",
   "size": ["fill", "100%"],
   "controls": [
@@ -725,7 +756,7 @@
    }
   ]
  },
- "h9": {
+ "h11": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -752,7 +783,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h10": {
+ "h12": {
   "type": "panel",
   "size": ["fill", "100%"],
   "controls": [
@@ -789,7 +820,7 @@
    }
   ]
  },
- "h11@common.button": {
+ "h13@common.button": {
   "size": [24, 20],
   "collection_index": 0,
   "$pressed_button_name": "button.form_button_click",
@@ -863,7 +894,7 @@
    }
   ]
  },
- "h12": {
+ "h14": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -879,7 +910,7 @@
         "type": "collection_panel",
         "size": [24, 20],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_mental.h11": {}}],
+        "controls": [{"b@du2_mental.h13": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -909,7 +940,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h13": {
+ "h15": {
   "type": "image",
   "texture": "",
   "size": [12, 12],
@@ -939,7 +970,7 @@
    }
   ]
  },
- "h14": {
+ "h16": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 3,
@@ -979,7 +1010,7 @@
    }
   ]
  },
- "h15": {
+ "h17": {
   "type": "collection_panel",
   "size": ["fill", "100%"],
   "collection_name": "form_buttons",
@@ -1020,7 +1051,7 @@
    }
   ]
  },
- "h16": {
+ "h18": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 4,
@@ -1060,7 +1091,7 @@
    }
   ]
  },
- "h17": {
+ "h19": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", 14],
@@ -1081,7 +1112,7 @@
           "i": {
            "type": "panel",
            "size": [12, 12],
-           "controls": [{"i_train_mental@du2_mental.h3": {}}, {"i_other@du2_mental.h13": {}}]
+           "controls": [{"i_train_mental@du2_mental.h3": {}}, {"i_other@du2_mental.h15": {}}]
           }
          }
         ]
@@ -1096,7 +1127,7 @@
      "type": "collection_panel",
      "size": ["fill", 14],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_mental.h14": {}}]
+     "controls": [{"s@du2_mental.h16": {}}]
     }
    },
    {
@@ -1105,14 +1136,14 @@
      "orientation": "horizontal",
      "size": [96, 14],
      "controls": [
-      {"c@du2_mental.h15": {}},
+      {"c@du2_mental.h17": {}},
       {"pad": {"type": "panel", "size": [4, "100%"]}},
       {
        "v": {
         "type": "collection_panel",
         "size": [30, 14],
         "collection_name": "form_buttons",
-        "controls": [{"s@du2_mental.h16": {}}]
+        "controls": [{"s@du2_mental.h18": {}}]
        }
       }
      ]
@@ -1120,7 +1151,7 @@
    }
   ]
  },
- "h18": {
+ "h20": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 7,
@@ -1160,7 +1191,7 @@
    }
   ]
  },
- "h19": {
+ "h21": {
   "type": "image",
   "texture": "",
   "size": [9, 9],
@@ -1190,7 +1221,7 @@
    }
   ]
  },
- "h20": {
+ "h22": {
   "type": "image",
   "texture": "",
   "size": [9, 9],
@@ -1220,7 +1251,7 @@
    }
   ]
  },
- "h21": {
+ "h23": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%c"],
@@ -1247,7 +1278,7 @@
        "i": {
         "type": "panel",
         "size": [9, 9],
-        "controls": [{"i_skill_points@du2_mental.h19": {}}, {"i_other@du2_mental.h20": {}}]
+        "controls": [{"i_skill_points@du2_mental.h21": {}}, {"i_other@du2_mental.h22": {}}]
        }
       }
      ]
@@ -1274,7 +1305,7 @@
    }
   ]
  },
- "h22": {
+ "h24": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%c"],
@@ -1336,107 +1367,196 @@
    }
   ]
  },
- "h23": {
-  "type": "stack_panel",
-  "orientation": "horizontal",
-  "size": ["100%c", "100%"],
+ "h25": {
+  "type": "label",
+  "text": "#du2_text",
+  "size": ["100%", 10],
+  "color": [0.047, 0.09, 0.188],
+  "font_type": "smooth",
+  "shadow": false,
+  "text_alignment": "center",
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(('§r' + #form_button_text) - '§r*')",
+    "target_property_name": "#du2_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((('§r' + #form_button_text) - '§r*') = ('§r' + #form_button_text)))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "anchor_from": "center",
+  "anchor_to": "center"
+ },
+ "h26": {
+  "type": "panel",
+  "size": ["100%", 10],
   "anchor_from": "center",
   "anchor_to": "center",
   "controls": [
    {
-    "cell": {
-     "type": "panel",
-     "size": [12, "100%"],
-     "controls": [
+    "off": {
+     "type": "label",
+     "text": "#form_button_text",
+     "size": ["100%", 10],
+     "color": [0.047, 0.09, 0.188],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "center",
+     "bindings": [
       {
-       "x": {
-        "type": "image",
-        "texture": "textures/ui/du2/icons/play",
-        "size": [10, 10],
-        "color": [0.047, 0.09, 0.188],
-        "anchor_from": "center",
-        "anchor_to": "center"
-       }
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (not ((('§r' + #form_button_text) - '§r*') = ('§r' + #form_button_text))))",
+       "target_property_name": "#visible"
       }
-     ]
+     ],
+     "anchor_from": "center",
+     "anchor_to": "center"
     }
    },
-   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {"on@du2_mental.h25": {}}
+  ]
+ },
+ "h27": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary", "size": ["100%", "100%"]}},
    {
-    "t": {
-     "type": "panel",
-     "size": [70, "100%"],
-     "clips_children": true,
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%c", "100%"],
+     "anchor_from": "center",
+     "anchor_to": "center",
      "controls": [
       {
-       "l": {
-        "type": "label",
-        "text": "#du2_text",
-        "size": ["100%", 10],
-        "color": [0.047, 0.09, 0.188],
-        "font_type": "smooth",
-        "shadow": false,
-        "text_alignment": "center",
-        "bindings": [
+       "cell": {
+        "type": "panel",
+        "size": [12, "100%"],
+        "controls": [
          {
-          "binding_type": "collection",
-          "binding_collection_name": "form_buttons",
-          "binding_name": "#form_button_text"
-         },
-         {
-          "binding_type": "view",
-          "source_property_name": "(#form_button_text - '*')",
-          "target_property_name": "#du2_text"
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/play",
+           "size": [10, 10],
+           "color": [0.047, 0.09, 0.188],
+           "anchor_from": "center",
+           "anchor_to": "center"
+          }
          }
-        ],
-        "anchor_from": "center",
-        "anchor_to": "center"
+        ]
        }
+      },
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {
+       "t": {"type": "panel", "size": [70, "100%"], "clips_children": true, "controls": [{"l@du2_mental.h26": {}}]}
       }
      ]
     }
    }
   ]
  },
- "h24@common.button": {
+ "h28": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary_hover", "size": ["100%", "100%"]}},
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%c", "100%"],
+     "anchor_from": "center",
+     "anchor_to": "center",
+     "controls": [
+      {
+       "cell": {
+        "type": "panel",
+        "size": [12, "100%"],
+        "controls": [
+         {
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/play",
+           "size": [10, 10],
+           "color": [0.047, 0.09, 0.188],
+           "anchor_from": "center",
+           "anchor_to": "center"
+          }
+         }
+        ]
+       }
+      },
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {
+       "t": {"type": "panel", "size": [70, "100%"], "clips_children": true, "controls": [{"l@du2_mental.h26": {}}]}
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h29": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary_pressed", "size": ["100%", "100%"]}},
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%c", "100%"],
+     "anchor_from": "center",
+     "anchor_to": "center",
+     "controls": [
+      {
+       "cell": {
+        "type": "panel",
+        "size": [12, "100%"],
+        "controls": [
+         {
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/play",
+           "size": [10, 10],
+           "color": [0.047, 0.09, 0.188],
+           "anchor_from": "center",
+           "anchor_to": "center"
+          }
+         }
+        ]
+       }
+      },
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {
+       "t": {"type": "panel", "size": [70, "100%"], "clips_children": true, "controls": [{"l@du2_mental.h26": {}}]}
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h30@common.button": {
   "size": ["100%", 22],
   "collection_index": 1,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
   "pressed_control": "pressed",
-  "controls": [
-   {
-    "default": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "controls": [
-      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary", "size": ["100%", "100%"]}},
-      {"row@du2_mental.h23": {}}
-     ]
-    }
-   },
-   {
-    "hover": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "controls": [
-      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary_hover", "size": ["100%", "100%"]}},
-      {"row@du2_mental.h23": {}}
-     ]
-    }
-   },
-   {
-    "pressed": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "controls": [
-      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary_pressed", "size": ["100%", "100%"]}},
-      {"row@du2_mental.h23": {}}
-     ]
-    }
-   }
-  ],
+  "controls": [{"default@du2_mental.h27": {}}, {"hover@du2_mental.h28": {}}, {"pressed@du2_mental.h29": {}}],
   "bindings": [
    {"binding_type": "collection_details", "binding_collection_name": "form_buttons"},
    {
@@ -1451,7 +1571,7 @@
    }
   ]
  },
- "h25": {
+ "h31": {
   "type": "stack_panel",
   "orientation": "vertical",
   "size": ["100% - 10px", "100% - 8px"],
@@ -1493,7 +1613,7 @@
         "type": "collection_panel",
         "size": ["fill", 10],
         "collection_name": "form_buttons",
-        "controls": [{"s@du2_mental.h18": {}}]
+        "controls": [{"s@du2_mental.h20": {}}]
        }
       }
      ]
@@ -1536,7 +1656,7 @@
           "target_property_name": "#visible"
          }
         ],
-        "controls": [{"todo@du2_mental.h21": {}}, {"done@du2_mental.h22": {}}]
+        "controls": [{"todo@du2_mental.h23": {}}, {"done@du2_mental.h24": {}}]
        }
       }
      ]
@@ -1548,12 +1668,12 @@
      "type": "collection_panel",
      "size": ["100%", 22],
      "collection_name": "form_buttons",
-     "controls": [{"b@du2_mental.h24": {}}]
+     "controls": [{"b@du2_mental.h30": {}}]
     }
    }
   ]
  },
- "h26": {
+ "h32": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 9,
@@ -1593,7 +1713,7 @@
    }
   ]
  },
- "h27": {
+ "h33": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%c"],
@@ -1620,7 +1740,7 @@
        "i": {
         "type": "panel",
         "size": [9, 9],
-        "controls": [{"i_skill_points@du2_mental.h19": {}}, {"i_other@du2_mental.h20": {}}]
+        "controls": [{"i_skill_points@du2_mental.h21": {}}, {"i_other@du2_mental.h22": {}}]
        }
       }
      ]
@@ -1647,7 +1767,7 @@
    }
   ]
  },
- "h28": {
+ "h34": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%c"],
@@ -1709,45 +1829,14 @@
    }
   ]
  },
- "h29@common.button": {
+ "h35@common.button": {
   "size": ["100%", 22],
   "collection_index": 2,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
   "pressed_control": "pressed",
-  "controls": [
-   {
-    "default": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "controls": [
-      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary", "size": ["100%", "100%"]}},
-      {"row@du2_mental.h23": {}}
-     ]
-    }
-   },
-   {
-    "hover": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "controls": [
-      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary_hover", "size": ["100%", "100%"]}},
-      {"row@du2_mental.h23": {}}
-     ]
-    }
-   },
-   {
-    "pressed": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "controls": [
-      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary_pressed", "size": ["100%", "100%"]}},
-      {"row@du2_mental.h23": {}}
-     ]
-    }
-   }
-  ],
+  "controls": [{"default@du2_mental.h27": {}}, {"hover@du2_mental.h28": {}}, {"pressed@du2_mental.h29": {}}],
   "bindings": [
    {"binding_type": "collection_details", "binding_collection_name": "form_buttons"},
    {
@@ -1762,7 +1851,7 @@
    }
   ]
  },
- "h30": {
+ "h36": {
   "type": "stack_panel",
   "orientation": "vertical",
   "size": ["100% - 10px", "100% - 8px"],
@@ -1804,7 +1893,7 @@
         "type": "collection_panel",
         "size": ["fill", 10],
         "collection_name": "form_buttons",
-        "controls": [{"s@du2_mental.h26": {}}]
+        "controls": [{"s@du2_mental.h32": {}}]
        }
       }
      ]
@@ -1847,7 +1936,7 @@
           "target_property_name": "#visible"
          }
         ],
-        "controls": [{"todo@du2_mental.h27": {}}, {"done@du2_mental.h28": {}}]
+        "controls": [{"todo@du2_mental.h33": {}}, {"done@du2_mental.h34": {}}]
        }
       }
      ]
@@ -1859,12 +1948,12 @@
      "type": "collection_panel",
      "size": ["100%", 22],
      "collection_name": "form_buttons",
-     "controls": [{"b@du2_mental.h29": {}}]
+     "controls": [{"b@du2_mental.h35": {}}]
     }
    }
   ]
  },
- "h31": {
+ "h37": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 6,
@@ -1904,7 +1993,7 @@
    }
   ]
  },
- "h32": {
+ "h38": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 5,
@@ -1944,7 +2033,7 @@
    }
   ]
  },
- "h33": {
+ "h39": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", 12],
@@ -1954,7 +2043,7 @@
      "type": "collection_panel",
      "size": ["fill", 12],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_mental.h31": {}}]
+     "controls": [{"s@du2_mental.h37": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [6, "100%"]}},
@@ -1975,19 +2064,19 @@
      "type": "collection_panel",
      "size": [28, 12],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_mental.h32": {}}]
+     "controls": [{"s@du2_mental.h38": {}}]
     }
    }
   ]
  },
- "h34": {
+ "h40": {
   "type": "stack_panel",
   "orientation": "vertical",
   "size": ["100% - 12px", "100% - 10px"],
   "anchor_from": "center",
   "anchor_to": "center",
   "controls": [
-   {"head@du2_mental.h17": {}},
+   {"head@du2_mental.h19": {}},
    {"pad": {"type": "panel", "size": ["100%", 2]}},
    {
     "desc": {
@@ -2024,7 +2113,7 @@
         "size": ["fill", "100%"],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}},
-         {"col@du2_mental.h25": {}}
+         {"col@du2_mental.h31": {}}
         ]
        }
       },
@@ -2035,7 +2124,7 @@
         "size": ["fill", "100%"],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}},
-         {"col@du2_mental.h30": {}}
+         {"col@du2_mental.h36": {}}
         ]
        }
       }
@@ -2043,10 +2132,10 @@
     }
    },
    {"pad": {"type": "panel", "size": ["100%", 4]}},
-   {"foot@du2_mental.h33": {}}
+   {"foot@du2_mental.h39": {}}
   ]
  },
- "h35": {
+ "h41": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -2062,7 +2151,7 @@
         "type": "collection_panel",
         "size": [24, 20],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_mental.h11": {}}],
+        "controls": [{"b@du2_mental.h13": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -2092,14 +2181,14 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h36": {
+ "h42": {
   "type": "stack_panel",
   "orientation": "vertical",
   "size": ["100% - 8px", "100% - 6px"],
   "anchor_from": "center",
   "anchor_to": "center",
   "controls": [
-   {"head@du2_mental.h17": {}},
+   {"head@du2_mental.h19": {}},
    {"pad": {"type": "panel", "size": ["100%", 2]}},
    {
     "desc": {
@@ -2136,7 +2225,7 @@
         "size": ["fill", "100%"],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}},
-         {"col@du2_mental.h25": {}}
+         {"col@du2_mental.h31": {}}
         ]
        }
       },
@@ -2147,7 +2236,7 @@
         "size": ["fill", "100%"],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}},
-         {"col@du2_mental.h30": {}}
+         {"col@du2_mental.h36": {}}
         ]
        }
       }
@@ -2155,7 +2244,7 @@
     }
    },
    {"pad": {"type": "panel", "size": ["100%", 4]}},
-   {"foot@du2_mental.h33": {}}
+   {"foot@du2_mental.h39": {}}
   ]
  }
 }
