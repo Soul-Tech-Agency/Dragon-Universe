@@ -221,8 +221,48 @@ Integração: juntar os 3 e o compare contra a base antes deles tem que dar IDÊ
 
 ## (1.7.19) Registro de chefes derrotados (1744f5b, f009ae2)
 - [ ] Save antigo com a saga Saiyajin concluída: /scriptevent dbe:bosses lista Raditz, Nappa e Vegeta
-- [ ] Save com a saga_beerus_1 concluída: o Beerus NÃO aparece (luta de sobrevivência)
+- [ ] Save com a saga_beerus_1 concluída: o Beerus APARECE (sobreviver conta, 92bc8a0)
+- [ ] Luta do Beerus até o fim do tempo: o Beerus entra no registro de quem fez o objetivo, não de outro jogador perto
 - [ ] Matar um chefe de missão marca; matar de novo mostra x2; Saibaman não marca
 - [ ] Kill em grupo: só quem deu o golpe final ganha o registro (o outro jogador não)
 - [ ] Chefe com a tag dbe:mental_replica (/tag @e[type=dbe:raditz] add dbe:mental_replica) morto não marca
 - [ ] Sair e entrar: o registro continua
+
+## (1.7.19) Registro de chefes — sobreviver conta (92bc8a0, Sentinela APROVADO)
+- [ ] Luta do Beerus até acabar o tempo → `/scriptevent dbe:bosses` lista o Beerus para o dono e não para outro jogador perto.
+- [ ] Sair e entrar logo depois → continua 1.
+- [ ] Save antigo com a saga_beerus_1 concluída → o Beerus aparece.
+- [ ] Cancelar no diálogo on_finish → não soma.
+
+## Desempenho 23/11 (Marco 588e682 + 2ea74f1, em revisão)
+- [ ] `/scriptevent dbe:perf` no overworld de mundo novo, sem ter viajado: tick médio < 50 ms; não aparece 'interval(1) terrain_repair.js'. Se aparecer, anotar onde estava e mandar o ContentLog.
+- [ ] Viagem para planeta e Kaioshin: completa (mais lenta que antes é esperado), sem travar.
+- [ ] Base do Freeza e Namek: ponto desenhado igual ao de antes, sem travada.
+- [ ] `/scriptevent dbe:landmarks` mostra o custo da busca de bioma.
+
+## Menus 23/11 (Engrenagem 85182a5, em revisão)
+- [ ] Content Log sem "Unknown property [collection_name]/[collection_index]".
+- [ ] Raça: chips de bônus, valores, "Primeiras formas" e o selo mostram texto (nenhum "ui.dbe.…"); ícone da raça aparece.
+- [ ] Setas da prévia: esquerda vai para a esquerda, direita para a direita.
+- [ ] Aleatório sorteia uma raça.
+- [ ] ✓ abre a Aparência (etapa 2); setas e ✓ da Aparência funcionam; o ✓ dela inicia o jogo.
+- [ ] Estatísticas, Customização, Barbeiro, detalhe de missão, Habilidades: textos certos e cada botão faz o que diz.
+- [ ] (Sentinela 2) dbe:perf ao chegar num planeta e no Kaioshin: tick médio < 50 ms.
+- [ ] Andar/voar rápido no Kaioshin e nos planetas: o terreno não fica muito atrás (agora gera 2–3x mais devagar).
+- [ ] Tempo de viagem até a chegada e tempo para a base do Freeza aparecer (anotar segundos).
+- [ ] 2 jogadores, um no planeta e outro no Kaioshin/Futuro.
+- [ ] Content Log: procurar 'timed out', 'made no verified progress', 'marked complete but its terrain marker is missing'.
+
+## Reparo do Kaioshin (Marco 556abf6, Sentinela 2 APROVADO) — numa CÓPIA do mundo
+- [ ] Apagar o sentinela de um chunk 'complete' (/setblock x0 -64 z0 stone); conferir o aviso com o comando de preview.
+- [ ] Rodar preview e apply do dbe:kaioshin_repair; ver 'N chunk generation markers restored' e o terreno em volta voltar a gerar.
+- [ ] Antes do reparo, cair num buraco desse chunk: vai para o ponto de chegada, sem cair sem fim.
+- [ ] Cair num chunk ainda por gerar: volta para a superfície.
+- Limitação conhecida: chunk restaurado que nunca tinha sido decorado fica sem árvores/pedras.
+- [ ] (Sentinela) Estatísticas: +1/+10/+100 vão no atributo certo. Customização/Barbeiro: setas mudam a linha certa. Detalhe de missão: Iniciar funciona. Habilidades: cada linha abre a habilidade certa.
+- [ ] Painel de treino no HUD (concentração): rótulos traduzidos, sem "ui.dbe.…".
+- [ ] Abrir uma conquista: a descrição aparece e não surge botão vazio.
+
+## (1.7.20?) O4.1 — divisão do index.js (Arquiteto APROVADO)
+- [ ] Mundo existente e mundo novo com 2 jogadores; combate e ki; transformar; fusão; morrer e Outro Mundo; missões, conquistas e menus; loja de skills; viagem; treino de concentração; dbe:perf sem erro; Content Log limpo em 10 min.
+- [ ] (1.7.20, O4.6) Treino de concentração do começo ao fim: contagem, orbs aparecendo e sumindo, pontuação, recorde salvo, tentativas descontadas; sair e entrar com o recorde mantido; 2º jogador treinando ao mesmo tempo.
