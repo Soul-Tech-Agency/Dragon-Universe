@@ -5,6 +5,7 @@ import "./core/perf.js"; // primeiro import: a sonda (CONFIG.DEBUG_PERF) envolve
 import { every } from "./core/scheduler.js"; // relógio único das tarefas gerais (O3-12: G1-G6)
 import { late, bindLate } from "./core/late.js"; // ligação tardia (O4.0)
 import "./kaioshin_dimension.js";
+import "./core/perf_terrain.js"; // sonda: gancho dos jobs de terreno (depois do terrain_repair, via kaioshin)
 import "./other_world_kai.js";
 import "./world_structures.js";
 import "./hell_dimension.js";

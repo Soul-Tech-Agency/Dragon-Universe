@@ -13,11 +13,13 @@
 // O tempo vem de Date.now() (resolução de 1 ms): tarefas rápidas aparecem como 0 ms e contam pelas chamadas.
 // O local (arquivo:linha) de runInterval/runJob é calculado no registro (uma vez por tarefa, também antes do start);
 // o de run/runTimeout só com a medição ligada.
-// Jobs de terreno: runTerrainJob (terrain_repair.js) é tratado como embrulho, e o job vai para quem o chamou, com o nome
-// do sistema (espaço/planetas, Kaioshin, Futuro, reparo). Um job do espaço iniciado com jogador perto da base do Freeza
-// ainda não colocada (no planeta) ganha a marca "base do Freeza?" (estimativa: o job não diz para que é). Os jobs
-// mostram quantos foram iniciados durante a medição e quantos passos (yields) rodaram. O report lista a dimensão e o
-// chunk de cada jogador. Tudo só leitura: nada disso muda o jogo.
+// Jobs de terreno: desde a bomba do Marco (588e682) eles não passam mais por system.runJob; a bomba (um runInterval de
+// terrain_repair.js) dá os passos. A sonda usa o gancho terrainJobProbe.wrap de terrain_repair.js (ligado por
+// core/perf_terrain.js, só com a sonda): cada job é agrupado pelo sistema (espaço/planetas, Kaioshin, Futuro, reparo,
+// pelo rótulo do job; o arquivo de quem chamou runTerrainJob vai junto), e cada passo do job é medido. Um job do
+// planeta Freeza (rótulo "frieza:…") iniciado durante a medição com jogador perto da base ainda não colocada fica
+// num grupo à parte, "base do Freeza?" (estimativa: o job não diz para que é). A linha "interval(1) terrain_repair.js"
+// é a bomba: o tempo dela inclui o dos jobs. O report lista a dimensão e o chunk de cada jogador. Tudo só leitura.
 // As tarefas do relógio único (core/scheduler.js, O3) passam por perfTask e aparecem como "every <nome>"; sem isso,
 // todas apareceriam como o intervalo do scheduler.js.
 import * as mc from "@minecraft/server";
@@ -38,6 +40,9 @@ let clockInterval = (fn, ticks) => system.runInterval(fn, ticks);
 export function schedulerInterval(fn, ticks) {
   return clockInterval(fn, ticks);
 }
+
+// Embrulho dos jobs de terreno para o gancho de terrain_repair.js (null com a sonda desligada).
+export let terrainProbeWrap = null;
 
 if (CONFIG.DEBUG_PERF) install();
 
@@ -97,11 +102,12 @@ function install() {
       return false;
     }
   };
-  // nome do sistema de um job de terreno (o local já vem como "chamador (via terrain_repair.js:158)")
-  const terrainName = (where) => {
-    if (!/via terrain_repair\.m?js:/.test(where)) return "";
-    const name = TERRAIN.find(([file]) => where.startsWith(file.replace(/\.js$/, ".")))?.[1] ?? "terreno";
-    return " [terreno: " + name + (name === "espaço/planetas" && quiet(friezaBaseNear) ? ", base do Freeza?" : "") + "]";
+  // sistema de um job de terreno: pelo rótulo (runTerrainJob label) e, sem rótulo conhecido, pelo arquivo do chamador
+  const terrainSystem = (label, at) => {
+    if (/^Kaioshin/.test(label)) return "Kaioshin";
+    if (/^Future/.test(label)) return "Futuro";
+    if (/^Terrain repair/.test(label)) return "reparo";
+    return TERRAIN.find(([file]) => at.startsWith(file.replace(/\.js$/, ".")))?.[1] ?? "terreno";
   };
   const record = (key, ms) => {
     const t = entry(key);
@@ -154,7 +160,7 @@ function install() {
     return orig.call(system, id);
   });
   patch(system, "runJob", (orig) => function (gen) {
-    const at = site(true), where = at + terrainName(at);
+    const where = site(true);
     if (running) entry("job " + where).jobs++;
     // cada passo do gerador é uma execução da tarefa
     const wrapped = (function* () {
@@ -169,6 +175,22 @@ function install() {
     })();
     return orig.call(system, wrapped);
   });
+  // gancho de terrain_repair.js: wrap(runner, label) é chamado com quem chamou runTerrainJob ainda na pilha
+  terrainProbeWrap = (runner, label) => {
+    const at = site(true), name = terrainSystem(String(label ?? ""), at);
+    const freeza = name === "espaço/planetas" && /^frieza:/.test(String(label ?? "")) && running && quiet(friezaBaseNear);
+    const key = "terreno " + name + (freeza ? ", base do Freeza?" : "") + " (" + at.replace(/ \(via .*\)$/, "") + ")";
+    if (running) entry(key).jobs++;
+    return (function* () {
+      while (true) {
+        const t0 = running ? Date.now() : 0;
+        const step = runner.next();
+        if (running) record(key, Date.now() - t0);
+        if (step.done) return step.value;
+        yield step.value;
+      }
+    })();
+  };
   const countProto = (cls, name, inc) => {
     if (!cls?.prototype) return failures.push(name + ": classe ausente");
     patch(cls.prototype, name, (orig) => function (...args) {
@@ -249,8 +271,8 @@ function install() {
     const lines = [
       `§e[perf] ${ticks} ticks em ${fmt(seconds)} s (${running ? "medindo" : "parado"}). Tick: média ${fmt(tickGaps.reduce((a, b) => a + b, 0) / Math.max(1, tickGaps.length))} ms, p95 ${p95(tickGaps)} ms.`,
       `§e[perf] intervalos vivos ${liveIntervals.size}; setProperty ${fmt(setProperties / seconds)}/s; getEntities ${fmt(getEntitiesCalls / seconds)}/s; getPlayers ${fmt(getPlayersCalls / seconds)}/s; entidades dbe: ${dbe}, jogadores ${players}.`,
-      `§e[perf] tarefas (top ${rows.length} por tempo total): chamadas · média · p95 · máx (ms) · ms/tick. Nos jobs, "chamadas" = jobs iniciados na medição · passos (yields). O relógio do O3 não entra nos intervalos: as tarefas dele são as linhas "every".`,
-      ...rows.map(([k, t]) => `  ${k}: ${k.startsWith("job ") ? t.jobs + " job(s) iniciado(s) · " + t.calls + " passo(s)" : t.calls} · ${fmt(t.total / Math.max(1, t.calls))} · ${p95(t.samples)} · ${t.max} · ${fmt(t.total / ticks)}`),
+      `§e[perf] tarefas (top ${rows.length} por tempo total): chamadas · média · p95 · máx (ms) · ms/tick. Nos jobs e no "terreno", "chamadas" = jobs iniciados na medição · passos. O relógio do O3 não entra nos intervalos: as tarefas dele são as linhas "every". A linha "interval(1) terrain_repair.js" é a bomba dos jobs de terreno e inclui o tempo deles.`,
+      ...rows.map(([k, t]) => `  ${k}: ${k.startsWith("job ") || k.startsWith("terreno ") ? t.jobs + " job(s) iniciado(s) · " + t.calls + " passo(s)" : t.calls} · ${fmt(t.total / Math.max(1, t.calls))} · ${p95(t.samples)} · ${t.max} · ${fmt(t.total / ticks)}`),
       ...playerLines(),
     ];
     if (failures.length) lines.push("§c[perf] não instrumentado: " + failures.join("; "));
