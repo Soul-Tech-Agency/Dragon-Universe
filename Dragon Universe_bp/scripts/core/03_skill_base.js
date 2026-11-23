@@ -5,6 +5,7 @@ import { bindLate, late } from "./late.js";
 import { system as cD, Player as cx, system as cy } from "@minecraft/server";
 import { bO, bP } from "./01_util.js";
 import { cB } from "./02_forms_timers.js";
+// Religa uma skill passiva desligada (hoje só o Hakai, ver cH.disable e o init das skills), sem som nem mensagem.
 function duRestorePassive(skill) {
   if (!skill || !skill.isPassive || skill.isEnabled) return;
   skill.entitySkillData.state.enabled = !0;
@@ -306,5 +307,5 @@ var cF = class {
       return sG instanceof late.hN ? !0 : late.i3.getDBEEntity(sG)?.advancedCombat === !0;
     }
   };
-bindLate("cI", () => cI);
+bindLate("cI", () => cI); // O4.0: ligação tardia
 export { duRestorePassive, cF, cG, cH, cI };

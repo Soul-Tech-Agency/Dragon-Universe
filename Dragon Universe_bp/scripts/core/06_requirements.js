@@ -122,5 +122,5 @@ var dB = class {
     }
   },
   dC = new dB();
-bindLate("dC", () => dC);
+bindLate("dC", () => dC); // O4.0: ligação tardia
 export { dv, dB, dC };

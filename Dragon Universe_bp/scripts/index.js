@@ -71,8 +71,6 @@ import { skills_data as cC } from "./data/skills_data.js";
 import { system as cD } from "@minecraft/server";
 import { skills_data as cE } from "./data/skills_data.js";
 import { duRestorePassive, cF, cG, cH, cI } from "./core/03_skill_base.js"; // O4: movido do index.js
-// Religa uma skill passiva desligada (hoje só o Hakai, ver cH.disable e o init das skills), sem som nem mensagem.
- // O4.0: ligação tardia
 import { Player as cJ, system as cK, world as cL } from "@minecraft/server";
 import { system as cM } from "@minecraft/server";
 import { cT, cY } from "./core/04_tournament_dims.js"; // O4: movido do index.js
@@ -81,7 +79,6 @@ import { d2, d3, d4, d5, d6, dj, dp } from "./core/05_db_cooldowns.js"; // O4: m
 import { system as dq } from "@minecraft/server";
 import { GameMode as dw, Player as dx, PlayerPermissionLevel as dy, system as dz, world as dA } from "@minecraft/server"; // O4: import que ficou no index.js (estava no trecho movido)
 import { dv, dC } from "./core/06_requirements.js"; // O4: movido do index.js
- // O4.0: ligação tardia
 import { InputPermissionCategory as dD, system as dE } from "@minecraft/server";
 import { CONFIG as dF } from "./config/config.js";
 import { Player as dG, world as dH } from "@minecraft/server";

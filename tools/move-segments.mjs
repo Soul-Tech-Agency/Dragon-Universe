@@ -58,7 +58,22 @@ if (last >= segs.length) {
 const header = segs[0];
 const moved = segs.slice(1, last + 1).flat();
 const movedSet = new Set(moved);
-const start = moved[0].start, end = moved.at(-1).end;
+// A faixa leva junto os comentários colados nela: as linhas só de comentário logo antes da 1ª instrução e o comentário
+// na mesma linha, depois da última (o acorn não os inclui no intervalo das instruções).
+let start = moved[0].start, end = moved.at(-1).end;
+{
+  const prevEnd = ast.body[ast.body.indexOf(moved[0]) - 1]?.end ?? 0;
+  for (;;) {
+    const lineStart = src.lastIndexOf("\n", start - 1) + 1;
+    if (src.slice(lineStart, start).trim()) break; // a 1ª instrução não começa no início da linha
+    const prevLineStart = src.lastIndexOf("\n", lineStart - 2) + 1;
+    const prevLine = src.slice(prevLineStart, lineStart - 1);
+    if (prevLineStart < prevEnd || !/^\s*\/\//.test(prevLine)) break;
+    start = prevLineStart;
+  }
+  const eol = src.indexOf("\n", end), tail = src.slice(end, eol < 0 ? src.length : eol);
+  if (/^\s*\/\/.*$/.test(tail)) end = eol < 0 ? src.length : eol;
+}
 
 // nomes ligados por import, fora da faixa: nome local → { source, imported | "*" | "default" }
 const outsideImports = new Map();
