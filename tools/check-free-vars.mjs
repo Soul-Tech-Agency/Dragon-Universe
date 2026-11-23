@@ -8,7 +8,7 @@ import path from "node:path";
 import url from "node:url";
 const acorn = process.env.ACORN ? await import(process.env.ACORN) : await import("prettier/plugins/acorn");
 const parse = (s) => acorn.parsers.acorn.parse(s, {});
-const GLOBALS = new Set("globalThis undefined NaN Infinity Math JSON Object Array Number String Boolean Symbol BigInt Date RegExp Error TypeError RangeError SyntaxError ReferenceError EvalError URIError AggregateError Promise Map Set WeakMap WeakSet WeakRef FinalizationRegistry Proxy Reflect ArrayBuffer SharedArrayBuffer DataView Int8Array Uint8Array Uint8ClampedArray Int16Array Uint16Array Int32Array Uint32Array Float32Array Float64Array BigInt64Array BigUint64Array parseInt parseFloat isNaN isFinite encodeURI encodeURIComponent decodeURI decodeURIComponent escape unescape console setTimeout clearTimeout Atomics Intl eval Function arguments".split(" "));
+const GLOBALS = new Set("globalThis undefined NaN Infinity Math JSON Object Array Number String Boolean Symbol BigInt Date RegExp Error TypeError RangeError SyntaxError ReferenceError EvalError URIError AggregateError Promise Map Set WeakMap WeakSet WeakRef FinalizationRegistry Proxy Reflect ArrayBuffer SharedArrayBuffer DataView Int8Array Uint8Array Uint8ClampedArray Int16Array Uint16Array Int32Array Uint32Array Float32Array Float64Array BigInt64Array BigUint64Array parseInt parseFloat isNaN isFinite encodeURI encodeURIComponent decodeURI decodeURIComponent escape unescape console Atomics Intl eval Function arguments".split(" "));
 function collectPattern(p, out) {
   if (!p) return;
   switch (p.type) {
