@@ -683,7 +683,7 @@ function scan() {
         const fx = Math.floor(x), fz = Math.floor(z), h = heightAt(fx, fz);
         const owned = world.getDynamicProperty(terrainOwnership(chunkOf(x), chunkOf(z)));
         const kept = owned === "complete" || owned === "protected" || (owned === "legacy" && !skyRepairPending(chunkOf(x), chunkOf(z)));
-        if (kept && !dim.getBlock({ x: fx, y: h, z: fz })?.isSolid) {
+        if (kept && chunkState(dim, chunkOf(x), chunkOf(z)) === 0 && !dim.getBlock({ x: fx, y: h, z: fz })?.isSolid) {
           const s = findSpawn();
           p.teleport({ x: s.x + 0.5, y: s.y + 1, z: s.z + 0.5 });
         } else p.teleport({ x, y: h + 2, z });
