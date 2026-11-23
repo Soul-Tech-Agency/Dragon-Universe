@@ -240,7 +240,7 @@
    },
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -397,7 +397,7 @@
       },
       {
        "val": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": ["100%", 11],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -511,7 +511,7 @@
       },
       {
        "val": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": ["100%", 11],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -625,7 +625,7 @@
       },
       {
        "val": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": ["100%", 11],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -739,7 +739,7 @@
       },
       {
        "val": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": ["100%", 11],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -1433,7 +1433,7 @@
   ]
  },
  "h23": {
-  "type": "panel",
+  "type": "collection_panel",
   "size": ["100%", "100%"],
   "collection_name": "form_buttons",
   "controls": [
@@ -1553,7 +1553,7 @@
    },
    {
     "lv": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [22, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -1571,7 +1571,7 @@
    {"pad": {"type": "panel", "size": [4, "100%"]}},
    {
     "xp": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [64, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -2074,7 +2074,7 @@
          {"bg": {"type": "image", "texture": "textures/ui/du2/pill_gold", "size": ["100%", "100%"]}},
          {
           "t": {
-           "type": "panel",
+           "type": "collection_panel",
            "size": ["100% - 8px", "100%"],
            "collection_name": "form_buttons",
            "clips_children": true,
@@ -2563,7 +2563,7 @@
    {"fill": {"type": "panel", "size": ["fill", "100%"]}},
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [30, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -2572,7 +2572,7 @@
    },
    {
     "mult": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [30, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -2581,7 +2581,7 @@
    },
    {
     "cost": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [36, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -3063,7 +3063,7 @@
    {"fill": {"type": "panel", "size": ["fill", "100%"]}},
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [30, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -3072,7 +3072,7 @@
    },
    {
     "mult": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [30, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -3081,7 +3081,7 @@
    },
    {
     "cost": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [36, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -3563,7 +3563,7 @@
    {"fill": {"type": "panel", "size": ["fill", "100%"]}},
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [30, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -3572,7 +3572,7 @@
    },
    {
     "mult": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [30, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -3581,7 +3581,7 @@
    },
    {
     "cost": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [36, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -4063,7 +4063,7 @@
    {"fill": {"type": "panel", "size": ["fill", "100%"]}},
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [30, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -4072,7 +4072,7 @@
    },
    {
     "mult": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [30, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -4081,7 +4081,7 @@
    },
    {
     "cost": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [36, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -4563,7 +4563,7 @@
    {"fill": {"type": "panel", "size": ["fill", "100%"]}},
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [30, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -4572,7 +4572,7 @@
    },
    {
     "mult": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [30, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -4581,7 +4581,7 @@
    },
    {
     "cost": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [36, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -4603,7 +4603,7 @@
      "controls": [
       {
        "button_host": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": ["100%", "100%"],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_statistics.h38": {}}]
@@ -4621,7 +4621,7 @@
      "controls": [
       {
        "button_host": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": ["100%", "100%"],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_statistics.h46": {}}]
@@ -4639,7 +4639,7 @@
      "controls": [
       {
        "button_host": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": ["100%", "100%"],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_statistics.h54": {}}]
@@ -4657,7 +4657,7 @@
      "controls": [
       {
        "button_host": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": ["100%", "100%"],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_statistics.h62": {}}]
@@ -4675,7 +4675,7 @@
      "controls": [
       {
        "button_host": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": ["100%", "100%"],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_statistics.h70": {}}]
@@ -4899,7 +4899,7 @@
    },
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [40, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5003,7 +5003,7 @@
    },
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [40, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5107,7 +5107,7 @@
    },
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [40, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5261,7 +5261,7 @@
    {"pad": {"type": "panel", "size": ["100%", 3]}},
    {
     "info": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["100%", 20],
      "collection_name": "form_buttons",
      "controls": [{"b@du2_statistics.h85": {}}]
@@ -5343,7 +5343,7 @@
    {"pad": {"type": "panel", "size": [4, "100%"]}},
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5380,7 +5380,7 @@
    {"pad": {"type": "panel", "size": [4, "100%"]}},
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5420,7 +5420,7 @@
    },
    {
     "lv": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [22, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5438,7 +5438,7 @@
    {"pad": {"type": "panel", "size": [4, "100%"]}},
    {
     "xp": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [56, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5952,7 +5952,7 @@
          {"bg": {"type": "image", "texture": "textures/ui/du2/pill_gold", "size": ["100%", "100%"]}},
          {
           "t": {
-           "type": "panel",
+           "type": "collection_panel",
            "size": ["100% - 8px", "100%"],
            "collection_name": "form_buttons",
            "clips_children": true,
@@ -6301,7 +6301,7 @@
   "controls": [
    {
     "button_host": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["100%", "100%"],
      "collection_name": "form_buttons",
      "controls": [{"b@du2_statistics.h104": {}}]
@@ -6317,7 +6317,7 @@
       {"fill": {"type": "panel", "size": ["fill", "100%"]}},
       {
        "val": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [30, "100%"],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -6326,7 +6326,7 @@
       },
       {
        "mult": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [30, "100%"],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -6671,7 +6671,7 @@
   "controls": [
    {
     "button_host": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["100%", "100%"],
      "collection_name": "form_buttons",
      "controls": [{"b@du2_statistics.h109": {}}]
@@ -6687,7 +6687,7 @@
       {"fill": {"type": "panel", "size": ["fill", "100%"]}},
       {
        "val": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [30, "100%"],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -6696,7 +6696,7 @@
       },
       {
        "mult": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [30, "100%"],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -7041,7 +7041,7 @@
   "controls": [
    {
     "button_host": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["100%", "100%"],
      "collection_name": "form_buttons",
      "controls": [{"b@du2_statistics.h114": {}}]
@@ -7057,7 +7057,7 @@
       {"fill": {"type": "panel", "size": ["fill", "100%"]}},
       {
        "val": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [30, "100%"],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -7066,7 +7066,7 @@
       },
       {
        "mult": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [30, "100%"],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -7411,7 +7411,7 @@
   "controls": [
    {
     "button_host": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["100%", "100%"],
      "collection_name": "form_buttons",
      "controls": [{"b@du2_statistics.h119": {}}]
@@ -7427,7 +7427,7 @@
       {"fill": {"type": "panel", "size": ["fill", "100%"]}},
       {
        "val": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [30, "100%"],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -7436,7 +7436,7 @@
       },
       {
        "mult": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [30, "100%"],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -7781,7 +7781,7 @@
   "controls": [
    {
     "button_host": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["100%", "100%"],
      "collection_name": "form_buttons",
      "controls": [{"b@du2_statistics.h124": {}}]
@@ -7797,7 +7797,7 @@
       {"fill": {"type": "panel", "size": ["fill", "100%"]}},
       {
        "val": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [30, "100%"],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -7806,7 +7806,7 @@
       },
       {
        "mult": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [30, "100%"],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -7947,7 +7947,7 @@
    },
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -8050,7 +8050,7 @@
    },
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -8108,7 +8108,7 @@
    },
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -8166,7 +8166,7 @@
    },
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -8224,7 +8224,7 @@
    },
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -8327,7 +8327,7 @@
    },
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -8463,7 +8463,7 @@
    {"fill": {"type": "panel", "size": ["100%", "fill"]}},
    {
     "info": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["100%", 22],
      "collection_name": "form_buttons",
      "controls": [{"b@du2_statistics.h136": {}}]

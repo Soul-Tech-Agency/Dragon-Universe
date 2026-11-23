@@ -453,6 +453,8 @@ var k8 = new k6(),
       this.setTitle("ui.dbe.achievement.title"),
         this.setBody({ rawtext: gX.getFormatedDescription(sH.tasks).rawtext }),
         this.addButton("ui.dbe.backButton", () => cj.displayForm(sG, "achievement_list"));
+      // du2_detail (CONTRATO §10.3) lê os índices 1-27: "" em todos, como no kB, para o slot 2 vazio mostrar o body
+      for (let k = 1; k <= 27; k++) this.addButton("", () => {});
     }
   },
   kb = class extends jZ {

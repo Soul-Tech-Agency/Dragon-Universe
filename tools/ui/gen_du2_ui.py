@@ -39,7 +39,10 @@ FLAG_DU2 = "(not ((#form_text - 'du2;') = #form_text))"
 # --------------------------------------------------------------------------- helpers
 
 def P(size, controls=None, **kw):
-    d = {"type": "panel", "size": size}
+    # collection_name só vale em stack_panel, grid e collection_panel. Num "panel" o jogo dá "Unknown property
+    # [collection_name]" e os filhos com collection_index caem no índice 0 (teste de 23/11, 1.7.18).
+    # collection_panel é um painel comum (sem orientation) que aceita a coleção.
+    d = {"type": "collection_panel" if "collection_name" in kw else "panel", "size": size}
     d.update(kw)
     if controls:
         d["controls"] = controls
@@ -255,7 +258,8 @@ TABS = [(1, "tab_statistics", "ui.dbe.statistics.title", STATS_TITLE),
         (2, "tab_skills", "ui.dbe.skills.title", "ui.dbe.skills.title"),
         (7, "tab_transformations", "ui.dbe.transformations.title", "ui.dbe.transformations.title"),
         (3, "tab_quests", "ui.dbe.quest_list.title", "ui.dbe.quest_list.title"),
-        (4, "tab_training", "ui.dbe.training.title", ("ui.dbe.training.title", "ui.dbe.training_mental.title")),
+        (4, "tab_training", "ui.dbe.training.title", ("ui.dbe.training.title", "ui.dbe.training_mental.title",
+                                                      "ui.dbe.training_physical.title")),
         (6, "tab_achievements", "ui.dbe.achievement_list.title", "ui.dbe.achievement_list.title"),
         (5, "tab_news", "ui.dbe.news.title", "ui.dbe.news.title")]
 HELP_TAB = (0, "tab_help", "ui.dbe.help.title", "ui.dbe.help.title")
@@ -1027,18 +1031,28 @@ def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1, key_ic
         """Conteúdo da linha, uma vez só, por cima das 3 faces (planos/UI_DESEMPENHO.md, item 4). As faces
         ficam só com os fundos, que são o que muda entre normal, hover e pressionado."""
         row = [pad(6)]
-        if key_icons:
-            row += [centered(14, P([14, 14], [c("i_" + ic, img(I + ic, [12, 12], col, bindings=[
-                coll_text(), view(f"(#form_button_text = '{key}')")])) for key, ic, col in key_icons])), pad(5)]
+        top = "left_middle" if lines == 1 else "top_left"
+        key_imgs = [c("i_" + ic, img(I + ic, [12, 12], col, bindings=[
+            coll_text(), view(f"(#form_button_text = '{key}')")])) for key, ic, col in (key_icons or [])]
+        if key_icons and not tints:
+            row += [centered(14, P([14, 14], key_imgs)), pad(5)]
         if tints:
-            top = "left_middle" if lines == 1 else "top_left"
-            # coluna do ícone só quando o botão traz ícone (script antigo: texto no lugar de antes)
-            has = [{"binding_type": "collection", "binding_collection_name": COL, "binding_name": "#form_button_texture"},
-                   view("(not (#form_button_texture = ''))")]
-            row += [c("icon", P([14, "100%"], [c("ic", tinted_icon([12, 12], tints, anchor_from=top, anchor_to=top,
-                                                                 offset=[0, 0] if lines == 1 else [1, 4]))],
-                                bindings=has)),
-                    c("icon_gap", P([5, "100%"], bindings=has))]
+            tinted = c("ic", tinted_icon([12, 12], tints, anchor_from=top, anchor_to=top,
+                                         offset=[0, 0] if lines == 1 else [1, 4]))
+            if key_icons:
+                # coluna fixa com os dois ícones sobrepostos: o do iconPatch e, para o script antigo (botão sem
+                # iconPatch), o da chave do texto. Sem irmãos invisíveis no stack (não sabemos se ocupam espaço).
+                no_tex = [{"binding_type": "collection", "binding_collection_name": COL,
+                           "binding_name": "#form_button_texture"}, view("(#form_button_texture = '')")]
+                keys = c("key", P([12, 12], key_imgs, anchor_from=top, anchor_to=top,
+                                  offset=[0, 0] if lines == 1 else [1, 4], bindings=no_tex))
+                row += [c("icon", P([14, "100%"], [tinted, keys])), pad(5)]
+            else:
+                # coluna do ícone só quando o botão traz ícone (script antigo: texto no lugar de antes)
+                has = [{"binding_type": "collection", "binding_collection_name": COL,
+                        "binding_name": "#form_button_texture"}, view("(not (#form_button_texture = ''))")]
+                row += [c("icon", P([14, "100%"], [tinted], bindings=has)),
+                        c("icon_gap", P([5, "100%"], bindings=has))]
         label = btn_label("text", None, size=["100%", 10 if lines == 1 else "default"], align="left",
                           anchor_from=anchor, anchor_to=anchor)
         if lines > 1:
@@ -1326,22 +1340,63 @@ detail_screen(qd, "detail_form", lambda mobile: [
                                           ("ui.dbe.quest.button.restart", "restart")]))])
 
 
-# ---- Treino (kH): 10+ = sombra / concentração / parar (ícone pela chave do texto)
+def code_header(prefix, caption_key, icon_color, h, idx=10):
+    """Slot de código "<prefixo><valor>" no topo de uma lista (ícone do iconPatch do slot, legenda fixa, valor).
+    Some inteiro sem o prefixo; a lista esconde o mesmo slot (extra_hide)."""
+    has = f"(not ((#form_button_text - '{prefix}') = #form_button_text))"
+    icon = img("", [10, 10], icon_color, bindings=coll_tex())
+    value = lbl("#du2_code", ["default", 10], "value", None, "smooth", "left",
+                bindings=[coll_text(), view(f"(#form_button_text - '{prefix}')", "#du2_code")])
+    row = H(["100%", h], [
+        centered(12, icon), pad(4),
+        c("cap", lbl(caption_key, ["default", 10], "weak", None, "smooth", "left")), pad(6),
+        c("v", value),
+    ])
+    return P(["100%", h], [c("row", row)], collection_index=idx, clips_children=True, bindings=[coll_text(), view(has)])
+
+
+# ---- Treino (kH), CONTRATO.md §13: 10 = "mul;x<n>" (cabeçalho), 11 reservado, 12 sombra, 13 concentração,
+# 14 flexões, 15 treino mental. Duas linhas (ação + estado); ícone pelo iconPatch, tingido pelo caminho.
+# Script antigo (sem iconPatch): o ícone sai da chave do texto, como antes.
 tn = {"namespace": "du2_training"}
 TRAIN_ICONS = [("ui.dbe.training.button.shadow_dummy", "train_shadow", "cyan"),
                ("ui.dbe.training.button.concentration", "train_concentration", "gold"),
                ("ui.dbe.training.button.stop_concentration", "train_stop", "red")]
-tn["row_pc"] = list_item(24, key_icons=TRAIN_ICONS)
-tn["row_mobile"] = list_item(26, key_icons=TRAIN_ICONS)
+TRAIN_TINTS = [("train_shadow", "cyan"), ("train_concentration", "gold"), ("train_physical", "orange"),
+               ("train_mental", "purple"), ("train_stop", "red"), ("clock", "soft"), ("lock", "weak")]
+MUL = "(not ((#form_button_text - 'mul;') = #form_button_text))"
+tn["row_pc"] = list_item(30, lines=2, key_icons=TRAIN_ICONS, tints=TRAIN_TINTS, extra_hide=MUL)
+tn["row_mobile"] = list_item(32, lines=2, key_icons=TRAIN_ICONS, tints=TRAIN_TINTS, extra_hide=MUL)
 
 
 def training_content(mobile):
     m = "mobile" if mobile else "pc"
     return [c("scroll", P(["100%", "100%"], [scroll_area(tn, "scroll_" + m, [
-        c("list", factory_list("du2_training.row_" + m))])]))]
+        c("mult", code_header("mul;", "ui.dbe.du2.training_mult", "cyan", 14)), pad("100%", 2),
+        c("list", factory_list("du2_training.row_" + m))], COL)]))]
 
 
 tab_screen(tn, "training_form", training_content)
+
+
+# ---- Séries das flexões (CONTRATO.md §13.2, título ui.dbe.training_physical.title, aba Treino acesa):
+# 10 = "day;<feitas>/<máx>", 11 reservado, 12-14 = séries 20/30/50, 15 = modo alternativo.
+ph = {"namespace": "du2_physical"}
+DAY_P = "(not ((#form_button_text - 'day;') = #form_button_text))"
+PHYS_TINTS = [("train_physical", "orange"), ("lock", "weak"), ("clock", "soft"), ("check", "green"),
+              ("close", "weak")]
+ph["row_pc"] = list_item(30, lines=2, tints=PHYS_TINTS, extra_hide=DAY_P)
+ph["row_mobile"] = list_item(32, lines=2, tints=PHYS_TINTS, extra_hide=DAY_P)
+
+
+def physical_list_content(mobile):
+    m = "mobile" if mobile else "pc"
+    return [c("scroll", P(["100%", "100%"], [scroll_area(ph, "scroll_" + m, [
+        c("daily", code_header("day;", "ui.dbe.du2.series", "orange", 14)), pad("100%", 2),
+        c("list", factory_list("du2_physical.row_" + m))], COL)]))]
+
+
+tab_screen(ph, "physical_list_form", physical_list_content)
 
 
 # ---- Conquistas (kb): 10+ = conquistas (título + progresso, descrição na 2ª linha)
@@ -1721,8 +1776,10 @@ def hud_bar_row(icon, icol, cap_key, key, on_tex):
     ])
 
 
-def hud_values(rows, w_caps, w_vals):
-    """Ícone fixo + legenda traduzida por linha e, à direita, as linhas do subtítulo train_vals."""
+def hud_values(rows, w_caps, w_vals, token_vals=None):
+    """Ícone fixo + legenda traduzida por linha e, à direita, as linhas do subtítulo train_vals.
+    token_vals: {linha: [(token, chave de lang)]} = valor traduzido pelo JSON na linha, escolhido por token do
+    título (o train_vals chega cru e não traduz código; a linha correspondente do train_vals vem vazia)."""
     icons = [c(f"i{k}", P([12, 10], [c("x", img(I + ic, [9, 9], col))])) for k, (ic, col, _) in enumerate(rows)]
     caps = [c(f"c{k}", hud_lbl(key, ["100%", 10], "weak")) for k, (_, _, key) in enumerate(rows)]
     vals = c("v@templates.preserved_title_display", {
@@ -1731,7 +1788,11 @@ def hud_values(rows, w_caps, w_vals):
     return H([12 + w_caps + w_vals, 10 * len(rows)], [
         c("icons", V([12, "100%"], icons)),
         c("caps", V([w_caps, "100%"], caps)),
-        c("vals", P([w_vals, "100%"], [vals], clips_children=True)),
+        c("vals", P([w_vals, "100%"], [vals] + [
+            c(f"t{row}_{k}", hud_lbl(key, ["100%", 10], "value", "right", offset=[0, 10 * row],
+                                     anchor_from="top_right", anchor_to="top_right", bindings=has_token(tok)))
+            for row, opts in (token_vals or {}).items() for k, (tok, key) in enumerate(opts)],
+            clips_children=True)),
     ])
 
 
@@ -1844,7 +1905,9 @@ th["physical"] = hud_card("phys", "train_physical", "ui.dbe.training.physical.ti
 
 th["mental"] = hud_card("ment", "train_mental", "ui.dbe.training.mental.title", [
     c("vals", hud_values([("clock", "cyan", "ui.dbe.du2.time"), ("train_mental", "purple", "ui.dbe.du2.mode")],
-                         58, HUD_W - 10 - 12 - 58)),
+                         58, HUD_W - 10 - 12 - 58,
+                         token_vals={1: [("ment_mode:memory;", "ui.dbe.training.mental.memory"),
+                                         ("ment_mode:challenge;", "ui.dbe.training.mental.challenge")]})),
     pad("100%", 4),
     c("boss", hud_bar_row("ach_defeat", "red", "ui.dbe.du2.boss_hp", "ment_boss_hp", "bar_red_on")),
 ])
@@ -1878,3 +1941,4 @@ write("du2_customization.json", cu)
 write("du2_statistics_view.json", sv)
 write("du2_training_hud.json", th)
 write("du2_mental.json", mt)
+write("du2_physical.json", ph)

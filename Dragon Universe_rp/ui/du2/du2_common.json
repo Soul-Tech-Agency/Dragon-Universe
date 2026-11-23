@@ -1556,7 +1556,7 @@
       {"binding_name": "#title_text"},
       {
        "binding_type": "view",
-       "source_property_name": "(not ((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title')))",
+       "source_property_name": "(not ((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title') or (#title_text = 'ui.dbe.training_physical.title')))",
        "target_property_name": "#visible"
       }
      ],
@@ -1574,7 +1574,7 @@
       {"binding_name": "#title_text"},
       {
        "binding_type": "view",
-       "source_property_name": "((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title'))",
+       "source_property_name": "((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title') or (#title_text = 'ui.dbe.training_physical.title'))",
        "target_property_name": "#visible"
       }
      ],
@@ -1598,7 +1598,7 @@
       {"binding_name": "#title_text"},
       {
        "binding_type": "view",
-       "source_property_name": "(not ((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title')))",
+       "source_property_name": "(not ((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title') or (#title_text = 'ui.dbe.training_physical.title')))",
        "target_property_name": "#visible"
       }
      ],
@@ -1616,7 +1616,7 @@
       {"binding_name": "#title_text"},
       {
        "binding_type": "view",
-       "source_property_name": "((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title'))",
+       "source_property_name": "((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title') or (#title_text = 'ui.dbe.training_physical.title'))",
        "target_property_name": "#visible"
       }
      ],
@@ -1640,7 +1640,7 @@
       {"binding_name": "#title_text"},
       {
        "binding_type": "view",
-       "source_property_name": "(not ((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title')))",
+       "source_property_name": "(not ((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title') or (#title_text = 'ui.dbe.training_physical.title')))",
        "target_property_name": "#visible"
       }
      ],
@@ -1658,7 +1658,7 @@
       {"binding_name": "#title_text"},
       {
        "binding_type": "view",
-       "source_property_name": "((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title'))",
+       "source_property_name": "((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title') or (#title_text = 'ui.dbe.training_physical.title'))",
        "target_property_name": "#visible"
       }
      ],
@@ -3086,7 +3086,7 @@
       {"binding_name": "#title_text"},
       {
        "binding_type": "view",
-       "source_property_name": "(not ((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title')))",
+       "source_property_name": "(not ((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title') or (#title_text = 'ui.dbe.training_physical.title')))",
        "target_property_name": "#visible"
       }
      ],
@@ -3111,7 +3111,7 @@
       {"binding_name": "#title_text"},
       {
        "binding_type": "view",
-       "source_property_name": "((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title'))",
+       "source_property_name": "((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title') or (#title_text = 'ui.dbe.training_physical.title'))",
        "target_property_name": "#visible"
       }
      ],
@@ -3142,7 +3142,7 @@
       {"binding_name": "#title_text"},
       {
        "binding_type": "view",
-       "source_property_name": "(not ((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title')))",
+       "source_property_name": "(not ((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title') or (#title_text = 'ui.dbe.training_physical.title')))",
        "target_property_name": "#visible"
       }
      ],
@@ -3167,7 +3167,7 @@
       {"binding_name": "#title_text"},
       {
        "binding_type": "view",
-       "source_property_name": "((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title'))",
+       "source_property_name": "((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title') or (#title_text = 'ui.dbe.training_physical.title'))",
        "target_property_name": "#visible"
       }
      ],
@@ -3198,7 +3198,7 @@
       {"binding_name": "#title_text"},
       {
        "binding_type": "view",
-       "source_property_name": "(not ((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title')))",
+       "source_property_name": "(not ((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title') or (#title_text = 'ui.dbe.training_physical.title')))",
        "target_property_name": "#visible"
       }
      ],
@@ -3223,7 +3223,7 @@
       {"binding_name": "#title_text"},
       {
        "binding_type": "view",
-       "source_property_name": "((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title'))",
+       "source_property_name": "((#title_text = 'ui.dbe.training.title') or (#title_text = 'ui.dbe.training_mental.title') or (#title_text = 'ui.dbe.training_physical.title'))",
        "target_property_name": "#visible"
       }
      ],

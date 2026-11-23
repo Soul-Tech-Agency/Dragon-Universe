@@ -192,7 +192,7 @@
      ],
      "controls": [
       {"bg": {"type": "image", "texture": "textures/ui/du2/panel_dark", "size": ["100%", "100%"]}},
-      {"inner@du2_training_hud.h60": {}},
+      {"inner@du2_training_hud.h61": {}},
       {
        "count": {
         "type": "panel",
@@ -232,7 +232,7 @@
      ],
      "controls": [
       {"bg": {"type": "image", "texture": "textures/ui/du2/panel_dark", "size": ["100%", "100%"]}},
-      {"inner@du2_training_hud.h61": {}},
+      {"inner@du2_training_hud.h62": {}},
       {
        "count": {
         "type": "panel",
@@ -3173,6 +3173,69 @@
   ]
  },
  "h49": {
+  "type": "panel",
+  "size": [56, "100%"],
+  "clips_children": true,
+  "controls": [
+   {
+    "v@templates.preserved_title_display": {
+     "$update_string": "train_vals:",
+     "size": ["100%", "default"],
+     "color": [0.333, 1.0, 1.0],
+     "font_type": "default",
+     "text_alignment": "right",
+     "shadow": true,
+     "anchor_from": "top_right",
+     "anchor_to": "top_right"
+    }
+   },
+   {
+    "t1_0": {
+     "type": "label",
+     "text": "ui.dbe.training.mental.memory",
+     "size": ["100%", 10],
+     "color": [0.333, 1.0, 1.0],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "right",
+     "offset": [0, 10],
+     "anchor_from": "top_right",
+     "anchor_to": "top_right",
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'ment_mode:memory;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "t1_1": {
+     "type": "label",
+     "text": "ui.dbe.training.mental.challenge",
+     "size": ["100%", 10],
+     "color": [0.333, 1.0, 1.0],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "right",
+     "offset": [0, 10],
+     "anchor_from": "top_right",
+     "anchor_to": "top_right",
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'ment_mode:challenge;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h50": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": [126, 20],
@@ -3249,30 +3312,10 @@
      ]
     }
    },
-   {
-    "vals": {
-     "type": "panel",
-     "size": [56, "100%"],
-     "clips_children": true,
-     "controls": [
-      {
-       "v@templates.preserved_title_display": {
-        "$update_string": "train_vals:",
-        "size": ["100%", "default"],
-        "color": [0.333, 1.0, 1.0],
-        "font_type": "default",
-        "text_alignment": "right",
-        "shadow": true,
-        "anchor_from": "top_right",
-        "anchor_to": "top_right"
-       }
-      }
-     ]
-    }
-   }
+   {"vals@du2_training_hud.h49": {}}
   ]
  },
- "h50": {
+ "h51": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", 5],
@@ -3301,7 +3344,7 @@
    }
   ]
  },
- "h51": {
+ "h52": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", 5],
@@ -3337,7 +3380,7 @@
    }
   ]
  },
- "h52": {
+ "h53": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", 5],
@@ -3380,7 +3423,7 @@
    }
   ]
  },
- "h53": {
+ "h54": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", 5],
@@ -3430,7 +3473,7 @@
    }
   ]
  },
- "h54": {
+ "h55": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", 5],
@@ -3487,7 +3530,7 @@
    }
   ]
  },
- "h55": {
+ "h56": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", 5],
@@ -3551,7 +3594,7 @@
    }
   ]
  },
- "h56": {
+ "h57": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", 5],
@@ -3622,7 +3665,7 @@
    }
   ]
  },
- "h57": {
+ "h58": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", 5],
@@ -3700,7 +3743,7 @@
    }
   ]
  },
- "h58": {
+ "h59": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", 5],
@@ -3785,7 +3828,7 @@
    }
   ]
  },
- "h59": {
+ "h60": {
   "type": "panel",
   "size": ["fill", 5],
   "controls": [
@@ -3814,18 +3857,18 @@
      ]
     }
    },
-   {"lv2@du2_training_hud.h50": {}},
-   {"lv3@du2_training_hud.h51": {}},
-   {"lv4@du2_training_hud.h52": {}},
-   {"lv5@du2_training_hud.h53": {}},
-   {"lv6@du2_training_hud.h54": {}},
-   {"lv7@du2_training_hud.h55": {}},
-   {"lv8@du2_training_hud.h56": {}},
-   {"lv9@du2_training_hud.h57": {}},
-   {"lv10@du2_training_hud.h58": {}}
+   {"lv2@du2_training_hud.h51": {}},
+   {"lv3@du2_training_hud.h52": {}},
+   {"lv4@du2_training_hud.h53": {}},
+   {"lv5@du2_training_hud.h54": {}},
+   {"lv6@du2_training_hud.h55": {}},
+   {"lv7@du2_training_hud.h56": {}},
+   {"lv8@du2_training_hud.h57": {}},
+   {"lv9@du2_training_hud.h58": {}},
+   {"lv10@du2_training_hud.h59": {}}
   ]
  },
- "h60": {
+ "h61": {
   "type": "stack_panel",
   "orientation": "vertical",
   "size": [126, 50],
@@ -3843,7 +3886,7 @@
     }
    },
    {"pad": {"type": "panel", "size": ["100%", 4]}},
-   {"vals@du2_training_hud.h49": {}},
+   {"vals@du2_training_hud.h50": {}},
    {"pad": {"type": "panel", "size": ["100%", 4]}},
    {
     "boss": {
@@ -3880,20 +3923,20 @@
         "text_alignment": "left"
        }
       },
-      {"bar": {"type": "panel", "size": ["fill", "100%"], "controls": [{"b@du2_training_hud.h59": {}}]}}
+      {"bar": {"type": "panel", "size": ["fill", "100%"], "controls": [{"b@du2_training_hud.h60": {}}]}}
      ]
     }
    }
   ]
  },
- "h61": {
+ "h62": {
   "type": "stack_panel",
   "orientation": "vertical",
   "size": [126, 34],
   "anchor_from": "center",
   "anchor_to": "center",
   "controls": [
-   {"vals@du2_training_hud.h49": {}},
+   {"vals@du2_training_hud.h50": {}},
    {"pad": {"type": "panel", "size": ["100%", 4]}},
    {
     "boss": {
@@ -3930,7 +3973,7 @@
         "text_alignment": "left"
        }
       },
-      {"bar": {"type": "panel", "size": ["fill", "100%"], "controls": [{"b@du2_training_hud.h59": {}}]}}
+      {"bar": {"type": "panel", "size": ["fill", "100%"], "controls": [{"b@du2_training_hud.h60": {}}]}}
      ]
     }
    }

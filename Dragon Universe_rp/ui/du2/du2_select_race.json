@@ -134,7 +134,7 @@
    {"pad": {"type": "panel", "size": ["100%", 1]}},
    {
     "forms": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["100%", "100%c"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -157,7 +157,7 @@
    {"pad": {"type": "panel", "size": ["100%", 1]}},
    {
     "custom": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["100%", "100%c"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -229,7 +229,7 @@
    {"pad": {"type": "panel", "size": ["100%", 1]}},
    {
     "forms": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["100%", "100%c"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -251,7 +251,7 @@
    {"pad": {"type": "panel", "size": ["100%", 1]}},
    {
     "custom": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["100%", "100%c"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -330,7 +330,7 @@
   ]
  },
  "h1": {
-  "type": "panel",
+  "type": "collection_panel",
   "size": [9, 9],
   "collection_name": "form_buttons",
   "controls": [
@@ -564,7 +564,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}},
    {
     "name": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -573,7 +573,7 @@
    },
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [26, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -584,7 +584,7 @@
   ]
  },
  "h5": {
-  "type": "panel",
+  "type": "collection_panel",
   "size": [9, 9],
   "collection_name": "form_buttons",
   "controls": [
@@ -818,7 +818,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}},
    {
     "name": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -827,7 +827,7 @@
    },
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [26, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -838,7 +838,7 @@
   ]
  },
  "h9": {
-  "type": "panel",
+  "type": "collection_panel",
   "size": [9, 9],
   "collection_name": "form_buttons",
   "controls": [
@@ -1072,7 +1072,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}},
    {
     "name": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -1081,7 +1081,7 @@
    },
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [26, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -1162,7 +1162,7 @@
   ]
  },
  "h14": {
-  "type": "panel",
+  "type": "collection_panel",
   "size": [9, 9],
   "collection_name": "form_buttons",
   "controls": [
@@ -1396,7 +1396,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}},
    {
     "name": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -1405,7 +1405,7 @@
    },
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [26, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -1416,7 +1416,7 @@
   ]
  },
  "h18": {
-  "type": "panel",
+  "type": "collection_panel",
   "size": [9, 9],
   "collection_name": "form_buttons",
   "controls": [
@@ -1650,7 +1650,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}},
    {
     "name": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -1659,7 +1659,7 @@
    },
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [26, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -1670,7 +1670,7 @@
   ]
  },
  "h22": {
-  "type": "panel",
+  "type": "collection_panel",
   "size": [9, 9],
   "collection_name": "form_buttons",
   "controls": [
@@ -1904,7 +1904,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}},
    {
     "name": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -1913,7 +1913,7 @@
    },
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [26, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -2088,7 +2088,7 @@
    },
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [28, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -2193,7 +2193,7 @@
    },
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [28, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -2298,7 +2298,7 @@
    },
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [28, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -3452,7 +3452,7 @@
    },
    {
     "prev": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [20, 30],
      "collection_name": "form_buttons",
      "controls": [{"b@du2_select_race.h55": {}}],
@@ -3464,7 +3464,7 @@
    },
    {
     "next": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [20, 30],
      "collection_name": "form_buttons",
      "controls": [{"b@du2_select_race.h56": {}}],
@@ -3501,7 +3501,7 @@
       {"bg": {"type": "image", "texture": "textures/ui/du2/pill_dark", "size": ["100%", "100%"]}},
       {
        "t": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": ["100% - 4px", "100%"],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -3522,7 +3522,7 @@
    {"bg": {"type": "image", "texture": "textures/ui/du2/icon_box_gold", "size": ["100%", "100%"]}},
    {
     "ih": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [12, 12],
      "collection_name": "form_buttons",
      "controls": [
@@ -3847,7 +3847,7 @@
       {"pad": {"type": "panel", "size": [5, "100%"]}},
       {
        "name": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": ["fill", "100%"],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -3889,7 +3889,7 @@
       {"fill": {"type": "panel", "size": ["fill", "100%"]}},
       {
        "random": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [84, 22],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_select_race.h62": {}}]
@@ -3898,7 +3898,7 @@
       {"pad": {"type": "panel", "size": [6, "100%"]}},
       {
        "select": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [150, 22],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_select_race.h64": {}}]
@@ -4078,7 +4078,7 @@
    },
    {
     "prev": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [20, 30],
      "collection_name": "form_buttons",
      "controls": [{"b@du2_select_race.h55": {}}],
@@ -4090,7 +4090,7 @@
    },
    {
     "next": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [20, 30],
      "collection_name": "form_buttons",
      "controls": [{"b@du2_select_race.h56": {}}],
@@ -4111,7 +4111,7 @@
      "controls": [
       {
        "t": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": ["100%", "100%"],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -4744,7 +4744,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}},
    {
     "name": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -4753,7 +4753,7 @@
    },
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [26, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -4863,7 +4863,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}},
    {
     "name": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -4872,7 +4872,7 @@
    },
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [26, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -4982,7 +4982,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}},
    {
     "name": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -4991,7 +4991,7 @@
    },
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [26, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5171,7 +5171,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}},
    {
     "name": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5180,7 +5180,7 @@
    },
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [26, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5290,7 +5290,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}},
    {
     "name": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5299,7 +5299,7 @@
    },
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [26, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5409,7 +5409,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}},
    {
     "name": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5418,7 +5418,7 @@
    },
    {
     "val": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [26, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5547,7 +5547,7 @@
    },
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [28, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5606,7 +5606,7 @@
    },
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [28, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5665,7 +5665,7 @@
    },
    {
     "v": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [28, "100%"],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5759,7 +5759,7 @@
    {"pad": {"type": "panel", "size": ["100%", 3]}},
    {
     "name": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["100%", 12],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -5775,7 +5775,7 @@
      "controls": [
       {
        "t": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": ["100%", "100%c"],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -5817,7 +5817,7 @@
      "controls": [
       {
        "n": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [110, "100%"],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -6108,7 +6108,7 @@
       {"pad": {"type": "panel", "size": [4, "100%"]}},
       {
        "random": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [26, 22],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_select_race.h112": {}}]
@@ -6117,7 +6117,7 @@
       {"pad": {"type": "panel", "size": [4, "100%"]}},
       {
        "select": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": ["fill", 22],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_select_race.h113": {}}]

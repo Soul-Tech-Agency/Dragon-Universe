@@ -2124,7 +2124,7 @@
   "controls": [
    {
     "ic": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [12, 12],
      "collection_name": "form_buttons",
      "controls": [
@@ -2518,7 +2518,7 @@
    {"pad": {"type": "panel", "size": [4, 10]}},
    {
     "ic": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [10, 10],
      "collection_name": "form_buttons",
      "controls": [
@@ -2581,7 +2581,7 @@
    {"pad": {"type": "panel", "size": [4, 10]}},
    {
     "ic": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [10, 10],
      "collection_name": "form_buttons",
      "controls": [
@@ -2644,7 +2644,7 @@
    {"pad": {"type": "panel", "size": [4, 10]}},
    {
     "ic": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [10, 10],
      "collection_name": "form_buttons",
      "controls": [
@@ -2707,7 +2707,7 @@
    {"pad": {"type": "panel", "size": [4, 10]}},
    {
     "ic": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [10, 10],
      "collection_name": "form_buttons",
      "controls": [
@@ -2770,7 +2770,7 @@
    {"pad": {"type": "panel", "size": [4, 10]}},
    {
     "ic": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [10, 10],
      "collection_name": "form_buttons",
      "controls": [
@@ -2833,7 +2833,7 @@
    {"pad": {"type": "panel", "size": [4, 10]}},
    {
     "ic": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [10, 10],
      "collection_name": "form_buttons",
      "controls": [
@@ -2896,7 +2896,7 @@
    {"pad": {"type": "panel", "size": [4, 10]}},
    {
     "ic": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [10, 10],
      "collection_name": "form_buttons",
      "controls": [
@@ -2959,7 +2959,7 @@
    {"pad": {"type": "panel", "size": [4, 10]}},
    {
     "ic": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [10, 10],
      "collection_name": "form_buttons",
      "controls": [
@@ -3101,7 +3101,7 @@
      "controls": [
       {
        "h": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [24, 20],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_detail.h26": {}}],
@@ -3318,7 +3318,7 @@
       {"fill": {"type": "panel", "size": ["fill", "100%"]}},
       {
        "action": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [130, 22],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_detail.h30": {}}]
@@ -3342,7 +3342,7 @@
      "controls": [
       {
        "h": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [24, 20],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_detail.h26": {}}],
@@ -3413,7 +3413,7 @@
       {"fill": {"type": "panel", "size": ["fill", "100%"]}},
       {
        "action": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [130, 22],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_detail.h30": {}}]
