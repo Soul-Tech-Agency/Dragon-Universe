@@ -131,40 +131,7 @@ import { EasingType as j7, system as j8, TimeOfDay as j9, world as jb } from "@m
 import { ActionFormData as jf } from "@minecraft/server-ui";
 import { jC, jE, jG } from "./core/18_wishes.js"; // O4: movido do index.js
 import { EntityDamageCause as jH, system as jI } from "@minecraft/server";
-var jJ = class {
-    explodeAttack(sG, sH, sI, sK) {
-      let { canCutTail: sL, damage: sM, entity: sN, explosionPower: sO, owner: sP } = sG;
-      if (!sO && sK?.isValid) {
-        if (sL && Math.random() < 0.1) {
-          let sQ = i3.getDBEEntity(sK);
-          sQ && sQ.race?.id === "saiyan" && !sQ.tailCurled && sQ.removeTail();
-        }
-        if (!!sK.applyDamage(sM, { cause: jH.entityAttack, damagingEntity: sP })) {
-          let sR = sN.getVelocity(),
-            sS = bO.scale(sR, 5);
-          sK.applyKnockback({ x: sS.x, z: sS.z }, 0);
-        }
-      }
-      jI.run(() => {
-        if (sN.isValid) {
-          sO &&
-            f2.createExplosion(sH, sI, sO, {
-              breakBlocks: sG.breakBlocks,
-              color: sG.color1 ? aI.colorToRgb(sG.color1) : void 0,
-              damage: sM,
-              damagingEntity: sP,
-              ignoredEntities: sP ? [sP] : [],
-            });
-          for (let sT of hZ.getNearbyKiAttacks(sN.dimension, sN.location, sG.baseScale * 2)) {
-            let { dimension: sU, location: t1 } = sT.entity;
-            jK.explodeAttack(sT, sU, t1);
-          }
-          sN.remove();
-        }
-      });
-    }
-  },
-  jK = new jJ();
+import { jK } from "./core/19_ki_explosion.js"; // O4: movido do index.js
 import { skills_data as jL } from "./data/skills_data.js";
 import { ItemTypes as jM, system as jN } from "@minecraft/server";
 import { ActionFormData as jO } from "@minecraft/server-ui";

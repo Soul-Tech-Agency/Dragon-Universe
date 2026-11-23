@@ -1975,6 +1975,9 @@
          "path" : "scripts/core/18_wishes.js"
       },
       {
+         "path" : "scripts/core/19_ki_explosion.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
