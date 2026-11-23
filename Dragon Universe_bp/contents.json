@@ -2002,6 +2002,9 @@
          "path" : "scripts/core/27_modifiers.js"
       },
       {
+         "path" : "scripts/core/28_tasks_rewards.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
