@@ -181,11 +181,17 @@ function install() {
     const freeza = name === "espaço/planetas" && /^frieza:/.test(String(label ?? "")) && running && quiet(friezaBaseNear);
     const key = "terreno " + name + (freeza ? ", base do Freeza?" : "") + " (" + at.replace(/ \(via .*\)$/, "") + ")";
     if (running) entry(key).jobs++;
+    // repassa cada passo como está: o valor, o fim (done/value do gerador original, também depois de um return() feito
+    // pelo stop() do runTerrainJob) e as exceções (sobem para a bomba, que já as trata); o passo é medido mesmo se lançar
     return (function* () {
       while (true) {
         const t0 = running ? Date.now() : 0;
-        const step = runner.next();
-        if (running) record(key, Date.now() - t0);
+        let step;
+        try {
+          step = runner.next();
+        } finally {
+          if (running) record(key, Date.now() - t0);
+        }
         if (step.done) return step.value;
         yield step.value;
       }
