@@ -2014,6 +2014,9 @@
          "path" : "scripts/core/31_shop_registry.js"
       },
       {
+         "path" : "scripts/core/32_flight_skills.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
