@@ -96,7 +96,7 @@
                 },
                 "dbe:fly_mode": {
                     "type": "enum",
-                    "values": [ "none", "normal", "fast" ],
+                    "values": [ "none", "normal", "fast", "pushup", "pushup_down" ],
                     "default": "none",
                     "client_sync": true
                 },

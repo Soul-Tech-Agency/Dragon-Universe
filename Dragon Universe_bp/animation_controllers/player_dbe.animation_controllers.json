@@ -27,14 +27,14 @@
                 "default": {
                     "transitions": [
                         {
-                            "stop_sound": "!q.property('dbe:aura_boost') && !q.is_sneaking"
+                            "stop_sound": "(!q.property('dbe:aura_boost') && !q.is_sneaking) || (q.property('dbe:fly_mode') == 'pushup' || q.property('dbe:fly_mode') == 'pushup_down')"
                         }
                     ]
                 },
                 "stop_sound": {
                     "transitions": [
                         {
-                            "default": "q.is_sneaking || q.property('dbe:aura_boost')"
+                            "default": "(q.is_sneaking || q.property('dbe:aura_boost')) && !(q.property('dbe:fly_mode') == 'pushup' || q.property('dbe:fly_mode') == 'pushup_down')"
                         }
                     ],
                     "on_entry": [
