@@ -3,6 +3,7 @@
 import { ActionFormData as jX } from "@minecraft/server-ui";
 import { cj } from "./02_forms_timers.js";
 import { hN, hO } from "./14_player.js";
+import { removeOrphanOrb } from "../training/concentration.js";
 import { EntityComponentTypes as g, system as gU, EntitySwingSource as i, EquipmentSlot as l, Player as m, system as n, world as o, system as r } from "@minecraft/server";
 import { eJ, eO, eP, ex } from "./08_fusion_regions.js";
 import { hZ, i0, i3 } from "./15_entities.js";
@@ -205,7 +206,7 @@ var k6 = class {
     sI instanceof hN && sH.typeId === "dbe:training_orb" && sI.concentrationTraining.claimOrb(sH);
   }
   afterEntityLoad({ entity }) {
-    removeTimeChamberHostile(entity);
+    removeTimeChamberHostile(entity) || removeOrphanOrb(entity); // orb de concentração sem sessão viva (mundo reaberto)
   }
   afterEntitySpawn({ cause: sG, entity: sH }) {
     if (removeTimeChamberHostile(sH)) return;

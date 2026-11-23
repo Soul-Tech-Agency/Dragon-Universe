@@ -91,6 +91,9 @@ var hJ = 1,
         [hIP.Movement, hIP.Jump].filter((sI) => sI !== void 0),
       );
       try {
+        for (let sL of sG.dimension.getEntities({ type: "dbe:training_orb", location: sG.location, maxDistance: 16 })) removeOrphanOrb(sL);
+      } catch {}
+      try {
         this.spawnGrid();
       } catch (sI) {
         console.warn("[Concentration] grid failed: " + (sI?.stack ?? sI)), this.finish(!0);
@@ -144,16 +147,26 @@ var hJ = 1,
       let sK = this.tickSpeed / 20;
       for (let sL = 0; sL < this.orbs.length; sL++) {
         let sM = this.orbs[sL];
+        if (!sM.entity.isValid) this.respawnOrb(sM); // água, pistão, despawn: volta na mesma célula
         this.setOrbColor(sL, sG[sL]);
         if (sM.entity.isValid && sG[sL] !== ORB_OFF) this.spawnOrbParticle(sM.entity.location, sG[sL], sK);
       }
       this.dbePlayer.player.dimension.playSound("common.ki_blast", this.dbePlayer.player.location, { pitch: 3 });
       this.updateHud();
     }
+    respawnOrb(sG) {
+      try {
+        let sH = d4("dbe:training_orb", this.dbePlayer.player.dimension, sG.location);
+        sH && (liveOrbIds.delete(sG.entity.id), liveOrbIds.add(sH.id), (sG.entity = sH), (sG.color = void 0));
+      } catch {}
+    }
     setOrbColor(sG, sH) {
       let sI = this.orbs[sG];
       if (!sI || sI.color === sH) return;
-      (sI.color = sH), this.dbePlayer.title.setTitle("conc_c" + sG, ORB_TOKEN[sH]);
+      (sI.color = sH);
+      try {
+        this.dbePlayer.title.setTitle("conc_c" + sG, ORB_TOKEN[sH]);
+      } catch {}
       try {
         sI.entity.isValid && sI.entity.setProperty("dbe:color", sH);
       } catch {}
@@ -172,7 +185,7 @@ var hJ = 1,
           sS = bO.add(bO.add(sO, bO.scale(sM, (sR - 1) * sI)), { x: 0, y: (1 - sQ) * sI, z: 0 }),
           sT = d4("dbe:training_orb", sG.dimension, sS);
         if (!sT) throw new Error("orb not spawned at cell " + sP);
-        this.orbs.push({ entity: sT, color: void 0 }), this.setOrbColor(sP, ORB_OFF);
+        liveOrbIds.add(sT.id), this.orbs.push({ entity: sT, color: void 0, location: sS }), this.setOrbColor(sP, ORB_OFF);
       }
     }
     spawnOrbParticle(sG, sH, sI) {
@@ -205,17 +218,23 @@ var hJ = 1,
       let sH = this.session;
       (this.isTraining = !1), (this.session = void 0);
       sH?.runId !== void 0 && hI.clearRun(sH.runId);
-      this.removeAllOrbs();
       let { player: sI, title: sK } = this.dbePlayer;
-      for (let sL of ["train_hud", "train_count", "conc_pace", ...Array.from({ length: 9 }, (_, sM) => "conc_c" + sM)])
-        sK.setTitle(sL, void 0);
-      sK.setSubtitle("train_vals");
-      if (!sI.isValid) return; // saiu do mundo: a tentativa já foi gasta e salva no início
+      // primeiro destrava o jogador: nada que lance depois pode deixá-lo preso
+      if (sI.isValid)
+        try {
+          this.dbePlayer.inputPermissionManager.unblockInputPermission("concentration");
+        } catch (sL) {
+          console.warn("[Concentration] unblock: " + sL);
+        }
+      this.removeAllOrbs();
       try {
-        this.dbePlayer.inputPermissionManager.unblockInputPermission("concentration");
+        for (let sL of ["train_hud", "train_count", "conc_pace", ...Array.from({ length: 9 }, (_, sM) => "conc_c" + sM)])
+          sK.setTitle(sL, void 0);
+        sK.setSubtitle("train_vals");
       } catch (sL) {
-        console.warn("[Concentration] unblock: " + sL);
+        console.warn("[Concentration] HUD cleanup: " + sL);
       }
+      if (!sI.isValid) return; // saiu do mundo: a tentativa já foi gasta e salva no início
       this.score > this.data.highScore && (this.data.highScore = this.score);
       sG && sI.sendMessage({ translate: "ui.dbe.training.concentration.interrupted" });
       this.grantReward(), (this.score = 0), (this.combo = 0), this.checkAndUpdateAttempts(), this.save();
@@ -243,16 +262,30 @@ var hJ = 1,
       sG.tryGrantReward(this.dbePlayer), sG.sendRewardMessage(this.dbePlayer);
     }
     removeAllOrbs() {
-      for (let { entity: sG } of this.orbs)
+      for (let { entity: sG } of this.orbs) {
+        liveOrbIds.delete(sG.id);
         try {
           sG.isValid && sG.remove();
         } catch {}
+      }
       this.orbs.length = 0;
     }
     save() {
       this.dbePlayer.data.set("concentration_training", this.data);
     }
   };
+// ids dos orbs de sessões vivas (todas): um dbe:training_orb fora daqui é órfão (mundo reaberto, jogador que saiu) e sai
+const liveOrbIds = new Set();
+/** Remove o orb se ele não pertence a nenhuma sessão viva. Devolve true se removeu. */
+export function removeOrphanOrb(entity) {
+  try {
+    if (entity?.typeId !== "dbe:training_orb" || !entity.isValid || liveOrbIds.has(entity.id)) return !1;
+    entity.remove();
+    return !0;
+  } catch {
+    return !1;
+  }
+}
 const ORB_OFF = 3, // apagado: não faz nada
   ORB_TOKEN = { 0: "g;", 1: "r;", 2: "k;", 3: "o;" },
   CONCENTRATION_DEFAULTS = {
