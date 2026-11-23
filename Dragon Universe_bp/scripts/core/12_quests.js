@@ -1264,6 +1264,7 @@ var h3 = class extends gN {
   }
 };
 bM.on("entity_died", ({ damageSource: sG, entity: sH }) => {
+  if (sH?.hasTag?.("dbe:mental_replica")) return; // réplica do treino mental não conta em missão nem conquista (dec. 13)
   if (sG.damagingEntity instanceof h1) {
     let { tasks: sI } = late.hO(sG.damagingEntity);
     for (let sK of sI.getActiveTasksByType("defeat_enemy")) sH.typeId === sK.entityTypeId && sK.addProgress(1);

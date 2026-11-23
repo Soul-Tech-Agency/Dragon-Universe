@@ -1719,3 +1719,23 @@ ui.dbe.training.physical.locked_level=Unlocks at level %s
 ui.dbe.training.physical.alt_mode=Alternative mode (menu item)
 ui.dbe.training.mental.locked=Defeat it in the campaign
 ui.dbe.training.concentration.no_tries=§cNo concentration attempts left: wait for the recharge.
+
+## Treinos 1.7.20 (Bússola): treino mental
+ui.dbe.training.mental.status=Memory %s · Challenge %s · Best %s
+ui.dbe.training.mental.start=Start
+ui.dbe.training.mental.desc=Fight in your mind against a replica of a boss you already beat. The mental fight cannot kill you.
+ui.dbe.training.mental.reward_memory=1 skill point
+ui.dbe.training.mental.reward_challenge=2 skill points + 3 AP
+ui.dbe.training.mental.win_first=§aFirst victory against the replica in %s! The reward was paid.
+ui.dbe.training.mental.win=§aVictory against the replica in %s: +%s XP.
+ui.dbe.training.mental.lose=§cYour mind gave in: you woke up with no reward.
+ui.dbe.training.mental.timeout=§eTime is up: the replica faded away.
+ui.dbe.training.mental.cancel=§eMental training ended with no reward.
+ui.dbe.training.mental.blocked.locked=§cDefeat this boss in the campaign first.
+ui.dbe.training.mental.blocked.busy=§cAnother training is in progress.
+ui.dbe.training.mental.blocked.boss_today=§cYou already beat this replica today.
+ui.dbe.training.mental.blocked.daily_limit=§cToday's repeated victories already counted: come back tomorrow.
+ui.dbe.training.mental.blocked.knocked=§cYou are knocked out.
+ui.dbe.training.mental.blocked.fusion=§cYou cannot train while fused.
+ui.dbe.training.mental.blocked.tournament=§cYou cannot train during the tournament.
+ui.dbe.training.mental.blocked.quest=§cFinish the quest fight before training.

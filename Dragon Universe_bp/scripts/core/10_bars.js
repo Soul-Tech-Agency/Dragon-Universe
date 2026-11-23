@@ -140,6 +140,8 @@ var fj = class {
       sI.hitAmount < this.maxValue && (sI.hitAmount++, (sI.rewardAmount += sH), this.entityRewardLog.set(sG, sI));
     }
     distributeRewards() {
+      // réplica do treino mental (decisão 13): sem XP nem zeni por abate
+      if (this.dbeEntity.entity?.hasTag?.("dbe:mental_replica")) return void this.entityRewardLog.clear();
       for (let [sG, sH] of this.entityRewardLog) {
         let sI = ff.getEntity(sG);
         if (sI instanceof f9) {

@@ -6,6 +6,7 @@ import { i3 } from "./15_entities.js";
 import { EntityDamageCause as i4, EquipmentSlot as i5, Player as i6, system as i7 } from "@minecraft/server";
 import { eJ, eO } from "./08_fusion_regions.js";
 import { hN } from "./14_player.js";
+import { mentalDamageHook as duMentalDamageHook } from "../training/mental.js";
 function i8(sG, sH, sI) {
   if (sG.isChunkLoaded(sH)) {
     let sK = d4("dbe:damage_indicator", sG, sH);
@@ -66,6 +67,11 @@ var i9 = class {
             sG.cancel = !0;
             return;
           }
+        }
+        // treino mental: só o dono fere a réplica; o golpe letal nela é vitória e no jogador deixa a vida em 1
+        if (duMentalDamageHook(sI, sO, sL, sG.damage, sU)) {
+          sG.cancel = !0;
+          return;
         }
         (sQ = sU.applyDamage(sG.damage, sL)),
           sU.currentValue

@@ -4,8 +4,8 @@
 //   - fase de baixo e fase de cima >= MIN_PHASE_TICKS; do pedido de descer até soltar <= MAX_CYCLE_TICKS, senão
 //     "ritmo perdido"; apertar antes do pedido = repetição inválida; a pausa antes de cada pedido tem 0..CUE_JITTER ticks
 //     a mais (um macro de ritmo fixo erra a sincronia).
-//   - "embaixo" = agachando OU depois de um uso do item dbe:functions (slot 8; cada uso troca de fase): o modo
-//     alternativo do celular/controle (decisão 10a) funciona sempre, sem trocar de código.
+//   - "embaixo" = agachando OU, com o modo alternativo ligado (tela de séries, decisão 10a), depois de um uso do item
+//     dbe:functions (slot 8; cada uso troca de fase). Desligado, só o agachar conta.
 //   - a fase vai para o cliente pelo dbe:fly_mode: "pushup" (em cima) e "pushup_down" (embaixo), só quando muda, pela
 //     API do voo (rP: setFlyModeProperty + forgetFlyCache), como manda o contrato do dbe:fly_mode.
 //   - cada repetição válida gasta STAMINA_PER_REP de vigor; sem vigor a série pausa (sem perder o progresso).
@@ -136,6 +136,10 @@ export class PhysicalTraining {
     };
     p.inputPermissionManager.blockInputPermission("physical_training",
       [InputPermissionCategory.Movement, InputPermissionCategory.Jump, InputPermissionCategory.Mount].filter((x) => x !== undefined));
+    // quem começa com o slot 8 selecionado estaria com a guarda ligada (is_defending), que muda a pose
+    try {
+      p.guard?.isGuarding && p.guard.breakGuard();
+    } catch {}
     this.setMode("pushup");
     p.title.setTitle("train_hud", "phys;");
     this.updateHud();
@@ -149,9 +153,9 @@ export class PhysicalTraining {
     }, 1);
     return undefined;
   }
-  /** Item dbe:functions durante a série: troca de fase (modo alternativo). */
+  /** Item dbe:functions durante a série: troca de fase, só com o modo alternativo ligado. */
   onFunctionsItem() {
-    if (!this.session) return;
+    if (!this.session || !this.data.altMode) return;
     this.session.altDown = !this.session.altDown;
   }
   stop() {

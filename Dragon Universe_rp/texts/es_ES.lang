@@ -1719,3 +1719,23 @@ ui.dbe.training.physical.locked_level=Se desbloquea en el nivel %s
 ui.dbe.training.physical.alt_mode=Modo alternativo (objeto del menú)
 ui.dbe.training.mental.locked=Derrótalo en la campaña
 ui.dbe.training.concentration.no_tries=§cSin intentos de concentración: espera la recarga.
+
+## Treinos 1.7.20 (Bússola): treino mental
+ui.dbe.training.mental.status=Memoria %s · Desafío %s · Mejor %s
+ui.dbe.training.mental.start=Empezar
+ui.dbe.training.mental.desc=Lucha en tu mente contra la réplica de un jefe que ya venciste. El combate mental no mata.
+ui.dbe.training.mental.reward_memory=1 punto de habilidad
+ui.dbe.training.mental.reward_challenge=2 puntos de habilidad + 3 AP
+ui.dbe.training.mental.win_first=§a¡Primera victoria contra la réplica en %s! Se pagó la recompensa.
+ui.dbe.training.mental.win=§aVictoria contra la réplica en %s: +%s XP.
+ui.dbe.training.mental.lose=§cTu mente cedió: despertaste sin recompensa.
+ui.dbe.training.mental.timeout=§eSe acabó el tiempo: la réplica se deshizo.
+ui.dbe.training.mental.cancel=§eEntrenamiento mental terminado sin recompensa.
+ui.dbe.training.mental.blocked.locked=§cDerrota a este jefe en la campaña primero.
+ui.dbe.training.mental.blocked.busy=§cHay otro entrenamiento en curso.
+ui.dbe.training.mental.blocked.boss_today=§cYa venciste esta réplica hoy.
+ui.dbe.training.mental.blocked.daily_limit=§cLas victorias repetidas de hoy ya contaron: vuelve mañana.
+ui.dbe.training.mental.blocked.knocked=§cEstás noqueado.
+ui.dbe.training.mental.blocked.fusion=§cNo puedes entrenar durante una fusión.
+ui.dbe.training.mental.blocked.tournament=§cNo puedes entrenar durante el torneo.
+ui.dbe.training.mental.blocked.quest=§cTermina la pelea de la misión antes de entrenar.

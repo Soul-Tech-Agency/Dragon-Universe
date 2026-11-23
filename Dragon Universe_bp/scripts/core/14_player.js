@@ -13,6 +13,7 @@ import { isSafeStanding as duIsSafeStanding, reportTravelFailure as duReportTrav
 import { c1 } from "../vendor/vanilla_data.js";
 import { hL } from "../training/concentration.js"; // O4.6: a concentração saiu deste arquivo
 import { PhysicalTraining, isPushupMode } from "../training/physical.js";
+import { MentalTraining } from "../training/mental.js";
 var hM = class {
     constructor(sG) {
       this.inputPermissions = sG;
@@ -47,6 +48,7 @@ var hM = class {
         (this.achievements = new gD(this)),
         (this.concentrationTraining = new hL(this)),
         (this.physicalTraining = new PhysicalTraining(this)),
+        (this.mentalTraining = new MentalTraining(this)),
         (this.inputPermissionManager = new hM(sG.inputPermissions)),
         (this.kiSense = new hA(this)),
         (this.masterManager = new g7(this)),
@@ -64,6 +66,7 @@ var hM = class {
     achievements;
     concentrationTraining;
     physicalTraining;
+    mentalTraining;
     kiSense;
     inputPermissionManager;
     level;
@@ -167,6 +170,7 @@ var hM = class {
         try {
           // treinos em andamento terminam antes (o wrapper some no fim do reset; a sessão não pode sobreviver a ele)
           this.physicalTraining?.active && this.physicalTraining.stop();
+          this.mentalTraining?.active && this.mentalTraining.stop();
           this.concentrationTraining?.isTraining && this.concentrationTraining.stopTraining();
           tags = this.player.getTags().filter(tag => tag.startsWith("dbe:"));
           saved = JSON.parse(JSON.stringify(this.data.getData()));

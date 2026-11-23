@@ -4,7 +4,8 @@ import { ActionFormData as jX } from "@minecraft/server-ui";
 import { cj } from "./02_forms_timers.js";
 import { hN, hO } from "./14_player.js";
 import { removeOrphanOrb } from "../training/concentration.js";
-import { listDefeated as duListDefeated } from "../progression/progression.js";
+import { removeOrphanReplica, memoryLevel as duMemoryLevel, formatTicks as duFormatTicks } from "../training/mental.js";
+import { listDefeated as duListDefeated, BOSS_IDS as DU_BOSS_IDS } from "../progression/progression.js";
 import { EntityComponentTypes as g, system as gU, EntitySwingSource as i, EquipmentSlot as l, Player as m, system as n, world as o, system as r } from "@minecraft/server";
 import { eJ, eO, eP, ex } from "./08_fusion_regions.js";
 import { hZ, i0, i3 } from "./15_entities.js";
@@ -207,7 +208,7 @@ var k6 = class {
     sI instanceof hN && sH.typeId === "dbe:training_orb" && sI.concentrationTraining.claimOrb(sH);
   }
   afterEntityLoad({ entity }) {
-    removeTimeChamberHostile(entity) || removeOrphanOrb(entity); // orb de concentração sem sessão viva (mundo reaberto)
+    removeTimeChamberHostile(entity) || removeOrphanOrb(entity) || removeOrphanReplica(entity); // orb/réplica sem sessão viva
   }
   afterEntitySpawn({ cause: sG, entity: sH }) {
     if (removeTimeChamberHostile(sH)) return;
@@ -1191,6 +1192,65 @@ var kH = class extends jZ {
         () => (sH.toggleAltMode(), reopen()), { iconPatch: DU_ICON + (sP ? "check" : "close") });
     }
   },
+  // Treino mental, lista de réplicas (CONTRATO §12.1): 10 = "day;<n>/<máx>" (vitórias repetidas que contam hoje) com
+  // train_mental, 11 = "", 12+ = um botão por chefe na ordem da campanha (progression_data), vencidos ou não. Texto: nome
+  // + "\n" + estado; ícone lock (não vencido na campanha) / quest_done (as duas dificuldades) / train_mental.
+  kHMental = class extends jZ {
+    constructor(sG) {
+      super(sG), jZ.lastMenuId.set(sG.id, "training"), this.setTitle("ui.dbe.training_mental.title"), this.setBody("");
+      let sH = hO(sG).mentalTraining,
+        sI = sH.config,
+        reopen = () => cj.displayForm(sG, "training_mental");
+      this.addButton("day;" + sH.dailyDone + "/" + sI.DAILY_REPEATS, reopen, { iconPatch: DU_ICON + "train_mental" }); // 10
+      this.addButton("", reopen); // 11
+      for (let sK of DU_BOSS_IDS) {
+        let sL = { translate: "entity." + sK + ".name" };
+        if (!sH.isUnlocked(sK)) {
+          this.addButton({ rawtext: [sL, { text: "\n" }, { translate: "ui.dbe.training.mental.locked" }] }, reopen, { iconPatch: DU_ICON + "lock" });
+          continue;
+        }
+        let sM = sH.clearsOf(sK),
+          sN = sM.memory && sM.challenge;
+        this.addButton(
+          { rawtext: [sL, { text: "\n" }, { translate: "ui.dbe.training.mental.status", with: [sM.memory ? "✓" : "–", sM.challenge ? "✓" : "–", sM.best ? duFormatTicks(sM.best) : "–"] }] },
+          () => cj.displayForm(sG, "training_mental_confirm", !1, sK),
+          { iconPatch: DU_ICON + (sN ? "quest_done" : "train_mental") },
+        );
+      }
+    }
+  },
+  // Treino mental, confirmação (CONTRATO §12.2): 0 Voltar, 1/2 Começar Memória/Desafio ("" quando não pode), 3 nome com
+  // train_mental, 4 melhor tempo, 5 vitórias repetidas hoje, 6 aviso, 7/9 nível de cada dificuldade, 8/10 recompensa da
+  // 1ª vitória com skill_points ("*" no começo se já feita). Body: ui.dbe.training.mental.desc.
+  kHMentalConfirm = class extends jY {
+    constructor(sG, sH) {
+      super(sG), this.setTitle("ui.dbe.training_mental.confirm.title"), this.setBody({ rawtext: [{ translate: "ui.dbe.training.mental.desc" }] });
+      let sI = hO(sG),
+        sK = sI.mentalTraining,
+        sL = sK.config,
+        reopen = () => cj.displayForm(sG, "training_mental_confirm", !1, sH),
+        noop = () => {},
+        sM = sK.blockedReason(sH, "memory"),
+        sN = sK.blockedReason(sH, "challenge"),
+        start = (sO) => () => {
+          let sP = sK.start(sH, sO);
+          sP && (sG.sendMessage({ translate: "ui.dbe.training.mental.blocked." + sP }), reopen());
+        },
+        sQ = sK.clearsOf(sH),
+        sR = sM ?? sN;
+      this.addButton("ui.dbe.backButton", () => cj.displayForm(sG, "training_mental")); // 0
+      this.addButton(sM ? "" : "ui.dbe.training.mental.start", sM ? noop : start("memory")); // 1
+      this.addButton(sN ? "" : "ui.dbe.training.mental.start", sN ? noop : start("challenge")); // 2
+      this.addButton({ rawtext: [{ translate: "entity." + sH + ".name" }] }, noop, { iconPatch: DU_ICON + "train_mental" }); // 3
+      this.addButton(sQ.best ? duFormatTicks(sQ.best) : "", noop); // 4
+      this.addButton(sK.dailyDone + "/" + sL.DAILY_REPEATS, noop); // 5
+      this.addButton(sM && sN ? { rawtext: [{ translate: "ui.dbe.training.mental.blocked." + sR }] } : "", noop); // 6
+      this.addButton("" + duMemoryLevel(sH), noop); // 7
+      this.addButton({ rawtext: [...(sQ.memory ? [{ text: "*" }] : []), { translate: "ui.dbe.training.mental.reward_memory" }] }, noop, { iconPatch: DU_ICON + "skill_points" }); // 8
+      this.addButton("" + Math.max(1, Math.round(sI.level.currentLevel * sL.CHALLENGE_LEVEL_MULT)), noop); // 9
+      this.addButton({ rawtext: [...(sQ.challenge ? [{ text: "*" }] : []), { translate: "ui.dbe.training.mental.reward_challenge" }] }, noop, { iconPatch: DU_ICON + "skill_points" }); // 10
+    }
+  },
   kI = class extends jY {
     constructor(sG) {
       super(sG),
@@ -1266,7 +1326,9 @@ function kJ() {
     cj.registerActionForm("statistics_view", kf),
     cj.registerActionForm("training", kH),
     cj.registerActionForm("training_physical", kHPhysical),
+    cj.registerActionForm("training_mental", kHMental),
+    cj.registerActionForm("training_mental_confirm", kHMentalConfirm),
     cj.registerActionForm("transformations", kj);
 }
 kJ();
-export { jY, jZ, k0, k1, k2, k3, k4, k5, removeTimeChamberHostile, duNpcInteractions, duHandleNpcInteraction, k6, k7, k8, k9, kb, kf, kj, kk, kpPick, kp, DU_ATTRIBUTE_ORDER, duMultiplierText, DU_RACE_GRID, duCustomizationOpen, kq, kv, kw, kx, ky, kz, kA, DU_ICON, DU_QUEST_TYPE_ICON, DU_ACHIEVEMENT_ICON, duQuestIcon, duOptionValue, duCustomizationSlots, duAchievementIcon, kB, kC, kD, kE, kF, kH, kHPhysical, kI, DU_HELP_PARAGRAPHS, DU_HELP_TOPICS, duHelpForm, kJ };
+export { jY, jZ, k0, k1, k2, k3, k4, k5, removeTimeChamberHostile, duNpcInteractions, duHandleNpcInteraction, k6, k7, k8, k9, kb, kf, kj, kk, kpPick, kp, DU_ATTRIBUTE_ORDER, duMultiplierText, DU_RACE_GRID, duCustomizationOpen, kq, kv, kw, kx, ky, kz, kA, DU_ICON, DU_QUEST_TYPE_ICON, DU_ACHIEVEMENT_ICON, duQuestIcon, duOptionValue, duCustomizationSlots, duAchievementIcon, kB, kC, kD, kE, kF, kH, kHPhysical, kHMental, kHMentalConfirm, kI, DU_HELP_PARAGRAPHS, DU_HELP_TOPICS, duHelpForm, kJ };

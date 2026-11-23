@@ -2065,6 +2065,9 @@
          "path" : "scripts/training/concentration.js"
       },
       {
+         "path" : "scripts/training/mental.js"
+      },
+      {
          "path" : "scripts/training/physical.js"
       },
       {

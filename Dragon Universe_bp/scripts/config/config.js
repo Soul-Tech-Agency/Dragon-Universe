@@ -108,6 +108,24 @@ const CONFIG = {
     BLOCK_ON_BOSS_FIGHT: true,
   },
   /**
+   * Treino mental (planos/TREINOS.md §3.4; decisões 12–15). REPLICA_STRIP é provisório (pergunta ao usuário).
+   */
+  MENTAL: {
+    TIME_LIMIT_TICKS: 3600,
+    DAILY_REPEATS: 3,
+    DAILY_COOLDOWN_TICKS: 24000,
+    BOSS_COOLDOWN_TICKS: 24000,
+    CHALLENGE_LEVEL_MULT: 1.1,
+    MIN_DAMAGE_SHARE: 0.8,
+    LEASH: 32,
+    SPAWN_RADIUS: 6,
+    COUNTDOWN_TICKS: 60,
+    AURA_EVERY_TICKS: 10,
+    REPEAT_XP_PCT: 0.25,
+    FIRST_CLEAR: { memory: { skill: 1, ap: 0 }, challenge: { skill: 2, ap: 3 } },
+    REPLICA_STRIP: ["alwaysDodge", "friendlyDamage", "spawnOnStart"],
+  },
+  /**
    * Configurações do sistema de proteção.
    */
   CLAIM: {
