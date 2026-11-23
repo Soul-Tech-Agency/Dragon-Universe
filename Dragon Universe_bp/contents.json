@@ -2005,6 +2005,9 @@
          "path" : "scripts/core/28_tasks_rewards.js"
       },
       {
+         "path" : "scripts/core/29_future_city.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
