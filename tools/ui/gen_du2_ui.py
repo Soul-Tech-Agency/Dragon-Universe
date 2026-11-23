@@ -10,6 +10,9 @@ Como rodar (na raiz do repositório):
 - Contrato com o script e as texturas (índices dos botões, slots, flags e nomes de
   textura): redesign/CONTRATO.md.
 - Depois de gerar, rode node tools/check-syntax.mjs e node tools/validate.mjs.
+- No fim, o gerador roda tools/check-ui-props.mjs na pasta gerada e sai com erro se algum controle tiver
+  propriedade que o tipo não aceita (tabela em tools/ui/ui_props.json). Exemplo: collection_index em label,
+  collection_name em panel. O jogo só avisa no Content Log e ignora a propriedade.
 """
 import json, os, sys
 
@@ -113,6 +116,44 @@ def view(expr, target="#visible", source=None):
     return b
 
 
+# Texto do botão nas expressões: sempre com um prefixo '§r' na frente. Um texto que começa com dígito ("12",
+# "340 / 1200 XP", "5 pontos livres") vira NÚMERO dentro da expressão, e aí a subtração e a comparação de texto
+# falham: o rótulo fica vazio e a expressão inteira dá falso (teste de 23/11, 1.7.19: Estatísticas sem valores,
+# "pts;0" e as abas vazias na lista de Habilidades). Com '§r' + texto, o valor é sempre texto.
+# (Concatenação com + existe no vanilla: "('textures/ui/game_tip_animations/' + #animation_name)".)
+SR = "('§r' + #form_button_text)"
+
+
+def eq(v):
+    """Texto do botão é exatamente v."""
+    return f"({SR} = '§r{v}')"
+
+
+def has_prefix(p):
+    """Texto do botão começa com p."""
+    return f"(not (({SR} - '§r{p}') = {SR}))"
+
+
+def contains(sub):
+    return f"(not (({SR} - '{sub}') = {SR}))"
+
+
+def strip_prefix(p):
+    """Texto sem o prefixo p, para mostrar. Fica '§r' na frente (invisível), então nunca vira número.
+    Não use em texto que é chave de lang: '§r' + chave não é traduzido."""
+    return f"({SR} - '{p}')"
+
+
+EMPTY = eq("")
+NONEMPTY = f"(not {EMPTY})"
+
+
+def text_direct():
+    """Rótulo com o texto do botão como o vanilla (\"text\": \"#form_button_text\"), sem expressão: mostra
+    número, chave de lang e rawtext. O índice vem do pai (label não aceita collection_index)."""
+    return [coll_text()]
+
+
 def title_vis(expr):
     return [{"binding_name": "#title_text"}, view(expr)]
 
@@ -123,13 +164,18 @@ def text_shown():
 
 
 def slot(idx, size, color="text", scale=None, font="smooth", align="left", lines=1, anchor="left_middle", vis=None):
-    """Slot de dado (botão só lido): rótulo com corte, some quando o texto é ''."""
+    """Slot de dado (botão só lido): rótulo com corte, some quando o texto é ''.
+    O rótulo mostra o texto do botão direto (text_direct), sem tirar '*': slot de dado não tem marcador.
+    O índice fica no painel s (label não aceita collection_index). Numa linha, o corte (clips_children) fica em s,
+    2 px acima e abaixo do slot: assim as pernas de "y", "j", "g" não são cortadas ("Saiyajin" saía "Saivaiin")."""
     lh = 10 if lines == 1 else "default"
-    label = lbl("#du2_text", ["100%", lh], color, scale, font, align,
-                anchor_from=anchor, anchor_to=anchor, collection_index=idx,
-                bindings=text_shown())
-    hide = [coll_text(), view(vis or "(not (#form_button_text = ''))")]
-    inner = P(["100%", "100%" if lines == 1 else "100%c"], [c("t", label)], collection_index=idx, bindings=hide)
+    label = lbl("#form_button_text", ["100%", lh], color, scale, font, align,
+                anchor_from=anchor, anchor_to=anchor, bindings=text_direct())
+    hide = [coll_text(), view(vis or NONEMPTY)]
+    if lines == 1:
+        inner = P(["100%", "100% + 4px"], [c("t", label)], collection_index=idx, bindings=hide, clips_children=True)
+        return P(size, [c("s", inner)], collection_name=COL)
+    inner = P(["100%", "100%c"], [c("t", label)], collection_index=idx, bindings=hide)
     return P(size, [c("s", inner)], collection_name=COL, clips_children=True)
 
 
@@ -174,8 +220,8 @@ LOCK_TINTS = [("lock", "weak")]
 SKILL_TINTS = [("skill_max", "gold")]
 
 
-ACTIVE = "(not ((#form_button_text - '*') = #form_button_text))"
-INACTIVE = "((#form_button_text - '*') = #form_button_text)"
+ACTIVE = has_prefix("*")
+INACTIVE = f"(not {ACTIVE})"
 
 
 def form_button(idx, size, faces, hide_empty=True, sound=True, vis=None, **kw):
@@ -185,7 +231,7 @@ def form_button(idx, size, faces, hide_empty=True, sound=True, vis=None, **kw):
     if vis:
         binds += [coll_text(), view(vis)]
     elif hide_empty:
-        binds += [coll_text(), view("(not (#form_button_text = ''))")]
+        binds += [coll_text(), view(NONEMPTY)]
     d = {"size": size, "collection_index": idx, "$pressed_button_name": "button.form_button_click",
          "default_control": "default", "hover_control": "hover", "pressed_control": "pressed",
          "controls": [c(k, P(["100%", "100%"], faces[k])) for k in ("default", "hover", "pressed")],
@@ -445,7 +491,7 @@ def xp_segments(h):
         return c(name, P(["10%", "100%"], [c("i", img(T + tex, ["100% - 2px", h]))]))
     off = H(["100%", "100%"], [cell(f"seg{k}", "xp_off") for k in range(1, 11)])
     levels = [c(f"lv{n}", H(["100%", "100%"], [cell(f"seg{k}", "xp_on") for k in range(1, n + 1)],
-                            collection_index=26, bindings=[coll_text(), view(f"(#form_button_text = '{n}')")]))
+                            collection_index=26, bindings=[coll_text(), view(eq(n))]))
               for n in range(1, 11)]
     return P(["fill", "100%"], [c("off", off), c("on", P(["100%", "100%"], levels, collection_name=COL))])
 
@@ -808,7 +854,7 @@ def bonus_chip(k, h, scale):
     for a in ATTRS + ["size"]:
         key = "ui.dbe.size" if a == "size" else f"attribute.{a}"
         icons.append(c(f"i_{a}", img(I + "attr_" + a, [9, 9], ATTR_COLOR[a], collection_index=20 + k,
-                                     bindings=[coll_text(), view(f"(#form_button_text = '{key}')")])))
+                                     bindings=[coll_text(), view(eq(key))])))
     return P(["33.33%", h], [c("chip", P(["100% - 3px", "100%"], [
         bg(T + "pill_blue"),
         c("row", H(["100%", "100%"], [
@@ -1014,7 +1060,7 @@ rc["mobile"] = frame(["100% - 6px", "100% - 6px"], [480, 270], 20, [
 
 # --------------------------------------------------------------------------- telas com abas e listas
 
-HIDDEN_ITEM = "(#form_button_text = '') or (#form_button_text = 'ui.dbe.backButton')"
+HIDDEN_ITEM = EMPTY + " or " + eq("ui.dbe.backButton")
 
 
 def body_label(color="desc"):
@@ -1033,7 +1079,7 @@ def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1, key_ic
         row = [pad(6)]
         top = "left_middle" if lines == 1 else "top_left"
         key_imgs = [c("i_" + ic, img(I + ic, [12, 12], col, bindings=[
-            coll_text(), view(f"(#form_button_text = '{key}')")])) for key, ic, col in (key_icons or [])]
+            coll_text(), view(eq(key))])) for key, ic, col in (key_icons or [])]
         if key_icons and not tints:
             row += [centered(14, P([14, 14], key_imgs)), pad(5)]
         if tints:
@@ -1063,7 +1109,7 @@ def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1, key_ic
         if plus:
             # no máximo: ícone skill_max do script (CONTRATO.md §10.5) ou, com script antigo, a chave no texto
             tex_b = {"binding_type": "collection", "binding_collection_name": COL, "binding_name": "#form_button_texture"}
-            maxed = ("((not ((#form_button_text - 'maximized_skill') = #form_button_text)) or "
+            maxed = ("(" + contains("maximized_skill") + " or "
                      + tex_is("skill_max") + ")")
             row += [pad(4), c("plus", P([20, "100%"], [
                 c("b", P([20, h - 6], [c("i", img(I + "plus", [8, 8], "gold"))],
@@ -1075,7 +1121,7 @@ def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1, key_ic
 
     def plus_visible():
         tex_b = {"binding_type": "collection", "binding_collection_name": COL, "binding_name": "#form_button_texture"}
-        maxed = ("((not ((#form_button_text - 'maximized_skill') = #form_button_text)) or "
+        maxed = ("(" + contains("maximized_skill") + " or "
                  + tex_is("skill_max") + ")")
         return [coll_text(), tex_b, view("(not " + maxed + ")")]
 
@@ -1154,8 +1200,8 @@ def scroll_area(nsd, name, controls, collection=None):
 # ---- Habilidades (kD): 10 = Transformações; 11 = pontos "pts;<n>" (ícone skill_points); 12+ = habilidades
 # (CONTRATO.md §10.5). Script antigo: pontos no body e habilidades a partir do 11.
 sk = {"namespace": "du2_skills"}
-PTS = "(not ((#form_button_text - 'pts;') = #form_button_text))"
-SKILL_HIDE = "(#form_button_text = 'ui.dbe.skills.button.transformations') or " + PTS
+PTS = has_prefix("pts;")
+SKILL_HIDE = eq("ui.dbe.skills.button.transformations") + " or " + PTS
 sk["row_pc"] = list_item(20, plus=True, extra_hide=SKILL_HIDE)
 sk["row_mobile"] = list_item(22, plus=True, extra_hide=SKILL_HIDE)
 
@@ -1163,7 +1209,7 @@ sk["row_mobile"] = list_item(22, plus=True, extra_hide=SKILL_HIDE)
 def skill_points_header(h):
     icon = img("", [10, 10], "gold", bindings=coll_tex())
     value = lbl("#du2_pts", ["default", 10], "value", None, "smooth", "left",
-                bindings=[coll_text(), view("(#form_button_text - 'pts;')", "#du2_pts")])
+                bindings=[coll_text(), view(strip_prefix("pts;"), "#du2_pts")])
     row = H(["100%", h], [
         centered(12, icon), pad(4),
         c("cap", lbl("ui.dbe.skills.caption.points", ["default", 10], "weak", None, "smooth", "left")), pad(6),
@@ -1212,7 +1258,7 @@ def back_button(w, h):
         return [bg(T + t), c("i", img(I + "back", [10, 10], "gold"))]
     btn = form_button(0, [w, h], {"default": face("btn_secondary"), "hover": face("btn_secondary_hover"),
                                   "pressed": face("btn_secondary_pressed")},
-                      vis="(#form_button_text = 'ui.dbe.backButton')")
+                      vis=eq("ui.dbe.backButton"))
     return [pad(3), c("back", P([w, "100%"], [c("h", host("b@common.button", btn, [w, h]) | {
         "anchor_from": "center", "anchor_to": "center"})]))]
 
@@ -1220,7 +1266,7 @@ def back_button(w, h):
 def action_button(idx, w, h, key_icons):
     """Botão principal com ícone escolhido pela chave do texto."""
     def face(t):
-        icons = [c("i_" + ic, img(I + ic, [10, 10], "dark", bindings=[coll_text(), view(f"(#form_button_text = '{k}')")]))
+        icons = [c("i_" + ic, img(I + ic, [10, 10], "dark", bindings=[coll_text(), view(eq(k))]))
                  for k, ic in key_icons]
         return [bg(T + t), c("row", H(["100%", "100%"], [
             pad(8), centered(12, P([12, 12], icons)), pad(4),
@@ -1230,7 +1276,7 @@ def action_button(idx, w, h, key_icons):
         ]))]
     btn = form_button(idx, [w, h], {"default": face("btn_primary"), "hover": face("btn_primary_hover"),
                                     "pressed": face("btn_primary_pressed")},
-                      vis="(not ((#form_button_text = '') or (#form_button_text = 'ui.dbe.backButton')))")
+                      vis=f"(not ({EMPTY} or {eq('ui.dbe.backButton')}))")
     return host("b@common.button", btn, [w, h])
 
 
@@ -1249,12 +1295,19 @@ def qrow(idx, vis, children, gap_after=2, name=None, gap_before=0):
                                         collection_index=idx, bindings=[coll_text(), view(vis)]))
 
 
-def wrap_label(color, prefix_strip="*"):
-    return c("t", lbl("#du2_text", ["fill", "default"], color, None, "smooth", "left",
-                      bindings=[coll_text(), view(f"(#form_button_text - '{prefix_strip}')", "#du2_text")]))
+def wrap_label(color, star=False):
+    """Texto de várias linhas do slot da linha. Sem star: o texto direto. Com star (objetivo concluído começa com
+    '*'): dois rótulos no mesmo lugar, o direto quando não há '*' e o sem '*' quando há."""
+    if not star:
+        return c("t", lbl("#form_button_text", ["fill", "default"], color, None, "smooth", "left",
+                          bindings=text_direct()))
+    off = lbl("#form_button_text", ["100%", "default"], color, None, "smooth", "left",
+              bindings=text_direct() + [view(INACTIVE)])
+    on = lbl("#du2_text", ["100%", "default"], color, None, "smooth", "left",
+             bindings=[coll_text(), view(strip_prefix("*"), "#du2_text"), view(ACTIVE)])
+    return c("t", P(["fill", "100%c"], [c("off", off), c("on", on)]))
 
 
-NONEMPTY = "(not (#form_button_text = ''))"
 
 
 def quest_detail_rows():
@@ -1272,20 +1325,20 @@ def quest_detail_rows():
             ic[next(iter(ic))]["anchor_from"] = ic[next(iter(ic))]["anchor_to"] = "top_middle"
             if ic[next(iter(ic))].get("bindings") is None:
                 del ic[next(iter(ic))]["bindings"]
-        return qrow(idx, NONEMPTY, [pad(4, 10), c("b", P([10, 10], icon)), pad(3, 10), wrap_label(color)])
+        return qrow(idx, NONEMPTY, [pad(4, 10), c("b", P([10, 10], icon)), pad(3, 10), wrap_label(color, done_check)])
 
     rows = [
         # cabeçalho: ícone do tipo (slot 3) + título (slot 2)
         qrow(2, NONEMPTY, [c("ic", tex_icon_at(3, [12, 12], QUEST_TINTS)), pad(4, 12),
-                           c("t", lbl("#du2_text", ["fill", "default"], "gold", None, "smooth", "left",
-                                      bindings=text_shown()))], 1, "head"),
+                           c("t", lbl("#form_button_text", ["fill", "default"], "gold", None, "smooth", "left",
+                                      bindings=text_direct()))], 1, "head"),
         # tipo (slot 3) e nível recomendado (slot 4)
-        qrow(3, NONEMPTY, [pad(16, 10), c("t", lbl("#du2_text", ["fill", 10], "weak", None, "smooth", "left",
-                                                   bindings=text_shown()))], 0),
+        qrow(3, NONEMPTY, [pad(16, 10), c("t", lbl("#form_button_text", ["fill", 10], "weak", None, "smooth", "left",
+                                                   bindings=text_direct()))], 0),
         qrow(4, NONEMPTY, [pad(16, 10), c("c", lbl("ui.dbe.quest.caption.level", ["default", 10], "weak", None,
                                                    "smooth", "left")), pad(4, 10),
-                           c("v", lbl("#du2_text", ["default", 10], "value", None, "smooth", "left",
-                                      bindings=text_shown()))], 6),
+                           c("v", lbl("#form_button_text", ["default", 10], "value", None, "smooth", "left",
+                                      bindings=text_direct()))], 6),
         qrow(5, NONEMPTY, [wrap_label("desc")], 6),
         cap(6, "ui.dbe.quest.caption.objectives"),
         *[bullet(i, "text", done_check=True) for i in range(6, 14)],
@@ -1300,7 +1353,7 @@ def quest_detail_rows():
         qrow(26, NONEMPTY, [wrap_label("weak")]),
         qrow(27, NONEMPTY, [wrap_label("red")], gap_before=4),  # o próprio espaço: o erro pode vir sem a espera
         # script antigo / conquista: body inteiro
-        qrow(2, "(#form_button_text = '')", [c("body", lbl("#form_text", ["fill", "default"], "text", None,
+        qrow(2, EMPTY, [c("body", lbl("#form_text", ["fill", "default"], "text", None,
                                                             "smooth", "left"))], 0, "old_body"),
     ]
     return rows
@@ -1343,10 +1396,10 @@ detail_screen(qd, "detail_form", lambda mobile: [
 def code_header(prefix, caption_key, icon_color, h, idx=10):
     """Slot de código "<prefixo><valor>" no topo de uma lista (ícone do iconPatch do slot, legenda fixa, valor).
     Some inteiro sem o prefixo; a lista esconde o mesmo slot (extra_hide)."""
-    has = f"(not ((#form_button_text - '{prefix}') = #form_button_text))"
+    has = has_prefix(prefix)
     icon = img("", [10, 10], icon_color, bindings=coll_tex())
     value = lbl("#du2_code", ["default", 10], "value", None, "smooth", "left",
-                bindings=[coll_text(), view(f"(#form_button_text - '{prefix}')", "#du2_code")])
+                bindings=[coll_text(), view(strip_prefix(prefix), "#du2_code")])
     row = H(["100%", h], [
         centered(12, icon), pad(4),
         c("cap", lbl(caption_key, ["default", 10], "weak", None, "smooth", "left")), pad(6),
@@ -1364,7 +1417,7 @@ TRAIN_ICONS = [("ui.dbe.training.button.shadow_dummy", "train_shadow", "cyan"),
                ("ui.dbe.training.button.stop_concentration", "train_stop", "red")]
 TRAIN_TINTS = [("train_shadow", "cyan"), ("train_concentration", "gold"), ("train_physical", "orange"),
                ("train_mental", "purple"), ("train_stop", "red"), ("clock", "soft"), ("lock", "weak")]
-MUL = "(not ((#form_button_text - 'mul;') = #form_button_text))"
+MUL = has_prefix("mul;")
 tn["row_pc"] = list_item(30, lines=2, key_icons=TRAIN_ICONS, tints=TRAIN_TINTS, extra_hide=MUL)
 tn["row_mobile"] = list_item(32, lines=2, key_icons=TRAIN_ICONS, tints=TRAIN_TINTS, extra_hide=MUL)
 
@@ -1382,7 +1435,7 @@ tab_screen(tn, "training_form", training_content)
 # ---- Séries das flexões (CONTRATO.md §13.2, título ui.dbe.training_physical.title, aba Treino acesa):
 # 10 = "day;<feitas>/<máx>", 11 reservado, 12-14 = séries 20/30/50, 15 = modo alternativo.
 ph = {"namespace": "du2_physical"}
-DAY_P = "(not ((#form_button_text - 'day;') = #form_button_text))"
+DAY_P = has_prefix("day;")
 PHYS_TINTS = [("train_physical", "orange"), ("lock", "weak"), ("clock", "soft"), ("check", "green"),
               ("close", "weak")]
 ph["row_pc"] = list_item(30, lines=2, tints=PHYS_TINTS, extra_hide=DAY_P)
@@ -1414,7 +1467,7 @@ def achievements_content(mobile):
 tab_screen(ac, "achievement_list_form", achievements_content)
 
 
-# ---- Notícias (kz): só body + as 2 imagens fixas
+# ---- Notícias (kz): só o body. As 2 imagens do Patreon (patron_items e patron_chat) saíram no teste de 23/11 (1.7.19)
 nw = {"namespace": "du2_news"}
 
 
@@ -1422,10 +1475,6 @@ def news_content(mobile):
     m = "mobile" if mobile else "pc"
     return [c("scroll", P(["100%", "100%"], [scroll_area(nw, "scroll_" + m, [
         body_label("text"),
-        pad("100%", 6),
-        c("items", P(["100%", 121], [c("i", {"type": "image", "texture": "textures/ui/images/patron_items"})])),
-        pad("100%", 4),
-        c("chat", P(["100%", 47], [c("i", {"type": "image", "texture": "textures/ui/images/patron_chat"})])),
         pad("100%", 2),
     ])]))]
 
@@ -1461,7 +1510,7 @@ CUST_TINT = "gold"
 def cust_row_slots(name_idx, val_idx, h):
     """Meio da linha (CONTRATO.md §10.4): ícone cust_* do slot do nome, nome e valor "n/total"."""
     icon = img("", [10, 10], CUST_TINT, collection_index=name_idx,
-               bindings=coll_tex() + [coll_text(), view("(not (#form_button_text = ''))")])
+               bindings=coll_tex() + [coll_text(), view(NONEMPTY)])
     return H(["fill", h], [
         pad(3),
         centered(10, P([10, 10], [c("i", icon)], collection_name=COL)),
@@ -1481,7 +1530,7 @@ def arrow_pair_rows(first_idx, rows, row_h, arrow_w, name_idx0):
     for k in range(rows):
         a, b = first_idx + 2 * k, first_idx + 2 * k + 1
         row_bg = img(T + "panel_row", ["100%", row_h - 2], collection_index=a,
-                     bindings=[coll_text(), view("(not (#form_button_text = ''))")])
+                     bindings=[coll_text(), view(NONEMPTY)])
         items.append(c(f"row{k}", P(["100%", row_h], [
             c("bg", P(["100%", "100%"], [c("i", row_bg)], collection_name=COL)),
             c("arrows", H(["100%", row_h - 2], [
@@ -1494,7 +1543,7 @@ def arrow_pair_rows(first_idx, rows, row_h, arrow_w, name_idx0):
                line_padding=row_h - 10, offset=[0, (row_h - 10) // 2 - 1],
                anchor_from="top_middle", anchor_to="top_middle")
     old_body = P(["100%", "100%"], [c("t", text)], collection_index=name_idx0,
-                 bindings=[coll_text(), view("(#form_button_text = '')")])
+                 bindings=[coll_text(), view(EMPTY)])
     return P(["100%", rows * row_h], [
         c("rows", V(["100%", "100%"], items)),
         c("names", P([f"100% - {2 * arrow_w + 8}px", "100%"], [c("old", old_body)], layer=4, clips_children=True,
@@ -1613,14 +1662,14 @@ def write(name, data):
     hoist(data)
     path = os.path.join(UI, "du2", name)
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w", newline="\n") as f:
+    with open(path, "w", newline="\n", encoding="utf-8") as f:
         f.write(fmt(data) + "\n")
     print("ok", path)
 
 
 # ---- Treino mental (CONTRATO.md §12): lista de réplicas (com abas) e confirmação (sem abas)
 mt = {"namespace": "du2_mental"}
-DAY = "(not ((#form_button_text - 'day;') = #form_button_text))"
+DAY = has_prefix("day;")
 MENTAL_TINTS = [("lock", "weak"), ("quest_done", "green"), ("train_mental", "purple")]
 mt["row_pc"] = list_item(30, lines=2, tints=MENTAL_TINTS, extra_hide=DAY)
 mt["row_mobile"] = list_item(32, lines=2, tints=MENTAL_TINTS, extra_hide=DAY)
@@ -1630,7 +1679,7 @@ def mental_daily_header(h):
     """Slot 10 "day;n/max" (ícone train_mental do slot): some inteiro sem o prefixo."""
     icon = img("", [10, 10], "purple", bindings=coll_tex())
     value = lbl("#du2_day", ["default", 10], "value", None, "smooth", "left",
-                bindings=[coll_text(), view("(#form_button_text - 'day;')", "#du2_day")])
+                bindings=[coll_text(), view(strip_prefix("day;"), "#du2_day")])
     row = H(["100%", h], [
         centered(12, icon), pad(4),
         c("cap", lbl("ui.dbe.training.mental.daily", ["default", 10], "weak", None, "smooth", "left")), pad(6),
@@ -1664,10 +1713,10 @@ def mental_start_button(idx, h):
 
 def mental_card(title_key, start_idx, level_idx, reward_idx):
     """Cartão de uma dificuldade: nível, recompensa da 1ª vitória (✓ e esmaecida com '*') e Começar."""
-    reward_on = lbl("#du2_text", ["fill", "default"], "text", None, "smooth", "left", collection_index=reward_idx,
-                    bindings=text_shown())
-    reward_done = lbl("#du2_text", ["fill", "default"], "weak", None, "smooth", "left", collection_index=reward_idx,
-                      bindings=text_shown())
+    # o índice vem dos painéis todo/done (label não aceita collection_index)
+    reward_on = lbl("#form_button_text", ["fill", "default"], "text", None, "smooth", "left", bindings=text_direct())
+    reward_done = lbl("#du2_text", ["fill", "default"], "weak", None, "smooth", "left",
+                      bindings=[coll_text(), view(strip_prefix("*"), "#du2_text")])
     reward = P(["100%", 22], [c("s", P(["100%", 22], [
         c("todo", H(["100%", "100%c"], [c("ic", P([12, 10], [c("i", tinted_icon([9, 9], [("skill_points", "gold")]))])),
                                         pad(3), c("t", reward_on)], collection_index=reward_idx,
@@ -1942,3 +1991,11 @@ write("du2_statistics_view.json", sv)
 write("du2_training_hud.json", th)
 write("du2_mental.json", mt)
 write("du2_physical.json", ph)
+
+
+# ---- conferência: propriedade inválida por tipo de controle faz o gerador falhar
+import subprocess
+_check = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "check-ui-props.mjs")
+_res = subprocess.run(["node", _check, os.path.join(UI, "du2")])
+if _res.returncode != 0:
+    sys.exit("gen_du2_ui: check-ui-props falhou (veja acima). Corrija o gerador; o jogo ignora a propriedade.")

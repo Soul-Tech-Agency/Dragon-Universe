@@ -12,7 +12,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((#form_button_text = '') or (#form_button_text = 'ui.dbe.backButton') or (not ((#form_button_text - 'mul;') = #form_button_text))))",
+    "source_property_name": "(not ((('§r' + #form_button_text) = '§r') or (('§r' + #form_button_text) = '§rui.dbe.backButton') or (not ((('§r' + #form_button_text) - '§rmul;') = ('§r' + #form_button_text)))))",
     "target_property_name": "#visible"
    }
   ],
@@ -75,7 +75,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((#form_button_text = '') or (#form_button_text = 'ui.dbe.backButton') or (not ((#form_button_text - 'mul;') = #form_button_text))))",
+    "source_property_name": "(not ((('§r' + #form_button_text) = '§r') or (('§r' + #form_button_text) = '§rui.dbe.backButton') or (not ((('§r' + #form_button_text) - '§rmul;') = ('§r' + #form_button_text)))))",
     "target_property_name": "#visible"
    }
   ],
@@ -149,7 +149,7 @@
       },
       {
        "binding_type": "view",
-       "source_property_name": "(not ((#form_button_text - 'mul;') = #form_button_text))",
+       "source_property_name": "(not ((('§r' + #form_button_text) - '§rmul;') = ('§r' + #form_button_text)))",
        "target_property_name": "#visible"
       }
      ],
@@ -235,7 +235,7 @@
       },
       {
        "binding_type": "view",
-       "source_property_name": "(not ((#form_button_text - 'mul;') = #form_button_text))",
+       "source_property_name": "(not ((('§r' + #form_button_text) - '§rmul;') = ('§r' + #form_button_text)))",
        "target_property_name": "#visible"
       }
      ],
@@ -574,7 +574,7 @@
       },
       {
        "binding_type": "view",
-       "source_property_name": "(#form_button_text = 'ui.dbe.training.button.shadow_dummy')",
+       "source_property_name": "(('§r' + #form_button_text) = '§rui.dbe.training.button.shadow_dummy')",
        "target_property_name": "#visible"
       }
      ]
@@ -594,7 +594,7 @@
       },
       {
        "binding_type": "view",
-       "source_property_name": "(#form_button_text = 'ui.dbe.training.button.concentration')",
+       "source_property_name": "(('§r' + #form_button_text) = '§rui.dbe.training.button.concentration')",
        "target_property_name": "#visible"
       }
      ]
@@ -614,7 +614,7 @@
       },
       {
        "binding_type": "view",
-       "source_property_name": "(#form_button_text = 'ui.dbe.training.button.stop_concentration')",
+       "source_property_name": "(('§r' + #form_button_text) = '§rui.dbe.training.button.stop_concentration')",
        "target_property_name": "#visible"
       }
      ]
@@ -762,7 +762,7 @@
       },
       {
        "binding_type": "view",
-       "source_property_name": "(#form_button_text - 'mul;')",
+       "source_property_name": "(('§r' + #form_button_text) - 'mul;')",
        "target_property_name": "#du2_code"
       }
      ]

@@ -12,7 +12,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((#form_button_text = '') or (#form_button_text = 'ui.dbe.backButton') or (#form_button_text = 'ui.dbe.skills.button.transformations') or (not ((#form_button_text - 'pts;') = #form_button_text))))",
+    "source_property_name": "(not ((('§r' + #form_button_text) = '§r') or (('§r' + #form_button_text) = '§rui.dbe.backButton') or (('§r' + #form_button_text) = '§rui.dbe.skills.button.transformations') or (not ((('§r' + #form_button_text) - '§rpts;') = ('§r' + #form_button_text)))))",
     "target_property_name": "#visible"
    }
   ],
@@ -113,7 +113,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((#form_button_text = '') or (#form_button_text = 'ui.dbe.backButton') or (#form_button_text = 'ui.dbe.skills.button.transformations') or (not ((#form_button_text - 'pts;') = #form_button_text))))",
+    "source_property_name": "(not ((('§r' + #form_button_text) = '§r') or (('§r' + #form_button_text) = '§rui.dbe.backButton') or (('§r' + #form_button_text) = '§rui.dbe.skills.button.transformations') or (not ((('§r' + #form_button_text) - '§rpts;') = ('§r' + #form_button_text)))))",
     "target_property_name": "#visible"
    }
   ],
@@ -225,7 +225,7 @@
       },
       {
        "binding_type": "view",
-       "source_property_name": "(not ((#form_button_text - 'pts;') = #form_button_text))",
+       "source_property_name": "(not ((('§r' + #form_button_text) - '§rpts;') = ('§r' + #form_button_text)))",
        "target_property_name": "#visible"
       }
      ],
@@ -341,7 +341,7 @@
       },
       {
        "binding_type": "view",
-       "source_property_name": "(not ((#form_button_text - 'pts;') = #form_button_text))",
+       "source_property_name": "(not ((('§r' + #form_button_text) - '§rpts;') = ('§r' + #form_button_text)))",
        "target_property_name": "#visible"
       }
      ],
@@ -453,7 +453,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((not ((#form_button_text - 'maximized_skill') = #form_button_text)) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
+    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
     "target_property_name": "#visible"
    }
   ],
@@ -475,7 +475,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((not ((#form_button_text - 'maximized_skill') = #form_button_text)) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
+    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
     "target_property_name": "#visible"
    }
   ],
@@ -497,7 +497,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((not ((#form_button_text - 'maximized_skill') = #form_button_text)) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
+    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
     "target_property_name": "#visible"
    }
   ],
@@ -519,7 +519,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((not ((#form_button_text - 'maximized_skill') = #form_button_text)) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
+    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
     "target_property_name": "#visible"
    }
   ],
@@ -665,7 +665,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((not ((#form_button_text - 'maximized_skill') = #form_button_text)) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
+    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
     "target_property_name": "#visible"
    }
   ],
@@ -687,7 +687,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((not ((#form_button_text - 'maximized_skill') = #form_button_text)) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
+    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
     "target_property_name": "#visible"
    }
   ],
@@ -709,7 +709,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((not ((#form_button_text - 'maximized_skill') = #form_button_text)) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
+    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
     "target_property_name": "#visible"
    }
   ],
@@ -731,7 +731,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((not ((#form_button_text - 'maximized_skill') = #form_button_text)) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
+    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
     "target_property_name": "#visible"
    }
   ],
@@ -868,7 +868,7 @@
       },
       {
        "binding_type": "view",
-       "source_property_name": "(#form_button_text - 'pts;')",
+       "source_property_name": "(('§r' + #form_button_text) - 'pts;')",
        "target_property_name": "#du2_pts"
       }
      ]
@@ -1013,7 +1013,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
