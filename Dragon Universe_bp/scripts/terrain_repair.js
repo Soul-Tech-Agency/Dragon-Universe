@@ -1,5 +1,5 @@
 import { world, system, BlockVolume } from "@minecraft/server";
-import { acquireLoadedArea, releaseLoadedArea } from "./travel_safety.js";
+import { acquireLoadedArea, releaseLoadedArea, travelPreparationActive } from "./travel_safety.js";
 
 const AIR = "minecraft:air";
 const repairs = new Map();
@@ -103,12 +103,59 @@ export function distrustAirFilter(dimension, reason) {
   console.warn("[Terrain] " + dimension.id + ": air-only fill is not reliable after its probe passed (" + reason + "); using per-block writes for this session");
 }
 
+// Terrain jobs are not handed to system.runJob: the engine keeps calling a job while the tick has time left, and these
+// generators yield once per column (~0.3 ms), so any generation took ~70 steps and ~22 ms of every tick (perf 23/11).
+// One pump steps every terrain job, in turn, within a shared per-tick budget instead. The order of the steps of each
+// job is the same; only how many run per tick changes.
+const BUDGET_BACKGROUND_MS = 2; // nobody in a generated dimension: only work nobody is waiting for
+const BUDGET_PRESENT_MS = 8; // a player stands in a generated dimension (terrain around them)
+const BUDGET_TRAVEL_MS = 12; // a trip is waiting for its arrival terrain
+const VANILLA_DIMS = new Set(["minecraft:overworld", "minecraft:nether", "minecraft:the_end"]);
+const pumpJobs = [];
+let pumpId, pumpTurn = 0, presentTick = -Infinity, present = false;
+
+function playersInGeneratedDimension() {
+  if (system.currentTick - presentTick < 20) return present;
+  presentTick = system.currentTick;
+  try { present = world.getAllPlayers().some((p) => !VANILLA_DIMS.has(p.dimension.id)); } catch { present = true; }
+  return present;
+}
+
+export function terrainBudgetMs() {
+  return travelPreparationActive() ? BUDGET_TRAVEL_MS : playersInGeneratedDimension() ? BUDGET_PRESENT_MS : BUDGET_BACKGROUND_MS;
+}
+
+function pumpTerrainJobs() {
+  const budget = terrainBudgetMs(), t0 = Date.now();
+  while (pumpJobs.length && Date.now() - t0 < budget) {
+    pumpTurn %= pumpJobs.length;
+    const job = pumpJobs[pumpTurn];
+    let done = job.cancelled;
+    if (!done) {
+      try { done = job.runner.next().done; } catch (error) { done = true; console.warn("[Terrain job] " + (error?.stack ?? error)); }
+    }
+    if (done) pumpJobs.splice(pumpTurn, 1);
+    else pumpTurn++;
+  }
+  if (!pumpJobs.length && pumpId !== undefined) {
+    system.clearRun(pumpId);
+    pumpId = undefined;
+  }
+}
+
+function pumpTerrainJob(runner) {
+  const job = { runner, cancelled: false };
+  pumpJobs.push(job);
+  pumpId ??= system.runInterval(pumpTerrainJobs, 1);
+  return job;
+}
+
 export function runTerrainJob(generator, { timeoutTicks = 2400, inactivityTicks, activity, label = "Terrain job" } = {}) {
   let resolve, reject;
   const completion = new Promise((yes, no) => { resolve = yes; reject = no; });
   // Native jobs may fail before their caller can attach an await handler.
   completion.catch((error) => console.warn("[Terrain job] " + (error?.stack ?? error)));
-  let settled = false, timerId, jobId, lastActivity, lastProgressTick;
+  let settled = false, timerId, job, lastActivity, lastProgressTick;
   const observeProgress = () => {
     if (inactivityTicks === undefined) return;
     const token = activity();
@@ -136,7 +183,7 @@ export function runTerrainJob(generator, { timeoutTicks = 2400, inactivityTicks,
   const stop = (error) => {
     if (settled) return;
     finish(error, true);
-    try { if (jobId !== undefined) system.clearJob(jobId); } catch (cleanup) { console.warn("[Terrain job] scheduler cleanup: " + cleanup); }
+    if (job) job.cancelled = true;
     try { runner.return(); } catch (cleanup) { console.warn("[Terrain job] generator cleanup: " + cleanup); }
   };
   const checkDeadline = () => {
@@ -155,7 +202,7 @@ export function runTerrainJob(generator, { timeoutTicks = 2400, inactivityTicks,
     if (inactivityTicks !== undefined && typeof activity !== "function") throw new Error("Terrain inactivity timeout requires verified progress");
     observeProgress();
     timerId = system.runTimeout(checkDeadline, budget);
-    jobId = system.runJob(runner);
+    job = pumpTerrainJob(runner);
   } catch (error) { stop(error); }
   return completion;
 }

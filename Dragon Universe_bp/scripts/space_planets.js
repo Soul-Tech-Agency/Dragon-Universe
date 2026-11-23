@@ -1,4 +1,4 @@
-import { acquireLoadedArea, releaseLoadedArea, safeTeleport, travelOrigin, isTravelPending, safeReturnToEarth, reportTravelFailure, isSafeStanding } from "./travel_safety.js";
+import { acquireLoadedArea, releaseLoadedArea, safeTeleport, travelOrigin, isTravelPending, safeReturnToEarth, reportTravelFailure, isSafeStanding, duringTravelPreparation } from "./travel_safety.js";
 import { fillAirColumn, emptyChunk, findUnexpectedBlock, queriesReportAir, runTerrainJob, registerTerrainOwnership, registerTerrainRepair } from "./terrain_repair.js";
 /**
  * Space system: Orbital Station + extra planets (Vegeta, Frieza Planet, Yardrat, Kaioshin).
@@ -2171,7 +2171,7 @@ async function travelTo(player, key, opts = {}) {
     if (travelPreparing > 0) player.sendMessage(tr("dbe.space.travel_queued"));
     travelPreparing++;
     try {
-      areaId = await prepareArea(W, dim, chunkOf(target.x), chunkOf(target.z), player, timing, target);
+      areaId = await duringTravelPreparation(() => prepareArea(W, dim, chunkOf(target.x), chunkOf(target.z), player, timing, target));
     } finally {
       travelPreparing--;
     }

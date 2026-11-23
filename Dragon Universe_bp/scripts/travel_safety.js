@@ -10,6 +10,18 @@ const wait = (ticks) => new Promise((resolve) => system.runTimeout(resolve, tick
 const unavailable = (error) => /unloaded|not.*loaded|not.*ticking|LocationInUnloadedChunk/i.test(String(error));
 
 export const isTravelPending = (entity) => pending.has(entity.id);
+// Trips whose arrival terrain is being prepared right now: terrain jobs get a larger per-tick budget meanwhile
+// (terrain_repair.js). Wrap the preparation in it; the count always comes back down.
+let preparingTrips = 0;
+export const travelPreparationActive = () => preparingTrips > 0;
+export async function duringTravelPreparation(work) {
+  preparingTrips++;
+  try {
+    return await work();
+  } finally {
+    preparingTrips--;
+  }
+}
 export const travelOrigin = (entity) => ({ dimension: entity.dimension.id, ...entity.location });
 export const physicalDestinationId = (id) => id === "dbe:kaioshin" ? "dbe:kai" : id;
 // Walking away cancels a pending trip; falling or flying vertically while the destination is prepared does not.
@@ -268,7 +280,7 @@ async function teleportWithLease(entity, location, options) {
     if (prepare) {
       const requested = point;
       try {
-        location = (await prepare(dimension, location, entity)) ?? location;
+        location = (await duringTravelPreparation(() => prepare(dimension, location, entity))) ?? location;
       } catch (error) {
         throw new TravelError("generation", label + ": " + (error?.message ?? String(error)), error);
       }
