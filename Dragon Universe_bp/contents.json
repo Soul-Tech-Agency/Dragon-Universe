@@ -2017,6 +2017,9 @@
          "path" : "scripts/core/32_flight_skills.js"
       },
       {
+         "path" : "scripts/core/33_server_modes.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
