@@ -455,6 +455,13 @@ try {
 
 function clearCityRun() { cityPromise = undefined; cityPreparing = false; cityProgress = undefined; cityActivity = undefined; }
 
+// Cidade adiada para a 1ª viagem (opção A, decisão do usuário; perf de 23/11): só guarda como colocar a cidade, sem
+// abrir a área de 210 chunks. A preparação começa em prepareDestination, na primeira viagem ao Futuro, que espera por
+// ela (waitForCity, com as mensagens de progresso). Mundos com futureTrunksCityLoaded nunca chegam aqui.
+export function registerFutureCityPlacement(placeCity) {
+  if (typeof placeCity === "function") cityPlacement ??= placeCity;
+}
+
 export function prepareFutureCity(dimension, placeCity) {
   try { return startCity(dimension, placeCity); }
   catch (error) { return rejectedCity(error); }

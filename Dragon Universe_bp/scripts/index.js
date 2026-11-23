@@ -15,7 +15,7 @@ import { safeTeleport as duSafeTeleport, isTravelPending as duIsTravelPending,
   safeReturnToEarth as duSafeReturnToEarth,
   physicalDestinationId as duPhysicalDestinationId, isSafeStanding as duIsSafeStanding,
   reportTravelFailure as duReportTravelFailure } from "./travel_safety.js";
-import { initializeFutureTerrain, prepareFutureCity } from "./future_terrain.js";
+import { initializeFutureTerrain, registerFutureCityPlacement } from "./future_terrain.js";
 async function duTravel(entity, location, options = {}) {
   try {
     const dimension = options.dimension ?? entity.dimension;
@@ -13335,14 +13335,11 @@ bM.on("entity_enter_region", ({ entity: sG, region: sH }) => {
   }),
   bM.on("region_load", async ({ region: sG }) => {
     if (sG.id === "future_trunks") {
-      if (!qW.getDynamicProperty("futureTrunksCityLoaded")) {
-        try {
-          await prepareFutureCity(sG.dimension, () => qW.structureManager.placeJigsawStructure(
-            "dbe:city", sG.dimension, new bP(-31, 49, -22), { ignoreStartHeight: !0 }));
-        } catch (error) {
-          console.warn("[Future] city initialization deferred; existing blocks/flags preserved: " + (error?.stack ?? error));
-        }
-      }
+      // A cidade não é mais preparada no carregamento da região (abria 210 chunks e gerava o Futuro sem ninguém lá):
+      // só fica registrada como colocá-la, e a 1ª viagem ao Futuro a prepara e espera (prepareDestination).
+      if (!qW.getDynamicProperty("futureTrunksCityLoaded"))
+        registerFutureCityPlacement(() => qW.structureManager.placeJigsawStructure(
+          "dbe:city", sG.dimension, new bP(-31, 49, -22), { ignoreStartHeight: !0 }));
       r6();
     }
   });
