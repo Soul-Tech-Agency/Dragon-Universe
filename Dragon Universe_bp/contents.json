@@ -1999,6 +1999,9 @@
          "path" : "scripts/core/26_item_use.js"
       },
       {
+         "path" : "scripts/core/27_modifiers.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
