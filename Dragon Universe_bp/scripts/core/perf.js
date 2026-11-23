@@ -60,7 +60,15 @@ function install() {
   // "local (via embrulho)"; senão ao 1º. runInterval/runJob calculam sempre (always = true): são registrados uma vez e
   // rodam por muito tempo, e os scanners agendados na carga precisam aparecer separados por arquivo:linha. run e
   // runTimeout (uso único, muitos por tick) só calculam com a medição ligada.
+  // Nunca lança: roda dentro do código do jogo (agendadores, runTerrainJob); sem pilha, o local é "?".
   const site = (always = false) => {
+    try {
+      return siteOf(always);
+    } catch {
+      return "?";
+    }
+  };
+  const siteOf = (always) => {
     if (!running && !always) return "antes do start";
     const frames = [];
     for (const f of String(new Error().stack ?? "").split("\n")) {
@@ -176,11 +184,20 @@ function install() {
     return orig.call(system, wrapped);
   });
   // gancho de terrain_repair.js: wrap(runner, label) é chamado com quem chamou runTerrainJob ainda na pilha
+  // Roda dentro do try do runTerrainJob: se a própria sonda falhar aqui (site(), leitura do plano…), o job segue sem
+  // medição (devolve o runner original) em vez de falhar.
   terrainProbeWrap = (runner, label) => {
-    const at = site(true), name = terrainSystem(String(label ?? ""), at);
-    const freeza = name === "espaço/planetas" && /^frieza:/.test(String(label ?? "")) && running && quiet(friezaBaseNear);
-    const key = "terreno " + name + (freeza ? ", base do Freeza?" : "") + " (" + at.replace(/ \(via .*\)$/, "") + ")";
-    if (running) entry(key).jobs++;
+    let key;
+    try {
+      const at = site(true), name = terrainSystem(String(label ?? ""), at);
+      const freeza = name === "espaço/planetas" && /^frieza:/.test(String(label ?? "")) && running && quiet(friezaBaseNear);
+      key = "terreno " + name + (freeza ? ", base do Freeza?" : "") + " (" + at.replace(/ \(via .*\)$/, "") + ")";
+      if (running) entry(key).jobs++;
+    } catch (error) {
+      failures.push("terrainProbeWrap: " + error);
+      if (failures.length > 20) failures.splice(0, failures.length - 20);
+      return runner;
+    }
     // repassa cada passo como está: o valor, o fim (done/value do gerador original, também depois de um return() feito
     // pelo stop() do runTerrainJob) e as exceções (sobem para a bomba, que já as trata); o passo é medido mesmo se lançar
     return (function* () {
