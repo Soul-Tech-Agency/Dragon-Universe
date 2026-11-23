@@ -2,6 +2,8 @@
 // (o que o vanilla usa em cada tipo, mais os acréscimos provados no jogo).
 // Motivo: o jogo só avisa no Content Log ("Unknown property [collection_index]" num label, "[collection_name]" num
 // panel) e segue sem a propriedade. Nos testes de 23/11 (1.7.18 e 1.7.19) isso deixou telas inteiras vazias.
+// Também falha com expressão (source_property_name) que usa #form_button_text sem "'§r' + " na frente: texto que
+// começa com dígito vira número na expressão, e a subtração ou a comparação dá vazio ou falso (teste da 1.7.19).
 // Uso: node tools/check-ui-props.mjs [pasta ui ...]   (sem argumentos: Dragon Universe_rp/ui)
 import fs from "node:fs";
 import path from "node:path";
@@ -46,10 +48,28 @@ export async function run(dirs = []) {
   let checked = 0;
   let untyped = 0;
   const bad = new Map(); // "arquivo: tipo.prop" -> { count, example }
+  const rawText = new Map(); // "arquivo: expressão" -> { count, example }
+  const RAW = /#form_button_text(?![A-Za-z0-9_])/g;
+  const checkBindings = (node, file, where) => {
+    if (!Array.isArray(node.bindings)) return;
+    for (const b of node.bindings) {
+      const expr = b && typeof b.source_property_name === "string" ? b.source_property_name : null;
+      if (!expr) continue;
+      for (const m of expr.matchAll(RAW)) {
+        if (expr.slice(Math.max(0, m.index - 7), m.index) === "'§r' + ") continue;
+        const id = `${rel(file)}: ${expr}`;
+        const r = rawText.get(id) ?? { count: 0, example: where };
+        r.count++;
+        rawText.set(id, r);
+        break;
+      }
+    }
+  };
   const visit = (ns, key, node, file, where) => {
     if (!node || typeof node !== "object" || Array.isArray(node)) return;
     const name = key.split("@")[0];
     const type = typeOf(ns, key, node);
+    checkBindings(node, file, `${where}${name}`);
     if (type === null) untyped++;
     else if (!allowed[type]) {
       report.warn("Tipo de controle desconhecido", `${rel(file)}: ${where}${name} (type "${type}")`);
@@ -74,6 +94,9 @@ export async function run(dirs = []) {
 
   for (const [id, { count, example }] of bad) {
     report.error("Propriedade que o tipo não aceita (o jogo ignora e avisa no Content Log)", `${id} — ${count}× (ex.: ${example})`);
+  }
+  for (const [id, { count, example }] of rawText) {
+    report.error("Expressão com #form_button_text sem \"'§r' + \" (texto com dígito no começo vira número)", `${id} — ${count}× (ex.: ${example})`);
   }
   report.summary = `${files.length} arquivos, ${checked} controles verificados, ${untyped} sem tipo conhecido (herdam de fora)`;
   return report;

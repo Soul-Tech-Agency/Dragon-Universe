@@ -26,7 +26,7 @@
             },
             {
                 "binding_type": "view",
-                "source_property_name": "(not ((#form_button_text = '') or (#form_button_text = 'ui.dbe.backButton')))",
+                "source_property_name": "(not ((('§r' + #form_button_text) = '§r') or (('§r' + #form_button_text) = '§rui.dbe.backButton')))",
                 "target_property_name": "#visible"
             }
         ]
@@ -46,7 +46,7 @@
             },
             {
                 "binding_type": "view",
-                "source_property_name": "(not ((#form_button_text = '') or (#form_button_text = 'ui.dbe.backButton')))",
+                "source_property_name": "(not ((('§r' + #form_button_text) = '§r') or (('§r' + #form_button_text) = '§rui.dbe.backButton')))",
                 "target_property_name": "#visible"
             }
         ]
@@ -94,7 +94,7 @@
                         },
                         {
                             "binding_type": "view",
-                            "source_property_name": "(#form_button_text = 'ui.dbe.backButton')",
+                            "source_property_name": "(('§r' + #form_button_text) = '§rui.dbe.backButton')",
                             "target_property_name": "#visible"
                         }
                     ]

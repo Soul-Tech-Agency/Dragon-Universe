@@ -159,8 +159,10 @@ def title_vis(expr):
 
 
 def text_shown():
-    """Texto do slot sem o marcador '*'."""
-    return [coll_text(), view("(#form_button_text - '*')", "#du2_text")]
+    """Texto com o marcador '*' (botão ativo), sem o '*'. Tira '§r*' de '§r' + texto: o resultado não leva o '§r',
+    então uma chave de lang marcada ("*saiyajin", raça ativa) continua traduzida. Só use no rótulo do estado ACTIVE;
+    no INACTIVE, use o texto direto (text_direct), que mostra número e chave sem expressão."""
+    return [coll_text(), view(f"({SR} - '§r*')", "#du2_text")]
 
 
 def slot(idx, size, color="text", scale=None, font="smooth", align="left", lines=1, anchor="left_middle", vis=None):
@@ -249,7 +251,20 @@ def bg(tex, size=None, **kw):
 
 
 def btn_label(color="text", scale=None, size=None, align="center", bindings=None, **kw):
-    return lbl("#du2_text", size or ["100%", 10], color, scale, "smooth", align, bindings=bindings or text_shown(), **kw)
+    """Rótulo do texto do botão. Com bindings: um rótulo só (quem chama escolhe o estado).
+    Sem bindings: dois rótulos no mesmo lugar, como o wrap_label: o texto direto quando não há '*' e o sem '*' quando
+    há. Assim um texto que começa com dígito não esvazia (a expressão só roda no texto marcado)."""
+    size = size or ["100%", 10]
+    if bindings:
+        return lbl("#du2_text", size, color, scale, "smooth", align, bindings=bindings, **kw)
+    inner = ["100%", size[1]]
+    off = lbl("#form_button_text", inner, color, scale, "smooth", align, bindings=text_direct() + [view(INACTIVE)])
+    on = lbl("#du2_text", inner, color, scale, "smooth", align, bindings=text_shown() + [view(ACTIVE)])
+    for x in (off, on):
+        for k in ("anchor_from", "anchor_to"):
+            if k in kw:
+                x[k] = kw[k]
+    return P([size[0], "100%c" if size[1] == "default" else size[1]], [c("off", off), c("on", on)], **kw)
 
 
 def host(ctrl_name, ctrl, size):
@@ -519,7 +534,8 @@ def seg_button(idx, w, h):
             c("on", img(T + "seg_active", ["100%", "100%"], bindings=[coll_text(), view(ACTIVE)])),
             c("off", img(T + tex_off, ["100%", "100%"], bindings=[coll_text(), view(INACTIVE)])),
             c("t_on", btn_label("dark", 0.9 if h < 16 else None, bindings=text_shown() + [view(ACTIVE)])),
-            c("t_off", btn_label("soft", 0.9 if h < 16 else None, bindings=text_shown() + [view(INACTIVE)])),
+            c("t_off", lbl("#form_button_text", ["100%", 10], "soft", 0.9 if h < 16 else None, "smooth", "center",
+                           bindings=text_direct() + [view(INACTIVE)])),
         ]
     return form_button(idx, [w, h], {"default": face("seg"), "hover": face("seg_hover"), "pressed": face("seg_pressed")})
 

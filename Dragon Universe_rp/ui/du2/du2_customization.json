@@ -38,10 +38,10 @@
            "anchor_from": "center",
            "anchor_to": "center",
            "controls": [
-            {"left@du2_customization.h5": {}},
+            {"left@du2_customization.h9": {}},
             {"pad": {"type": "panel", "size": [6, "100%"]}},
             {
-             "right": {"type": "panel", "size": ["fill", "100%"], "controls": [{"opts@du2_customization.h63": {}}]}
+             "right": {"type": "panel", "size": ["fill", "100%"], "controls": [{"opts@du2_customization.h67": {}}]}
             }
            ]
           }
@@ -70,14 +70,14 @@
         "orientation": "vertical",
         "size": ["100%", "100%"],
         "controls": [
-         {"row0@du2_customization.h67": {}},
-         {"row1@du2_customization.h71": {}},
-         {"row2@du2_customization.h75": {}},
-         {"row3@du2_customization.h79": {}},
-         {"row4@du2_customization.h83": {}},
-         {"row5@du2_customization.h87": {}},
-         {"row6@du2_customization.h91": {}},
-         {"row7@du2_customization.h95": {}}
+         {"row0@du2_customization.h71": {}},
+         {"row1@du2_customization.h75": {}},
+         {"row2@du2_customization.h79": {}},
+         {"row3@du2_customization.h83": {}},
+         {"row4@du2_customization.h87": {}},
+         {"row5@du2_customization.h91": {}},
+         {"row6@du2_customization.h95": {}},
+         {"row7@du2_customization.h99": {}}
         ]
        }
       },
@@ -90,7 +90,7 @@
         "collection_name": "form_buttons",
         "anchor_from": "top_middle",
         "anchor_to": "top_middle",
-        "controls": [{"old@du2_customization.h96": {}}]
+        "controls": [{"old@du2_customization.h100": {}}]
        }
       }
      ]
@@ -119,11 +119,13 @@
         "size": ["100%", 20],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_customization.h97": {}}
+         {"row@du2_customization.h101": {}}
         ]
        }
       },
-      {"body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_customization.h99": {}}]}}
+      {
+       "body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_customization.h103": {}}]}
+      }
      ]
     }
    }
@@ -156,12 +158,12 @@
         "size": ["100%", 24],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_customization.h100": {}}
+         {"row@du2_customization.h104": {}}
         ]
        }
       },
       {
-       "body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_customization.h130": {}}]}
+       "body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_customization.h134": {}}]}
       }
      ]
     }
@@ -184,11 +186,11 @@
         "orientation": "vertical",
         "size": ["100%", "100%"],
         "controls": [
-         {"row0@du2_customization.h134": {}},
-         {"row1@du2_customization.h136": {}},
-         {"row2@du2_customization.h138": {}},
-         {"row3@du2_customization.h140": {}},
-         {"row4@du2_customization.h142": {}}
+         {"row0@du2_customization.h138": {}},
+         {"row1@du2_customization.h140": {}},
+         {"row2@du2_customization.h142": {}},
+         {"row3@du2_customization.h144": {}},
+         {"row4@du2_customization.h146": {}}
         ]
        }
       },
@@ -201,7 +203,7 @@
         "collection_name": "form_buttons",
         "anchor_from": "top_middle",
         "anchor_to": "top_middle",
-        "controls": [{"old@du2_customization.h143": {}}]
+        "controls": [{"old@du2_customization.h147": {}}]
        }
       }
      ]
@@ -230,12 +232,12 @@
         "size": ["100%", 20],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_customization.h144": {}}
+         {"row@du2_customization.h148": {}}
         ]
        }
       },
       {
-       "body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_customization.h145": {}}]}
+       "body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_customization.h149": {}}]}
       }
      ]
     }
@@ -369,60 +371,105 @@
   ]
  },
  "h3": {
-  "type": "stack_panel",
-  "orientation": "horizontal",
-  "size": ["100%c", "100%"],
+  "type": "label",
+  "text": "#du2_text",
+  "size": ["100%", 10],
+  "color": [0.047, 0.09, 0.188],
+  "font_type": "smooth",
+  "shadow": false,
+  "text_alignment": "center",
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(('§r' + #form_button_text) - '§r*')",
+    "target_property_name": "#du2_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((('§r' + #form_button_text) - '§r*') = ('§r' + #form_button_text)))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "anchor_from": "center",
+  "anchor_to": "center"
+ },
+ "h4": {
+  "type": "panel",
+  "size": ["100%", 10],
   "anchor_from": "center",
   "anchor_to": "center",
   "controls": [
    {
-    "cell": {
-     "type": "panel",
-     "size": [12, "100%"],
-     "controls": [
+    "off": {
+     "type": "label",
+     "text": "#form_button_text",
+     "size": ["100%", 10],
+     "color": [0.047, 0.09, 0.188],
+     "font_type": "smooth",
+     "shadow": false,
+     "text_alignment": "center",
+     "bindings": [
       {
-       "x": {
-        "type": "image",
-        "texture": "textures/ui/du2/icons/check",
-        "size": [10, 10],
-        "color": [0.047, 0.09, 0.188],
-        "anchor_from": "center",
-        "anchor_to": "center"
-       }
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (not ((('§r' + #form_button_text) - '§r*') = ('§r' + #form_button_text))))",
+       "target_property_name": "#visible"
       }
-     ]
+     ],
+     "anchor_from": "center",
+     "anchor_to": "center"
     }
    },
-   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {"on@du2_customization.h3": {}}
+  ]
+ },
+ "h5": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary", "size": ["100%", "100%"]}},
    {
-    "t": {
-     "type": "panel",
-     "size": [80, "100%"],
-     "clips_children": true,
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%c", "100%"],
+     "anchor_from": "center",
+     "anchor_to": "center",
      "controls": [
       {
-       "l": {
-        "type": "label",
-        "text": "#du2_text",
-        "size": ["100%", 10],
-        "color": [0.047, 0.09, 0.188],
-        "font_type": "smooth",
-        "shadow": false,
-        "text_alignment": "center",
-        "bindings": [
+       "cell": {
+        "type": "panel",
+        "size": [12, "100%"],
+        "controls": [
          {
-          "binding_type": "collection",
-          "binding_collection_name": "form_buttons",
-          "binding_name": "#form_button_text"
-         },
-         {
-          "binding_type": "view",
-          "source_property_name": "(#form_button_text - '*')",
-          "target_property_name": "#du2_text"
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/check",
+           "size": [10, 10],
+           "color": [0.047, 0.09, 0.188],
+           "anchor_from": "center",
+           "anchor_to": "center"
+          }
          }
-        ],
-        "anchor_from": "center",
-        "anchor_to": "center"
+        ]
+       }
+      },
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {
+       "t": {
+        "type": "panel",
+        "size": [80, "100%"],
+        "clips_children": true,
+        "controls": [{"l@du2_customization.h4": {}}]
        }
       }
      ]
@@ -430,7 +477,97 @@
    }
   ]
  },
- "h4@common.button": {
+ "h6": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary_hover", "size": ["100%", "100%"]}},
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%c", "100%"],
+     "anchor_from": "center",
+     "anchor_to": "center",
+     "controls": [
+      {
+       "cell": {
+        "type": "panel",
+        "size": [12, "100%"],
+        "controls": [
+         {
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/check",
+           "size": [10, 10],
+           "color": [0.047, 0.09, 0.188],
+           "anchor_from": "center",
+           "anchor_to": "center"
+          }
+         }
+        ]
+       }
+      },
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {
+       "t": {
+        "type": "panel",
+        "size": [80, "100%"],
+        "clips_children": true,
+        "controls": [{"l@du2_customization.h4": {}}]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h7": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary_pressed", "size": ["100%", "100%"]}},
+   {
+    "row": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%c", "100%"],
+     "anchor_from": "center",
+     "anchor_to": "center",
+     "controls": [
+      {
+       "cell": {
+        "type": "panel",
+        "size": [12, "100%"],
+        "controls": [
+         {
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/check",
+           "size": [10, 10],
+           "color": [0.047, 0.09, 0.188],
+           "anchor_from": "center",
+           "anchor_to": "center"
+          }
+         }
+        ]
+       }
+      },
+      {"pad": {"type": "panel", "size": [4, "100%"]}},
+      {
+       "t": {
+        "type": "panel",
+        "size": [80, "100%"],
+        "clips_children": true,
+        "controls": [{"l@du2_customization.h4": {}}]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h8@common.button": {
   "size": ["100%", 22],
   "collection_index": 1,
   "$pressed_button_name": "button.form_button_click",
@@ -438,36 +575,9 @@
   "hover_control": "hover",
   "pressed_control": "pressed",
   "controls": [
-   {
-    "default": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "controls": [
-      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary", "size": ["100%", "100%"]}},
-      {"row@du2_customization.h3": {}}
-     ]
-    }
-   },
-   {
-    "hover": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "controls": [
-      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary_hover", "size": ["100%", "100%"]}},
-      {"row@du2_customization.h3": {}}
-     ]
-    }
-   },
-   {
-    "pressed": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "controls": [
-      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_primary_pressed", "size": ["100%", "100%"]}},
-      {"row@du2_customization.h3": {}}
-     ]
-    }
-   }
+   {"default@du2_customization.h5": {}},
+   {"hover@du2_customization.h6": {}},
+   {"pressed@du2_customization.h7": {}}
   ],
   "bindings": [
    {"binding_type": "collection_details", "binding_collection_name": "form_buttons"},
@@ -483,7 +593,7 @@
    }
   ]
  },
- "h5": {
+ "h9": {
   "type": "stack_panel",
   "orientation": "vertical",
   "size": [130, "100%"],
@@ -516,12 +626,12 @@
      "type": "collection_panel",
      "size": ["100%", 22],
      "collection_name": "form_buttons",
-     "controls": [{"b@du2_customization.h4": {}}]
+     "controls": [{"b@du2_customization.h8": {}}]
     }
    }
   ]
  },
- "h6@common.button": {
+ "h10@common.button": {
   "size": [20, 14],
   "collection_index": 2,
   "$pressed_button_name": "button.form_button_click",
@@ -595,7 +705,7 @@
    }
   ]
  },
- "h7": {
+ "h11": {
   "type": "image",
   "texture": "",
   "size": [10, 10],
@@ -626,7 +736,7 @@
    }
   ]
  },
- "h8": {
+ "h12": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 18,
@@ -666,7 +776,7 @@
    }
   ]
  },
- "h9": {
+ "h13": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 26,
@@ -706,7 +816,7 @@
    }
   ]
  },
- "h10": {
+ "h14": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 14],
@@ -722,7 +832,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h7": {}}],
+        "controls": [{"i@du2_customization.h11": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -736,7 +846,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h8": {}}]
+     "controls": [{"s@du2_customization.h12": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -745,13 +855,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h9": {}}]
+     "controls": [{"s@du2_customization.h13": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h11@common.button": {
+ "h15@common.button": {
   "size": [20, 14],
   "collection_index": 3,
   "$pressed_button_name": "button.form_button_click",
@@ -825,7 +935,7 @@
    }
   ]
  },
- "h12": {
+ "h16": {
   "type": "panel",
   "size": ["100%", 16],
   "controls": [
@@ -870,16 +980,16 @@
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h6": {}}]
+        "controls": [{"b@du2_customization.h10": {}}]
        }
       },
-      {"mid@du2_customization.h10": {}},
+      {"mid@du2_customization.h14": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h11": {}}]
+        "controls": [{"b@du2_customization.h15": {}}]
        }
       }
      ]
@@ -887,7 +997,7 @@
    }
   ]
  },
- "h13@common.button": {
+ "h17@common.button": {
   "size": [20, 14],
   "collection_index": 4,
   "$pressed_button_name": "button.form_button_click",
@@ -961,7 +1071,7 @@
    }
   ]
  },
- "h14": {
+ "h18": {
   "type": "image",
   "texture": "",
   "size": [10, 10],
@@ -992,7 +1102,7 @@
    }
   ]
  },
- "h15": {
+ "h19": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 19,
@@ -1032,7 +1142,7 @@
    }
   ]
  },
- "h16": {
+ "h20": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 27,
@@ -1072,7 +1182,7 @@
    }
   ]
  },
- "h17": {
+ "h21": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 14],
@@ -1088,7 +1198,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h14": {}}],
+        "controls": [{"i@du2_customization.h18": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -1102,7 +1212,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h15": {}}]
+     "controls": [{"s@du2_customization.h19": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -1111,13 +1221,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h16": {}}]
+     "controls": [{"s@du2_customization.h20": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h18@common.button": {
+ "h22@common.button": {
   "size": [20, 14],
   "collection_index": 5,
   "$pressed_button_name": "button.form_button_click",
@@ -1191,7 +1301,7 @@
    }
   ]
  },
- "h19": {
+ "h23": {
   "type": "panel",
   "size": ["100%", 16],
   "controls": [
@@ -1236,16 +1346,16 @@
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h13": {}}]
+        "controls": [{"b@du2_customization.h17": {}}]
        }
       },
-      {"mid@du2_customization.h17": {}},
+      {"mid@du2_customization.h21": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h18": {}}]
+        "controls": [{"b@du2_customization.h22": {}}]
        }
       }
      ]
@@ -1253,7 +1363,7 @@
    }
   ]
  },
- "h20@common.button": {
+ "h24@common.button": {
   "size": [20, 14],
   "collection_index": 6,
   "$pressed_button_name": "button.form_button_click",
@@ -1327,7 +1437,7 @@
    }
   ]
  },
- "h21": {
+ "h25": {
   "type": "image",
   "texture": "",
   "size": [10, 10],
@@ -1358,7 +1468,7 @@
    }
   ]
  },
- "h22": {
+ "h26": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 20,
@@ -1398,7 +1508,7 @@
    }
   ]
  },
- "h23": {
+ "h27": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 28,
@@ -1438,7 +1548,7 @@
    }
   ]
  },
- "h24": {
+ "h28": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 14],
@@ -1454,7 +1564,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h21": {}}],
+        "controls": [{"i@du2_customization.h25": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -1468,7 +1578,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h22": {}}]
+     "controls": [{"s@du2_customization.h26": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -1477,13 +1587,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h23": {}}]
+     "controls": [{"s@du2_customization.h27": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h25@common.button": {
+ "h29@common.button": {
   "size": [20, 14],
   "collection_index": 7,
   "$pressed_button_name": "button.form_button_click",
@@ -1557,7 +1667,7 @@
    }
   ]
  },
- "h26": {
+ "h30": {
   "type": "panel",
   "size": ["100%", 16],
   "controls": [
@@ -1602,16 +1712,16 @@
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h20": {}}]
+        "controls": [{"b@du2_customization.h24": {}}]
        }
       },
-      {"mid@du2_customization.h24": {}},
+      {"mid@du2_customization.h28": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h25": {}}]
+        "controls": [{"b@du2_customization.h29": {}}]
        }
       }
      ]
@@ -1619,7 +1729,7 @@
    }
   ]
  },
- "h27@common.button": {
+ "h31@common.button": {
   "size": [20, 14],
   "collection_index": 8,
   "$pressed_button_name": "button.form_button_click",
@@ -1693,7 +1803,7 @@
    }
   ]
  },
- "h28": {
+ "h32": {
   "type": "image",
   "texture": "",
   "size": [10, 10],
@@ -1724,7 +1834,7 @@
    }
   ]
  },
- "h29": {
+ "h33": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 21,
@@ -1764,7 +1874,7 @@
    }
   ]
  },
- "h30": {
+ "h34": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 29,
@@ -1804,7 +1914,7 @@
    }
   ]
  },
- "h31": {
+ "h35": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 14],
@@ -1820,7 +1930,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h28": {}}],
+        "controls": [{"i@du2_customization.h32": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -1834,7 +1944,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h29": {}}]
+     "controls": [{"s@du2_customization.h33": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -1843,13 +1953,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h30": {}}]
+     "controls": [{"s@du2_customization.h34": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h32@common.button": {
+ "h36@common.button": {
   "size": [20, 14],
   "collection_index": 9,
   "$pressed_button_name": "button.form_button_click",
@@ -1923,7 +2033,7 @@
    }
   ]
  },
- "h33": {
+ "h37": {
   "type": "panel",
   "size": ["100%", 16],
   "controls": [
@@ -1968,16 +2078,16 @@
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h27": {}}]
+        "controls": [{"b@du2_customization.h31": {}}]
        }
       },
-      {"mid@du2_customization.h31": {}},
+      {"mid@du2_customization.h35": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h32": {}}]
+        "controls": [{"b@du2_customization.h36": {}}]
        }
       }
      ]
@@ -1985,7 +2095,7 @@
    }
   ]
  },
- "h34@common.button": {
+ "h38@common.button": {
   "size": [20, 14],
   "collection_index": 10,
   "$pressed_button_name": "button.form_button_click",
@@ -2059,7 +2169,7 @@
    }
   ]
  },
- "h35": {
+ "h39": {
   "type": "image",
   "texture": "",
   "size": [10, 10],
@@ -2090,7 +2200,7 @@
    }
   ]
  },
- "h36": {
+ "h40": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 22,
@@ -2130,7 +2240,7 @@
    }
   ]
  },
- "h37": {
+ "h41": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 30,
@@ -2170,7 +2280,7 @@
    }
   ]
  },
- "h38": {
+ "h42": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 14],
@@ -2186,7 +2296,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h35": {}}],
+        "controls": [{"i@du2_customization.h39": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -2200,7 +2310,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h36": {}}]
+     "controls": [{"s@du2_customization.h40": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -2209,13 +2319,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h37": {}}]
+     "controls": [{"s@du2_customization.h41": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h39@common.button": {
+ "h43@common.button": {
   "size": [20, 14],
   "collection_index": 11,
   "$pressed_button_name": "button.form_button_click",
@@ -2289,7 +2399,7 @@
    }
   ]
  },
- "h40": {
+ "h44": {
   "type": "panel",
   "size": ["100%", 16],
   "controls": [
@@ -2334,16 +2444,16 @@
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h34": {}}]
+        "controls": [{"b@du2_customization.h38": {}}]
        }
       },
-      {"mid@du2_customization.h38": {}},
+      {"mid@du2_customization.h42": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h39": {}}]
+        "controls": [{"b@du2_customization.h43": {}}]
        }
       }
      ]
@@ -2351,7 +2461,7 @@
    }
   ]
  },
- "h41@common.button": {
+ "h45@common.button": {
   "size": [20, 14],
   "collection_index": 12,
   "$pressed_button_name": "button.form_button_click",
@@ -2425,7 +2535,7 @@
    }
   ]
  },
- "h42": {
+ "h46": {
   "type": "image",
   "texture": "",
   "size": [10, 10],
@@ -2456,7 +2566,7 @@
    }
   ]
  },
- "h43": {
+ "h47": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 23,
@@ -2496,7 +2606,7 @@
    }
   ]
  },
- "h44": {
+ "h48": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 31,
@@ -2536,7 +2646,7 @@
    }
   ]
  },
- "h45": {
+ "h49": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 14],
@@ -2552,7 +2662,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h42": {}}],
+        "controls": [{"i@du2_customization.h46": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -2566,7 +2676,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h43": {}}]
+     "controls": [{"s@du2_customization.h47": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -2575,13 +2685,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h44": {}}]
+     "controls": [{"s@du2_customization.h48": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h46@common.button": {
+ "h50@common.button": {
   "size": [20, 14],
   "collection_index": 13,
   "$pressed_button_name": "button.form_button_click",
@@ -2655,7 +2765,7 @@
    }
   ]
  },
- "h47": {
+ "h51": {
   "type": "panel",
   "size": ["100%", 16],
   "controls": [
@@ -2700,16 +2810,16 @@
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h41": {}}]
+        "controls": [{"b@du2_customization.h45": {}}]
        }
       },
-      {"mid@du2_customization.h45": {}},
+      {"mid@du2_customization.h49": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h46": {}}]
+        "controls": [{"b@du2_customization.h50": {}}]
        }
       }
      ]
@@ -2717,7 +2827,7 @@
    }
   ]
  },
- "h48@common.button": {
+ "h52@common.button": {
   "size": [20, 14],
   "collection_index": 14,
   "$pressed_button_name": "button.form_button_click",
@@ -2791,7 +2901,7 @@
    }
   ]
  },
- "h49": {
+ "h53": {
   "type": "image",
   "texture": "",
   "size": [10, 10],
@@ -2822,7 +2932,7 @@
    }
   ]
  },
- "h50": {
+ "h54": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 24,
@@ -2862,7 +2972,7 @@
    }
   ]
  },
- "h51": {
+ "h55": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 32,
@@ -2902,7 +3012,7 @@
    }
   ]
  },
- "h52": {
+ "h56": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 14],
@@ -2918,7 +3028,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h49": {}}],
+        "controls": [{"i@du2_customization.h53": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -2932,7 +3042,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h50": {}}]
+     "controls": [{"s@du2_customization.h54": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -2941,13 +3051,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h51": {}}]
+     "controls": [{"s@du2_customization.h55": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h53@common.button": {
+ "h57@common.button": {
   "size": [20, 14],
   "collection_index": 15,
   "$pressed_button_name": "button.form_button_click",
@@ -3021,7 +3131,7 @@
    }
   ]
  },
- "h54": {
+ "h58": {
   "type": "panel",
   "size": ["100%", 16],
   "controls": [
@@ -3066,16 +3176,16 @@
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h48": {}}]
+        "controls": [{"b@du2_customization.h52": {}}]
        }
       },
-      {"mid@du2_customization.h52": {}},
+      {"mid@du2_customization.h56": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h53": {}}]
+        "controls": [{"b@du2_customization.h57": {}}]
        }
       }
      ]
@@ -3083,7 +3193,7 @@
    }
   ]
  },
- "h55@common.button": {
+ "h59@common.button": {
   "size": [20, 14],
   "collection_index": 16,
   "$pressed_button_name": "button.form_button_click",
@@ -3157,7 +3267,7 @@
    }
   ]
  },
- "h56": {
+ "h60": {
   "type": "image",
   "texture": "",
   "size": [10, 10],
@@ -3188,7 +3298,7 @@
    }
   ]
  },
- "h57": {
+ "h61": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 25,
@@ -3228,7 +3338,7 @@
    }
   ]
  },
- "h58": {
+ "h62": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 33,
@@ -3268,7 +3378,7 @@
    }
   ]
  },
- "h59": {
+ "h63": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 14],
@@ -3284,7 +3394,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h56": {}}],
+        "controls": [{"i@du2_customization.h60": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -3298,7 +3408,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h57": {}}]
+     "controls": [{"s@du2_customization.h61": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -3307,13 +3417,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h58": {}}]
+     "controls": [{"s@du2_customization.h62": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h60@common.button": {
+ "h64@common.button": {
   "size": [20, 14],
   "collection_index": 17,
   "$pressed_button_name": "button.form_button_click",
@@ -3387,7 +3497,7 @@
    }
   ]
  },
- "h61": {
+ "h65": {
   "type": "panel",
   "size": ["100%", 16],
   "controls": [
@@ -3432,16 +3542,16 @@
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h55": {}}]
+        "controls": [{"b@du2_customization.h59": {}}]
        }
       },
-      {"mid@du2_customization.h59": {}},
+      {"mid@du2_customization.h63": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h60": {}}]
+        "controls": [{"b@du2_customization.h64": {}}]
        }
       }
      ]
@@ -3449,7 +3559,7 @@
    }
   ]
  },
- "h62": {
+ "h66": {
   "type": "panel",
   "size": ["100%", "100%"],
   "collection_index": 18,
@@ -3483,7 +3593,7 @@
    }
   ]
  },
- "h63": {
+ "h67": {
   "type": "panel",
   "size": ["100%", 128],
   "controls": [
@@ -3493,14 +3603,14 @@
      "orientation": "vertical",
      "size": ["100%", "100%"],
      "controls": [
-      {"row0@du2_customization.h12": {}},
-      {"row1@du2_customization.h19": {}},
-      {"row2@du2_customization.h26": {}},
-      {"row3@du2_customization.h33": {}},
-      {"row4@du2_customization.h40": {}},
-      {"row5@du2_customization.h47": {}},
-      {"row6@du2_customization.h54": {}},
-      {"row7@du2_customization.h61": {}}
+      {"row0@du2_customization.h16": {}},
+      {"row1@du2_customization.h23": {}},
+      {"row2@du2_customization.h30": {}},
+      {"row3@du2_customization.h37": {}},
+      {"row4@du2_customization.h44": {}},
+      {"row5@du2_customization.h51": {}},
+      {"row6@du2_customization.h58": {}},
+      {"row7@du2_customization.h65": {}}
      ]
     }
    },
@@ -3513,271 +3623,16 @@
      "collection_name": "form_buttons",
      "anchor_from": "top_middle",
      "anchor_to": "top_middle",
-     "controls": [{"old@du2_customization.h62": {}}]
+     "controls": [{"old@du2_customization.h66": {}}]
     }
    }
   ],
   "anchor_from": "top_middle",
   "anchor_to": "top_middle"
  },
- "h64@common.button": {
-  "size": [26, 20],
-  "collection_index": 2,
-  "$pressed_button_name": "button.form_button_click",
-  "default_control": "default",
-  "hover_control": "hover",
-  "pressed_control": "pressed",
-  "controls": [
-   {
-    "default": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "controls": [
-      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary", "size": ["100%", "100%"]}},
-      {
-       "i": {
-        "type": "image",
-        "texture": "textures/ui/du2/icons/chevron_left",
-        "size": [10, 10],
-        "color": [0.965, 0.725, 0.263]
-       }
-      }
-     ]
-    }
-   },
-   {
-    "hover": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "controls": [
-      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
-      {
-       "i": {
-        "type": "image",
-        "texture": "textures/ui/du2/icons/chevron_left",
-        "size": [10, 10],
-        "color": [0.965, 0.725, 0.263]
-       }
-      }
-     ]
-    }
-   },
-   {
-    "pressed": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "controls": [
-      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}},
-      {
-       "i": {
-        "type": "image",
-        "texture": "textures/ui/du2/icons/chevron_left",
-        "size": [10, 10],
-        "color": [0.965, 0.725, 0.263]
-       }
-      }
-     ]
-    }
-   }
-  ],
-  "bindings": [
-   {"binding_type": "collection_details", "binding_collection_name": "form_buttons"},
-   {
-    "binding_type": "collection",
-    "binding_collection_name": "form_buttons",
-    "binding_name": "#form_button_text"
-   },
-   {
-    "binding_type": "view",
-    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
-    "target_property_name": "#visible"
-   }
-  ]
- },
- "h65": {
-  "type": "stack_panel",
-  "orientation": "horizontal",
-  "size": ["fill", 20],
-  "controls": [
-   {"pad": {"type": "panel", "size": [3, "100%"]}},
-   {
-    "cell": {
-     "type": "panel",
-     "size": [10, "100%"],
-     "controls": [
-      {
-       "x": {
-        "type": "collection_panel",
-        "size": [10, 10],
-        "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h7": {}}],
-        "anchor_from": "center",
-        "anchor_to": "center"
-       }
-      }
-     ]
-    }
-   },
-   {"pad": {"type": "panel", "size": [4, "100%"]}},
-   {
-    "name": {
-     "type": "collection_panel",
-     "size": ["fill", "100%"],
-     "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h8": {}}]
-    }
-   },
-   {"pad": {"type": "panel", "size": [3, "100%"]}},
-   {
-    "val": {
-     "type": "collection_panel",
-     "size": [34, "100%"],
-     "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h9": {}}]
-    }
-   },
-   {"pad": {"type": "panel", "size": [3, "100%"]}}
-  ]
- },
- "h66@common.button": {
-  "size": [26, 20],
-  "collection_index": 3,
-  "$pressed_button_name": "button.form_button_click",
-  "default_control": "default",
-  "hover_control": "hover",
-  "pressed_control": "pressed",
-  "controls": [
-   {
-    "default": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "controls": [
-      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary", "size": ["100%", "100%"]}},
-      {
-       "i": {
-        "type": "image",
-        "texture": "textures/ui/du2/icons/chevron_right",
-        "size": [10, 10],
-        "color": [0.965, 0.725, 0.263]
-       }
-      }
-     ]
-    }
-   },
-   {
-    "hover": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "controls": [
-      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
-      {
-       "i": {
-        "type": "image",
-        "texture": "textures/ui/du2/icons/chevron_right",
-        "size": [10, 10],
-        "color": [0.965, 0.725, 0.263]
-       }
-      }
-     ]
-    }
-   },
-   {
-    "pressed": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "controls": [
-      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}},
-      {
-       "i": {
-        "type": "image",
-        "texture": "textures/ui/du2/icons/chevron_right",
-        "size": [10, 10],
-        "color": [0.965, 0.725, 0.263]
-       }
-      }
-     ]
-    }
-   }
-  ],
-  "bindings": [
-   {"binding_type": "collection_details", "binding_collection_name": "form_buttons"},
-   {
-    "binding_type": "collection",
-    "binding_collection_name": "form_buttons",
-    "binding_name": "#form_button_text"
-   },
-   {
-    "binding_type": "view",
-    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
-    "target_property_name": "#visible"
-   }
-  ]
- },
- "h67": {
-  "type": "panel",
-  "size": ["100%", 22],
-  "controls": [
-   {
-    "bg": {
-     "type": "collection_panel",
-     "size": ["100%", "100%"],
-     "collection_name": "form_buttons",
-     "controls": [
-      {
-       "i": {
-        "type": "image",
-        "texture": "textures/ui/du2/panel_row",
-        "size": ["100%", 20],
-        "collection_index": 2,
-        "bindings": [
-         {
-          "binding_type": "collection",
-          "binding_collection_name": "form_buttons",
-          "binding_name": "#form_button_text"
-         },
-         {
-          "binding_type": "view",
-          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
-          "target_property_name": "#visible"
-         }
-        ]
-       }
-      }
-     ]
-    }
-   },
-   {
-    "arrows": {
-     "type": "stack_panel",
-     "orientation": "horizontal",
-     "size": ["100%", 20],
-     "layer": 3,
-     "controls": [
-      {
-       "prev": {
-        "type": "collection_panel",
-        "size": [26, 20],
-        "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h64": {}}]
-       }
-      },
-      {"mid@du2_customization.h65": {}},
-      {
-       "next": {
-        "type": "collection_panel",
-        "size": [26, 20],
-        "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h66": {}}]
-       }
-      }
-     ]
-    }
-   }
-  ]
- },
  "h68@common.button": {
   "size": [26, 20],
-  "collection_index": 4,
+  "collection_index": 2,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
@@ -3865,7 +3720,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h14": {}}],
+        "controls": [{"i@du2_customization.h11": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -3879,7 +3734,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h15": {}}]
+     "controls": [{"s@du2_customization.h12": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -3888,7 +3743,7 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h16": {}}]
+     "controls": [{"s@du2_customization.h13": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
@@ -3896,7 +3751,7 @@
  },
  "h70@common.button": {
   "size": [26, 20],
-  "collection_index": 5,
+  "collection_index": 3,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
@@ -3983,7 +3838,7 @@
         "type": "image",
         "texture": "textures/ui/du2/panel_row",
         "size": ["100%", 20],
-        "collection_index": 4,
+        "collection_index": 2,
         "bindings": [
          {
           "binding_type": "collection",
@@ -4032,7 +3887,7 @@
  },
  "h72@common.button": {
   "size": [26, 20],
-  "collection_index": 6,
+  "collection_index": 4,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
@@ -4120,7 +3975,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h21": {}}],
+        "controls": [{"i@du2_customization.h18": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -4134,7 +3989,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h22": {}}]
+     "controls": [{"s@du2_customization.h19": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -4143,7 +3998,7 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h23": {}}]
+     "controls": [{"s@du2_customization.h20": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
@@ -4151,7 +4006,7 @@
  },
  "h74@common.button": {
   "size": [26, 20],
-  "collection_index": 7,
+  "collection_index": 5,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
@@ -4238,7 +4093,7 @@
         "type": "image",
         "texture": "textures/ui/du2/panel_row",
         "size": ["100%", 20],
-        "collection_index": 6,
+        "collection_index": 4,
         "bindings": [
          {
           "binding_type": "collection",
@@ -4287,7 +4142,7 @@
  },
  "h76@common.button": {
   "size": [26, 20],
-  "collection_index": 8,
+  "collection_index": 6,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
@@ -4375,7 +4230,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h28": {}}],
+        "controls": [{"i@du2_customization.h25": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -4389,7 +4244,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h29": {}}]
+     "controls": [{"s@du2_customization.h26": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -4398,7 +4253,7 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h30": {}}]
+     "controls": [{"s@du2_customization.h27": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
@@ -4406,7 +4261,7 @@
  },
  "h78@common.button": {
   "size": [26, 20],
-  "collection_index": 9,
+  "collection_index": 7,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
@@ -4493,7 +4348,7 @@
         "type": "image",
         "texture": "textures/ui/du2/panel_row",
         "size": ["100%", 20],
-        "collection_index": 8,
+        "collection_index": 6,
         "bindings": [
          {
           "binding_type": "collection",
@@ -4542,7 +4397,7 @@
  },
  "h80@common.button": {
   "size": [26, 20],
-  "collection_index": 10,
+  "collection_index": 8,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
@@ -4630,7 +4485,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h35": {}}],
+        "controls": [{"i@du2_customization.h32": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -4644,7 +4499,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h36": {}}]
+     "controls": [{"s@du2_customization.h33": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -4653,7 +4508,7 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h37": {}}]
+     "controls": [{"s@du2_customization.h34": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
@@ -4661,7 +4516,7 @@
  },
  "h82@common.button": {
   "size": [26, 20],
-  "collection_index": 11,
+  "collection_index": 9,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
@@ -4748,7 +4603,7 @@
         "type": "image",
         "texture": "textures/ui/du2/panel_row",
         "size": ["100%", 20],
-        "collection_index": 10,
+        "collection_index": 8,
         "bindings": [
          {
           "binding_type": "collection",
@@ -4797,7 +4652,7 @@
  },
  "h84@common.button": {
   "size": [26, 20],
-  "collection_index": 12,
+  "collection_index": 10,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
@@ -4885,7 +4740,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h42": {}}],
+        "controls": [{"i@du2_customization.h39": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -4899,7 +4754,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h43": {}}]
+     "controls": [{"s@du2_customization.h40": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -4908,7 +4763,7 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h44": {}}]
+     "controls": [{"s@du2_customization.h41": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
@@ -4916,7 +4771,7 @@
  },
  "h86@common.button": {
   "size": [26, 20],
-  "collection_index": 13,
+  "collection_index": 11,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
@@ -5003,7 +4858,7 @@
         "type": "image",
         "texture": "textures/ui/du2/panel_row",
         "size": ["100%", 20],
-        "collection_index": 12,
+        "collection_index": 10,
         "bindings": [
          {
           "binding_type": "collection",
@@ -5052,7 +4907,7 @@
  },
  "h88@common.button": {
   "size": [26, 20],
-  "collection_index": 14,
+  "collection_index": 12,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
@@ -5140,7 +4995,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h49": {}}],
+        "controls": [{"i@du2_customization.h46": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -5154,7 +5009,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h50": {}}]
+     "controls": [{"s@du2_customization.h47": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -5163,7 +5018,7 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h51": {}}]
+     "controls": [{"s@du2_customization.h48": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
@@ -5171,7 +5026,7 @@
  },
  "h90@common.button": {
   "size": [26, 20],
-  "collection_index": 15,
+  "collection_index": 13,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
@@ -5258,7 +5113,7 @@
         "type": "image",
         "texture": "textures/ui/du2/panel_row",
         "size": ["100%", 20],
-        "collection_index": 14,
+        "collection_index": 12,
         "bindings": [
          {
           "binding_type": "collection",
@@ -5307,7 +5162,7 @@
  },
  "h92@common.button": {
   "size": [26, 20],
-  "collection_index": 16,
+  "collection_index": 14,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
@@ -5395,7 +5250,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h56": {}}],
+        "controls": [{"i@du2_customization.h53": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -5409,7 +5264,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h57": {}}]
+     "controls": [{"s@du2_customization.h54": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -5418,7 +5273,7 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h58": {}}]
+     "controls": [{"s@du2_customization.h55": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
@@ -5426,7 +5281,7 @@
  },
  "h94@common.button": {
   "size": [26, 20],
-  "collection_index": 17,
+  "collection_index": 15,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
@@ -5513,7 +5368,7 @@
         "type": "image",
         "texture": "textures/ui/du2/panel_row",
         "size": ["100%", 20],
-        "collection_index": 16,
+        "collection_index": 14,
         "bindings": [
          {
           "binding_type": "collection",
@@ -5560,7 +5415,262 @@
    }
   ]
  },
- "h96": {
+ "h96@common.button": {
+  "size": [26, 20],
+  "collection_index": 16,
+  "$pressed_button_name": "button.form_button_click",
+  "default_control": "default",
+  "hover_control": "hover",
+  "pressed_control": "pressed",
+  "controls": [
+   {
+    "default": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary", "size": ["100%", "100%"]}},
+      {
+       "i": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/chevron_left",
+        "size": [10, 10],
+        "color": [0.965, 0.725, 0.263]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "hover": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
+      {
+       "i": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/chevron_left",
+        "size": [10, 10],
+        "color": [0.965, 0.725, 0.263]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "pressed": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}},
+      {
+       "i": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/chevron_left",
+        "size": [10, 10],
+        "color": [0.965, 0.725, 0.263]
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "bindings": [
+   {"binding_type": "collection_details", "binding_collection_name": "form_buttons"},
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h97": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["fill", 20],
+  "controls": [
+   {"pad": {"type": "panel", "size": [3, "100%"]}},
+   {
+    "cell": {
+     "type": "panel",
+     "size": [10, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "collection_panel",
+        "size": [10, 10],
+        "collection_name": "form_buttons",
+        "controls": [{"i@du2_customization.h60": {}}],
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "name": {
+     "type": "collection_panel",
+     "size": ["fill", "100%"],
+     "collection_name": "form_buttons",
+     "controls": [{"s@du2_customization.h61": {}}]
+    }
+   },
+   {"pad": {"type": "panel", "size": [3, "100%"]}},
+   {
+    "val": {
+     "type": "collection_panel",
+     "size": [34, "100%"],
+     "collection_name": "form_buttons",
+     "controls": [{"s@du2_customization.h62": {}}]
+    }
+   },
+   {"pad": {"type": "panel", "size": [3, "100%"]}}
+  ]
+ },
+ "h98@common.button": {
+  "size": [26, 20],
+  "collection_index": 17,
+  "$pressed_button_name": "button.form_button_click",
+  "default_control": "default",
+  "hover_control": "hover",
+  "pressed_control": "pressed",
+  "controls": [
+   {
+    "default": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary", "size": ["100%", "100%"]}},
+      {
+       "i": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/chevron_right",
+        "size": [10, 10],
+        "color": [0.965, 0.725, 0.263]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "hover": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
+      {
+       "i": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/chevron_right",
+        "size": [10, 10],
+        "color": [0.965, 0.725, 0.263]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "pressed": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}},
+      {
+       "i": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/chevron_right",
+        "size": [10, 10],
+        "color": [0.965, 0.725, 0.263]
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "bindings": [
+   {"binding_type": "collection_details", "binding_collection_name": "form_buttons"},
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h99": {
+  "type": "panel",
+  "size": ["100%", 22],
+  "controls": [
+   {
+    "bg": {
+     "type": "collection_panel",
+     "size": ["100%", "100%"],
+     "collection_name": "form_buttons",
+     "controls": [
+      {
+       "i": {
+        "type": "image",
+        "texture": "textures/ui/du2/panel_row",
+        "size": ["100%", 20],
+        "collection_index": 16,
+        "bindings": [
+         {
+          "binding_type": "collection",
+          "binding_collection_name": "form_buttons",
+          "binding_name": "#form_button_text"
+         },
+         {
+          "binding_type": "view",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
+          "target_property_name": "#visible"
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "arrows": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 20],
+     "layer": 3,
+     "controls": [
+      {
+       "prev": {
+        "type": "collection_panel",
+        "size": [26, 20],
+        "collection_name": "form_buttons",
+        "controls": [{"b@du2_customization.h96": {}}]
+       }
+      },
+      {"mid@du2_customization.h97": {}},
+      {
+       "next": {
+        "type": "collection_panel",
+        "size": [26, 20],
+        "collection_name": "form_buttons",
+        "controls": [{"b@du2_customization.h98": {}}]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h100": {
   "type": "panel",
   "size": ["100%", "100%"],
   "collection_index": 18,
@@ -5594,7 +5704,7 @@
    }
   ]
  },
- "h97": {
+ "h101": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -5640,7 +5750,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h98": {
+ "h102": {
   "type": "stack_panel",
   "orientation": "vertical",
   "size": [118, "100%"],
@@ -5673,19 +5783,19 @@
      "type": "collection_panel",
      "size": ["100%", 22],
      "collection_name": "form_buttons",
-     "controls": [{"b@du2_customization.h4": {}}]
+     "controls": [{"b@du2_customization.h8": {}}]
     }
    }
   ]
  },
- "h99": {
+ "h103": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100% - 6px", "100% - 6px"],
   "anchor_from": "center",
   "anchor_to": "center",
   "controls": [
-   {"left@du2_customization.h98": {}},
+   {"left@du2_customization.h102": {}},
    {"pad": {"type": "panel", "size": [6, "100%"]}},
    {
     "right": {
@@ -5710,7 +5820,7 @@
    }
   ]
  },
- "h100": {
+ "h104": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -5737,7 +5847,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h101@common.button": {
+ "h105@common.button": {
   "size": [20, 14],
   "collection_index": 0,
   "$pressed_button_name": "button.form_button_click",
@@ -5811,7 +5921,7 @@
    }
   ]
  },
- "h102": {
+ "h106": {
   "type": "image",
   "texture": "",
   "size": [10, 10],
@@ -5842,7 +5952,7 @@
    }
   ]
  },
- "h103": {
+ "h107": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 10,
@@ -5882,7 +5992,7 @@
    }
   ]
  },
- "h104": {
+ "h108": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 15,
@@ -5922,7 +6032,7 @@
    }
   ]
  },
- "h105": {
+ "h109": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 14],
@@ -5938,7 +6048,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h102": {}}],
+        "controls": [{"i@du2_customization.h106": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -5952,7 +6062,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h103": {}}]
+     "controls": [{"s@du2_customization.h107": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -5961,13 +6071,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h104": {}}]
+     "controls": [{"s@du2_customization.h108": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h106@common.button": {
+ "h110@common.button": {
   "size": [20, 14],
   "collection_index": 1,
   "$pressed_button_name": "button.form_button_click",
@@ -6041,7 +6151,7 @@
    }
   ]
  },
- "h107": {
+ "h111": {
   "type": "panel",
   "size": ["100%", 16],
   "controls": [
@@ -6086,16 +6196,16 @@
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h101": {}}]
+        "controls": [{"b@du2_customization.h105": {}}]
        }
       },
-      {"mid@du2_customization.h105": {}},
+      {"mid@du2_customization.h109": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h106": {}}]
+        "controls": [{"b@du2_customization.h110": {}}]
        }
       }
      ]
@@ -6103,7 +6213,7 @@
    }
   ]
  },
- "h108": {
+ "h112": {
   "type": "image",
   "texture": "",
   "size": [10, 10],
@@ -6134,7 +6244,7 @@
    }
   ]
  },
- "h109": {
+ "h113": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 11,
@@ -6174,7 +6284,7 @@
    }
   ]
  },
- "h110": {
+ "h114": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 16,
@@ -6214,7 +6324,7 @@
    }
   ]
  },
- "h111": {
+ "h115": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 14],
@@ -6230,7 +6340,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h108": {}}],
+        "controls": [{"i@du2_customization.h112": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -6244,7 +6354,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h109": {}}]
+     "controls": [{"s@du2_customization.h113": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -6253,13 +6363,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h110": {}}]
+     "controls": [{"s@du2_customization.h114": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h112": {
+ "h116": {
   "type": "panel",
   "size": ["100%", 16],
   "controls": [
@@ -6304,16 +6414,16 @@
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h6": {}}]
+        "controls": [{"b@du2_customization.h10": {}}]
        }
       },
-      {"mid@du2_customization.h111": {}},
+      {"mid@du2_customization.h115": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h11": {}}]
+        "controls": [{"b@du2_customization.h15": {}}]
        }
       }
      ]
@@ -6321,7 +6431,7 @@
    }
   ]
  },
- "h113": {
+ "h117": {
   "type": "image",
   "texture": "",
   "size": [10, 10],
@@ -6352,7 +6462,7 @@
    }
   ]
  },
- "h114": {
+ "h118": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 12,
@@ -6392,7 +6502,7 @@
    }
   ]
  },
- "h115": {
+ "h119": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 17,
@@ -6432,7 +6542,7 @@
    }
   ]
  },
- "h116": {
+ "h120": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 14],
@@ -6448,7 +6558,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h113": {}}],
+        "controls": [{"i@du2_customization.h117": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -6462,7 +6572,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h114": {}}]
+     "controls": [{"s@du2_customization.h118": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -6471,13 +6581,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h115": {}}]
+     "controls": [{"s@du2_customization.h119": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h117": {
+ "h121": {
   "type": "panel",
   "size": ["100%", 16],
   "controls": [
@@ -6522,16 +6632,16 @@
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h13": {}}]
+        "controls": [{"b@du2_customization.h17": {}}]
        }
       },
-      {"mid@du2_customization.h116": {}},
+      {"mid@du2_customization.h120": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h18": {}}]
+        "controls": [{"b@du2_customization.h22": {}}]
        }
       }
      ]
@@ -6539,7 +6649,7 @@
    }
   ]
  },
- "h118": {
+ "h122": {
   "type": "image",
   "texture": "",
   "size": [10, 10],
@@ -6570,7 +6680,7 @@
    }
   ]
  },
- "h119": {
+ "h123": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 13,
@@ -6610,7 +6720,7 @@
    }
   ]
  },
- "h120": {
+ "h124": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 18,
@@ -6650,7 +6760,7 @@
    }
   ]
  },
- "h121": {
+ "h125": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 14],
@@ -6666,7 +6776,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h118": {}}],
+        "controls": [{"i@du2_customization.h122": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -6680,7 +6790,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h119": {}}]
+     "controls": [{"s@du2_customization.h123": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -6689,13 +6799,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h120": {}}]
+     "controls": [{"s@du2_customization.h124": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h122": {
+ "h126": {
   "type": "panel",
   "size": ["100%", 16],
   "controls": [
@@ -6740,16 +6850,16 @@
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h20": {}}]
+        "controls": [{"b@du2_customization.h24": {}}]
        }
       },
-      {"mid@du2_customization.h121": {}},
+      {"mid@du2_customization.h125": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h25": {}}]
+        "controls": [{"b@du2_customization.h29": {}}]
        }
       }
      ]
@@ -6757,7 +6867,7 @@
    }
   ]
  },
- "h123": {
+ "h127": {
   "type": "image",
   "texture": "",
   "size": [10, 10],
@@ -6788,7 +6898,7 @@
    }
   ]
  },
- "h124": {
+ "h128": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 14,
@@ -6828,7 +6938,7 @@
    }
   ]
  },
- "h125": {
+ "h129": {
   "type": "panel",
   "size": ["100%", "100% + 4px"],
   "collection_index": 19,
@@ -6868,7 +6978,7 @@
    }
   ]
  },
- "h126": {
+ "h130": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 14],
@@ -6884,7 +6994,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h123": {}}],
+        "controls": [{"i@du2_customization.h127": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -6898,7 +7008,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h124": {}}]
+     "controls": [{"s@du2_customization.h128": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -6907,13 +7017,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h125": {}}]
+     "controls": [{"s@du2_customization.h129": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h127": {
+ "h131": {
   "type": "panel",
   "size": ["100%", 16],
   "controls": [
@@ -6958,16 +7068,16 @@
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h27": {}}]
+        "controls": [{"b@du2_customization.h31": {}}]
        }
       },
-      {"mid@du2_customization.h126": {}},
+      {"mid@du2_customization.h130": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [20, 14],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h32": {}}]
+        "controls": [{"b@du2_customization.h36": {}}]
        }
       }
      ]
@@ -6975,7 +7085,7 @@
    }
   ]
  },
- "h128": {
+ "h132": {
   "type": "panel",
   "size": ["100%", "100%"],
   "collection_index": 10,
@@ -7009,7 +7119,7 @@
    }
   ]
  },
- "h129": {
+ "h133": {
   "type": "panel",
   "size": ["100%", 80],
   "controls": [
@@ -7019,11 +7129,11 @@
      "orientation": "vertical",
      "size": ["100%", "100%"],
      "controls": [
-      {"row0@du2_customization.h107": {}},
-      {"row1@du2_customization.h112": {}},
-      {"row2@du2_customization.h117": {}},
-      {"row3@du2_customization.h122": {}},
-      {"row4@du2_customization.h127": {}}
+      {"row0@du2_customization.h111": {}},
+      {"row1@du2_customization.h116": {}},
+      {"row2@du2_customization.h121": {}},
+      {"row3@du2_customization.h126": {}},
+      {"row4@du2_customization.h131": {}}
      ]
     }
    },
@@ -7036,14 +7146,14 @@
      "collection_name": "form_buttons",
      "anchor_from": "top_middle",
      "anchor_to": "top_middle",
-     "controls": [{"old@du2_customization.h128": {}}]
+     "controls": [{"old@du2_customization.h132": {}}]
     }
    }
   ],
   "anchor_from": "top_middle",
   "anchor_to": "top_middle"
  },
- "h130": {
+ "h134": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100% - 10px", "100% - 8px"],
@@ -7082,10 +7192,10 @@
     }
    },
    {"pad": {"type": "panel", "size": [6, "100%"]}},
-   {"right": {"type": "panel", "size": ["fill", "100%"], "controls": [{"opts@du2_customization.h129": {}}]}}
+   {"right": {"type": "panel", "size": ["fill", "100%"], "controls": [{"opts@du2_customization.h133": {}}]}}
   ]
  },
- "h131@common.button": {
+ "h135@common.button": {
   "size": [26, 20],
   "collection_index": 0,
   "$pressed_button_name": "button.form_button_click",
@@ -7159,7 +7269,7 @@
    }
   ]
  },
- "h132": {
+ "h136": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 20],
@@ -7175,7 +7285,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h102": {}}],
+        "controls": [{"i@du2_customization.h106": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -7189,7 +7299,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h103": {}}]
+     "controls": [{"s@du2_customization.h107": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -7198,13 +7308,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h104": {}}]
+     "controls": [{"s@du2_customization.h108": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h133@common.button": {
+ "h137@common.button": {
   "size": [26, 20],
   "collection_index": 1,
   "$pressed_button_name": "button.form_button_click",
@@ -7278,7 +7388,7 @@
    }
   ]
  },
- "h134": {
+ "h138": {
   "type": "panel",
   "size": ["100%", 22],
   "controls": [
@@ -7323,16 +7433,16 @@
         "type": "collection_panel",
         "size": [26, 20],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h131": {}}]
+        "controls": [{"b@du2_customization.h135": {}}]
        }
       },
-      {"mid@du2_customization.h132": {}},
+      {"mid@du2_customization.h136": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [26, 20],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h133": {}}]
+        "controls": [{"b@du2_customization.h137": {}}]
        }
       }
      ]
@@ -7340,7 +7450,7 @@
    }
   ]
  },
- "h135": {
+ "h139": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 20],
@@ -7356,7 +7466,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h108": {}}],
+        "controls": [{"i@du2_customization.h112": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -7370,7 +7480,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h109": {}}]
+     "controls": [{"s@du2_customization.h113": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -7379,13 +7489,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h110": {}}]
+     "controls": [{"s@du2_customization.h114": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h136": {
+ "h140": {
   "type": "panel",
   "size": ["100%", 22],
   "controls": [
@@ -7430,16 +7540,16 @@
         "type": "collection_panel",
         "size": [26, 20],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h64": {}}]
+        "controls": [{"b@du2_customization.h68": {}}]
        }
       },
-      {"mid@du2_customization.h135": {}},
+      {"mid@du2_customization.h139": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [26, 20],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h66": {}}]
+        "controls": [{"b@du2_customization.h70": {}}]
        }
       }
      ]
@@ -7447,7 +7557,7 @@
    }
   ]
  },
- "h137": {
+ "h141": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 20],
@@ -7463,7 +7573,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h113": {}}],
+        "controls": [{"i@du2_customization.h117": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -7477,7 +7587,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h114": {}}]
+     "controls": [{"s@du2_customization.h118": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -7486,13 +7596,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h115": {}}]
+     "controls": [{"s@du2_customization.h119": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h138": {
+ "h142": {
   "type": "panel",
   "size": ["100%", 22],
   "controls": [
@@ -7537,16 +7647,16 @@
         "type": "collection_panel",
         "size": [26, 20],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h68": {}}]
+        "controls": [{"b@du2_customization.h72": {}}]
        }
       },
-      {"mid@du2_customization.h137": {}},
+      {"mid@du2_customization.h141": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [26, 20],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h70": {}}]
+        "controls": [{"b@du2_customization.h74": {}}]
        }
       }
      ]
@@ -7554,7 +7664,7 @@
    }
   ]
  },
- "h139": {
+ "h143": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 20],
@@ -7570,7 +7680,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h118": {}}],
+        "controls": [{"i@du2_customization.h122": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -7584,7 +7694,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h119": {}}]
+     "controls": [{"s@du2_customization.h123": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -7593,13 +7703,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h120": {}}]
+     "controls": [{"s@du2_customization.h124": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h140": {
+ "h144": {
   "type": "panel",
   "size": ["100%", 22],
   "controls": [
@@ -7644,16 +7754,16 @@
         "type": "collection_panel",
         "size": [26, 20],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h72": {}}]
+        "controls": [{"b@du2_customization.h76": {}}]
        }
       },
-      {"mid@du2_customization.h139": {}},
+      {"mid@du2_customization.h143": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [26, 20],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h74": {}}]
+        "controls": [{"b@du2_customization.h78": {}}]
        }
       }
      ]
@@ -7661,7 +7771,7 @@
    }
   ]
  },
- "h141": {
+ "h145": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 20],
@@ -7677,7 +7787,7 @@
         "type": "collection_panel",
         "size": [10, 10],
         "collection_name": "form_buttons",
-        "controls": [{"i@du2_customization.h123": {}}],
+        "controls": [{"i@du2_customization.h127": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -7691,7 +7801,7 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h124": {}}]
+     "controls": [{"s@du2_customization.h128": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}},
@@ -7700,13 +7810,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "controls": [{"s@du2_customization.h125": {}}]
+     "controls": [{"s@du2_customization.h129": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h142": {
+ "h146": {
   "type": "panel",
   "size": ["100%", 22],
   "controls": [
@@ -7751,16 +7861,16 @@
         "type": "collection_panel",
         "size": [26, 20],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h76": {}}]
+        "controls": [{"b@du2_customization.h80": {}}]
        }
       },
-      {"mid@du2_customization.h141": {}},
+      {"mid@du2_customization.h145": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [26, 20],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h78": {}}]
+        "controls": [{"b@du2_customization.h82": {}}]
        }
       }
      ]
@@ -7768,7 +7878,7 @@
    }
   ]
  },
- "h143": {
+ "h147": {
   "type": "panel",
   "size": ["100%", "100%"],
   "collection_index": 10,
@@ -7802,7 +7912,7 @@
    }
   ]
  },
- "h144": {
+ "h148": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -7829,7 +7939,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h145": {
+ "h149": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100% - 6px", "100% - 6px"],
