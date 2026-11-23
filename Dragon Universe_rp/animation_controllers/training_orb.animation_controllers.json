@@ -1,0 +1,25 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        // Orbe do treino de concentração: com dbe:color 3 (apagado) mostra o anel vazado preso à entidade.
+        // Ao sair do estado (cor mudou) o emissor em laço é encerrado; ao remover a entidade ele some junto.
+        "controller.animation.dbe.training_orb": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "transitions": [
+                        { "off": "q.property('dbe:color') == 3" }
+                    ]
+                },
+                "off": {
+                    "particle_effects": [
+                        { "effect": "orb_off" }
+                    ],
+                    "transitions": [
+                        { "default": "q.property('dbe:color') != 3" }
+                    ]
+                }
+            }
+        }
+    }
+}

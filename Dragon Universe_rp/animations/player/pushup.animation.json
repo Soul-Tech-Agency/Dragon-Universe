@@ -1,0 +1,55 @@
+{
+    "format_version": "1.10.0",
+    "animations": {
+        // Flexão (treino físico, 1.7.20). v.pushup_down: 0 = braços esticados, 1 = peito perto do chão.
+        // Raiz inclinada a partir dos pés; mãos e pontas dos pés ficam no chão (braços abrem com sqrt para não atravessar o chão no meio).
+        // Corpo centrado na posição do jogador (+12 em z: pés ~0,75 bloco atrás, cabeça ~0,8 à frente).
+        "animation.player.pushup": {
+            "loop": true,
+            "override_previous_animation": true,
+            "bones": {
+                "root": {
+                    "rotation": [ "68.0 + 12.0 * v.pushup_down", 0, 0 ],
+                    "position": [ 0, "1.89 + 0.09 * v.pushup_down", 12 ]
+                },
+                "waist": {
+                    "rotation": [ 0, 0, 0 ],
+                    "position": [ 0, 0, 0 ]
+                },
+                "body": {
+                    "rotation": [ 0, 0, 0 ],
+                    "position": [ 0, 0, 0 ]
+                },
+                "head": {
+                    "rotation": [ "-30.0 - 10.0 * v.pushup_down", 0, 0 ],
+                    "position": [ 0, 0, 0 ]
+                },
+                "leftArm": {
+                    "rotation": [ "-68.0 + 2.0 * v.pushup_down", "-8.0 - 54.0 * math.sqrt(v.pushup_down)", 0 ],
+                    "position": [ 0, 0, 0 ]
+                },
+                "rightArm": {
+                    "rotation": [ "-68.0 + 2.0 * v.pushup_down", "8.0 + 54.0 * math.sqrt(v.pushup_down)", 0 ],
+                    "position": [ 0, 0, 0 ]
+                },
+                "leftLeg": {
+                    "rotation": [ 0, 0, -3 ],
+                    "position": [ 0, 0, 0 ]
+                },
+                "rightLeg": {
+                    "rotation": [ 0, 0, 3 ],
+                    "position": [ 0, 0, 0 ]
+                }
+            }
+        },
+        // Rabo deitado sobre as pernas durante a flexão (aditivo: o balanço do tail_move continua). Não roda com o rabo enrolado.
+        "animation.player.pushup_tail": {
+            "loop": true,
+            "bones": {
+                "tail": { "rotation": [ -65, 0, 0 ] },
+                "tail2": { "rotation": [ 4, 0, 0 ] },
+                "tail3": { "rotation": [ 8, 0, 0 ] }
+            }
+        }
+    }
+}

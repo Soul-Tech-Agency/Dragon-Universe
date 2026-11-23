@@ -12,7 +12,17 @@
             "geometry": {
                 "default": "geometry.none"
             },
-            "render_controllers": [ "controller.render.default" ]
+            "render_controllers": [ "controller.render.default" ],
+            // dbe:color 3 = orbe apagado (concentração): o anel vazado vem daqui, o script não solta partícula para ele
+            "particle_effects": {
+                "orb_off": "dbe:concentration_orb_off"
+            },
+            "animations": {
+                "orb_off_controller": "controller.animation.dbe.training_orb"
+            },
+            "scripts": {
+                "animate": [ "orb_off_controller" ]
+            }
         }
     }
 }
