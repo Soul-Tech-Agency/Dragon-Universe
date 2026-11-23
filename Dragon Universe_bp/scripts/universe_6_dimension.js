@@ -23,6 +23,7 @@ import * as mc from "@minecraft/server";
 import { isSpaceDimension } from "./space_planets.js";
 import "./bills_planet.js";
 import "./tournament_of_power.js";
+import { every } from "./core/scheduler.js";
 
 const { world, system, BlockVolume, BlockPermutation } = mc;
 
@@ -489,13 +490,14 @@ try {
   // dimensions/universe_6_arena.json owns the native dimension definition and its biome/height settings.
 
   world.afterEvents.worldLoad.subscribe(() => {
-    system.runInterval(() => {
+    // O3-6: relógio único (core/scheduler.js), fase 5 (O3_DETALHE.md §2)
+    every(10, "universe6.scan", () => {
       try {
         scan();
       } catch (e) {
         console.warn("[Universe 6] scan error: " + e);
       }
-    }, 10);
+    }, { phase: 5 });
 
     world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
       if (!itemStack || itemStack.typeId !== ITEM) return;

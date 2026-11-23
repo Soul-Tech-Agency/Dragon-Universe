@@ -25,6 +25,7 @@
  * and the STYLES palettes.
  */
 import * as mc from "@minecraft/server";
+import { every } from "./core/scheduler.js";
 
 const { world, system, BlockVolume } = mc;
 
@@ -1022,7 +1023,8 @@ try {
       }
     });
 
-    system.runInterval(() => {
+    // O3-5: relógio único (core/scheduler.js), fase 77 (O3_DETALHE.md §2)
+    every(100, "villages.golem_memory", () => {
       if (lastOffence.size === 0) return;
       for (const [id, tick] of lastOffence) {
         if (system.currentTick - tick < GOLEM_MEMORY_TICKS) continue;
@@ -1034,7 +1036,7 @@ try {
           /* ignore */
         }
       }
-    }, 100);
+    }, { phase: 77 });
   });
 } catch (e) {
   console.warn("[Villages] golem hook failed: " + e);
@@ -1042,7 +1044,8 @@ try {
 
 
 // Demonic iron golems belong to Hell only: remove any that earlier versions left behind on the other planets/overworld.
-system.runInterval(() => {
+// O3-5: relógio único (core/scheduler.js), fase 133; registrado na carga, começa no worldLoad (O3_DETALHE.md §2 e §4)
+every(200, "villages.demon_golems", () => {
   for (const dimId of ["minecraft:overworld", "dbe:vegeta", "dbe:frieza_planet", "dbe:yardrat", "dbe:namek", "dbe:space"]) {
     try {
       for (const g of world.getDimension(dimId).getEntities({ type: GOLEM_ID })) g.remove();
@@ -1050,4 +1053,4 @@ system.runInterval(() => {
       /* dimension not loaded / no players there */
     }
   }
-}, 200);
+}, { phase: 133 });

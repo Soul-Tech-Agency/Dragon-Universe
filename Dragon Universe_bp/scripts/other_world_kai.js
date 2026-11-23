@@ -12,6 +12,7 @@ import { acquireLoadedArea, releaseLoadedArea, safeTeleport, travelOrigin } from
  *   /scriptevent dbe:kai_planet_rebuild -> rebuilds it where it is
  */
 import * as mc from "@minecraft/server";
+import { every } from "./core/scheduler.js";
 
 const { world, system } = mc;
 
@@ -212,13 +213,14 @@ function scan() {
 }
 
 world.afterEvents.worldLoad.subscribe(() => {
-  system.runInterval(() => {
+  // O3-3: relógio único (core/scheduler.js), fase 4 (O3_DETALHE.md §2)
+  every(SCAN_TICKS, "kai.scan", () => {
     try {
       scan();
     } catch (e) {
       console.warn("[KaiPlanet] scan error: " + e);
     }
-  }, SCAN_TICKS);
+  }, { phase: 4 });
 
   system.afterEvents.scriptEventReceive.subscribe((ev) => {
     const src = ev.sourceEntity;
