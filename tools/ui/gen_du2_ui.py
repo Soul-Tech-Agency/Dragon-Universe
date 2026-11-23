@@ -1776,8 +1776,10 @@ def hud_bar_row(icon, icol, cap_key, key, on_tex):
     ])
 
 
-def hud_values(rows, w_caps, w_vals):
-    """Ícone fixo + legenda traduzida por linha e, à direita, as linhas do subtítulo train_vals."""
+def hud_values(rows, w_caps, w_vals, token_vals=None):
+    """Ícone fixo + legenda traduzida por linha e, à direita, as linhas do subtítulo train_vals.
+    token_vals: {linha: [(token, chave de lang)]} = valor traduzido pelo JSON na linha, escolhido por token do
+    título (o train_vals chega cru e não traduz código; a linha correspondente do train_vals vem vazia)."""
     icons = [c(f"i{k}", P([12, 10], [c("x", img(I + ic, [9, 9], col))])) for k, (ic, col, _) in enumerate(rows)]
     caps = [c(f"c{k}", hud_lbl(key, ["100%", 10], "weak")) for k, (_, _, key) in enumerate(rows)]
     vals = c("v@templates.preserved_title_display", {
@@ -1786,7 +1788,11 @@ def hud_values(rows, w_caps, w_vals):
     return H([12 + w_caps + w_vals, 10 * len(rows)], [
         c("icons", V([12, "100%"], icons)),
         c("caps", V([w_caps, "100%"], caps)),
-        c("vals", P([w_vals, "100%"], [vals], clips_children=True)),
+        c("vals", P([w_vals, "100%"], [vals] + [
+            c(f"t{row}_{k}", hud_lbl(key, ["100%", 10], "value", "right", offset=[0, 10 * row],
+                                     anchor_from="top_right", anchor_to="top_right", bindings=has_token(tok)))
+            for row, opts in (token_vals or {}).items() for k, (tok, key) in enumerate(opts)],
+            clips_children=True)),
     ])
 
 
@@ -1899,7 +1905,9 @@ th["physical"] = hud_card("phys", "train_physical", "ui.dbe.training.physical.ti
 
 th["mental"] = hud_card("ment", "train_mental", "ui.dbe.training.mental.title", [
     c("vals", hud_values([("clock", "cyan", "ui.dbe.du2.time"), ("train_mental", "purple", "ui.dbe.du2.mode")],
-                         58, HUD_W - 10 - 12 - 58)),
+                         58, HUD_W - 10 - 12 - 58,
+                         token_vals={1: [("ment_mode:memory;", "ui.dbe.training.mental.memory"),
+                                         ("ment_mode:challenge;", "ui.dbe.training.mental.challenge")]})),
     pad("100%", 4),
     c("boss", hud_bar_row("ach_defeat", "red", "ui.dbe.du2.boss_hp", "ment_boss_hp", "bar_red_on")),
 ])
