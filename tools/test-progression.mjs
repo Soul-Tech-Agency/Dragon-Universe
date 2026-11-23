@@ -5,6 +5,9 @@ import url from "node:url";
 
 const ROOT = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), "..");
 const mod = await import(url.pathToFileURL(path.join(ROOT, "Dragon Universe_bp", "scripts", "progression", "progression.js")).href);
+const dataUrl = (f) => url.pathToFileURL(path.join(ROOT, "Dragon Universe_bp", "scripts", "data", f)).href;
+const allQuests = [...(await import(dataUrl("main_quests_data.js"))).main_quests_data, ...(await import(dataUrl("side_quests_data.js"))).side_quests_data,
+  ...(await import(dataUrl("challenge_quests_data.js"))).challenge_quests_data];
 const { progression_data } = await import(url.pathToFileURL(path.join(ROOT, "Dragon Universe_bp", "scripts", "data", "progression_data.js")).href);
 
 const player = ({ saved, completed = [], active = [] } = {}) => {
@@ -64,19 +67,38 @@ test("6. entidade sem hasTag utilizável (inválida) não marca", () => {
   const p = player();
   eq(mod.recordBossKill(p, { typeId: "dbe:cell", hasTag() { throw new Error("inválida"); } }), false, "marcou");
 });
-test("7. luta de sobrevivência não entra no backfill: saga_beerus_1 concluída não marca o Beerus", () => {
-  eq(mod.SURVIVAL_FIGHTS_COUNT, false, "flag");
+test("7. sobreviver à luta conta (decisão do usuário): saga_beerus_1 concluída marca o Beerus no backfill", () => {
+  eq(mod.SURVIVAL_FIGHTS_COUNT, true, "flag");
   const p = player({ completed: ["saga_beerus_1"] });
-  eq(mod.hasDefeated(p, "dbe:beerus_enemy"), false, "Beerus marcado");
+  eq(mod.hasDefeated(p, "dbe:beerus_enemy"), true, "Beerus marcado");
   eq(mod.isSurvivalFight({ completeOnTimeout: true }, {}), true, "completeOnTimeout");
   eq(mod.isSurvivalFight({}, { entityDefinitions: { alwaysDodge: true } }), true, "alwaysDodge");
 });
-test("8. idem em missão em andamento: objetivo completeOnTimeout ou chefe alwaysDodge não marcam", () => {
-  const timed = { isCompleted: true, objectiveData: { completeOnTimeout: true }, getTasks: () => [task("defeat_enemy", "dbe:frieza")] };
-  const dodge = objective(true, task("defeat_enemy", "dbe:cell", { alwaysDodge: true }));
-  const normal = objective(true, task("defeat_enemy", "dbe:dabura"));
-  const p = player({ active: [{ getAllObjectives: () => [timed, dodge, normal] }] });
-  eq(mod.listDefeated(p).map((b) => b.id), ["dbe:dabura"], "derrotados");
+test("8. ao vivo: o fim do objetivo de sobrevivência soma 1 vitória só para o dono; objetivo normal não soma no fim", () => {
+  const beerus = { objectiveData: { completeOnTimeout: true }, getTasks: () => [task("defeat_enemy", "dbe:beerus_enemy", { alwaysDodge: true })] };
+  const normal = { objectiveData: {}, getTasks: () => [task("defeat_enemy", "dbe:dabura")] };
+  const owner = player(), other = player();
+  eq(mod.recordObjectiveWin(owner, beerus), ["dbe:beerus_enemy"], "marcados no fim");
+  eq(mod.recordObjectiveWin(owner, normal), [], "objetivo normal (a vitória vem do abate)");
+  eq(mod.listDefeated(owner).map((b) => [b.id, b.wins]), [["dbe:beerus_enemy", 1]], "dono");
+  eq(mod.listDefeated(other).length, 0, "outro jogador");
 });
-console.log(failed ? `\n${failed} caso(s) falharam.` : "\nOK: 8 casos.");
+test("9. backfill e ao vivo dão o mesmo resultado em cada missão (abates + fins de objetivo de sobrevivência)", () => {
+  let checked = 0;
+  for (const q of allQuests) {
+    // ao vivo: mata cada chefe das tarefas normais e termina cada objetivo (o fim soma as lutas de sobrevivência)
+    const live = player({ saved: { v: 1, bosses: {} } });
+    for (const o of q.objectives ?? []) {
+      for (const t of o.tasks ?? []) if (t.type === "defeat_enemy" && !mod.isSurvivalFight(o, t)) mod.recordBossKill(live, entity(t.entity));
+      mod.recordObjectiveWin(live, { objectiveData: o, getTasks: () => (o.tasks ?? []).map((t) => ({ taskData: t })) });
+    }
+    const back = player({ completed: [q.id] });
+    eq(mod.listDefeated(live).map((b) => b.id), mod.listDefeated(back).map((b) => b.id), "missão " + q.id);
+    checked++;
+  }
+  if (checked < 50) throw new Error("poucas missões conferidas: " + checked);
+  const beerus = player({ completed: ["saga_beerus_1"] });
+  eq(mod.hasDefeated(beerus, "dbe:beerus_enemy"), true, "Beerus no backfill");
+});
+console.log(failed ? `\n${failed} caso(s) falharam.` : "\nOK: 9 casos.");
 process.exit(failed ? 1 : 0);

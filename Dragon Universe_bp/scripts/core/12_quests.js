@@ -9,7 +9,7 @@ import { fC, fR } from "./11_entity_wrapper.js";
 import { cY } from "./04_tournament_dims.js";
 import { eO } from "./08_fusion_regions.js";
 import { d2, d4 } from "./05_db_cooldowns.js";
-import { recordBossKill as duRecordBossKill } from "../progression/progression.js";
+import { recordBossKill as duRecordBossKill, recordObjectiveWin as duRecordObjectiveWin } from "../progression/progression.js";
 var g0 = class {
     earlyAccessType = "private";
     isEarlyAccessEnabled = !1;
@@ -1016,6 +1016,12 @@ var gZ = class {
         }
       }
       this._progress.isCompleted = !0;
+      // registro de chefes: sobreviver a uma luta por tempo (Beerus da saga_beerus_1) conta como vitória, só para o dono
+      try {
+        duRecordObjectiveWin(this.dbePlayer, this);
+      } catch (error) {
+        console.warn("[Dragon Universe] boss registry (objective) failed: " + (error?.stack ?? error));
+      }
       this.stopObjective();
       this.notifyProgressChanged();
       return !0;

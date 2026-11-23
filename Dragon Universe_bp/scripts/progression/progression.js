@@ -9,7 +9,10 @@
 // Saves antigos: na primeira leitura sem v: 1, marca os chefes das tarefas defeat_enemy das missões concluídas e dos
 // objetivos já concluídos das missões em andamento (com 1 vitória), e grava v: 1. Roda uma vez por jogador.
 // Lutas de sobrevivência (objetivo com completeOnTimeout, ou chefe com alwaysDodge: hoje só o Beerus da
-// saga_beerus_1) terminam por tempo, sem ninguém matar o chefe: o backfill NÃO as marca (SURVIVAL_FIGHTS_COUNT).
+// saga_beerus_1) terminam por tempo, sem ninguém matar o chefe. Decisão do usuário (2026-11-23): sobreviver conta
+// como vitória (SURVIVAL_FIGHTS_COUNT = true). Ao vivo, o núcleo chama recordObjectiveWin quando um objetivo termina
+// (core/12_quests.js, completeObjective), só para o jogador dono do objetivo; o backfill marca as mesmas lutas nas
+// missões e objetivos concluídos. Os dois usam o mesmo critério (survivalTargets), então dão o mesmo resultado.
 // Num abate em grupo, só quem deu o golpe final (damagingEntity) ganha o registro, como na tarefa defeat_enemy.
 // Este módulo não importa o index.js: recebe o wrapper do jogador (dbePlayer) de quem chama.
 import { progression_data } from "../data/progression_data.js";
@@ -22,10 +25,8 @@ export const MENTAL_REPLICA_TAG = "dbe:mental_replica";
 const VERSION = 1;
 export const BOSS_IDS = progression_data.bosses.map((b) => b.id);
 const BOSS_SET = new Set(BOSS_IDS);
-// Decisão pendente do usuário (Sentinela, 1744f5b): o Beerus sai da lista ou sobreviver à luta conta como vitória?
-// Para contar: true aqui (vale para o backfill) e, ao vivo, chamar recordBossWin(dbePlayer, typeId) quando um objetivo
-// completeOnTimeout com tarefa defeat_enemy de chefe terminar. Para tirar: apagar a linha dele em progression_data.js.
-export const SURVIVAL_FIGHTS_COUNT = false;
+// Para voltar a não contar: false aqui (o backfill e o ao vivo param juntos).
+export const SURVIVAL_FIGHTS_COUNT = true;
 /** Luta que termina por tempo, sem abate (dados do objetivo e da tarefa). */
 export function isSurvivalFight(objectiveData, taskData) {
   return !!objectiveData?.completeOnTimeout || !!taskData?.entityDefinitions?.alwaysDodge;
@@ -38,6 +39,12 @@ export function isBoss(typeId) {
 
 const countsInBackfill = (objectiveData, taskData) =>
   taskData?.type === "defeat_enemy" && isBoss(taskData.entity) && (SURVIVAL_FIGHTS_COUNT || !isSurvivalFight(objectiveData, taskData));
+
+/** Chefes de luta de sobrevivência de um objetivo (dados), que contam ao terminar o objetivo. */
+export function survivalTargets(objectiveData, tasksData) {
+  if (!SURVIVAL_FIGHTS_COUNT) return [];
+  return (tasksData ?? []).filter((t) => t?.type === "defeat_enemy" && isBoss(t.entity) && isSurvivalFight(objectiveData, t)).map((t) => t.entity);
+}
 
 function defeatTargets(objectives) {
   const ids = [];
@@ -76,6 +83,13 @@ export function recordBossKill(dbePlayer, entity) {
     return false; // sem como saber se é réplica: não marca
   }
   return recordBossWin(dbePlayer, entity.typeId);
+}
+
+/** Fim de um objetivo (ao vivo): soma 1 vitória por chefe de luta de sobrevivência dele. Devolve os chefes marcados. */
+export function recordObjectiveWin(dbePlayer, objective) {
+  const tasks = (objective?.getTasks?.() ?? []).map((t) => t.taskData);
+  const ids = survivalTargets(objective?.objectiveData, tasks);
+  return ids.filter((id) => recordBossWin(dbePlayer, id));
 }
 
 /** Soma uma vitória sobre o chefe typeId (abate; ou, se SURVIVAL_FIGHTS_COUNT, sobreviver à luta). */
