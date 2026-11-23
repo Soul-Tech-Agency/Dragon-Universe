@@ -16,7 +16,8 @@ var hM = class {
     constructor(sG) {
       this.inputPermissions = sG;
       // Native permissions survive reconnects; the transient owners below are rebuilt for this session.
-      this.setPermissions([bW.Movement, bW.Camera], !0);
+      // Jump também: o treino de concentração o bloqueia, e um jogador que saiu no meio voltaria sem pular.
+      this.setPermissions([bW.Movement, bW.Camera, bW.Jump].filter((sH) => sH !== void 0), !0);
     }
     blockedPermissions = new Map();
     blockInputPermission(sG, sH) {

@@ -1444,6 +1444,7 @@ ui.dbe.training.button.concentration=Concentration
 ui.dbe.training.button.stop_concentration=Stop concentration
 ui.dbe.training_mental.title=Mental Training
 ui.dbe.training_mental.confirm.title=Mental Training: choose the difficulty
+ui.dbe.training.concentration.interrupted=§eConcentration training interrupted: the reward so far was paid.
 ui.dbe.transformations.title=Transformations
 ui.dbe.weight.text=Use weights during training to speed up your progress. Your defense and speed will be reduced while using this item.
 ui.dbe.wishes.title=Wishes

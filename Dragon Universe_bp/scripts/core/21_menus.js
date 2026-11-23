@@ -95,7 +95,7 @@ function k1(sG) {
     sO && sN.push(...sI.getDescription(sO).rawtext, { text: "\n\n" });
   }
   sL.getActiveQuests().length && sN.push(...sL.describeQuests().rawtext),
-    sH.isTraining && sN.push(...sH.getDescription().rawtext),
+    sH.isTraining && kG.TRAINING_HUD_ACTIONBAR && sN.push(...sH.getDescription().rawtext), // painel no HUD (§11)
     sN.length && sK.onScreenDisplay.setActionBar(sN);
 }
 var k2 = ["dbe:menu", "dbe:functions", "dbe:techniques"],

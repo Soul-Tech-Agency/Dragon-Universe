@@ -1444,6 +1444,7 @@ ui.dbe.training.button.concentration=Entrenamiento de concentración
 ui.dbe.training.button.stop_concentration=Finalizar Entrenamiento de concentración
 ui.dbe.training_mental.title=Entrenamiento mental
 ui.dbe.training_mental.confirm.title=Entrenamiento mental: elige la dificultad
+ui.dbe.training.concentration.interrupted=§eEntrenamiento de concentración interrumpido: se pagó la recompensa hasta aquí.
 ui.dbe.transformations.title=Transformaciones
 ui.dbe.weight.text=Utiliza pesas en tu entrenamiento para acelerar el progreso, tu defensa y velocidad se verán afectadas al usar este objeto.
 ui.dbe.wishes.title=Deseos

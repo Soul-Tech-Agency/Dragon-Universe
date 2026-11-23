@@ -66,6 +66,27 @@ const CONFIG = {
    */
   CONCENTRATION_COOLDOWN_TICKS: 24e3,
   /**
+   * Treino de concentração reformulado (planos/TREINOS.md §1; decisões 8 e 12). Grade 3x3 fixa à frente do jogador,
+   * orbs criados uma vez; a cada ciclo só muda a cor. COMBO_MULTIPLIES e o cálculo do ritmo são regra provisória
+   * (pergunta H ao usuário): hoje o combo é só exibição.
+   */
+  CONCENTRATION: {
+    GRID_DISTANCE: 2.5, // blocos à frente dos olhos
+    GRID_SPACING: 0.8, // distância entre orbs vizinhos
+    START_CYCLE_TICKS: 20, // ciclo com 0 pontos (como antes)
+    MIN_CYCLE_TICKS: 6, // ciclo mais rápido (antes chegava a 1)
+    MAX_SESSION_TICKS: 1800, // 90 s
+    MAX_REWARD: 10, // AP por sessão (50 pontos)
+    MAX_ATTEMPTS: 5,
+    COUNTDOWN_TICKS: 60, // 3-2-1
+    LEASH: 3, // blocos do ponto inicial antes de interromper
+    COMBO_MULTIPLIES: false,
+  },
+  /**
+   * Painel do treino no HUD (CONTRATO §11.4): true volta a mandar também o texto antigo na action bar.
+   */
+  TRAINING_HUD_ACTIONBAR: false,
+  /**
    * Configurações do sistema de proteção.
    */
   CLAIM: {
