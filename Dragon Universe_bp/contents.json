@@ -1972,6 +1972,9 @@
          "path" : "scripts/core/17_items_balls_fusion.js"
       },
       {
+         "path" : "scripts/core/18_wishes.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
