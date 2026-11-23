@@ -2011,6 +2011,9 @@
          "path" : "scripts/core/30_structures_regions.js"
       },
       {
+         "path" : "scripts/core/31_shop_registry.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {

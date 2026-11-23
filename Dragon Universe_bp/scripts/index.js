@@ -179,15 +179,7 @@ import { Player as r7 } from "@minecraft/server";
 import "./core/30_structures_regions.js"; // O4: movido do index.js
 import { shop_data as rI } from "./data/shop_data.js";
 import { system as rJ } from "@minecraft/server";
-function rK() {
-  for (let sG of rI) jU.register(sG);
-  rJ.afterEvents.scriptEventReceive.subscribe(({ id: sH, message: sI }) => {
-    if (sH === "dbe:shop_registry") {
-      for (let sK of JSON.parse(sI)) jU.register(sK);
-    }
-  });
-}
-rK();
+import "./core/31_shop_registry.js"; // O4: movido do index.js
 import { skills_data as rL } from "./data/skills_data.js";
 import { EntityComponentTypes as rM, GameMode as rN, system as rO } from "@minecraft/server";
 var rP = class extends cH {
