@@ -36,10 +36,10 @@
                         "weapons_controller",
                         "walk_controller",
                         {
-                            "pushup": "v.is_pushup && !v.is_first_person && !v.is_oozaru && !v.is_paperdoll"
+                            "pushup": "v.is_pushup && !v.is_first_person && !v.is_oozaru && !q.is_in_ui"
                         },
                         {
-                            "pushup_tail": "v.is_pushup && !v.is_first_person && !v.is_oozaru && !v.tail_curled && !v.is_paperdoll"
+                            "pushup_tail": "v.is_pushup && !v.is_first_person && !v.is_oozaru && !v.tail_curled && !q.is_in_ui"
                         },
                         {
                             "holding_attachable": "v.is_first_person && q.equipped_item_any_tag('slot.weapon.mainhand', 'hold')"
