@@ -150,6 +150,11 @@ function pumpTerrainJob(runner) {
   return job;
 }
 
+// Probe hook (core/perf.js): terrain jobs no longer go through system.runJob, so the probe wraps them here. wrap is
+// called while the caller of runTerrainJob is still on the stack, with the job label (Kaioshin, space/planet key, Future,
+// terrain repair); null (the default) costs nothing.
+export const terrainJobProbe = { wrap: null };
+
 export function runTerrainJob(generator, { timeoutTicks = 2400, inactivityTicks, activity, label = "Terrain job" } = {}) {
   let resolve, reject;
   const completion = new Promise((yes, no) => { resolve = yes; reject = no; });
@@ -202,7 +207,7 @@ export function runTerrainJob(generator, { timeoutTicks = 2400, inactivityTicks,
     if (inactivityTicks !== undefined && typeof activity !== "function") throw new Error("Terrain inactivity timeout requires verified progress");
     observeProgress();
     timerId = system.runTimeout(checkDeadline, budget);
-    job = pumpTerrainJob(runner);
+    job = pumpTerrainJob(terrainJobProbe.wrap?.(runner, label) ?? runner);
   } catch (error) { stop(error); }
   return completion;
 }
@@ -285,7 +290,7 @@ async function loadedColumnJob(spec, bounds, work, chunkDone) {
             for (let z = Math.max(cz * 16, bounds.z1); z <= Math.min(cz * 16 + 15, bounds.z2); z++) { work(dimension, x, z); yield; }
           }
           if (chunkDone) yield* chunkDone(dimension, cx, cz);
-        })());
+        })(), { label: "Terrain repair " + spec.dimensionId });
       } finally { releaseLoadedArea(area); }
     }
   }
