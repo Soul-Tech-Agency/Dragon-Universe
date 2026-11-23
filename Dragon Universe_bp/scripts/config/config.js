@@ -116,7 +116,7 @@ const CONFIG = {
     DAILY_COOLDOWN_TICKS: 24000,
     BOSS_COOLDOWN_TICKS: 24000,
     CHALLENGE_LEVEL_MULT: 1.1,
-    MIN_DAMAGE_SHARE: 0.8,
+    DEBUG_DAMAGE: false, // true só no teste: log de dano na réplica que não veio do dono (ki/explosão/combo)
     LEASH: 32,
     SPAWN_RADIUS: 6,
     COUNTDOWN_TICKS: 60,

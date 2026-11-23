@@ -9,6 +9,9 @@
 //   - O combate mental não mata: dano letal no jogador durante a luta deixa a vida em 1 e encerra ("a mente cedeu").
 //   - Fim por vitória, derrota, tempo (TIME_LIMIT_TICKS), desistência (tela Treino), saída, morte, troca de dimensão,
 //     ou o dono a mais de LEASH blocos. A réplica sai sempre (mental_exit) e a névoa dbe:fog_mental também.
+//   - O gancho de dano roda dentro de world.beforeEvents.entityHurt (só leitura): ele só decide e cancela. Vitória e
+//     derrota marcam session.ending e o fim de verdade (vida 1, remover a réplica, névoa, recompensa) roda no
+//     system.run seguinte; até lá, todo dano à réplica e todo dano letal ao dono continuam cancelados.
 //   - Recompensa: 1ª vitória por chefe e dificuldade = pontos de habilidade (e AP no Desafio), uma vez só; vitória
 //     repetida = REPEAT_XP_PCT do XP do próximo nível, no máximo DAILY_REPEATS por dia (cooldown mental_training_daily);
 //     o mesmo chefe 1 vez por dia (cooldown mental:<chefe>, marcado na vitória).
@@ -29,7 +32,7 @@ const DEFAULTS = {
   DAILY_COOLDOWN_TICKS: 24000,
   BOSS_COOLDOWN_TICKS: 24000,
   CHALLENGE_LEVEL_MULT: 1.1,
-  MIN_DAMAGE_SHARE: 0.8,
+  DEBUG_DAMAGE: false, // true só no teste: log (1x por sessão e origem) de dano na réplica que não veio do dono: conferir ki/explosão/combo
   LEASH: 32,
   SPAWN_RADIUS: 6,
   COUNTDOWN_TICKS: 60,
@@ -94,29 +97,43 @@ export const formatTicks = (ticks) => {
  * Gancho do serviço de dano (core/16_damage.js), antes de aplicar o dano. Devolve true quando o dano deve ser
  * cancelado. hurtEntity/hurtDbe: quem leva; damager: a entidade que causou (ou undefined); health: a barra de vida dbe.
  */
-export function mentalDamageHook(hurtEntity, hurtDbe, damager, damage, health) {
+export function mentalDamageHook(hurtEntity, hurtDbe, damager, damage, health, cause) {
   const lethal = () => health.currentValue - Math.floor(damage - health.getDamageReduction(damage)) <= 0;
   const asReplica = sessionsByReplica.get(hurtEntity.id);
   if (asReplica) {
-    if (!damager || damager.id !== asReplica.ownerId) return true; // só o dono causa dano na réplica
-    if (asReplica.countdown > 0) return true;
-    asReplica.ownerDamage += Math.max(0, damage);
-    if (lethal()) {
-      asReplica.training.finish("win");
+    if (asReplica.ending || asReplica.countdown > 0) return true;
+    if (!damager || damager.id !== asReplica.ownerId) {
+      // só o dono causa dano na réplica; o log ajuda a conferir no jogo se ki/explosão/combo chegam como o jogador
+      if (asReplica.training.config.DEBUG_DAMAGE) {
+        const key = (damager?.typeId ?? "none") + "|" + (cause ?? "?");
+        if (!asReplica.loggedDamage.has(key)) {
+          asReplica.loggedDamage.add(key);
+          console.warn("[Mental training] damage on replica ignored: damager=" + (damager?.typeId ?? "none") + " cause=" + (cause ?? "?"));
+        }
+      }
       return true;
     }
+    if (lethal()) return endLater(asReplica, "win"), true;
     return false;
   }
   const asOwner = sessionsByOwner.get(hurtEntity.id);
   if (asOwner && lethal()) {
-    // o combate mental não mata: vida 1, sem Outro Mundo
-    try {
-      health.setCurrent(1);
-    } catch {}
-    asOwner.training.finish("lose");
+    // o combate mental não mata: o dano é cancelado agora; a vida 1 e o fim vêm no tick seguinte
+    if (!asOwner.ending) endLater(asOwner, "lose", health);
     return true;
   }
   return false;
+}
+// marca o fim e adia as escritas para fora do beforeEvent (system.run)
+function endLater(session, outcome, health) {
+  session.ending = outcome;
+  system.run(() => {
+    if (health)
+      try {
+        health.setCurrent(1);
+      } catch {}
+    session.training.finish(outcome);
+  });
 }
 
 export class MentalTraining {
@@ -186,11 +203,12 @@ export class MentalTraining {
       origin: { ...player.location },
       countdown: c.COUNTDOWN_TICKS,
       ticks: 0,
-      ownerDamage: 0,
       replica: undefined,
       replicaDbe: undefined,
       lastVals: undefined,
       lastHp: undefined,
+      ending: undefined,
+      loggedDamage: new Set(),
     };
     sessionsByOwner.set(player.id, this.session);
     try {
@@ -241,12 +259,14 @@ export class MentalTraining {
     const s = this.session;
     if (!s) return;
     const p = this.dbePlayer, player = p.player, c = this.config;
+    if (s.ending) return; // o fim já foi marcado pelo gancho de dano; o finish roda no system.run
     if (!player.isValid) return this.finish("cancel");
     if (player.dimension.id !== s.dimensionId) return this.finish("cancel");
     if (s.countdown > 0) {
       p.title.setTitle("train_count", Math.ceil(s.countdown / 20) + ";");
       if (--s.countdown === 0) {
         p.title.setTitle("train_count", undefined);
+        p.title.setTitle("ment_mode", s.difficulty + ";"); // 38237c1: o modo vai por token; a 2ª linha do train_vals fica vazia
         this.spawnReplica();
         this.updateHud();
       }
@@ -266,7 +286,7 @@ export class MentalTraining {
     const p = this.dbePlayer, c = this.config, health = s.replicaDbe?.health;
     const hp = health ? Math.max(0, Math.min(10, Math.round((10 * health.currentValue) / Math.max(1, health.maxValue)))) : 10;
     if (hp !== s.lastHp) (s.lastHp = hp), p.title.setTitle("ment_boss_hp", hp + ";");
-    const vals = [formatTicks(c.TIME_LIMIT_TICKS - s.ticks), s.difficulty].join("\n");
+    const vals = formatTicks(c.TIME_LIMIT_TICKS - s.ticks) + "\n";
     if (vals !== s.lastVals) (s.lastVals = vals), p.title.setSubtitle("train_vals", vals);
   }
   /** outcome: "win" | "lose" | "timeout" | "cancel". Um caminho só de fim: réplica, névoa, HUD, recompensa e save. */
@@ -287,7 +307,7 @@ export class MentalTraining {
       }
     } catch {}
     try {
-      for (const key of ["train_hud", "train_count", "ment_boss_hp"]) p.title.setTitle(key, undefined);
+      for (const key of ["train_hud", "train_count", "ment_boss_hp", "ment_mode"]) p.title.setTitle(key, undefined);
       p.title.setSubtitle("train_vals");
     } catch {}
     if (!player.isValid) return;
@@ -298,9 +318,7 @@ export class MentalTraining {
       player.sendMessage({ translate: "ui.dbe.training.mental." + (outcome === "lose" ? "lose" : outcome === "timeout" ? "timeout" : "cancel") });
       return;
     }
-    // vitória: o dono precisa ter causado a maior parte do dano (só ele causa, então é uma rede a mais)
-    const total = Math.max(1, s.ownerDamage);
-    if (s.ownerDamage / total < c.MIN_DAMAGE_SHARE) return player.sendMessage({ translate: "ui.dbe.training.mental.cancel" });
+    // (sem MIN_DAMAGE_SHARE: só o dono consegue causar dano na réplica, então a parte dele é sempre 100%)
     const clears = { ...this.clearsOf(s.bossId) };
     const first = !clears[s.difficulty];
     clears[s.difficulty] = (clears[s.difficulty] ?? 0) + 1;

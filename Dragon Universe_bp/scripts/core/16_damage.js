@@ -69,7 +69,7 @@ var i9 = class {
           }
         }
         // treino mental: só o dono fere a réplica; o golpe letal nela é vitória e no jogador deixa a vida em 1
-        if (duMentalDamageHook(sI, sO, sL, sG.damage, sU)) {
+        if (duMentalDamageHook(sI, sO, sL, sG.damage, sU, sK)) {
           sG.cancel = !0;
           return;
         }
