@@ -267,8 +267,10 @@ var jw = class extends jj {
   },
   jC = new jB(),
   jD = class {
+    // chamado a cada 20 ticks por jogador sem radar na mão (onTickEvent): só grava quando o valor não é 0, para não mandar
+    // um setProperty com client_sync por segundo à toa (achado do Arquiteto no teste da 1.7.19)
     reset(sG) {
-      sG.setProperty("dbe:dragon_radar_location", 0);
+      sG.getProperty("dbe:dragon_radar_location") !== 0 && sG.setProperty("dbe:dragon_radar_location", 0);
     }
     scanDragonBalls(sG) {
       let sH = iH.getRadarDetectableBalls(sG.dimension, sG.location)[0],
