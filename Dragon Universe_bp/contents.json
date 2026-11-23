@@ -2008,6 +2008,9 @@
          "path" : "scripts/core/29_future_city.js"
       },
       {
+         "path" : "scripts/core/30_structures_regions.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
