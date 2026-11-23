@@ -1978,6 +1978,9 @@
          "path" : "scripts/core/19_ki_explosion.js"
       },
       {
+         "path" : "scripts/core/20_shop_dialogues.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
