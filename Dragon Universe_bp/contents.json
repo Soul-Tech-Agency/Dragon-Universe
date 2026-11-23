@@ -1966,6 +1966,9 @@
          "path" : "scripts/core/15_entities.js"
       },
       {
+         "path" : "scripts/core/16_damage.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
