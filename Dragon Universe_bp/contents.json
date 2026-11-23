@@ -1993,6 +1993,9 @@
          "path" : "scripts/core/24_npc_registries.js"
       },
       {
+         "path" : "scripts/core/25_terrain_generator.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
