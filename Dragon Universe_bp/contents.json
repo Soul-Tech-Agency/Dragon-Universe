@@ -529,6 +529,12 @@
          "path" : "entities/training_orb.json"
       },
       {
+         "path" : "entities/trader_llama.json"
+      },
+      {
+         "path" : "entities/wandering_trader.json"
+      },
+      {
          "path" : "entities/vehicles/capsule_991.json"
       },
       {
@@ -1951,6 +1957,9 @@
          "path" : "scripts/world_landmarks.js"
       },
       {
+         "path" : "scripts/world_residents.js"
+      },
+      {
          "path" : "scripts/world_spawn_policy.js"
       },
       {
@@ -2054,6 +2063,27 @@
       },
       {
          "path" : "structures/dbe/bills_planet/bills_5.mcstructure"
+      },
+      {
+         "path" : "structures/dbe/bills_planet/prop_cushion_1.mcstructure"
+      },
+      {
+         "path" : "structures/dbe/bills_planet/prop_cushion_2.mcstructure"
+      },
+      {
+         "path" : "structures/dbe/bills_planet/prop_fish_oracle.mcstructure"
+      },
+      {
+         "path" : "structures/dbe/bills_planet/prop_fish_puffer.mcstructure"
+      },
+      {
+         "path" : "structures/dbe/bills_planet/prop_fish_tropical_1.mcstructure"
+      },
+      {
+         "path" : "structures/dbe/bills_planet/prop_fish_tropical_2.mcstructure"
+      },
+      {
+         "path" : "structures/dbe/bills_planet/prop_fish_tropical_3.mcstructure"
       },
       {
          "path" : "structures/dbe/cell_arena.mcstructure"

@@ -17,10 +17,11 @@
  *            /scriptevent dbe:landmarks_retry key  -> unlocks a spot that gave up
  */
 import * as mc from "@minecraft/server";
-import { acquireLoadedArea, releaseLoadedArea, isSafeStanding } from "./travel_safety.js";
+import { acquireLoadedArea, releaseLoadedArea, isSafeStanding, areaReady } from "./travel_safety.js";
 import { friezaLandmarkEnv } from "./space_planets.js";
 import { namekLandmarkEnv } from "./namek_dimension.js";
 import { tournaments_data } from "./data/tournaments_data.js";
+import { addResident } from "./world_residents.js";
 
 const { world, system, BlockVolume } = mc;
 
@@ -135,14 +136,28 @@ const grid = (prefix, widths, depths) => {
  * dim: "overworld" or a key of ENV. size: x, y, z of the assembled structure. pieces: structure ids with their offset.
  * biomes: overworld biomes to look for. maxRange: allowed height difference across the footprint. foundation: fill block.
  */
+// Garrison: enemies of a landmark that come back GARRISON_EVERY ticks of game time after the last full batch, with a player
+// near. Troops only: a boss as guard would be born weak and complete its saga step (quests count every kill of the type).
+const GARRISON_EVERY = 36000; // 30 min
+const GARRISON_TYPES = new Set(["dbe:frieza_soldier", "dbe:battle_jacket", "dbe:bear_thief"]);
+
 const SPECS = [
   { key: "piccolo_house", dim: "overworld", size: { x: 42, y: 27, z: 23 }, pieces: single("dbe:landmarks/piccolo_house", { x: 42, z: 23 }), biomes: LAND, maxRange: 8, foundation: "minecraft:dirt", skirt: PICCOLO_SKIRT, followUp: touchUp("piccolo_house") },
-  { key: "yamcha_house", dim: "overworld", size: { x: 26, y: 45, z: 25 }, pieces: single("dbe:landmarks/yamcha_house", { x: 26, z: 25 }), biomes: ["minecraft:desert"], maxRange: 8, foundation: "minecraft:sandstone", floor: YAMCHA_FLOOR, skirt: YAMCHA_SKIRT, followUp: touchUp("yamcha_house") },
-  { key: "red_ribbon_tower", dim: "overworld", size: { x: 33, y: 65, z: 32 }, pieces: single("dbe:landmarks/red_ribbon_tower", { x: 33, z: 32 }), biomes: LAND, maxRange: 8, foundation: "minecraft:dirt" },
-  { key: "frieza_army_base", dim: "frieza", size: { x: 59, y: 46, z: 59 }, pieces: single("dbe:landmarks/frieza_army_base", { x: 59, z: 59 }), maxRange: 7, foundation: "dbe:frieza_soil", floor: FRIEZA_FLOOR, followUp: touchUp("frieza_army_base") },
-  { key: "guru_house", dim: "namek", size: { x: 91, y: 105, z: 91 }, pieces: grid("dbe:landmarks/guru_house_", [64, 27], [64, 27]), maxRange: 12, foundation: "dbe:namek_stone" },
-  { key: "capsule_corp", dim: "overworld", size: { x: 141, y: 42, z: 154 }, pieces: grid("dbe:landmarks/capsule_corp_", [64, 64, 13], [64, 64, 26]), biomes: ["minecraft:plains", "dbe:dirtstone_plains", "dbe:west_forest"], maxRange: 10, foundation: "minecraft:dirt" },
-  { key: "martial_arts_tournament", dim: "overworld", size: { x: 110, y: 21, z: 100 }, pieces: grid("dbe:landmarks/martial_arts_tournament_", [64, 46], [64, 36]), biomes: ["minecraft:plains", "minecraft:sunflower_plains", "dbe:dirtstone_plains"], maxRange: 6, foundation: "minecraft:dirt", enabled: () => martialArtsMode() === "relative", onPlaced: martialArtsPlaced, followUp: { pending: (spot) => !spot.announcer, run: spawnAnnouncer } },
+  { key: "yamcha_house", dim: "overworld", size: { x: 26, y: 45, z: 25 }, pieces: single("dbe:landmarks/yamcha_house", { x: 26, z: 25 }), biomes: ["minecraft:desert"], maxRange: 8, foundation: "minecraft:sandstone", floor: YAMCHA_FLOOR, skirt: YAMCHA_SKIRT, followUp: touchUp("yamcha_house"),
+    garrison: { every: GARRISON_EVERY, mobs: [{ type: "dbe:bear_thief", n: 1, at: [13, 1, 12] }, { type: "dbe:bear_thief", n: 1, at: [8, 1, 18] }] } }, // ground floor
+  { key: "red_ribbon_tower", dim: "overworld", size: { x: 33, y: 65, z: 32 }, pieces: single("dbe:landmarks/red_ribbon_tower", { x: 33, z: 32 }), biomes: LAND, maxRange: 8, foundation: "minecraft:dirt",
+    // 2 at the doors (north and south), 1 on the floor of the top (y=48)
+    garrison: { every: GARRISON_EVERY, mobs: [{ type: "dbe:battle_jacket", n: 1, at: [16, 1, 1] }, { type: "dbe:battle_jacket", n: 1, at: [17, 1, 28] }, { type: "dbe:battle_jacket", n: 1, at: [10, 48, 14] }] } },
+  { key: "frieza_army_base", dim: "frieza", size: { x: 59, y: 46, z: 59 }, pieces: single("dbe:landmarks/frieza_army_base", { x: 59, z: 59 }), maxRange: 7, foundation: "dbe:frieza_soil", floor: FRIEZA_FLOOR, followUp: touchUp("frieza_army_base"),
+    garrison: { every: GARRISON_EVERY, mobs: [{ type: "dbe:frieza_soldier", n: 5, at: [23, 1, 23], spread: 4 }] } }, // ground floor, a corner of the yard (off the stage)
+  { key: "guru_house", dim: "namek", size: { x: 91, y: 105, z: 91 }, pieces: grid("dbe:landmarks/guru_house_", [64, 27], [64, 27]), maxRange: 12, foundation: "dbe:namek_stone",
+    residents: [{ id: "guru", type: "dbe:grand_elder_guru", at: [45.5, 75, 45.5] }] }, // center of the dome, on the carpet
+  { key: "capsule_corp", dim: "overworld", size: { x: 141, y: 42, z: 154 }, pieces: grid("dbe:landmarks/capsule_corp_", [64, 64, 13], [64, 64, 26]), biomes: ["minecraft:plains", "dbe:dirtstone_plains", "dbe:west_forest"], maxRange: 10, foundation: "minecraft:dirt",
+    // ground floor of the dome house (capsule_corp_5, oak floor at y=1): new worlds have no engineer since West City left
+    residents: [74.5, 76.5, 78.5].map((x, i) => ({ id: "capsule_engineer_" + (i + 1), type: "dbe:capsule_corp_engineer", at: [x, 2, 80.5] })) },
+  { key: "martial_arts_tournament", dim: "overworld", size: { x: 110, y: 21, z: 100 }, pieces: grid("dbe:landmarks/martial_arts_tournament_", [64, 46], [64, 36]), biomes: ["minecraft:plains", "minecraft:sunflower_plains", "dbe:dirtstone_plains"], maxRange: 6, foundation: "minecraft:dirt", enabled: () => martialArtsMode() === "relative", onPlaced: martialArtsPlaced,
+    // the announcer opens the tournament queue; one already placed by an older version (no tag) is adopted
+    residents: [{ id: "tournament_announcer", type: "dbe:announcer", at: [38.5, 1, 53.5], adopt: true, onPresent: markAnnouncer }] },
 ];
 
 // ---------------------------------------------------------------- World Martial Arts Tournament
@@ -184,24 +199,21 @@ function applyMartialSite(spot) {
   for (const listener of martialListeners) listener(regions);
 }
 
-async function martialArtsPlaced(spot, dim) {
+function martialArtsPlaced(spot) {
   applyMartialSite(spot);
-  await spawnAnnouncer(spot, dim);
 }
 
-/** Opens the tournament queue. A failure leaves spot.announcer unset, and scan tries again while a player is near. */
-async function spawnAnnouncer(spot, dim) {
-  const location = { x: spot.x + MARTIAL.announcer[0] + 0.5, y: spot.y + MARTIAL.announcer[1], z: spot.z + MARTIAL.announcer[2] + 0.5 };
-  let area;
-  try {
-    area = await acquireLoadedArea(dim, location, location, "tournament announcer");
-    dim.spawnEntity("dbe:announcer", location);
-    spot.announcer = true;
-  } catch (e) {
-    console.warn("[Landmarks] tournament announcer not spawned: " + e);
-  } finally {
-    if (area) releaseLoadedArea(area);
-  }
+/**
+ * The announcer is the resident tournament_announcer (world_residents.js). spot.announcer is still written, once, when it is
+ * first seen: an older version opened afterwards then does not spawn another one.
+ */
+function markAnnouncer() {
+  if (savedSpot("martial_arts_tournament")?.announcer) return;
+  const plan = loadPlan();
+  const spot = plan.spots.martial_arts_tournament;
+  if (!spot?.placed || spot.announcer) return;
+  spot.announcer = true;
+  savePlan(plan);
 }
 
 const ENV = { frieza: friezaLandmarkEnv, namek: namekLandmarkEnv };
@@ -264,6 +276,36 @@ function loadPlan() {
 }
 
 const savePlan = (plan) => world.setDynamicProperty(PLAN_PROP, JSON.stringify(plan));
+
+// Residents of the landmarks (world_residents.js): their place follows the saved spot. The plan is parsed again only when
+// the saved text changes, so the resident cycle does not parse it on every look.
+let spotCache = { raw: undefined, spots: {} };
+function savedSpot(key) {
+  const raw = world.getDynamicProperty(PLAN_PROP);
+  if (raw !== spotCache.raw) {
+    let spots = {};
+    try {
+      spots = (typeof raw === "string" && JSON.parse(raw)?.spots) || {};
+    } catch {}
+    spotCache = { raw, spots };
+  }
+  return spotCache.spots[key];
+}
+
+for (const spec of SPECS) {
+  for (const res of spec.residents ?? []) {
+    const [dx, dy, dz] = res.at;
+    addResident({
+      ...res,
+      dim: spec.dim === "overworld" ? OVERWORLD : ENV[spec.dim].id,
+      at: () => {
+        const spot = savedSpot(spec.key);
+        return spot?.placed && spot.y !== undefined ? { x: spot.x + dx, y: spot.y + dy, z: spot.z + dz } : undefined;
+      },
+      enabled: () => enabled(spec),
+    });
+  }
+}
 
 function structureSpots() {
   try {
@@ -904,9 +946,174 @@ async function finishFollowUp(dim, spec, spot, plan) {
   }
 }
 
+// ---------------------------------------------------------------- Bills and Whis leave Kami's Lookout
+// They live on Bills' planet now (residents of world_residents.js). lookout.mcstructure no longer has them; in worlds where
+// the old Lookout was already placed (index.js sets lookoutLoaded before placing it), the two saved there are removed once,
+// with the area loaded and a player near. plan.lookoutMoved = 1 records that it is done (also with 0 found).
+const LOOKOUT_BW = {
+  center: { x: 141.5, y: 299, z: 178 }, // between Whis (140.5, 299, 177.5) and Beerus (142.5, 299, 178.5), from the NBT
+  from: { x: 110, y: 280, z: 150 },
+  to: { x: 170, y: 310, z: 205 },
+  near: 96,
+  radius: 48,
+  settle: 60, // ticks of ready area before looking: entities of a chunk may show up after its blocks
+  recheck: 1200, // with none found, a second look this much later (1 min) before it is marked done
+};
+let lookoutReadySince, lookoutEmptySince;
+
+function moveLookoutResidents(plan) {
+  if (plan.lookoutMoved) return;
+  if (world.getDynamicProperty("lookoutLoaded") !== true) {
+    plan.lookoutMoved = 1; // not placed yet: the new Lookout comes without them
+    savePlan(plan);
+    return;
+  }
+  const dim = world.getDimension(OVERWORLD);
+  const { center } = LOOKOUT_BW;
+  if (!dim.getPlayers().some((p) => Math.hypot(p.location.x - center.x, p.location.z - center.z) <= LOOKOUT_BW.near) ||
+      !areaReady(dim, LOOKOUT_BW.from, LOOKOUT_BW.to)) {
+    lookoutReadySince = undefined;
+    return;
+  }
+  lookoutReadySince ??= system.currentTick;
+  if (system.currentTick - lookoutReadySince < LOOKOUT_BW.settle) return;
+  const counts = {};
+  const found = [];
+  for (const type of ["dbe:beerus", "dbe:whis"]) {
+    counts[type] = 0;
+    for (const entity of dim.getEntities({ type, location: center, maxDistance: LOOKOUT_BW.radius })) {
+      if (entity.getTags().some((t) => t.startsWith("dbe_resident:")) || entity.getDynamicProperty("dbe:spawned_by") !== undefined) continue;
+      found.push(entity);
+      counts[type]++;
+    }
+  }
+  // 0 found is final, so it is only trusted on a second look at least LOOKOUT_BW.recheck later: the entities up at y~299
+  // may not have loaded yet on the first one
+  if (!found.length) {
+    if (lookoutEmptySince === undefined) {
+      lookoutEmptySince = system.currentTick;
+      return;
+    }
+    if (system.currentTick - lookoutEmptySince < LOOKOUT_BW.recheck) return;
+  }
+  for (const entity of found) entity.remove();
+  plan.lookoutMoved = 1;
+  savePlan(plan);
+  console.warn("[Landmarks] Lookout: Beerus x" + counts["dbe:beerus"] + ", Whis x" + counts["dbe:whis"] + " moved to Bills' planet");
+}
+
+// ---------------------------------------------------------------- Garrison
+// Guards carry "dbe_garrison:<key>" and "dbe_garrison:<key>:<entry>". They are counted by tag in the whole loaded dimension
+// (they chase players out of the build). A batch opens on the first visit or GARRISON_EVERY after the last one closed, puts
+// at most GARRISON_PER_SCAN per scan, and spot.garrisonAt is saved only when it closes (all there), so the rest of a batch
+// does not wait 30 min. No dbe:spawned_by: guards count for the active quests of their type.
+const GARRISON_NEAR = 48;
+const GARRISON_PER_SCAN = 3;
+const GARRISON_MAX_SCANS = 15; // a batch that cannot be completed (no standing room) closes after this many scans
+const garrisonOpen = new Map(); // key -> { scans, created: [per entry] } while a batch is open
+
+function checkGarrisonSpecs() {
+  for (const spec of SPECS) {
+    const bad = spec.garrison && (spec.key === "martial_arts_tournament" || spec.garrison.mobs.some((m) => !GARRISON_TYPES.has(m.type)));
+    if (!bad) continue;
+    console.warn("[Landmarks] " + spec.key + ": garrison refused (troops only, never in the tournament)");
+    delete spec.garrison;
+  }
+}
+checkGarrisonSpecs();
+
+function garrisonPoint(dim, spot, mob) {
+  const spread = mob.spread ?? 0;
+  for (let attempt = 0; attempt < 6; attempt++) {
+    const ox = attempt && spread ? Math.round((Math.random() * 2 - 1) * spread) : 0;
+    const oz = attempt && spread ? Math.round((Math.random() * 2 - 1) * spread) : 0;
+    const base = { x: spot.x + mob.at[0] + ox + 0.5, y: spot.y + mob.at[1], z: spot.z + mob.at[2] + oz + 0.5 };
+    for (const dy of [0, 1, -1, 2, 3]) {
+      const p = { ...base, y: base.y + dy };
+      if (isSafeStanding(dim, p)) return p;
+    }
+    if (!spread) break;
+  }
+  return undefined;
+}
+
+function garrisons(plan) {
+  for (const spec of SPECS) {
+    try {
+      garrisonOf(plan, spec);
+    } catch (e) {
+      console.warn("[Landmarks] " + spec.key + " garrison: " + e); // one spec never stops the others
+    }
+  }
+}
+
+function garrisonOf(plan, spec) {
+  if (!spec.garrison || !enabled(spec)) return;
+  const spot = plan.spots[spec.key];
+  if (!spot?.placed || spot.y === undefined) return;
+  const key = spec.key;
+  const now = world.getAbsoluteTime();
+  if (spot.garrisonAt !== undefined && now < spot.garrisonAt) {
+    spot.garrisonAt = now; // the time went back (command): count again from now
+    savePlan(plan);
+  }
+  if (!garrisonOpen.has(key) && spot.garrisonAt !== undefined && now - spot.garrisonAt < spec.garrison.every) return;
+  const dim = dimensionOf(spec);
+  const near = dim.getPlayers().some((p) => {
+    const dx = Math.max(spot.x - p.location.x, 0, p.location.x - (spot.x + spec.size.x));
+    const dz = Math.max(spot.z - p.location.z, 0, p.location.z - (spot.z + spec.size.z));
+    return Math.hypot(dx, dz) <= GARRISON_NEAR;
+  });
+  if (!near || !areaReady(dim, { x: spot.x, y: spot.y, z: spot.z }, { x: spot.x + spec.size.x - 1, y: spot.y, z: spot.z + spec.size.z - 1 })) return;
+  let batch = garrisonOpen.get(key);
+  if (!batch) {
+    // presences are counted once, when the batch opens; after that only the creations of this batch count, so killing
+    // guards while the batch is open does not make more come (no farm)
+    batch = { scans: 0, created: spec.garrison.mobs.map(() => 0), present: spec.garrison.mobs.map((mob, i) => dim.getEntities({ type: mob.type, tags: ["dbe_garrison:" + key + ":" + i] }).length) };
+    garrisonOpen.set(key, batch);
+  }
+  const scans = ++batch.scans;
+  let budget = GARRISON_PER_SCAN, missing = 0;
+  spec.garrison.mobs.forEach((mob, i) => {
+    const tag = "dbe_garrison:" + key + ":" + i;
+    let need = mob.n - batch.present[i] - batch.created[i];
+    while (need > 0 && budget > 0) {
+      const at = garrisonPoint(dim, spot, mob);
+      if (!at) break;
+      budget--;
+      try {
+        const entity = dim.spawnEntity(mob.type, at);
+        entity.addTag("dbe_garrison:" + key);
+        entity.addTag(tag);
+        batch.created[i]++;
+        need--;
+      } catch (e) {
+        console.warn("[Landmarks] " + key + ": guard " + mob.type + " not spawned: " + e); // one failure never stops the others
+        break;
+      }
+    }
+    missing += Math.max(0, need);
+  });
+  if (missing && scans < GARRISON_MAX_SCANS) return;
+  if (missing) console.warn("[Landmarks] " + key + ": garrison closed with " + missing + " missing (no standing room)");
+  garrisonOpen.delete(key);
+  spot.garrisonAt = now;
+  savePlan(plan);
+}
+
 function scan() {
   if (busy) return;
   const plan = loadPlan();
+  try {
+    garrisons(plan);
+  } catch (e) {
+    console.warn("[Landmarks] garrison: " + e);
+  }
+  try {
+    moveLookoutResidents(plan);
+  } catch (e) {
+    console.warn("[Landmarks] Lookout move: " + e);
+  }
 
   // Spots with a player near. Those already checked (level known, or a follow-up) go first: one landmark still looking for
   // ground (nearby draws, one per scan) never holds back one that only has to be written.

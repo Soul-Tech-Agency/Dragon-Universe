@@ -68,7 +68,7 @@ const entity_data = [
     id: "dbe:battle_jacket",
     entityDefinitions: {
       powerDefinition: {
-        level: 1,
+        level: 13, // garrison of the Red Ribbon tower (world_landmarks.js): ~12-15, like the Frieza soldier
         focus: {
           constitution: 1,
           dexterity: 1,
@@ -81,6 +81,18 @@ const entity_data = [
   },
   {
     id: "dbe:bear_thief",
+    entityDefinitions: {
+      powerDefinition: {
+        level: 12, // garrison of Yamcha's house (world_landmarks.js)
+        focus: {
+          constitution: 1.1,
+          dexterity: 0.9,
+          spirit: 0.8,
+          strength: 1.2,
+          willpower: 1,
+        },
+      },
+    },
   },
   {
     id: "dbe:beerus",

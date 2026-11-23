@@ -167,11 +167,12 @@ garrison: { every: 36000, mobs: [{ type: "dbe:frieza_soldier", n: 5, at: [29, 3,
 1. Só com jogador no overworld a até 96 blocos de (141, 299, 178): Whis em (140.5, 299, 177.5) e Beerus em (142.5, 299, 178.5), medidos no NBT, com origem do Lookout em (119, 219, 119).
 2. `areaReady` de (110, 280, 150)–(170, 310, 205) verdadeiro.
 3. `overworld.getEntities({ type: "dbe:beerus" | "dbe:whis", location: (141, 299, 178), maxDistance: 48 })`, **excluindo** quem tem a tag `dbe_resident:*` ou `dbe:spawned_by` → `remove()`.
-4. Grava `plan.lookoutMoved = 1` (mesmo com 0 encontrados: o jogador pode tê-los tirado do lugar) e loga `[Landmarks] Lookout: Beerus x N, Whis x N moved to Bills' planet`.
+4. Grava `plan.lookoutMoved = 1` (com 0 encontrados, só na 2ª verificação, 1 min depois: as entidades em y~299 podem carregar depois dos blocos) e loga `[Landmarks] Lookout: Beerus x N, Whis x N moved to Bills' planet`.
 
-**Lookout interrompido e retomado** (revisão, achado 11):
-- O `index.js` grava `lookoutLoaded` **antes** do `structureManager.place`, e a colocação tem retomada pela lista `structures.placing`.
-- Se ela for interrompida e o pacote atualizado, a retomada usa o `.mcstructure` novo (sem os dois). O caminho de "mundo antigo" acha 0 e marca `moved`. Correto, e vira item do roteiro (§7).
+**Lookout interrompido** (revisão, achado 11; **corrigido pela Sentinela**):
+- O `index.js` grava `lookoutLoaded` **antes** do `structureManager.place`.
+- **O core não retoma** um Lookout interrompido: o `loadAsync` lança `Structure placement was interrupted` para tudo que não é `snake_path_*`. A lista `structures.placing` não é retomada para o Lookout.
+- Mundo com o Lookout interrompido: `lookoutLoaded` é `true`, mas o Lookout (e Bills/Whis) pode não existir. O caminho de "mundo antigo" acha 0, confere de novo 1 min depois e marca `moved`. Nada é removido além de Beerus/Whis sem tag de morador. O Lookout incompleto é um problema que já existia e não muda nesta versão.
 
 - Só esses dois tipos, só nesse raio, só uma vez. Kami, Popo, Korin, Piccolo, Bulma e a Máquina do Tempo não são tocados.
 - Downgrade: a versão antiga não recria os dois no Lookout, porque a estrutura já está marcada como `loaded`. Eles ficam só no planeta, sem script, parados.
@@ -206,12 +207,14 @@ Validação a cada commit: `check-syntax`, `validate` (base 6) e, para o Lookout
 - Torneio, mundo novo: 1 locutor. Mundo antigo com locutor: continua 1 (adotado). `spot.announcer` continua `true`.
 - 2 jogadores chegando juntos ao planeta do Bills: um de cada.
 - Missões: `whis_ramen_delivery` e a 1ª etapa de `saga_beerus_1` com o Whis do planeta.
+- Planeta do Bills (1.7.18): almofadas da mesa e peixes do aquário são moradores com `adopt` (raio 2 nas almofadas, 4 nos peixes). **A adoção é permanente:** uma almofada ou peixe sem tag que estiver nesse raio quando o morador falta vira o morador para sempre. Peixe só volta ao lugar se sair da água. Limpeza única `dbe:bills_props_cleanup`: só nas caixas do aquário (-10,130,-22)–(0,135,-16), da mesa e dos 2 suportes.
 
 **Lookout (CÓPIA de mundo 1.7.15):**
 - Ao chegar ao Lookout, Beerus e Whis somem uma vez. O log mostra a linha `moved`, e o resto do Lookout fica igual.
 - Voltar outro dia: nada mais muda.
 - Mundo novo: o Lookout nasce sem os dois.
-- Lookout interrompido e retomado: fechar o mundo durante a colocação do Lookout (1ª ida perto do spawn), atualizar o pacote e reabrir. O Lookout termina sem os dois, e o log mostra `moved` com 0.
+- Lookout interrompido (o core **não** retoma a colocação): fechar o mundo durante a colocação do Lookout (1ª ida perto do spawn), atualizar o pacote e reabrir. Esperado: nada pior que antes (o Lookout pode ficar incompleto, como já acontecia); perto dele, o log mostra `moved` com 0 só depois da 2ª verificação (~1 min), e nenhuma outra entidade some.
+- Chegar ao Lookout antigo e sair em menos de 1 min, antes de as entidades em y~299 carregarem: Bills e Whis não podem ficar lá para sempre. Na visita seguinte, o log mostra `moved` com Beerus x1 e Whis x1.
 
 **Guarnição:**
 - 1ª visita: guardas presentes. Na Base do Freeza aparecem os 5 em 2 scans (~2 s), não 3 agora e 2 daqui a 30 min.

@@ -98,3 +98,30 @@ Também uso os que já existem: `tab_*` (cabeçalhos), `check` (Confirmar da cus
 - `obj_*`, `reward_*`, `level`: objetivos, recompensas e nível recomendado vêm num body único. Exigiria slots separados (como nas Estatísticas).
 - `cust_*`, `palette`: os nomes das opções da customização e do barbeiro vêm num body único, uma linha por opção, sem identificador por linha. Exigiria um slot por linha.
 - `train_weights`, `gravity`, `fuel`, `shop_cart`, `functions`, `tail`: telas fora deste restyle (máquina de gravidade, loja, funções).
+
+## Nomes finais da 1.7.18 (item 12, dec. 33): desenhados pela Aquarela, para a Bússola mandar via `iconPatch`
+
+O caminho vai **sem extensão**: `textures/ui/du2/icons/<nome>`. Brancos 32x32; a cor vem do JSON (`color`), ou o ícone aparece branco se o botão não tingir.
+
+| Situação no script | Ícone |
+|---|---|
+| Missão principal / saga (`main_quests_data`) | `quest_main` (estrela) |
+| Missão secundária (`side_quests_data`) | `quest_side` (balão) |
+| Missão de desafio (`challenge_quests_data`) | `quest_challenge` (espadas cruzadas) |
+| Missão de mentor (tipo `mentor`) | `quest_mentor` (capelo com borla) |
+| Missão concluída (qualquer tipo) | `quest_done` (círculo com ✓) |
+| Missão bloqueada (requisito não cumprido) | `lock` (já existe; não há `quest_locked`) |
+| Transformação bloqueada (12b) | `lock` (no lugar de `textures/ui/icon_lock`) |
+| Conquista `battle_power` | `ach_battle_power` (raio no círculo) |
+| Conquista `defeat_enemy` | `ach_defeat` (caveira) |
+| Conquista `item` | `ach_item` (baú) |
+| Conquista `learn_skill` | `ach_skill` (chama com +) |
+| Conquista `requirement` | `ach_requirement` (lista com ✓) |
+| Conquista concluída (qualquer categoria) | `ach_done` (medalha com ✓) |
+| Recompensa em zeni | `reward_zeni` (moeda com Z) |
+| Recompensa em XP de nível (`z_points`, 50 missões) | `reward_xp` ("XP" com seta para cima) |
+| Habilidades: pontos disponíveis (12e) | `skill_points` (brilhos) |
+| Habilidade no máximo (12e) | `skill_max` (setas duplas até o teto) |
+| Customização/barbeiro, uma por opção (12d) | `cust_hair`, `cust_hair_color`, `cust_eyes`, `cust_eye_color`, `cust_skin`, `cust_skin_details`, `cust_face`, `cust_beard`, `cust_gender`, `cust_antennas`, `cust_horns`, `cust_shoulder_pads`, `cust_tail_color` (todos já existem, `20b6366`) |
+
+**Regra sugerida para as listas:** concluída tem prioridade sobre o tipo (`quest_done`/`ach_done`), e bloqueada tem prioridade sobre as duas (`lock`). **Cores sugeridas:** principal `#F6B943`, secundária `#23D7FF`, desafio `#FF9F43`, concluída `#7CE38B`, bloqueada `#8FA0BF`.

@@ -18,17 +18,17 @@ Tamanho: **P** = até 1 h, 1 arquivo. **M** = algumas horas, vários arquivos ou
 | 5 | Recorte retangular na Casa do Guru | `12-11/namek guru.png`, `Outubro/namek1/2.png` | **Corrigido na 1.7.16** | — |
 | 6 | Ícone DU por cima do título do menu | `12-11/image.png` | **Corrigido na 1.7.17**; o redesign substitui | — |
 | 7 | Prévia do Oozaru nas Estatísticas (close do pelo) | `12-11/menu ozaaru.png` | **Corrigido na 1.7.17** (H4) | — |
-| 8 | Oozaru vaza da prévia do **inventário** | `Outubro/image.png` | Investigado; proposta com a Engrenagem | M |
+| 8 | Oozaru vaza da prévia do **inventário** | `Outubro/image.png` | **Feito para teste na 1.7.18** (`28fb62b` + `5ba9258`, teste A/B) | — |
 | 9 | Três convites com o mesmo ícone | `Outubro/craft*.png` | **Feito** (`28792c1`, agent/oozaru) | — |
-| 10 | Base quadrada de terra sob construções | `Outubro/casa yamcha.png`, `picollo.png` | Parcial (1.7.17 mexe no terreno) | M |
-| 11 | Corporação Cápsula: placa grosseira e linha até o céu | `Outubro/capsulecorp.png` | Aberto | P/M |
-| 12 | Torneio do Poder: chão de retalhos | `Outubro/torneiopoder.png` | Aberto | G |
-| 13 | Planeta do Bills sem palácio, Bills e Whis | `Outubro/bills2.png`, `bills.png` | Aberto (com o Marco) | G |
-| 14 | Namek: copas de árvore soltas no ar | `Outubro/namek1.png` | Aberto | P |
-| 15 | Olhos assimétricos no SSJ4 | `12-11/ssj4.png` | Dúvida | P |
-| 16 | Vegeta e Trunks SSJ3 (DMZ) curtos | (nova, da 1.7.17) | Aguarda o usuário | M |
-| 17 | Beast (Goku) com pontas de "cubinho" | `12-11/beast*.png` | Dúvida | P |
-| 18 | Menus antigos fora do redesign | `Outubro/menu.png` e outros | Aberto | M |
+| 10 | Base quadrada de terra sob construções | `Outubro/casa yamcha.png`, `picollo.png` | **Corrigido na 1.7.17** (Marco: `1962432`, `7bb66ad`, `3ce430e`) | — |
+| 11 | Corporação Cápsula: placa grosseira e linha até o céu | `Outubro/capsulecorp.png` | Linha: aguarda print (dec. 32). Placa: aberto | P/M |
+| 12 | Torneio do Poder: chão de retalhos | `Outubro/torneiopoder.png` | **Em andamento na 1.7.18** (item 14: paleta do Marco, névoa `90d01a8`) | M |
+| 13 | Planeta do Bills sem palácio, Bills e Whis | `Outubro/bills2.png`, `bills.png` | Bills e Whis: 1.7.18 (Marco, moradores). Palácio: 1.7.19 | G |
+| 14 | Namek: copas de árvore soltas no ar | `Outubro/namek1.png` | **Corrigido na 1.7.17** (Marco: `6aeefce`) | — |
+| 15 | Olhos assimétricos no SSJ4 | `12-11/ssj4.png` | Decisão 30 (usuário) | P |
+| 16 | Vegeta e Trunks SSJ3 (DMZ) curtos | (nova, da 1.7.17) | Decisão 30; patch pronto (`ssj3_vegeta_trunks_longo.patch`) | — |
+| 17 | Beast (Goku) com pontas de "cubinho" | `12-11/beast*.png` | Decisão 30 (usuário) | P |
+| 18 | Menus antigos fora do redesign | `Outubro/menu.png` e outros | Restyle feito na 1.7.17 (Engrenagem). Ficam a máquina de gravidade, a loja e as Funções | M |
 
 ## Detalhes
 
@@ -158,3 +158,22 @@ Tamanho: **P** = até 1 h, 1 arquivo. **M** = algumas horas, vários arquivos ou
 - **Marco:** 10 e 11 (`.mcstructure`); 12 (arena); 13 (palácio do Bills, Bills e Whis no planeta).
 - **Bússola:** 10 (assentamento de terreno), 12 (dimensão), 14 (árvores de Namek).
 - **Engrenagem:** 18.
+
+
+---
+
+## O que ainda falta e NÃO depende da decisão 30 (atualizado em 2026-11-22, 1.7.18)
+
+| # | Item | Estado | Quem | Tam. |
+|---|---|---|---|---|
+| A | **Arena do TP: anel dourado** (dec. 34) | Não sai só da paleta. É uma edição geométrica na ferramenta do Marco (faixa 21 ≤ r < 24 em volta de (2,5, 8)). Prévia em `TP_ANEL_DOURADO.png` | Marco (Aquarela revisa) | P/M |
+| B | **Arena do TP: ligar a névoa** | RP pronto (`90d01a8`, 3 variantes). Falta `cfg.fogId` no `space_arena.js` + o usuário escolher a cor no jogo | Bússola + usuário | P |
+| C | **Arena do TP: céu claro** (opcional) | O céu continua preto (`sky_color` do bioma `dbe:space`, compartilhado). Precisa de um bioma próprio da dimensão: decisão nova | Bússola/Marco (BP) + Aquarela (`client_biome`) | P/M |
+| D | **Arena do TP: revisão visual depois da regravação** | Conferir a vista de cima e um print rente ao chão: retalho sumiu, linhas legíveis, luz suficiente sem `light_block` | Aquarela | P |
+| E | **Placa "CAPSULE CORP"** (item 11) | Letras irregulares ("A" e "S"). Redesenhar as letras na `.mcstructure` | Marco (Aquarela pode desenhar o molde) | P |
+| F | **Ícones da máquina de gravidade, loja e Funções** (`train_weights`, `gravity`, `fuel` já existem; faltam `shop_cart`, `functions`) | Telas fora do restyle; só quando entrarem | Aquarela + Engrenagem | P |
+| G | **Palácio do Bills: revisão visual** (1.7.19) | Proposta pronta em `PALACIO_BILLS_ARENA_TP.md` §1; a Aquarela revisa a construção do Marco | Marco + Aquarela | — |
+| H | **Teste A/B do Oozaru** (item 8) | Roteiro em `docs/wip/TESTE_AB_OOZARU_1.7.18.md`; inclui a cauda ao girar a prévia | testador | — |
+| I | **Prints/vídeos de outubro** | Os 7 `.webm` não foram vistos (sem ffmpeg). Pedir prints dos trechos que importam | usuário | — |
+
+**Feitos nesta rodada (1.7.18):** `28fb62b` + `f38e2af` (Oozaru nas prévias + teste A/B); `65cd878` + `e0436c8` (ícones de missão, conquista, habilidade, mentor e zeni); `90d01a8` (névoas do TP); `3b86cde` (`train_physical`, `train_mental`).

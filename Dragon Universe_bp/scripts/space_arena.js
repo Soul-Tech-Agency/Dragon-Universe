@@ -22,11 +22,15 @@ const HINT_TICKS = 200;
 const distXZ = (x, z, p) => Math.hypot(Math.max(p.x - x, 0, x - (p.x + p.sx)), Math.max(p.z - z, 0, z - (p.z + p.sz)));
 
 /**
- * label, dimId, item, events { go, back, rebuild? }, spawn, rotation?, fogTag, originProp, stateProp, fallY,
+ * label, dimId, item, events { go, back, rebuild? }, spawn, rotation?, fogTag, fogId? (default dbe:fog_space), originProp, stateProp, fallY,
  * pieces [{ id, x, y, z, sx, sy, sz }], arrivalRadius, loadRadius, arrivalClear? { height }, arrivalFloor?, protectBlocks?, removeMobs?
+ * rebuildWarning?: what the rebuild command says before asking for confirmation.
+ * migration? { prop, version, piece: function* (dim, piece) }: pieces already placed when the files changed are updated in
+ *   the world, one per turn, while a player is in the dimension; prop = version once all are done (a world with nothing
+ *   placed yet gets it at once). A closed world starts the remaining ones again on the next load (the step must be idempotent).
  */
 export function createSpaceArena(cfg) {
-  const FOG_PUSH = "fog @s push dbe:fog_space " + cfg.fogTag;
+  const FOG_PUSH = "fog @s push " + (cfg.fogId || "dbe:fog_space") + " " + cfg.fogTag;
   const FOG_POP = "fog @s remove " + cfg.fogTag;
   const travelling = new Set();
   const inside = new Map();
@@ -229,9 +233,80 @@ export function createSpaceArena(cfg) {
     }
   }
 
-  /** At most one piece per cycle: the unplaced one closest to a player. */
+  // ---- migration of pieces placed before the files changed
+  let migrating = null; // Set of piece indices still to update, or null
+  let migrateTurn = false;
+
+  function startMigration() {
+    if (!cfg.migration) return;
+    if (world.getDynamicProperty(cfg.migration.prop) === cfg.migration.version) return;
+    if (!loadPlaced().size) {
+      world.setDynamicProperty(cfg.migration.prop, cfg.migration.version);
+      return;
+    }
+    migrating = new Set(placed);
+    console.warn("[" + cfg.label + "] updating " + migrating.size + " placed piece(s) to version " + cfg.migration.version);
+  }
+
+  const runJobAsync = (gen) => new Promise((resolve, reject) => {
+    system.runJob((function* () {
+      try {
+        yield* gen;
+        resolve();
+      } catch (e) {
+        reject(e);
+      }
+    })());
+  });
+
+  async function migratePiece(dim, index) {
+    const p = cfg.pieces[index];
+    const area = await acquireLoadedArea(dim, { x: p.x, y: p.y, z: p.z }, { x: p.x + p.sx - 1, y: p.y, z: p.z + p.sz - 1 }, cfg.label + " update " + p.id);
+    try {
+      await runJobAsync(cfg.migration.piece(dim, p));
+    } finally {
+      releaseLoadedArea(area);
+    }
+    migrating.delete(index);
+    retry.delete("m" + index);
+    if (!migrating.size) {
+      migrating = null;
+      world.setDynamicProperty(cfg.migration.prop, cfg.migration.version);
+      console.warn("[" + cfg.label + "] placed pieces updated to version " + cfg.migration.version);
+    }
+  }
+
+  /** One piece per turn, the closest to a player; failures wait like placements. */
+  function migrateNearby(dim, players) {
+    let best = -1, bestDistance = Infinity;
+    for (const i of migrating) {
+      if ((retry.get("m" + i)?.at ?? 0) > system.currentTick) continue;
+      for (const p of players) {
+        const d = distXZ(p.location.x, p.location.z, cfg.pieces[i]);
+        if (d < bestDistance) { best = i; bestDistance = d; }
+      }
+    }
+    if (best < 0) return false;
+    placing = true;
+    migratePiece(dim, best).catch((e) => {
+      const fails = (retry.get("m" + best)?.fails ?? 0) + 1;
+      retry.set("m" + best, { fails, at: system.currentTick + Math.min(MAX_RETRY_TICKS, 20 * 2 ** fails) });
+      if (fails === 1 || fails % 10 === 0) console.warn("[" + cfg.label + "] update of " + cfg.pieces[best].id + " failed " + fails + " time(s): " + e);
+    }).finally(() => { placing = false; });
+    return true;
+  }
+
+  /** At most one piece per cycle: the unplaced one closest to a player (taking turns with the migration, if any). */
   function loadNearby() {
-    if (placing || loadPlaced().size >= cfg.pieces.length) return;
+    if (placing) return;
+    if (migrating) {
+      const dim = world.getDimension(cfg.dimId);
+      const players = dim.getPlayers();
+      if (!players.length) return;
+      migrateTurn = !migrateTurn;
+      if ((migrateTurn || loadPlaced().size >= cfg.pieces.length) && migrateNearby(dim, players)) return;
+    }
+    if (loadPlaced().size >= cfg.pieces.length) return;
     const dim = world.getDimension(cfg.dimId);
     const players = dim.getPlayers();
     if (!players.length) return;
@@ -252,8 +327,39 @@ export function createSpaceArena(cfg) {
     }).finally(() => { placing = false; });
   }
 
-  function rebuild(player) {
-    if (!(player.commandPermissionLevel >= 1) || placing) return;
+  const REBUILD_CONFIRM_TICKS = 200;
+  const rebuildAsked = new Map(); // player id -> tick of the first call
+
+  /** Operators only, and only when the command is repeated within 10 s: the first call just says what will happen. */
+  async function rebuild(player) {
+    if (!(player.commandPermissionLevel >= 1)) return;
+    if (placing) return player.sendMessage("§e[" + cfg.label + "] busy placing a piece; try again in a few seconds.");
+    const asked = rebuildAsked.get(player.id);
+    if (asked === undefined || system.currentTick - asked > REBUILD_CONFIRM_TICKS) {
+      rebuildAsked.set(player.id, system.currentTick);
+      const warning = (cfg.rebuildWarning ?? "the build's blocks are placed again: whatever players broke or changed in it goes back to the original.") +
+        " Everyone in this dimension is first moved to the arrival point.";
+      return player.sendMessage("§e[" + cfg.label + "] " + warning + " §fRun the same command again within 10 s to confirm.");
+    }
+    rebuildAsked.delete(player.id);
+    // the migration queue, if any, stays: the pieces are placed again and the queue still clears what the new files skip
+    player.sendMessage("§a[" + cfg.label + "] placing the build again.");
+    // nobody inside a piece while it is placed again (suffocating) or over a gap (falling): all to the arrival point first,
+    // after the arrival column is emptied and its floor put back (a player may have built or dug there)
+    const dim = world.getDimension(cfg.dimId);
+    try {
+      await clearArrival(dim);
+    } catch (e) {
+      console.warn("[" + cfg.label + "] rebuild: arrival not cleared: " + e);
+    }
+    for (const p of dim.getPlayers()) {
+      try {
+        p.teleport(cfg.spawn, { rotation: cfg.rotation ?? { x: 0, y: 0 } });
+        if (p.id !== player.id) p.sendMessage("§e[" + cfg.label + "] the build is being placed again: you were moved to the arrival point.");
+      } catch (e) {
+        console.warn("[" + cfg.label + "] rebuild: could not move " + p.name + ": " + e);
+      }
+    }
     loadPlaced().clear();
     savePlaced();
     retry.clear();
@@ -262,6 +368,11 @@ export function createSpaceArena(cfg) {
 
   try {
     world.afterEvents.worldLoad.subscribe(() => {
+      try {
+        startMigration();
+      } catch (e) {
+        console.warn("[" + cfg.label + "] update check failed: " + e);
+      }
       system.runInterval(() => {
         try {
           scanPlayers();
@@ -284,7 +395,7 @@ export function createSpaceArena(cfg) {
         if (!src || src.typeId !== "minecraft:player") return;
         if (ev.id === cfg.events.go) sendToArena(src);
         else if (ev.id === cfg.events.back) sendHome(src);
-        else if (cfg.events.rebuild && ev.id === cfg.events.rebuild) rebuild(src);
+        else if (cfg.events.rebuild && ev.id === cfg.events.rebuild) rebuild(src).catch((e) => console.warn("[" + cfg.label + "] rebuild: " + e));
       });
 
       if (cfg.removeMobs) {
