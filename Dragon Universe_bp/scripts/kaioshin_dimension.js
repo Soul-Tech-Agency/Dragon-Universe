@@ -1,4 +1,4 @@
-import { acquireLoadedArea, releaseLoadedArea, safeTeleport, safeReturnToEarth, travelOrigin, reportTravelFailure, physicalDestinationId } from "./travel_safety.js";
+import { acquireLoadedArea, releaseLoadedArea, safeTeleport, safeReturnToEarth, travelOrigin, reportTravelFailure, physicalDestinationId, duringTravelPreparation } from "./travel_safety.js";
 import { AIR_ONLY_FILL, airFilterWorks, distrustAirFilter, fillAirColumn, emptyChunk, findUnexpectedBlock, queriesReportAir, runTerrainJob, registerTerrainRepair, registerTerrainOwnership } from "./terrain_repair.js";
 /**
  * Kaioshin dimension (dbe:kai)  -  the lush Kaioshin planet from Dragon Ball Z
@@ -945,7 +945,7 @@ async function sendToKaioshin(player) {
     if (travelPreparing > 0) player.sendMessage({ translate: "dbe.space.travel_queued" });
     travelPreparing++;
     try {
-      areaId = await prepareArea(dim, chunkOf(s.x), chunkOf(s.z), timing);
+      areaId = await duringTravelPreparation(() => prepareArea(dim, chunkOf(s.x), chunkOf(s.z), timing));
     } finally {
       travelPreparing--;
     }
