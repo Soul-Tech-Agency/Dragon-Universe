@@ -2005,6 +2005,9 @@
          "path" : "scripts/tournament_of_power.js"
       },
       {
+         "path" : "scripts/training/concentration.js"
+      },
+      {
          "path" : "scripts/travel_safety.js"
       },
       {
