@@ -806,7 +806,10 @@ function populateVillages() {
           /* chunk not ready: leave the flag unset so we retry */
         }
       }
-      if (spawned > 0) world.setDynamicProperty(key, true);
+      if (spawned > 0) {
+        world.setDynamicProperty(key, true);
+        console.log("[Namek] village " + v.cx + "," + v.cz + " (" + v.x + ", " + v.y + ", " + v.z + "): " + spawned + "/" + RESIDENTS + " namekian(s)");
+      }
     } catch (e) {
       /* ignore */
     }
