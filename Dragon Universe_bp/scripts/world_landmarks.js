@@ -1125,7 +1125,12 @@ function garrisonOf(plan, spec) {
     missing += Math.max(0, need);
   });
   if (missing && scans < GARRISON_MAX_SCANS) return;
-  if (missing) console.warn("[Landmarks] " + key + ": garrison closed with " + missing + " missing (no standing room)");
+  // one line per closed batch, so a test can tell the guards came: present at the opening + created now, of the total
+  const total = spec.garrison.mobs.reduce((a, m) => a + m.n, 0);
+  const there = total - missing, created = batch.created.reduce((a, b) => a + b, 0);
+  const line = "[Landmarks] " + key + ": garrison: " + there + "/" + total + " (" + created + " new)" + (missing ? ", " + missing + " missing (no standing room)" : "");
+  if (missing) console.warn(line);
+  else console.log(line);
   garrisonOpen.delete(key);
   spot.garrisonAt = now;
   savePlan(plan);

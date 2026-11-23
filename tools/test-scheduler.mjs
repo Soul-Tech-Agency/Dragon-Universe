@@ -27,7 +27,7 @@ export const world = {
   getPlayers() { state.getPlayers++; return state.players; },
 };
 `);
-fs.writeFileSync(path.join(work, "fake-perf.mjs"), "import { system } from \"./fake-mc.mjs\";\nexport function perfTask(name, fn) { return fn; }\nexport function schedulerInterval(fn, ticks) { return system.runInterval(fn, ticks); }\n");
+fs.writeFileSync(path.join(work, "fake-perf.mjs"), "import { system } from \"./fake-mc.mjs\";\nexport function perfTask(name, fn) { return fn; }\nexport function schedulerInterval(fn, ticks) { return system.runInterval(fn, ticks); }\nexport function clockTaskCount(fn) {}\n");
 const source = fs.readFileSync(SRC, "utf8")
   .replace(/from\s*["']@minecraft\/server["']/, 'from "./fake-mc.mjs"')
   .replace(/from\s*["']\.\/perf\.js["']/, 'from "./fake-perf.mjs"');

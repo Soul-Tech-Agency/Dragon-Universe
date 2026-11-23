@@ -17,7 +17,7 @@
 //   every() vira system.runInterval(fn, period) direto, no mesmo lugar, e o compare-scripts vê o mesmo registro de antes.
 //   Em jogo essa flag nunca existe.
 import { system, world } from "@minecraft/server";
-import { perfTask, schedulerInterval } from "./perf.js";
+import { clockTaskCount, perfTask, schedulerInterval } from "./perf.js";
 
 const STUB = !!globalThis.__DU_STUB__;
 const WARN_EVERY_TICKS = 1200; // 1 aviso por tarefa por minuto
@@ -27,6 +27,7 @@ let nextId = 1;
 let clockRunId;
 let playersTick = -1;
 let playersCache = [];
+clockTaskCount(() => tasks.length); // só a sonda lê (report do core/perf.js)
 
 export function every(period, name, fn, { phase = 0 } = {}) {
   // na passagem, os argumentos vão como vieram: runInterval(fn) sem período fica sem período no registro
