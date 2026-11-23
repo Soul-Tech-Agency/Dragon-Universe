@@ -1981,6 +1981,9 @@
          "path" : "scripts/core/20_shop_dialogues.js"
       },
       {
+         "path" : "scripts/core/21_menus.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
