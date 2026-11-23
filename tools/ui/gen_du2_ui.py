@@ -39,7 +39,10 @@ FLAG_DU2 = "(not ((#form_text - 'du2;') = #form_text))"
 # --------------------------------------------------------------------------- helpers
 
 def P(size, controls=None, **kw):
-    d = {"type": "panel", "size": size}
+    # collection_name só vale em stack_panel, grid e collection_panel. Num "panel" o jogo dá "Unknown property
+    # [collection_name]" e os filhos com collection_index caem no índice 0 (teste de 23/11, 1.7.18).
+    # collection_panel é um painel comum (sem orientation) que aceita a coleção.
+    d = {"type": "collection_panel" if "collection_name" in kw else "panel", "size": size}
     d.update(kw)
     if controls:
         d["controls"] = controls

@@ -876,7 +876,7 @@
      "controls": [
       {
        "h": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [24, 20],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_mental.h11": {}}],
@@ -985,7 +985,7 @@
   ]
  },
  "h15": {
-  "type": "panel",
+  "type": "collection_panel",
   "size": ["fill", "100%"],
   "collection_name": "form_buttons",
   "controls": [
@@ -1077,7 +1077,7 @@
   "controls": [
    {
     "ic": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [12, 12],
      "collection_name": "form_buttons",
      "controls": [
@@ -1103,7 +1103,7 @@
    {"pad": {"type": "panel", "size": [4, "100%"]}},
    {
     "name": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", 14],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -1120,7 +1120,7 @@
       {"pad": {"type": "panel", "size": [4, "100%"]}},
       {
        "v": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [30, 14],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -1514,7 +1514,7 @@
       {"pad": {"type": "panel", "size": [4, "100%"]}},
       {
        "v": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": ["fill", 10],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -1539,7 +1539,7 @@
    {"pad": {"type": "panel", "size": ["100%", 2]}},
    {
     "reward": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["100%", 22],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -1570,7 +1570,7 @@
    {"fill": {"type": "panel", "size": ["100%", "fill"]}},
    {
     "start": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["100%", 22],
      "collection_name": "form_buttons",
      "controls": [{"b@du2_mental.h24": {}}]
@@ -1838,7 +1838,7 @@
       {"pad": {"type": "panel", "size": [4, "100%"]}},
       {
        "v": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": ["fill", 10],
         "collection_name": "form_buttons",
         "clips_children": true,
@@ -1863,7 +1863,7 @@
    {"pad": {"type": "panel", "size": ["100%", 2]}},
    {
     "reward": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["100%", 22],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -1894,7 +1894,7 @@
    {"fill": {"type": "panel", "size": ["100%", "fill"]}},
    {
     "start": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["100%", 22],
      "collection_name": "form_buttons",
      "controls": [{"b@du2_mental.h29": {}}]
@@ -1999,7 +1999,7 @@
   "controls": [
    {
     "warn": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": ["fill", 12],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -2021,7 +2021,7 @@
    {"pad": {"type": "panel", "size": [4, "100%"]}},
    {
     "dv": {
-     "type": "panel",
+     "type": "collection_panel",
      "size": [28, 12],
      "collection_name": "form_buttons",
      "clips_children": true,
@@ -2109,7 +2109,7 @@
      "controls": [
       {
        "h": {
-        "type": "panel",
+        "type": "collection_panel",
         "size": [24, 20],
         "collection_name": "form_buttons",
         "controls": [{"b@du2_mental.h11": {}}],
