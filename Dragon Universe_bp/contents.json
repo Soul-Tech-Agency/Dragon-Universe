@@ -1843,6 +1843,9 @@
          "path" : "scripts/core/perf.js"
       },
       {
+         "path" : "scripts/core/perf_terrain.js"
+      },
+      {
          "path" : "scripts/core/scheduler.js"
       },
       {
