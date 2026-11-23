@@ -40,7 +40,9 @@
            "controls": [
             {"left@du2_customization.h5": {}},
             {"pad": {"type": "panel", "size": [6, "100%"]}},
-            {"right@du2_customization.h63": {}}
+            {
+             "right": {"type": "panel", "size": ["fill", "100%"], "controls": [{"opts@du2_customization.h63": {}}]}
+            }
            ]
           }
          }
@@ -79,7 +81,18 @@
         ]
        }
       },
-      {"names@du2_customization.h96": {}}
+      {
+       "names": {
+        "type": "collection_panel",
+        "size": ["100% - 60px", "100%"],
+        "layer": 4,
+        "clips_children": true,
+        "collection_name": "form_buttons",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [{"old@du2_customization.h96": {}}]
+       }
+      }
      ]
     }
    }
@@ -148,7 +161,7 @@
        }
       },
       {
-       "body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_customization.h129": {}}]}
+       "body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_customization.h130": {}}]}
       }
      ]
     }
@@ -171,15 +184,26 @@
         "orientation": "vertical",
         "size": ["100%", "100%"],
         "controls": [
-         {"row0@du2_customization.h133": {}},
-         {"row1@du2_customization.h135": {}},
-         {"row2@du2_customization.h137": {}},
-         {"row3@du2_customization.h139": {}},
-         {"row4@du2_customization.h141": {}}
+         {"row0@du2_customization.h134": {}},
+         {"row1@du2_customization.h136": {}},
+         {"row2@du2_customization.h138": {}},
+         {"row3@du2_customization.h140": {}},
+         {"row4@du2_customization.h142": {}}
         ]
        }
       },
-      {"names@du2_customization.h142": {}}
+      {
+       "names": {
+        "type": "collection_panel",
+        "size": ["100% - 60px", "100%"],
+        "layer": 4,
+        "clips_children": true,
+        "collection_name": "form_buttons",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [{"old@du2_customization.h143": {}}]
+       }
+      }
      ]
     }
    }
@@ -206,12 +230,12 @@
         "size": ["100%", 20],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_customization.h143": {}}
+         {"row@du2_customization.h144": {}}
         ]
        }
       },
       {
-       "body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_customization.h144": {}}]}
+       "body": {"type": "panel", "size": ["100%", "fill"], "controls": [{"inner@du2_customization.h145": {}}]}
       }
      ]
     }
@@ -293,7 +317,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(#form_button_text = 'ui.dbe.backButton')",
+    "source_property_name": "(('§r' + #form_button_text) = '§rui.dbe.backButton')",
     "target_property_name": "#visible"
    }
   ]
@@ -454,7 +478,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -566,7 +590,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -597,14 +621,14 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
  },
  "h8": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 18,
   "bindings": [
    {
@@ -614,15 +638,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.902, 0.925, 0.969],
      "font_type": "smooth",
@@ -630,17 +655,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 18,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -649,7 +668,7 @@
  },
  "h9": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 26,
   "bindings": [
    {
@@ -659,15 +678,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -675,17 +695,11 @@
      "text_alignment": "right",
      "anchor_from": "right_middle",
      "anchor_to": "right_middle",
-     "collection_index": 26,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -722,7 +736,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h8": {}}]
     }
    },
@@ -732,7 +745,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h9": {}}]
     }
    },
@@ -808,7 +820,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -837,7 +849,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -944,7 +956,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -975,14 +987,14 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
  },
  "h15": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 19,
   "bindings": [
    {
@@ -992,15 +1004,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.902, 0.925, 0.969],
      "font_type": "smooth",
@@ -1008,17 +1021,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 19,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -1027,7 +1034,7 @@
  },
  "h16": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 27,
   "bindings": [
    {
@@ -1037,15 +1044,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -1053,17 +1061,11 @@
      "text_alignment": "right",
      "anchor_from": "right_middle",
      "anchor_to": "right_middle",
-     "collection_index": 27,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -1100,7 +1102,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h15": {}}]
     }
    },
@@ -1110,7 +1111,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h16": {}}]
     }
    },
@@ -1186,7 +1186,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -1215,7 +1215,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -1322,7 +1322,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -1353,14 +1353,14 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
  },
  "h22": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 20,
   "bindings": [
    {
@@ -1370,15 +1370,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.902, 0.925, 0.969],
      "font_type": "smooth",
@@ -1386,17 +1387,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 20,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -1405,7 +1400,7 @@
  },
  "h23": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 28,
   "bindings": [
    {
@@ -1415,15 +1410,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -1431,17 +1427,11 @@
      "text_alignment": "right",
      "anchor_from": "right_middle",
      "anchor_to": "right_middle",
-     "collection_index": 28,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -1478,7 +1468,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h22": {}}]
     }
    },
@@ -1488,7 +1477,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h23": {}}]
     }
    },
@@ -1564,7 +1552,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -1593,7 +1581,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -1700,7 +1688,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -1731,14 +1719,14 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
  },
  "h29": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 21,
   "bindings": [
    {
@@ -1748,15 +1736,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.902, 0.925, 0.969],
      "font_type": "smooth",
@@ -1764,17 +1753,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 21,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -1783,7 +1766,7 @@
  },
  "h30": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 29,
   "bindings": [
    {
@@ -1793,15 +1776,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -1809,17 +1793,11 @@
      "text_alignment": "right",
      "anchor_from": "right_middle",
      "anchor_to": "right_middle",
-     "collection_index": 29,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -1856,7 +1834,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h29": {}}]
     }
    },
@@ -1866,7 +1843,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h30": {}}]
     }
    },
@@ -1942,7 +1918,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -1971,7 +1947,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -2078,7 +2054,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -2109,14 +2085,14 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
  },
  "h36": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 22,
   "bindings": [
    {
@@ -2126,15 +2102,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.902, 0.925, 0.969],
      "font_type": "smooth",
@@ -2142,17 +2119,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 22,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -2161,7 +2132,7 @@
  },
  "h37": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 30,
   "bindings": [
    {
@@ -2171,15 +2142,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -2187,17 +2159,11 @@
      "text_alignment": "right",
      "anchor_from": "right_middle",
      "anchor_to": "right_middle",
-     "collection_index": 30,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -2234,7 +2200,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h36": {}}]
     }
    },
@@ -2244,7 +2209,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h37": {}}]
     }
    },
@@ -2320,7 +2284,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -2349,7 +2313,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -2456,7 +2420,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -2487,14 +2451,14 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
  },
  "h43": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 23,
   "bindings": [
    {
@@ -2504,15 +2468,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.902, 0.925, 0.969],
      "font_type": "smooth",
@@ -2520,17 +2485,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 23,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -2539,7 +2498,7 @@
  },
  "h44": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 31,
   "bindings": [
    {
@@ -2549,15 +2508,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -2565,17 +2525,11 @@
      "text_alignment": "right",
      "anchor_from": "right_middle",
      "anchor_to": "right_middle",
-     "collection_index": 31,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -2612,7 +2566,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h43": {}}]
     }
    },
@@ -2622,7 +2575,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h44": {}}]
     }
    },
@@ -2698,7 +2650,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -2727,7 +2679,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -2834,7 +2786,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -2865,14 +2817,14 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
  },
  "h50": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 24,
   "bindings": [
    {
@@ -2882,15 +2834,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.902, 0.925, 0.969],
      "font_type": "smooth",
@@ -2898,17 +2851,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 24,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -2917,7 +2864,7 @@
  },
  "h51": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 32,
   "bindings": [
    {
@@ -2927,15 +2874,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -2943,17 +2891,11 @@
      "text_alignment": "right",
      "anchor_from": "right_middle",
      "anchor_to": "right_middle",
-     "collection_index": 32,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -2990,7 +2932,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h50": {}}]
     }
    },
@@ -3000,7 +2941,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h51": {}}]
     }
    },
@@ -3076,7 +3016,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -3105,7 +3045,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -3212,7 +3152,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -3243,14 +3183,14 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
  },
  "h57": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 25,
   "bindings": [
    {
@@ -3260,15 +3200,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.902, 0.925, 0.969],
      "font_type": "smooth",
@@ -3276,17 +3217,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 25,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -3295,7 +3230,7 @@
  },
  "h58": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 33,
   "bindings": [
    {
@@ -3305,15 +3240,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -3321,17 +3257,11 @@
      "text_alignment": "right",
      "anchor_from": "right_middle",
      "anchor_to": "right_middle",
-     "collection_index": 33,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -3368,7 +3298,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h57": {}}]
     }
    },
@@ -3378,7 +3307,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h58": {}}]
     }
    },
@@ -3454,7 +3382,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -3483,7 +3411,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -3522,85 +3450,75 @@
   ]
  },
  "h62": {
-  "type": "collection_panel",
-  "size": ["100% - 48px", "100%"],
-  "layer": 4,
-  "clips_children": true,
-  "collection_name": "form_buttons",
-  "anchor_from": "top_middle",
-  "anchor_to": "top_middle",
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "collection_index": 18,
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(('§r' + #form_button_text) = '§r')",
+    "target_property_name": "#visible"
+   }
+  ],
   "controls": [
    {
-    "old": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "collection_index": 18,
-     "bindings": [
-      {
-       "binding_type": "collection",
-       "binding_collection_name": "form_buttons",
-       "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text = '')",
-       "target_property_name": "#visible"
-      }
-     ],
-     "controls": [
-      {
-       "t": {
-        "type": "label",
-        "text": "#form_text",
-        "size": ["100%", "default"],
-        "color": [0.902, 0.925, 0.969],
-        "font_type": "default",
-        "shadow": false,
-        "text_alignment": "center",
-        "line_padding": 6,
-        "offset": [0, 2],
-        "anchor_from": "top_middle",
-        "anchor_to": "top_middle"
-       }
-      }
-     ]
+    "t": {
+     "type": "label",
+     "text": "#form_text",
+     "size": ["100%", "default"],
+     "color": [0.902, 0.925, 0.969],
+     "font_type": "default",
+     "shadow": false,
+     "text_alignment": "center",
+     "line_padding": 6,
+     "offset": [0, 2],
+     "anchor_from": "top_middle",
+     "anchor_to": "top_middle"
     }
    }
   ]
  },
  "h63": {
   "type": "panel",
-  "size": ["fill", "100%"],
+  "size": ["100%", 128],
   "controls": [
    {
-    "opts": {
-     "type": "panel",
-     "size": ["100%", 128],
+    "rows": {
+     "type": "stack_panel",
+     "orientation": "vertical",
+     "size": ["100%", "100%"],
      "controls": [
-      {
-       "rows": {
-        "type": "stack_panel",
-        "orientation": "vertical",
-        "size": ["100%", "100%"],
-        "controls": [
-         {"row0@du2_customization.h12": {}},
-         {"row1@du2_customization.h19": {}},
-         {"row2@du2_customization.h26": {}},
-         {"row3@du2_customization.h33": {}},
-         {"row4@du2_customization.h40": {}},
-         {"row5@du2_customization.h47": {}},
-         {"row6@du2_customization.h54": {}},
-         {"row7@du2_customization.h61": {}}
-        ]
-       }
-      },
-      {"names@du2_customization.h62": {}}
-     ],
+      {"row0@du2_customization.h12": {}},
+      {"row1@du2_customization.h19": {}},
+      {"row2@du2_customization.h26": {}},
+      {"row3@du2_customization.h33": {}},
+      {"row4@du2_customization.h40": {}},
+      {"row5@du2_customization.h47": {}},
+      {"row6@du2_customization.h54": {}},
+      {"row7@du2_customization.h61": {}}
+     ]
+    }
+   },
+   {
+    "names": {
+     "type": "collection_panel",
+     "size": ["100% - 48px", "100%"],
+     "layer": 4,
+     "clips_children": true,
+     "collection_name": "form_buttons",
      "anchor_from": "top_middle",
-     "anchor_to": "top_middle"
+     "anchor_to": "top_middle",
+     "controls": [{"old@du2_customization.h62": {}}]
     }
    }
-  ]
+  ],
+  "anchor_from": "top_middle",
+  "anchor_to": "top_middle"
  },
  "h64@common.button": {
   "size": [26, 20],
@@ -3671,7 +3589,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -3706,7 +3624,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h8": {}}]
     }
    },
@@ -3716,7 +3633,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h9": {}}]
     }
    },
@@ -3792,7 +3708,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -3821,7 +3737,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -3928,7 +3844,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -3963,7 +3879,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h15": {}}]
     }
    },
@@ -3973,7 +3888,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h16": {}}]
     }
    },
@@ -4049,7 +3963,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -4078,7 +3992,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -4185,7 +4099,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -4220,7 +4134,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h22": {}}]
     }
    },
@@ -4230,7 +4143,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h23": {}}]
     }
    },
@@ -4306,7 +4218,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -4335,7 +4247,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -4442,7 +4354,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -4477,7 +4389,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h29": {}}]
     }
    },
@@ -4487,7 +4398,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h30": {}}]
     }
    },
@@ -4563,7 +4473,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -4592,7 +4502,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -4699,7 +4609,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -4734,7 +4644,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h36": {}}]
     }
    },
@@ -4744,7 +4653,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h37": {}}]
     }
    },
@@ -4820,7 +4728,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -4849,7 +4757,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -4956,7 +4864,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -4991,7 +4899,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h43": {}}]
     }
    },
@@ -5001,7 +4908,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h44": {}}]
     }
    },
@@ -5077,7 +4983,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -5106,7 +5012,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -5213,7 +5119,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -5248,7 +5154,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h50": {}}]
     }
    },
@@ -5258,7 +5163,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h51": {}}]
     }
    },
@@ -5334,7 +5238,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -5363,7 +5267,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -5470,7 +5374,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -5505,7 +5409,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h57": {}}]
     }
    },
@@ -5515,7 +5418,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h58": {}}]
     }
    },
@@ -5591,7 +5493,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -5620,7 +5522,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -5659,48 +5561,35 @@
   ]
  },
  "h96": {
-  "type": "collection_panel",
-  "size": ["100% - 60px", "100%"],
-  "layer": 4,
-  "clips_children": true,
-  "collection_name": "form_buttons",
-  "anchor_from": "top_middle",
-  "anchor_to": "top_middle",
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "collection_index": 18,
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(('§r' + #form_button_text) = '§r')",
+    "target_property_name": "#visible"
+   }
+  ],
   "controls": [
    {
-    "old": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "collection_index": 18,
-     "bindings": [
-      {
-       "binding_type": "collection",
-       "binding_collection_name": "form_buttons",
-       "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text = '')",
-       "target_property_name": "#visible"
-      }
-     ],
-     "controls": [
-      {
-       "t": {
-        "type": "label",
-        "text": "#form_text",
-        "size": ["100%", "default"],
-        "color": [0.902, 0.925, 0.969],
-        "font_type": "default",
-        "shadow": false,
-        "text_alignment": "center",
-        "line_padding": 12,
-        "offset": [0, 5],
-        "anchor_from": "top_middle",
-        "anchor_to": "top_middle"
-       }
-      }
-     ]
+    "t": {
+     "type": "label",
+     "text": "#form_text",
+     "size": ["100%", "default"],
+     "color": [0.902, 0.925, 0.969],
+     "font_type": "default",
+     "shadow": false,
+     "text_alignment": "center",
+     "line_padding": 12,
+     "offset": [0, 5],
+     "anchor_from": "top_middle",
+     "anchor_to": "top_middle"
     }
    }
   ]
@@ -5917,7 +5806,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -5948,14 +5837,14 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
  },
  "h103": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 10,
   "bindings": [
    {
@@ -5965,15 +5854,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.902, 0.925, 0.969],
      "font_type": "smooth",
@@ -5981,17 +5871,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 10,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -6000,7 +5884,7 @@
  },
  "h104": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 15,
   "bindings": [
    {
@@ -6010,15 +5894,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -6026,17 +5911,11 @@
      "text_alignment": "right",
      "anchor_from": "right_middle",
      "anchor_to": "right_middle",
-     "collection_index": 15,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -6073,7 +5952,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h103": {}}]
     }
    },
@@ -6083,7 +5961,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h104": {}}]
     }
    },
@@ -6159,7 +6036,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -6188,7 +6065,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -6252,14 +6129,14 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
  },
  "h109": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 11,
   "bindings": [
    {
@@ -6269,15 +6146,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.902, 0.925, 0.969],
      "font_type": "smooth",
@@ -6285,17 +6163,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 11,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -6304,7 +6176,7 @@
  },
  "h110": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 16,
   "bindings": [
    {
@@ -6314,15 +6186,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -6330,17 +6203,11 @@
      "text_alignment": "right",
      "anchor_from": "right_middle",
      "anchor_to": "right_middle",
-     "collection_index": 16,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -6377,7 +6244,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h109": {}}]
     }
    },
@@ -6387,7 +6253,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h110": {}}]
     }
    },
@@ -6418,7 +6283,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -6482,14 +6347,14 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
  },
  "h114": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 12,
   "bindings": [
    {
@@ -6499,15 +6364,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.902, 0.925, 0.969],
      "font_type": "smooth",
@@ -6515,17 +6381,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 12,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -6534,7 +6394,7 @@
  },
  "h115": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 17,
   "bindings": [
    {
@@ -6544,15 +6404,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -6560,17 +6421,11 @@
      "text_alignment": "right",
      "anchor_from": "right_middle",
      "anchor_to": "right_middle",
-     "collection_index": 17,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -6607,7 +6462,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h114": {}}]
     }
    },
@@ -6617,7 +6471,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h115": {}}]
     }
    },
@@ -6648,7 +6501,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -6712,14 +6565,14 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
  },
  "h119": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 13,
   "bindings": [
    {
@@ -6729,15 +6582,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.902, 0.925, 0.969],
      "font_type": "smooth",
@@ -6745,17 +6599,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 13,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -6764,7 +6612,7 @@
  },
  "h120": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 18,
   "bindings": [
    {
@@ -6774,15 +6622,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -6790,17 +6639,11 @@
      "text_alignment": "right",
      "anchor_from": "right_middle",
      "anchor_to": "right_middle",
-     "collection_index": 18,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -6837,7 +6680,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h119": {}}]
     }
    },
@@ -6847,7 +6689,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h120": {}}]
     }
    },
@@ -6878,7 +6719,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -6942,14 +6783,14 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
  },
  "h124": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 14,
   "bindings": [
    {
@@ -6959,15 +6800,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.902, 0.925, 0.969],
      "font_type": "smooth",
@@ -6975,17 +6817,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 14,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -6994,7 +6830,7 @@
  },
  "h125": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 19,
   "bindings": [
    {
@@ -7004,15 +6840,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -7020,17 +6857,11 @@
      "text_alignment": "right",
      "anchor_from": "right_middle",
      "anchor_to": "right_middle",
-     "collection_index": 19,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -7067,7 +6898,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h124": {}}]
     }
    },
@@ -7077,7 +6907,6 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h125": {}}]
     }
    },
@@ -7108,7 +6937,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -7147,53 +6976,74 @@
   ]
  },
  "h128": {
-  "type": "collection_panel",
-  "size": ["100% - 48px", "100%"],
-  "layer": 4,
-  "clips_children": true,
-  "collection_name": "form_buttons",
-  "anchor_from": "top_middle",
-  "anchor_to": "top_middle",
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "collection_index": 10,
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(('§r' + #form_button_text) = '§r')",
+    "target_property_name": "#visible"
+   }
+  ],
   "controls": [
    {
-    "old": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "collection_index": 10,
-     "bindings": [
-      {
-       "binding_type": "collection",
-       "binding_collection_name": "form_buttons",
-       "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text = '')",
-       "target_property_name": "#visible"
-      }
-     ],
-     "controls": [
-      {
-       "t": {
-        "type": "label",
-        "text": "#form_text",
-        "size": ["100%", "default"],
-        "color": [0.902, 0.925, 0.969],
-        "font_type": "default",
-        "shadow": false,
-        "text_alignment": "center",
-        "line_padding": 6,
-        "offset": [0, 2],
-        "anchor_from": "top_middle",
-        "anchor_to": "top_middle"
-       }
-      }
-     ]
+    "t": {
+     "type": "label",
+     "text": "#form_text",
+     "size": ["100%", "default"],
+     "color": [0.902, 0.925, 0.969],
+     "font_type": "default",
+     "shadow": false,
+     "text_alignment": "center",
+     "line_padding": 6,
+     "offset": [0, 2],
+     "anchor_from": "top_middle",
+     "anchor_to": "top_middle"
     }
    }
   ]
  },
  "h129": {
+  "type": "panel",
+  "size": ["100%", 80],
+  "controls": [
+   {
+    "rows": {
+     "type": "stack_panel",
+     "orientation": "vertical",
+     "size": ["100%", "100%"],
+     "controls": [
+      {"row0@du2_customization.h107": {}},
+      {"row1@du2_customization.h112": {}},
+      {"row2@du2_customization.h117": {}},
+      {"row3@du2_customization.h122": {}},
+      {"row4@du2_customization.h127": {}}
+     ]
+    }
+   },
+   {
+    "names": {
+     "type": "collection_panel",
+     "size": ["100% - 48px", "100%"],
+     "layer": 4,
+     "clips_children": true,
+     "collection_name": "form_buttons",
+     "anchor_from": "top_middle",
+     "anchor_to": "top_middle",
+     "controls": [{"old@du2_customization.h128": {}}]
+    }
+   }
+  ],
+  "anchor_from": "top_middle",
+  "anchor_to": "top_middle"
+ },
+ "h130": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100% - 10px", "100% - 8px"],
@@ -7232,42 +7082,10 @@
     }
    },
    {"pad": {"type": "panel", "size": [6, "100%"]}},
-   {
-    "right": {
-     "type": "panel",
-     "size": ["fill", "100%"],
-     "controls": [
-      {
-       "opts": {
-        "type": "panel",
-        "size": ["100%", 80],
-        "controls": [
-         {
-          "rows": {
-           "type": "stack_panel",
-           "orientation": "vertical",
-           "size": ["100%", "100%"],
-           "controls": [
-            {"row0@du2_customization.h107": {}},
-            {"row1@du2_customization.h112": {}},
-            {"row2@du2_customization.h117": {}},
-            {"row3@du2_customization.h122": {}},
-            {"row4@du2_customization.h127": {}}
-           ]
-          }
-         },
-         {"names@du2_customization.h128": {}}
-        ],
-        "anchor_from": "top_middle",
-        "anchor_to": "top_middle"
-       }
-      }
-     ]
-    }
-   }
+   {"right": {"type": "panel", "size": ["fill", "100%"], "controls": [{"opts@du2_customization.h129": {}}]}}
   ]
  },
- "h130@common.button": {
+ "h131@common.button": {
   "size": [26, 20],
   "collection_index": 0,
   "$pressed_button_name": "button.form_button_click",
@@ -7336,12 +7154,12 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
  },
- "h131": {
+ "h132": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 20],
@@ -7371,7 +7189,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h103": {}}]
     }
    },
@@ -7381,14 +7198,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h104": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h132@common.button": {
+ "h133@common.button": {
   "size": [26, 20],
   "collection_index": 1,
   "$pressed_button_name": "button.form_button_click",
@@ -7457,12 +7273,12 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
  },
- "h133": {
+ "h134": {
   "type": "panel",
   "size": ["100%", 22],
   "controls": [
@@ -7486,7 +7302,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -7507,16 +7323,16 @@
         "type": "collection_panel",
         "size": [26, 20],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h130": {}}]
+        "controls": [{"b@du2_customization.h131": {}}]
        }
       },
-      {"mid@du2_customization.h131": {}},
+      {"mid@du2_customization.h132": {}},
       {
        "next": {
         "type": "collection_panel",
         "size": [26, 20],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_customization.h132": {}}]
+        "controls": [{"b@du2_customization.h133": {}}]
        }
       }
      ]
@@ -7524,7 +7340,7 @@
    }
   ]
  },
- "h134": {
+ "h135": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 20],
@@ -7554,7 +7370,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h109": {}}]
     }
    },
@@ -7564,14 +7379,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h110": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h135": {
+ "h136": {
   "type": "panel",
   "size": ["100%", 22],
   "controls": [
@@ -7595,7 +7409,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -7619,7 +7433,7 @@
         "controls": [{"b@du2_customization.h64": {}}]
        }
       },
-      {"mid@du2_customization.h134": {}},
+      {"mid@du2_customization.h135": {}},
       {
        "next": {
         "type": "collection_panel",
@@ -7633,7 +7447,7 @@
    }
   ]
  },
- "h136": {
+ "h137": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 20],
@@ -7663,7 +7477,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h114": {}}]
     }
    },
@@ -7673,14 +7486,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h115": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h137": {
+ "h138": {
   "type": "panel",
   "size": ["100%", 22],
   "controls": [
@@ -7704,7 +7516,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -7728,7 +7540,7 @@
         "controls": [{"b@du2_customization.h68": {}}]
        }
       },
-      {"mid@du2_customization.h136": {}},
+      {"mid@du2_customization.h137": {}},
       {
        "next": {
         "type": "collection_panel",
@@ -7742,7 +7554,7 @@
    }
   ]
  },
- "h138": {
+ "h139": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 20],
@@ -7772,7 +7584,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h119": {}}]
     }
    },
@@ -7782,14 +7593,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h120": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h139": {
+ "h140": {
   "type": "panel",
   "size": ["100%", 22],
   "controls": [
@@ -7813,7 +7623,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -7837,7 +7647,7 @@
         "controls": [{"b@du2_customization.h72": {}}]
        }
       },
-      {"mid@du2_customization.h138": {}},
+      {"mid@du2_customization.h139": {}},
       {
        "next": {
         "type": "collection_panel",
@@ -7851,7 +7661,7 @@
    }
   ]
  },
- "h140": {
+ "h141": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["fill", 20],
@@ -7881,7 +7691,6 @@
      "type": "collection_panel",
      "size": ["fill", "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h124": {}}]
     }
    },
@@ -7891,14 +7700,13 @@
      "type": "collection_panel",
      "size": [34, "100%"],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_customization.h125": {}}]
     }
    },
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h141": {
+ "h142": {
   "type": "panel",
   "size": ["100%", 22],
   "controls": [
@@ -7922,7 +7730,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ]
@@ -7946,7 +7754,7 @@
         "controls": [{"b@du2_customization.h76": {}}]
        }
       },
-      {"mid@du2_customization.h140": {}},
+      {"mid@du2_customization.h141": {}},
       {
        "next": {
         "type": "collection_panel",
@@ -7960,54 +7768,41 @@
    }
   ]
  },
- "h142": {
-  "type": "collection_panel",
-  "size": ["100% - 60px", "100%"],
-  "layer": 4,
-  "clips_children": true,
-  "collection_name": "form_buttons",
-  "anchor_from": "top_middle",
-  "anchor_to": "top_middle",
+ "h143": {
+  "type": "panel",
+  "size": ["100%", "100%"],
+  "collection_index": 10,
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_text"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(('§r' + #form_button_text) = '§r')",
+    "target_property_name": "#visible"
+   }
+  ],
   "controls": [
    {
-    "old": {
-     "type": "panel",
-     "size": ["100%", "100%"],
-     "collection_index": 10,
-     "bindings": [
-      {
-       "binding_type": "collection",
-       "binding_collection_name": "form_buttons",
-       "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text = '')",
-       "target_property_name": "#visible"
-      }
-     ],
-     "controls": [
-      {
-       "t": {
-        "type": "label",
-        "text": "#form_text",
-        "size": ["100%", "default"],
-        "color": [0.902, 0.925, 0.969],
-        "font_type": "default",
-        "shadow": false,
-        "text_alignment": "center",
-        "line_padding": 12,
-        "offset": [0, 5],
-        "anchor_from": "top_middle",
-        "anchor_to": "top_middle"
-       }
-      }
-     ]
+    "t": {
+     "type": "label",
+     "text": "#form_text",
+     "size": ["100%", "default"],
+     "color": [0.902, 0.925, 0.969],
+     "font_type": "default",
+     "shadow": false,
+     "text_alignment": "center",
+     "line_padding": 12,
+     "offset": [0, 5],
+     "anchor_from": "top_middle",
+     "anchor_to": "top_middle"
     }
    }
   ]
  },
- "h143": {
+ "h144": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -8034,7 +7829,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h144": {
+ "h145": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100% - 6px", "100% - 6px"],

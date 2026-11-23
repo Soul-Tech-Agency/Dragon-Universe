@@ -7,12 +7,14 @@ import { run as validateJson } from "./validate-json.mjs";
 import { run as checkRefs } from "./check-refs.mjs";
 import { run as checkData } from "./check-data.mjs";
 import { run as checkSyntax } from "./check-syntax.mjs";
+import { run as checkUiProps } from "./check-ui-props.mjs";
 
 const CHECKS = [
   ["validate-json", validateJson],
   ["check-refs", checkRefs],
   ["check-data", checkData],
   ["check-syntax", checkSyntax],
+  ["check-ui-props", checkUiProps],
 ];
 
 const results = [];

@@ -12,7 +12,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((#form_button_text = '') or (#form_button_text = 'ui.dbe.backButton') or (not ((#form_button_text - 'day;') = #form_button_text))))",
+    "source_property_name": "(not ((('§r' + #form_button_text) = '§r') or (('§r' + #form_button_text) = '§rui.dbe.backButton') or (not ((('§r' + #form_button_text) - '§rday;') = ('§r' + #form_button_text)))))",
     "target_property_name": "#visible"
    }
   ],
@@ -75,7 +75,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((#form_button_text = '') or (#form_button_text = 'ui.dbe.backButton') or (not ((#form_button_text - 'day;') = #form_button_text))))",
+    "source_property_name": "(not ((('§r' + #form_button_text) = '§r') or (('§r' + #form_button_text) = '§rui.dbe.backButton') or (not ((('§r' + #form_button_text) - '§rday;') = ('§r' + #form_button_text)))))",
     "target_property_name": "#visible"
    }
   ],
@@ -149,7 +149,7 @@
       },
       {
        "binding_type": "view",
-       "source_property_name": "(not ((#form_button_text - 'day;') = #form_button_text))",
+       "source_property_name": "(not ((('§r' + #form_button_text) - '§rday;') = ('§r' + #form_button_text)))",
        "target_property_name": "#visible"
       }
      ],
@@ -235,7 +235,7 @@
       },
       {
        "binding_type": "view",
-       "source_property_name": "(not ((#form_button_text - 'day;') = #form_button_text))",
+       "source_property_name": "(not ((('§r' + #form_button_text) - '§rday;') = ('§r' + #form_button_text)))",
        "target_property_name": "#visible"
       }
      ],
@@ -653,7 +653,7 @@
       },
       {
        "binding_type": "view",
-       "source_property_name": "(#form_button_text - 'day;')",
+       "source_property_name": "(('§r' + #form_button_text) - 'day;')",
        "target_property_name": "#du2_day"
       }
      ]
@@ -858,7 +858,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(#form_button_text = 'ui.dbe.backButton')",
+    "source_property_name": "(('§r' + #form_button_text) = '§rui.dbe.backButton')",
     "target_property_name": "#visible"
    }
   ]
@@ -941,7 +941,7 @@
  },
  "h14": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 3,
   "bindings": [
    {
@@ -951,15 +951,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.965, 0.725, 0.263],
      "font_type": "smooth",
@@ -967,17 +968,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 3,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -1002,7 +997,7 @@
       },
       {
        "binding_type": "view",
-       "source_property_name": "(not (#form_button_text = ''))",
+       "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
        "target_property_name": "#visible"
       }
      ],
@@ -1027,7 +1022,7 @@
  },
  "h16": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 4,
   "bindings": [
    {
@@ -1037,15 +1032,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -1053,17 +1049,11 @@
      "text_alignment": "right",
      "anchor_from": "right_middle",
      "anchor_to": "right_middle",
-     "collection_index": 4,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -1106,7 +1096,6 @@
      "type": "collection_panel",
      "size": ["fill", 14],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_mental.h14": {}}]
     }
    },
@@ -1123,7 +1112,6 @@
         "type": "collection_panel",
         "size": [30, 14],
         "collection_name": "form_buttons",
-        "clips_children": true,
         "controls": [{"s@du2_mental.h16": {}}]
        }
       }
@@ -1134,7 +1122,7 @@
  },
  "h18": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 7,
   "bindings": [
    {
@@ -1144,15 +1132,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -1160,17 +1149,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 7,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -1250,7 +1233,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "((#form_button_text - '*') = #form_button_text)",
+    "source_property_name": "(not (not ((('§r' + #form_button_text) - '§r*') = ('§r' + #form_button_text))))",
     "target_property_name": "#visible"
    }
   ],
@@ -1274,23 +1257,17 @@
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["fill", "default"],
      "color": [0.902, 0.925, 0.969],
      "font_type": "smooth",
      "shadow": false,
      "text_alignment": "left",
-     "collection_index": 8,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -1310,7 +1287,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((#form_button_text - '*') = #form_button_text))",
+    "source_property_name": "(not ((('§r' + #form_button_text) - '§r*') = ('§r' + #form_button_text)))",
     "target_property_name": "#visible"
    }
   ],
@@ -1343,7 +1320,6 @@
      "font_type": "smooth",
      "shadow": false,
      "text_alignment": "left",
-     "collection_index": 8,
      "bindings": [
       {
        "binding_type": "collection",
@@ -1352,7 +1328,7 @@
       },
       {
        "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
+       "source_property_name": "(('§r' + #form_button_text) - '*')",
        "target_property_name": "#du2_text"
       }
      ]
@@ -1470,7 +1446,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -1517,7 +1493,6 @@
         "type": "collection_panel",
         "size": ["fill", 10],
         "collection_name": "form_buttons",
-        "clips_children": true,
         "controls": [{"s@du2_mental.h18": {}}]
        }
       }
@@ -1557,7 +1532,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ],
@@ -1580,7 +1555,7 @@
  },
  "h26": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 9,
   "bindings": [
    {
@@ -1590,15 +1565,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -1606,17 +1582,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 9,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -1636,7 +1606,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "((#form_button_text - '*') = #form_button_text)",
+    "source_property_name": "(not (not ((('§r' + #form_button_text) - '§r*') = ('§r' + #form_button_text))))",
     "target_property_name": "#visible"
    }
   ],
@@ -1660,23 +1630,17 @@
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["fill", "default"],
      "color": [0.902, 0.925, 0.969],
      "font_type": "smooth",
      "shadow": false,
      "text_alignment": "left",
-     "collection_index": 10,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -1696,7 +1660,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((#form_button_text - '*') = #form_button_text))",
+    "source_property_name": "(not ((('§r' + #form_button_text) - '§r*') = ('§r' + #form_button_text)))",
     "target_property_name": "#visible"
    }
   ],
@@ -1729,7 +1693,6 @@
      "font_type": "smooth",
      "shadow": false,
      "text_alignment": "left",
-     "collection_index": 10,
      "bindings": [
       {
        "binding_type": "collection",
@@ -1738,7 +1701,7 @@
       },
       {
        "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
+       "source_property_name": "(('§r' + #form_button_text) - '*')",
        "target_property_name": "#du2_text"
       }
      ]
@@ -1794,7 +1757,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ]
@@ -1841,7 +1804,6 @@
         "type": "collection_panel",
         "size": ["fill", 10],
         "collection_name": "form_buttons",
-        "clips_children": true,
         "controls": [{"s@du2_mental.h26": {}}]
        }
       }
@@ -1881,7 +1843,7 @@
          },
          {
           "binding_type": "view",
-          "source_property_name": "(not (#form_button_text = ''))",
+          "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
           "target_property_name": "#visible"
          }
         ],
@@ -1904,7 +1866,7 @@
  },
  "h31": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 6,
   "bindings": [
    {
@@ -1914,15 +1876,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [1.0, 0.42, 0.478],
      "font_type": "smooth",
@@ -1930,17 +1893,11 @@
      "text_alignment": "left",
      "anchor_from": "left_middle",
      "anchor_to": "left_middle",
-     "collection_index": 6,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -1949,7 +1906,7 @@
  },
  "h32": {
   "type": "panel",
-  "size": ["100%", "100%"],
+  "size": ["100%", "100% + 4px"],
   "collection_index": 5,
   "bindings": [
    {
@@ -1959,15 +1916,16 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not (#form_button_text = ''))",
+    "source_property_name": "(not (('§r' + #form_button_text) = '§r'))",
     "target_property_name": "#visible"
    }
   ],
+  "clips_children": true,
   "controls": [
    {
     "t": {
      "type": "label",
-     "text": "#du2_text",
+     "text": "#form_button_text",
      "size": ["100%", 10],
      "color": [0.333, 1.0, 1.0],
      "font_type": "smooth",
@@ -1975,17 +1933,11 @@
      "text_alignment": "right",
      "anchor_from": "right_middle",
      "anchor_to": "right_middle",
-     "collection_index": 5,
      "bindings": [
       {
        "binding_type": "collection",
        "binding_collection_name": "form_buttons",
        "binding_name": "#form_button_text"
-      },
-      {
-       "binding_type": "view",
-       "source_property_name": "(#form_button_text - '*')",
-       "target_property_name": "#du2_text"
       }
      ]
     }
@@ -2002,7 +1954,6 @@
      "type": "collection_panel",
      "size": ["fill", 12],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_mental.h31": {}}]
     }
    },
@@ -2024,7 +1975,6 @@
      "type": "collection_panel",
      "size": [28, 12],
      "collection_name": "form_buttons",
-     "clips_children": true,
      "controls": [{"s@du2_mental.h32": {}}]
     }
    }
