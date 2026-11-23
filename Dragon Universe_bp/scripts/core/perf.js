@@ -21,7 +21,10 @@
 // num grupo à parte, "base do Freeza?" (estimativa: o job não diz para que é). A linha "interval(1) terrain_repair.js"
 // é a bomba: o tempo dela inclui o dos jobs. O report lista a dimensão e o chunk de cada jogador. Tudo só leitura.
 // As tarefas do relógio único (core/scheduler.js, O3) passam por perfTask e aparecem como "every <nome>"; sem isso,
-// todas apareceriam como o intervalo do scheduler.js.
+// todas apareceriam como o intervalo do scheduler.js. A linha "relógio" do report diz quantas tarefas estão registradas
+// nele (contagem que o scheduler.js passa por clockTaskCount) e em quantos ticks da medição ele rodou alguma.
+// trySetProperty/s: pedidos de trySetProperty (core/11_entity_wrapper.js) que agendaram uma gravação (o system.run
+// dele, reconhecido pela pilha); pedidos repetidos da mesma propriedade no mesmo tick não agendam e não contam.
 import * as mc from "@minecraft/server";
 import { CONFIG } from "../config/config.js";
 
@@ -40,6 +43,11 @@ let clockInterval = (fn, ticks) => system.runInterval(fn, ticks);
 export function schedulerInterval(fn, ticks) {
   return clockInterval(fn, ticks);
 }
+// O scheduler.js informa quantas tarefas tem (só leitura, para o report).
+let clockTasks = () => undefined;
+export function clockTaskCount(fn) {
+  clockTasks = fn;
+}
 
 // Embrulho dos jobs de terreno para o gancho de terrain_repair.js (null com a sonda desligada).
 export let terrainProbeWrap = null;
@@ -51,7 +59,8 @@ function install() {
   const liveIntervals = new Map(); // runId → onde foi agendado
   const failures = [];
   let running = false, startTick = 0, startMs = 0, stoppedTick = 0, stoppedMs = 0;
-  let setProperties = 0, getEntitiesCalls = 0, getPlayersCalls = 0;
+  let setProperties = 0, getEntitiesCalls = 0, getPlayersCalls = 0, trySetProperties = 0;
+  let clockTicks = 0, clockRuns = 0, clockLastTick = -1; // ticks com alguma tarefa do relógio e execuções delas
   const tickGaps = [];
   let lastTickMs = 0;
 
@@ -161,6 +170,10 @@ function install() {
     return orig.call(system, running ? timed("timeout " + site(), fn) : fn, ticks);
   });
   patch(system, "run", (orig) => function (fn) {
+    if (running)
+      try {
+        if (/\btrySetProperty\b/.test(String(new Error().stack ?? ""))) trySetProperties++;
+      } catch {}
     return orig.call(system, running ? timed("run " + site(), fn) : fn);
   });
   patch(system, "clearRun", (orig) => function (id) {
@@ -226,7 +239,20 @@ function install() {
   countProto(mc.World, "getPlayers", () => getPlayersCalls++);
   countProto(mc.World, "getAllPlayers", () => getPlayersCalls++);
   countProto(mc.Dimension, "getPlayers", () => getPlayersCalls++);
-  wrapTask = (name, fn) => timed("every " + name, fn);
+  wrapTask = (name, fn) => {
+    const run = timed("every " + name, fn);
+    if (typeof run !== "function") return run;
+    return function (...args) {
+      if (running) {
+        clockRuns++;
+        if (system.currentTick !== clockLastTick) {
+          clockLastTick = system.currentTick;
+          clockTicks++;
+        }
+      }
+      return run.apply(this, args);
+    };
+  };
   clockInterval = rawInterval;
 
   // duração real de cada tick (intervalo de 1 tick próprio, fora da contagem de tarefas)
@@ -293,7 +319,8 @@ function install() {
     const { dbe, players } = loadedDbeEntities();
     const lines = [
       `§e[perf] ${ticks} ticks em ${fmt(seconds)} s (${running ? "medindo" : "parado"}). Tick: média ${fmt(tickGaps.reduce((a, b) => a + b, 0) / Math.max(1, tickGaps.length))} ms, p95 ${p95(tickGaps)} ms.`,
-      `§e[perf] intervalos vivos ${liveIntervals.size}; setProperty ${fmt(setProperties / seconds)}/s; getEntities ${fmt(getEntitiesCalls / seconds)}/s; getPlayers ${fmt(getPlayersCalls / seconds)}/s; entidades dbe: ${dbe}, jogadores ${players}.`,
+      `§e[perf] intervalos vivos ${liveIntervals.size}; setProperty ${fmt(setProperties / seconds)}/s; trySetProperty ${fmt(trySetProperties / seconds)}/s; getEntities ${fmt(getEntitiesCalls / seconds)}/s; getPlayers ${fmt(getPlayersCalls / seconds)}/s; entidades dbe: ${dbe}, jogadores ${players}.`,
+      `§e[perf] relógio: ${clockTasks() ?? "?"} tarefas, ${clockTicks} ticks despachados (de ${ticks}), ${clockRuns} execuções.`,
       `§e[perf] tarefas (top ${rows.length} por tempo total): chamadas · média · p95 · máx (ms) · ms/tick. Nos jobs e no "terreno", "chamadas" = jobs iniciados na medição · passos. O relógio do O3 não entra nos intervalos: as tarefas dele são as linhas "every". A linha "interval(1) terrain_repair.js" é a bomba dos jobs de terreno e inclui o tempo deles.`,
       ...rows.map(([k, t]) => `  ${k}: ${k.startsWith("job ") || k.startsWith("terreno ") ? t.jobs + " job(s) iniciado(s) · " + t.calls + " passo(s)" : t.calls} · ${fmt(t.total / Math.max(1, t.calls))} · ${p95(t.samples)} · ${t.max} · ${fmt(t.total / ticks)}`),
       ...playerLines(),
@@ -309,7 +336,9 @@ function install() {
     if (cmd === "start") {
       tasks.clear();
       tickGaps.length = 0;
-      setProperties = getEntitiesCalls = getPlayersCalls = 0;
+      setProperties = getEntitiesCalls = getPlayersCalls = trySetProperties = 0;
+      clockTicks = clockRuns = 0;
+      clockLastTick = -1;
       lastTickMs = 0;
       running = true;
       startTick = system.currentTick;
