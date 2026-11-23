@@ -366,6 +366,20 @@
                 }
             },
             {
+                "training_physical@du2_physical.physical_list_form": {
+                    "bindings": [
+                        {
+                            "binding_name": "#title_text"
+                        },
+                        {
+                            "binding_type": "view",
+                            "source_property_name": "(#title_text = 'ui.dbe.training_physical.title')",
+                            "target_property_name": "#visible"
+                        }
+                    ]
+                }
+            },
+            {
                 "training@du2_training.training_form": {
                     "bindings": [
                         {

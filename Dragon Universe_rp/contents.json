@@ -6475,6 +6475,9 @@
          "path" : "ui/du2/du2_mental.json"
       },
       {
+         "path" : "ui/du2/du2_physical.json"
+      },
+      {
          "path" : "ui/du2/du2_training_hud.json"
       },
       {
