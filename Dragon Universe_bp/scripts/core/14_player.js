@@ -1,9 +1,8 @@
 // Movido do index.js SEM mudança de código (O4, de cima para baixo): os segmentos 1–2 de então, linhas 112–819.
 // Gerado por tools/move-segments.mjs. Os imports abaixo são os que o trecho usava de outros pontos do index.js.
-import { aI, aN, aO, bG, bN, bO, bP } from "./01_util.js";
-import { CONFIG as hG } from "../config/config.js";
-import { EquipmentSlot as bU, GameMode as bV, InputPermissionCategory as bW, system as bX, MolangVariableMap as hH, system as hI } from "@minecraft/server";
-import { hA, hD, hE, hF, hk, hp, hv } from "./13_ki_attack_hud_level.js";
+import { aN, bG, bN } from "./01_util.js";
+import { EquipmentSlot as bU, GameMode as bV, InputPermissionCategory as bW, system as bX } from "@minecraft/server";
+import { hA, hE, hF, hk, hp, hv } from "./13_ki_attack_hud_level.js";
 import { d4 } from "./05_db_cooldowns.js";
 import { fG, fP, fR, fS, fV } from "./11_entity_wrapper.js";
 import { g1, g3, g5, g7, gD, gI, gR, gS, gT, gw, h6 } from "./12_quests.js";
