@@ -1,0 +1,3939 @@
+{
+ "namespace": "du2_training_hud",
+ "concentration": {
+  "type": "panel",
+  "size": [136, "100%c"],
+  "controls": [
+   {
+    "pc": {
+     "type": "panel",
+     "size": [136, 88],
+     "anchor_from": "top_right",
+     "anchor_to": "top_right",
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'train_hud:conc;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/panel_dark", "size": ["100%", "100%"]}},
+      {"inner@du2_training_hud.h26": {}},
+      {
+       "count": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "layer": 5,
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "((not ((#hud_title_text_string - 'train_count:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:2;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:1;') = #hud_title_text_string)))",
+          "target_property_name": "#visible"
+         }
+        ],
+        "controls": [
+         {"dim": {"type": "image", "texture": "textures/ui/du2/panel_overlay", "size": ["100%", "100%"]}},
+         {"pill@du2_training_hud.h27": {}}
+        ]
+       }
+      }
+     ],
+     "ignored": "$du2_mobile"
+    }
+   },
+   {
+    "mobile": {
+     "type": "panel",
+     "size": [136, 72],
+     "anchor_from": "top_right",
+     "anchor_to": "top_right",
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'train_hud:conc;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/panel_dark", "size": ["100%", "100%"]}},
+      {"inner@du2_training_hud.h28": {}},
+      {
+       "count": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "layer": 5,
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "((not ((#hud_title_text_string - 'train_count:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:2;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:1;') = #hud_title_text_string)))",
+          "target_property_name": "#visible"
+         }
+        ],
+        "controls": [
+         {"dim": {"type": "image", "texture": "textures/ui/du2/panel_overlay", "size": ["100%", "100%"]}},
+         {"pill@du2_training_hud.h27": {}}
+        ]
+       }
+      }
+     ],
+     "ignored": "$du2_pc"
+    }
+   }
+  ]
+ },
+ "physical": {
+  "type": "panel",
+  "size": [136, "100%c"],
+  "controls": [
+   {
+    "pc": {
+     "type": "panel",
+     "size": [136, 87],
+     "anchor_from": "top_right",
+     "anchor_to": "top_right",
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'train_hud:phys;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/panel_dark", "size": ["100%", "100%"]}},
+      {"inner@du2_training_hud.h46": {}},
+      {
+       "count": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "layer": 5,
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "((not ((#hud_title_text_string - 'train_count:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:2;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:1;') = #hud_title_text_string)))",
+          "target_property_name": "#visible"
+         }
+        ],
+        "controls": [
+         {"dim": {"type": "image", "texture": "textures/ui/du2/panel_overlay", "size": ["100%", "100%"]}},
+         {"pill@du2_training_hud.h27": {}}
+        ]
+       }
+      }
+     ],
+     "ignored": "$du2_mobile"
+    }
+   },
+   {
+    "mobile": {
+     "type": "panel",
+     "size": [136, 71],
+     "anchor_from": "top_right",
+     "anchor_to": "top_right",
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'train_hud:phys;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/panel_dark", "size": ["100%", "100%"]}},
+      {"inner@du2_training_hud.h47": {}},
+      {
+       "count": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "layer": 5,
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "((not ((#hud_title_text_string - 'train_count:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:2;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:1;') = #hud_title_text_string)))",
+          "target_property_name": "#visible"
+         }
+        ],
+        "controls": [
+         {"dim": {"type": "image", "texture": "textures/ui/du2/panel_overlay", "size": ["100%", "100%"]}},
+         {"pill@du2_training_hud.h27": {}}
+        ]
+       }
+      }
+     ],
+     "ignored": "$du2_pc"
+    }
+   }
+  ]
+ },
+ "mental": {
+  "type": "panel",
+  "size": [136, "100%c"],
+  "controls": [
+   {
+    "pc": {
+     "type": "panel",
+     "size": [136, 58],
+     "anchor_from": "top_right",
+     "anchor_to": "top_right",
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'train_hud:ment;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/panel_dark", "size": ["100%", "100%"]}},
+      {"inner@du2_training_hud.h60": {}},
+      {
+       "count": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "layer": 5,
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "((not ((#hud_title_text_string - 'train_count:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:2;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:1;') = #hud_title_text_string)))",
+          "target_property_name": "#visible"
+         }
+        ],
+        "controls": [
+         {"dim": {"type": "image", "texture": "textures/ui/du2/panel_overlay", "size": ["100%", "100%"]}},
+         {"pill@du2_training_hud.h27": {}}
+        ]
+       }
+      }
+     ],
+     "ignored": "$du2_mobile"
+    }
+   },
+   {
+    "mobile": {
+     "type": "panel",
+     "size": [136, 42],
+     "anchor_from": "top_right",
+     "anchor_to": "top_right",
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'train_hud:ment;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/panel_dark", "size": ["100%", "100%"]}},
+      {"inner@du2_training_hud.h61": {}},
+      {
+       "count": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "layer": 5,
+        "bindings": [
+         {"binding_name": "#hud_title_text_string"},
+         {
+          "binding_type": "view",
+          "source_property_name": "((not ((#hud_title_text_string - 'train_count:3;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:2;') = #hud_title_text_string)) or (not ((#hud_title_text_string - 'train_count:1;') = #hud_title_text_string)))",
+          "target_property_name": "#visible"
+         }
+        ],
+        "controls": [
+         {"dim": {"type": "image", "texture": "textures/ui/du2/panel_overlay", "size": ["100%", "100%"]}},
+         {"pill@du2_training_hud.h27": {}}
+        ]
+       }
+      }
+     ],
+     "ignored": "$du2_pc"
+    }
+   }
+  ]
+ },
+ "panel": {
+  "type": "panel",
+  "size": [136, "100%c"],
+  "anchor_from": "top_right",
+  "anchor_to": "top_right",
+  "offset": [-24, 34],
+  "layer": 10,
+  "$du2_pc|default": true,
+  "$du2_mobile|default": false,
+  "variables": [{"requires": "$pocket_edition", "$du2_pc": false, "$du2_mobile": true}],
+  "controls": [
+   {"concentration@du2_training_hud.concentration": {}},
+   {"physical@du2_training_hud.physical": {}},
+   {"mental@du2_training_hud.mental": {}}
+  ],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'train_hud:') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h1": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"pad": {"type": "panel", "size": [3, "100%"]}},
+   {
+    "cell": {
+     "type": "panel",
+     "size": [10, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/train_concentration",
+        "size": [8, 8],
+        "color": [0.047, 0.09, 0.188],
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [3, "100%"]}},
+   {
+    "t": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "clips_children": true,
+     "controls": [
+      {
+       "l": {
+        "type": "label",
+        "text": "ui.dbe.training.concentration.title",
+        "size": ["100%", 10],
+        "color": [0.047, 0.09, 0.188],
+        "font_type": "default",
+        "shadow": false,
+        "text_alignment": "left",
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h2": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": [12, "100%"],
+  "controls": [
+   {
+    "i0": {
+     "type": "panel",
+     "size": [12, 10],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/quest_main",
+        "size": [9, 9],
+        "color": [0.965, 0.725, 0.263]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "i1": {
+     "type": "panel",
+     "size": [12, 10],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/plus",
+        "size": [9, 9],
+        "color": [0.486, 0.89, 0.545]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "i2": {
+     "type": "panel",
+     "size": [12, 10],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/restart",
+        "size": [9, 9],
+        "color": [0.659, 0.714, 0.816]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "i3": {
+     "type": "panel",
+     "size": [12, 10],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/tab_skills",
+        "size": [9, 9],
+        "color": [1.0, 0.624, 0.263]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "i4": {
+     "type": "panel",
+     "size": [12, 10],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/clock",
+        "size": [9, 9],
+        "color": [0.137, 0.843, 1.0]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h3": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": [50, "100%"],
+  "controls": [
+   {
+    "c0": {
+     "type": "label",
+     "text": "ui.dbe.du2.score",
+     "size": ["100%", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "left"
+    }
+   },
+   {
+    "c1": {
+     "type": "label",
+     "text": "ui.dbe.du2.reward",
+     "size": ["100%", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "left"
+    }
+   },
+   {
+    "c2": {
+     "type": "label",
+     "text": "ui.dbe.du2.tries",
+     "size": ["100%", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "left"
+    }
+   },
+   {
+    "c3": {
+     "type": "label",
+     "text": "ui.dbe.du2.combo",
+     "size": ["100%", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "left"
+    }
+   },
+   {
+    "c4": {
+     "type": "label",
+     "text": "ui.dbe.du2.time",
+     "size": ["100%", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "left"
+    }
+   }
+  ]
+ },
+ "h4": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c0:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c0:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.141, 0.141, 0.141],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c0:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c0:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h5": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c1:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c1:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.141, 0.141, 0.141],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c1:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c1:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h6": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c2:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c2:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.141, 0.141, 0.141],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c2:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c2:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h7": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c3:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c3:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.141, 0.141, 0.141],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c3:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c3:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h8": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c4:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c4:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.141, 0.141, 0.141],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c4:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c4:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h9": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c5:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c5:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.141, 0.141, 0.141],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c5:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c5:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h10": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c6:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c6:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.141, 0.141, 0.141],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c6:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c6:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h11": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c7:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c7:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.141, 0.141, 0.141],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c7:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c7:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h12": {
+  "type": "panel",
+  "size": [9, 9],
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": [9, 9]}},
+   {
+    "o_g": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.486, 0.89, 0.545],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c8:g;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_r": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [1.0, 0.42, 0.478],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c8:r;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_k": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.141, 0.141, 0.141],
+     "alpha": 1.0,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c8:k;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "o_o": {
+     "type": "image",
+     "texture": "textures/ui/du2/icons/attr_spirit",
+     "size": [8, 8],
+     "color": [0.561, 0.627, 0.749],
+     "alpha": 0.45,
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_c8:o;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h13": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": [29, 29],
+  "controls": [
+   {
+    "row0": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 9],
+     "controls": [
+      {"cell0@du2_training_hud.h4": {}},
+      {"pad": {"type": "panel", "size": [1, 9]}},
+      {"cell1@du2_training_hud.h5": {}},
+      {"pad": {"type": "panel", "size": [1, 9]}},
+      {"cell2@du2_training_hud.h6": {}}
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 1]}},
+   {
+    "row1": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 9],
+     "controls": [
+      {"cell3@du2_training_hud.h7": {}},
+      {"pad": {"type": "panel", "size": [1, 9]}},
+      {"cell4@du2_training_hud.h8": {}},
+      {"pad": {"type": "panel", "size": [1, 9]}},
+      {"cell5@du2_training_hud.h9": {}}
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 1]}},
+   {
+    "row2": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 9],
+     "controls": [
+      {"cell6@du2_training_hud.h10": {}},
+      {"pad": {"type": "panel", "size": [1, 9]}},
+      {"cell7@du2_training_hud.h11": {}},
+      {"pad": {"type": "panel", "size": [1, 9]}},
+      {"cell8@du2_training_hud.h12": {}}
+     ]
+    }
+   }
+  ],
+  "anchor_from": "center",
+  "anchor_to": "center"
+ },
+ "h14": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 50],
+  "controls": [
+   {
+    "vals": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": [92, 50],
+     "controls": [
+      {"icons@du2_training_hud.h2": {}},
+      {"caps@du2_training_hud.h3": {}},
+      {
+       "vals": {
+        "type": "panel",
+        "size": [30, "100%"],
+        "clips_children": true,
+        "controls": [
+         {
+          "v@templates.preserved_title_display": {
+           "$update_string": "train_vals:",
+           "size": ["100%", "default"],
+           "color": [0.333, 1.0, 1.0],
+           "font_type": "default",
+           "text_alignment": "right",
+           "shadow": true,
+           "anchor_from": "top_right",
+           "anchor_to": "top_right"
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"fill": {"type": "panel", "size": ["fill", "100%"]}},
+   {"grid": {"type": "panel", "size": [29, "100%"], "controls": [{"g@du2_training_hud.h13": {}}]}}
+  ]
+ },
+ "h15": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg7": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg8": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg9": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg10": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_off", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h16": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'conc_pace:2;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h17": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'conc_pace:3;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h18": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'conc_pace:4;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h19": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'conc_pace:5;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h20": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'conc_pace:6;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h21": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'conc_pace:7;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg7": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h22": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'conc_pace:8;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg7": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg8": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h23": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'conc_pace:9;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg7": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg8": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg9": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h24": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'conc_pace:10;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg7": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg8": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg9": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg10": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h25": {
+  "type": "panel",
+  "size": ["fill", 5],
+  "controls": [
+   {"off@du2_training_hud.h15": {}},
+   {
+    "lv1": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 5],
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'conc_pace:1;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {
+       "seg1": {
+        "type": "panel",
+        "size": ["10%", "100%"],
+        "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/xp_on", "size": ["100% - 1px", 5]}}]
+       }
+      }
+     ]
+    }
+   },
+   {"lv2@du2_training_hud.h16": {}},
+   {"lv3@du2_training_hud.h17": {}},
+   {"lv4@du2_training_hud.h18": {}},
+   {"lv5@du2_training_hud.h19": {}},
+   {"lv6@du2_training_hud.h20": {}},
+   {"lv7@du2_training_hud.h21": {}},
+   {"lv8@du2_training_hud.h22": {}},
+   {"lv9@du2_training_hud.h23": {}},
+   {"lv10@du2_training_hud.h24": {}}
+  ]
+ },
+ "h26": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": [126, 80],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {
+    "head": {
+     "type": "panel",
+     "size": ["100%", 12],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/pill_gold", "size": ["100%", "100%"]}},
+      {"row@du2_training_hud.h1": {}}
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {"mid@du2_training_hud.h14": {}},
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {
+    "pace": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 10],
+     "controls": [
+      {
+       "cell": {
+        "type": "panel",
+        "size": [12, "100%"],
+        "controls": [
+         {
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/train_concentration",
+           "size": [9, 9],
+           "color": [0.137, 0.843, 1.0],
+           "anchor_from": "center",
+           "anchor_to": "center"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "cap": {
+        "type": "label",
+        "text": "ui.dbe.du2.pace",
+        "size": [42, 10],
+        "color": [0.561, 0.627, 0.749],
+        "font_type": "default",
+        "shadow": true,
+        "text_alignment": "left"
+       }
+      },
+      {"bar": {"type": "panel", "size": ["fill", "100%"], "controls": [{"b@du2_training_hud.h25": {}}]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h27": {
+  "type": "panel",
+  "size": [30, 22],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {"bg": {"type": "image", "texture": "textures/ui/du2/pill_gold", "size": ["100%", "100%"]}},
+   {
+    "n3": {
+     "type": "label",
+     "text": "3",
+     "size": ["100%", "default"],
+     "color": [0.047, 0.09, 0.188],
+     "font_type": "MinecraftTen",
+     "shadow": false,
+     "text_alignment": "center",
+     "font_scale_factor": 1.5,
+     "anchor_from": "center",
+     "anchor_to": "center",
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'train_count:3;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "n2": {
+     "type": "label",
+     "text": "2",
+     "size": ["100%", "default"],
+     "color": [0.047, 0.09, 0.188],
+     "font_type": "MinecraftTen",
+     "shadow": false,
+     "text_alignment": "center",
+     "font_scale_factor": 1.5,
+     "anchor_from": "center",
+     "anchor_to": "center",
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'train_count:2;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
+   {
+    "n1": {
+     "type": "label",
+     "text": "1",
+     "size": ["100%", "default"],
+     "color": [0.047, 0.09, 0.188],
+     "font_type": "MinecraftTen",
+     "shadow": false,
+     "text_alignment": "center",
+     "font_scale_factor": 1.5,
+     "anchor_from": "center",
+     "anchor_to": "center",
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'train_count:1;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h28": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": [126, 64],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {"mid@du2_training_hud.h14": {}},
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {
+    "pace": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 10],
+     "controls": [
+      {
+       "cell": {
+        "type": "panel",
+        "size": [12, "100%"],
+        "controls": [
+         {
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/train_concentration",
+           "size": [9, 9],
+           "color": [0.137, 0.843, 1.0],
+           "anchor_from": "center",
+           "anchor_to": "center"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "cap": {
+        "type": "label",
+        "text": "ui.dbe.du2.pace",
+        "size": [42, 10],
+        "color": [0.561, 0.627, 0.749],
+        "font_type": "default",
+        "shadow": true,
+        "text_alignment": "left"
+       }
+      },
+      {"bar": {"type": "panel", "size": ["fill", "100%"], "controls": [{"b@du2_training_hud.h25": {}}]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h29": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"pad": {"type": "panel", "size": [3, "100%"]}},
+   {
+    "cell": {
+     "type": "panel",
+     "size": [10, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/train_physical",
+        "size": [8, 8],
+        "color": [0.047, 0.09, 0.188],
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [3, "100%"]}},
+   {
+    "t": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "clips_children": true,
+     "controls": [
+      {
+       "l": {
+        "type": "label",
+        "text": "ui.dbe.training.physical.title",
+        "size": ["100%", 10],
+        "color": [0.047, 0.09, 0.188],
+        "font_type": "default",
+        "shadow": false,
+        "text_alignment": "left",
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h30": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%c", "100%"],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {
+    "cell": {
+     "type": "panel",
+     "size": [12, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/chevron_down",
+        "size": [10, 10],
+        "color": [0.047, 0.09, 0.188],
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "t": {
+     "type": "label",
+     "text": "ui.dbe.training.physical.down",
+     "size": ["default", 10],
+     "color": [0.047, 0.09, 0.188],
+     "font_type": "MinecraftTen",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle"
+    }
+   }
+  ]
+ },
+ "h31": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%c", "100%"],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {
+    "cell": {
+     "type": "panel",
+     "size": [12, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/chevron_up",
+        "size": [10, 10],
+        "color": [0.137, 0.843, 1.0],
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "t": {
+     "type": "label",
+     "text": "ui.dbe.training.physical.up",
+     "size": ["default", 10],
+     "color": [0.137, 0.843, 1.0],
+     "font_type": "MinecraftTen",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle"
+    }
+   }
+  ]
+ },
+ "h32": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%c", "100%"],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {
+    "cell": {
+     "type": "panel",
+     "size": [12, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/clock",
+        "size": [10, 10],
+        "color": [0.561, 0.627, 0.749],
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "t": {
+     "type": "label",
+     "text": "...",
+     "size": ["default", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "MinecraftTen",
+     "shadow": false,
+     "text_alignment": "left",
+     "anchor_from": "left_middle",
+     "anchor_to": "left_middle"
+    }
+   }
+  ]
+ },
+ "h33": {
+  "type": "panel",
+  "size": ["100%", 16],
+  "clips_children": true,
+  "controls": [
+   {
+    "cue_down": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'phys_cue:down;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/pill_gold", "size": ["100%", "100%"]}},
+      {"row@du2_training_hud.h30": {}}
+     ]
+    }
+   },
+   {
+    "cue_up": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'phys_cue:up;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/pill_blue", "size": ["100%", "100%"]}},
+      {"row@du2_training_hud.h31": {}}
+     ]
+    }
+   },
+   {
+    "cue_wait": {
+     "type": "panel",
+     "size": ["100%", "100%"],
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'phys_cue:wait;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/pill_dark", "size": ["100%", "100%"]}},
+      {"row@du2_training_hud.h32": {}}
+     ]
+    }
+   }
+  ]
+ },
+ "h34": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": [12, "100%"],
+  "controls": [
+   {
+    "i0": {
+     "type": "panel",
+     "size": [12, 10],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/train_physical",
+        "size": [9, 9],
+        "color": [0.965, 0.725, 0.263]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "i1": {
+     "type": "panel",
+     "size": [12, 10],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/check",
+        "size": [9, 9],
+        "color": [0.486, 0.89, 0.545]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "i2": {
+     "type": "panel",
+     "size": [12, 10],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/clock",
+        "size": [9, 9],
+        "color": [1.0, 0.624, 0.263]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h35": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": [58, "100%"],
+  "controls": [
+   {
+    "c0": {
+     "type": "label",
+     "text": "ui.dbe.du2.reps",
+     "size": ["100%", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "left"
+    }
+   },
+   {
+    "c1": {
+     "type": "label",
+     "text": "ui.dbe.du2.series",
+     "size": ["100%", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "left"
+    }
+   },
+   {
+    "c2": {
+     "type": "label",
+     "text": "ui.dbe.du2.afk",
+     "size": ["100%", 10],
+     "color": [0.561, 0.627, 0.749],
+     "font_type": "default",
+     "shadow": true,
+     "text_alignment": "left"
+    }
+   }
+  ]
+ },
+ "h36": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'phys_stamina:2;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h37": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'phys_stamina:3;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h38": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'phys_stamina:4;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h39": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'phys_stamina:5;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h40": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'phys_stamina:6;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h41": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'phys_stamina:7;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg7": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h42": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'phys_stamina:8;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg7": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg8": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h43": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'phys_stamina:9;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg7": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg8": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg9": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h44": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'phys_stamina:10;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg7": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg8": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg9": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg10": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h45": {
+  "type": "panel",
+  "size": ["fill", 5],
+  "controls": [
+   {"off@du2_training_hud.h15": {}},
+   {
+    "lv1": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 5],
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'phys_stamina:1;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {
+       "seg1": {
+        "type": "panel",
+        "size": ["10%", "100%"],
+        "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_gold_on", "size": ["100% - 1px", 5]}}]
+       }
+      }
+     ]
+    }
+   },
+   {"lv2@du2_training_hud.h36": {}},
+   {"lv3@du2_training_hud.h37": {}},
+   {"lv4@du2_training_hud.h38": {}},
+   {"lv5@du2_training_hud.h39": {}},
+   {"lv6@du2_training_hud.h40": {}},
+   {"lv7@du2_training_hud.h41": {}},
+   {"lv8@du2_training_hud.h42": {}},
+   {"lv9@du2_training_hud.h43": {}},
+   {"lv10@du2_training_hud.h44": {}}
+  ]
+ },
+ "h46": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": [126, 79],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {
+    "head": {
+     "type": "panel",
+     "size": ["100%", 12],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/pill_gold", "size": ["100%", "100%"]}},
+      {"row@du2_training_hud.h29": {}}
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {"cue@du2_training_hud.h33": {}},
+   {"pad": {"type": "panel", "size": ["100%", 3]}},
+   {
+    "vals": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": [126, 30],
+     "controls": [
+      {"icons@du2_training_hud.h34": {}},
+      {"caps@du2_training_hud.h35": {}},
+      {
+       "vals": {
+        "type": "panel",
+        "size": [56, "100%"],
+        "clips_children": true,
+        "controls": [
+         {
+          "v@templates.preserved_title_display": {
+           "$update_string": "train_vals:",
+           "size": ["100%", "default"],
+           "color": [0.333, 1.0, 1.0],
+           "font_type": "default",
+           "text_alignment": "right",
+           "shadow": true,
+           "anchor_from": "top_right",
+           "anchor_to": "top_right"
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {
+    "stamina": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 10],
+     "controls": [
+      {
+       "cell": {
+        "type": "panel",
+        "size": [12, "100%"],
+        "controls": [
+         {
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/tab_training",
+           "size": [9, 9],
+           "color": [0.965, 0.725, 0.263],
+           "anchor_from": "center",
+           "anchor_to": "center"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "cap": {
+        "type": "label",
+        "text": "ui.dbe.du2.stamina",
+        "size": [42, 10],
+        "color": [0.561, 0.627, 0.749],
+        "font_type": "default",
+        "shadow": true,
+        "text_alignment": "left"
+       }
+      },
+      {"bar": {"type": "panel", "size": ["fill", "100%"], "controls": [{"b@du2_training_hud.h45": {}}]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h47": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": [126, 63],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {"cue@du2_training_hud.h33": {}},
+   {"pad": {"type": "panel", "size": ["100%", 3]}},
+   {
+    "vals": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": [126, 30],
+     "controls": [
+      {"icons@du2_training_hud.h34": {}},
+      {"caps@du2_training_hud.h35": {}},
+      {
+       "vals": {
+        "type": "panel",
+        "size": [56, "100%"],
+        "clips_children": true,
+        "controls": [
+         {
+          "v@templates.preserved_title_display": {
+           "$update_string": "train_vals:",
+           "size": ["100%", "default"],
+           "color": [0.333, 1.0, 1.0],
+           "font_type": "default",
+           "text_alignment": "right",
+           "shadow": true,
+           "anchor_from": "top_right",
+           "anchor_to": "top_right"
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {
+    "stamina": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 10],
+     "controls": [
+      {
+       "cell": {
+        "type": "panel",
+        "size": [12, "100%"],
+        "controls": [
+         {
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/tab_training",
+           "size": [9, 9],
+           "color": [0.965, 0.725, 0.263],
+           "anchor_from": "center",
+           "anchor_to": "center"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "cap": {
+        "type": "label",
+        "text": "ui.dbe.du2.stamina",
+        "size": [42, 10],
+        "color": [0.561, 0.627, 0.749],
+        "font_type": "default",
+        "shadow": true,
+        "text_alignment": "left"
+       }
+      },
+      {"bar": {"type": "panel", "size": ["fill", "100%"], "controls": [{"b@du2_training_hud.h45": {}}]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h48": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"pad": {"type": "panel", "size": [3, "100%"]}},
+   {
+    "cell": {
+     "type": "panel",
+     "size": [10, "100%"],
+     "controls": [
+      {
+       "x": {
+        "type": "image",
+        "texture": "textures/ui/du2/icons/train_mental",
+        "size": [8, 8],
+        "color": [0.047, 0.09, 0.188],
+        "anchor_from": "center",
+        "anchor_to": "center"
+       }
+      }
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": [3, "100%"]}},
+   {
+    "t": {
+     "type": "panel",
+     "size": ["fill", "100%"],
+     "clips_children": true,
+     "controls": [
+      {
+       "l": {
+        "type": "label",
+        "text": "ui.dbe.training.mental.title",
+        "size": ["100%", 10],
+        "color": [0.047, 0.09, 0.188],
+        "font_type": "default",
+        "shadow": false,
+        "text_alignment": "left",
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h49": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": [126, 20],
+  "controls": [
+   {
+    "icons": {
+     "type": "stack_panel",
+     "orientation": "vertical",
+     "size": [12, "100%"],
+     "controls": [
+      {
+       "i0": {
+        "type": "panel",
+        "size": [12, 10],
+        "controls": [
+         {
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/clock",
+           "size": [9, 9],
+           "color": [0.137, 0.843, 1.0]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "i1": {
+        "type": "panel",
+        "size": [12, 10],
+        "controls": [
+         {
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/train_mental",
+           "size": [9, 9],
+           "color": [0.765, 0.545, 1.0]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "caps": {
+     "type": "stack_panel",
+     "orientation": "vertical",
+     "size": [58, "100%"],
+     "controls": [
+      {
+       "c0": {
+        "type": "label",
+        "text": "ui.dbe.du2.time",
+        "size": ["100%", 10],
+        "color": [0.561, 0.627, 0.749],
+        "font_type": "default",
+        "shadow": true,
+        "text_alignment": "left"
+       }
+      },
+      {
+       "c1": {
+        "type": "label",
+        "text": "ui.dbe.du2.mode",
+        "size": ["100%", 10],
+        "color": [0.561, 0.627, 0.749],
+        "font_type": "default",
+        "shadow": true,
+        "text_alignment": "left"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "vals": {
+     "type": "panel",
+     "size": [56, "100%"],
+     "clips_children": true,
+     "controls": [
+      {
+       "v@templates.preserved_title_display": {
+        "$update_string": "train_vals:",
+        "size": ["100%", "default"],
+        "color": [0.333, 1.0, 1.0],
+        "font_type": "default",
+        "text_alignment": "right",
+        "shadow": true,
+        "anchor_from": "top_right",
+        "anchor_to": "top_right"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "h50": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'ment_boss_hp:2;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h51": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'ment_boss_hp:3;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h52": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'ment_boss_hp:4;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h53": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'ment_boss_hp:5;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h54": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'ment_boss_hp:6;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h55": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'ment_boss_hp:7;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg7": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h56": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'ment_boss_hp:8;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg7": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg8": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h57": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'ment_boss_hp:9;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg7": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg8": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg9": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h58": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", 5],
+  "bindings": [
+   {"binding_name": "#hud_title_text_string"},
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#hud_title_text_string - 'ment_boss_hp:10;') = #hud_title_text_string))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "seg1": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg2": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg3": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg4": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg5": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg6": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg7": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg8": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg9": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   },
+   {
+    "seg10": {
+     "type": "panel",
+     "size": ["10%", "100%"],
+     "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+    }
+   }
+  ]
+ },
+ "h59": {
+  "type": "panel",
+  "size": ["fill", 5],
+  "controls": [
+   {"off@du2_training_hud.h15": {}},
+   {
+    "lv1": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 5],
+     "bindings": [
+      {"binding_name": "#hud_title_text_string"},
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#hud_title_text_string - 'ment_boss_hp:1;') = #hud_title_text_string))",
+       "target_property_name": "#visible"
+      }
+     ],
+     "controls": [
+      {
+       "seg1": {
+        "type": "panel",
+        "size": ["10%", "100%"],
+        "controls": [{"i": {"type": "image", "texture": "textures/ui/du2/bar_red_on", "size": ["100% - 1px", 5]}}]
+       }
+      }
+     ]
+    }
+   },
+   {"lv2@du2_training_hud.h50": {}},
+   {"lv3@du2_training_hud.h51": {}},
+   {"lv4@du2_training_hud.h52": {}},
+   {"lv5@du2_training_hud.h53": {}},
+   {"lv6@du2_training_hud.h54": {}},
+   {"lv7@du2_training_hud.h55": {}},
+   {"lv8@du2_training_hud.h56": {}},
+   {"lv9@du2_training_hud.h57": {}},
+   {"lv10@du2_training_hud.h58": {}}
+  ]
+ },
+ "h60": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": [126, 50],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {
+    "head": {
+     "type": "panel",
+     "size": ["100%", 12],
+     "controls": [
+      {"bg": {"type": "image", "texture": "textures/ui/du2/pill_gold", "size": ["100%", "100%"]}},
+      {"row@du2_training_hud.h48": {}}
+     ]
+    }
+   },
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {"vals@du2_training_hud.h49": {}},
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {
+    "boss": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 10],
+     "controls": [
+      {
+       "cell": {
+        "type": "panel",
+        "size": [12, "100%"],
+        "controls": [
+         {
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/ach_defeat",
+           "size": [9, 9],
+           "color": [1.0, 0.42, 0.478],
+           "anchor_from": "center",
+           "anchor_to": "center"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "cap": {
+        "type": "label",
+        "text": "ui.dbe.du2.boss_hp",
+        "size": [42, 10],
+        "color": [0.561, 0.627, 0.749],
+        "font_type": "default",
+        "shadow": true,
+        "text_alignment": "left"
+       }
+      },
+      {"bar": {"type": "panel", "size": ["fill", "100%"], "controls": [{"b@du2_training_hud.h59": {}}]}}
+     ]
+    }
+   }
+  ]
+ },
+ "h61": {
+  "type": "stack_panel",
+  "orientation": "vertical",
+  "size": [126, 34],
+  "anchor_from": "center",
+  "anchor_to": "center",
+  "controls": [
+   {"vals@du2_training_hud.h49": {}},
+   {"pad": {"type": "panel", "size": ["100%", 4]}},
+   {
+    "boss": {
+     "type": "stack_panel",
+     "orientation": "horizontal",
+     "size": ["100%", 10],
+     "controls": [
+      {
+       "cell": {
+        "type": "panel",
+        "size": [12, "100%"],
+        "controls": [
+         {
+          "x": {
+           "type": "image",
+           "texture": "textures/ui/du2/icons/ach_defeat",
+           "size": [9, 9],
+           "color": [1.0, 0.42, 0.478],
+           "anchor_from": "center",
+           "anchor_to": "center"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "cap": {
+        "type": "label",
+        "text": "ui.dbe.du2.boss_hp",
+        "size": [42, 10],
+        "color": [0.561, 0.627, 0.749],
+        "font_type": "default",
+        "shadow": true,
+        "text_alignment": "left"
+       }
+      },
+      {"bar": {"type": "panel", "size": ["fill", "100%"], "controls": [{"b@du2_training_hud.h59": {}}]}}
+     ]
+    }
+   }
+  ]
+ }
+}

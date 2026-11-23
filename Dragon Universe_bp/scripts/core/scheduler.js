@@ -17,7 +17,7 @@
 //   every() vira system.runInterval(fn, period) direto, no mesmo lugar, e o compare-scripts vê o mesmo registro de antes.
 //   Em jogo essa flag nunca existe.
 import { system, world } from "@minecraft/server";
-import { perfTask } from "./perf.js";
+import { perfTask, schedulerInterval } from "./perf.js";
 
 const STUB = !!globalThis.__DU_STUB__;
 const WARN_EVERY_TICKS = 1200; // 1 aviso por tarefa por minuto
@@ -93,5 +93,5 @@ function tick() {
 
 if (!STUB)
   world.afterEvents.worldLoad.subscribe(() => {
-    if (clockRunId === undefined) clockRunId = system.runInterval(tick, 1);
+    if (clockRunId === undefined) clockRunId = schedulerInterval(tick, 1);
   });

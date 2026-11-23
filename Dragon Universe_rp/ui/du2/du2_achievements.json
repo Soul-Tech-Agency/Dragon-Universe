@@ -29,10 +29,7 @@
        "default": {
         "type": "panel",
         "size": ["100%", "100%"],
-        "controls": [
-         {"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}},
-         {"row@du2_achievements.h1": {}}
-        ]
+        "controls": [{"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}}]
        }
       },
       {
@@ -40,8 +37,7 @@
         "type": "panel",
         "size": ["100%", "100%"],
         "controls": [
-         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
-         {"row@du2_achievements.h1": {}}
+         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}}
         ]
        }
       },
@@ -52,10 +48,12 @@
         "controls": [
          {
           "bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}
-         },
-         {"row@du2_achievements.h1": {}}
+         }
         ]
        }
+      },
+      {
+       "content": {"type": "panel", "size": ["100%", "100%"], "layer": 1, "controls": [{"row@du2_achievements.h9": {}}]}
       }
      ],
      "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}],
@@ -94,10 +92,7 @@
        "default": {
         "type": "panel",
         "size": ["100%", "100%"],
-        "controls": [
-         {"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}},
-         {"row@du2_achievements.h1": {}}
-        ]
+        "controls": [{"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}}]
        }
       },
       {
@@ -105,8 +100,7 @@
         "type": "panel",
         "size": ["100%", "100%"],
         "controls": [
-         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
-         {"row@du2_achievements.h1": {}}
+         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}}
         ]
        }
       },
@@ -117,10 +111,12 @@
         "controls": [
          {
           "bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}
-         },
-         {"row@du2_achievements.h1": {}}
+         }
         ]
        }
+      },
+      {
+       "content": {"type": "panel", "size": ["100%", "100%"], "layer": 1, "controls": [{"row@du2_achievements.h9": {}}]}
       }
      ],
      "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}],
@@ -174,7 +170,7 @@
         "size": ["100%", 24],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_achievements.h2": {}}
+         {"row@du2_achievements.h10": {}}
         ]
        }
       },
@@ -188,7 +184,7 @@
            "type": "stack_panel",
            "orientation": "horizontal",
            "size": ["100%", "100%"],
-           "controls": [{"nav@du2.nav_pc": {}}, {"content@du2_achievements.h3": {}}]
+           "controls": [{"nav@du2.nav_pc": {}}, {"content@du2_achievements.h11": {}}]
           }
          }
         ]
@@ -237,7 +233,7 @@
         "size": ["100%", 20],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_achievements.h4": {}}
+         {"row@du2_achievements.h12": {}}
         ]
        }
       },
@@ -251,7 +247,7 @@
            "type": "stack_panel",
            "orientation": "horizontal",
            "size": ["100%", "100%"],
-           "controls": [{"nav@du2.nav_mobile": {}}, {"content@du2_achievements.h5": {}}]
+           "controls": [{"nav@du2.nav_mobile": {}}, {"content@du2_achievements.h13": {}}]
           }
          }
         ]
@@ -263,11 +259,276 @@
   ]
  },
  "h1": {
+  "type": "image",
+  "texture": "",
+  "size": [12, 12],
+  "color": [0.486, 0.89, 0.545],
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture",
+    "binding_name_override": "#texture"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture_file_system",
+    "binding_name_override": "#texture_file_system"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(#form_button_texture = 'textures/ui/du2/icons/ach_done')",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h2": {
+  "type": "image",
+  "texture": "",
+  "size": [12, 12],
+  "color": [0.965, 0.725, 0.263],
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture",
+    "binding_name_override": "#texture"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture_file_system",
+    "binding_name_override": "#texture_file_system"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(#form_button_texture = 'textures/ui/du2/icons/ach_battle_power')",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h3": {
+  "type": "image",
+  "texture": "",
+  "size": [12, 12],
+  "color": [1.0, 0.42, 0.478],
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture",
+    "binding_name_override": "#texture"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture_file_system",
+    "binding_name_override": "#texture_file_system"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(#form_button_texture = 'textures/ui/du2/icons/ach_defeat')",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h4": {
+  "type": "image",
+  "texture": "",
+  "size": [12, 12],
+  "color": [1.0, 0.624, 0.263],
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture",
+    "binding_name_override": "#texture"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture_file_system",
+    "binding_name_override": "#texture_file_system"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(#form_button_texture = 'textures/ui/du2/icons/ach_item')",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h5": {
+  "type": "image",
+  "texture": "",
+  "size": [12, 12],
+  "color": [0.765, 0.545, 1.0],
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture",
+    "binding_name_override": "#texture"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture_file_system",
+    "binding_name_override": "#texture_file_system"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(#form_button_texture = 'textures/ui/du2/icons/ach_skill')",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h6": {
+  "type": "image",
+  "texture": "",
+  "size": [12, 12],
+  "color": [0.137, 0.843, 1.0],
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture",
+    "binding_name_override": "#texture"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture_file_system",
+    "binding_name_override": "#texture_file_system"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(#form_button_texture = 'textures/ui/du2/icons/ach_requirement')",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h7": {
+  "type": "image",
+  "texture": "",
+  "size": [12, 12],
+  "color": [1.0, 1.0, 1.0],
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture",
+    "binding_name_override": "#texture"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture_file_system",
+    "binding_name_override": "#texture_file_system"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#form_button_texture = '') or (#form_button_texture = 'textures/ui/du2/icons/ach_done') or (#form_button_texture = 'textures/ui/du2/icons/ach_battle_power') or (#form_button_texture = 'textures/ui/du2/icons/ach_defeat') or (#form_button_texture = 'textures/ui/du2/icons/ach_item') or (#form_button_texture = 'textures/ui/du2/icons/ach_skill') or (#form_button_texture = 'textures/ui/du2/icons/ach_requirement')))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h8": {
+  "type": "panel",
+  "size": [14, "100%"],
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(not (#form_button_texture = ''))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [
+   {
+    "ic": {
+     "type": "panel",
+     "size": [12, 12],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left",
+     "offset": [1, 4],
+     "controls": [
+      {"i_ach_done@du2_achievements.h1": {}},
+      {"i_ach_battle_power@du2_achievements.h2": {}},
+      {"i_ach_defeat@du2_achievements.h3": {}},
+      {"i_ach_item@du2_achievements.h4": {}},
+      {"i_ach_skill@du2_achievements.h5": {}},
+      {"i_ach_requirement@du2_achievements.h6": {}},
+      {"i_other@du2_achievements.h7": {}}
+     ]
+    }
+   }
+  ]
+ },
+ "h9": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
   "controls": [
    {"pad": {"type": "panel", "size": [6, "100%"]}},
+   {"icon@du2_achievements.h8": {}},
+   {
+    "icon_gap": {
+     "type": "panel",
+     "size": [5, "100%"],
+     "bindings": [
+      {
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons",
+       "binding_name": "#form_button_texture"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not (#form_button_texture = ''))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
+   },
    {
     "t": {
      "type": "panel",
@@ -306,7 +567,7 @@
    {"pad": {"type": "panel", "size": [5, "100%"]}}
   ]
  },
- "h2": {
+ "h10": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -333,7 +594,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h3": {
+ "h11": {
   "type": "panel",
   "size": ["fill", "100%"],
   "controls": [
@@ -370,7 +631,7 @@
    }
   ]
  },
- "h4": {
+ "h12": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -397,7 +658,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h5": {
+ "h13": {
   "type": "panel",
   "size": ["fill", "100%"],
   "controls": [

@@ -823,19 +823,19 @@ const skills_data = [
     isPassive: true,
     price: 10,
     availableTrainers: ["dbe:king_kai"],
-    // Decisão 18: +2% de Força, Destreza e Poder de Ki por nível, até x1,2 no nível 10. O nível 10 continua sendo o
+    // Decisão 18: +1% de Força, Destreza e Poder de Ki por nível, até x1,1 no nível 10 (decisão do usuário: no máximo +10%). O nível 10 continua sendo o
     // requisito da Forma Bestial.
     tiers: [
+      { upgradeCost: 1, multipliers: { dexterity: 1.01, strength: 1.01, willpower: 1.01 } },
       { upgradeCost: 1, multipliers: { dexterity: 1.02, strength: 1.02, willpower: 1.02 } },
+      { upgradeCost: 1, multipliers: { dexterity: 1.03, strength: 1.03, willpower: 1.03 } },
       { upgradeCost: 1, multipliers: { dexterity: 1.04, strength: 1.04, willpower: 1.04 } },
+      { upgradeCost: 1, multipliers: { dexterity: 1.05, strength: 1.05, willpower: 1.05 } },
       { upgradeCost: 1, multipliers: { dexterity: 1.06, strength: 1.06, willpower: 1.06 } },
+      { upgradeCost: 1, multipliers: { dexterity: 1.07, strength: 1.07, willpower: 1.07 } },
       { upgradeCost: 1, multipliers: { dexterity: 1.08, strength: 1.08, willpower: 1.08 } },
-      { upgradeCost: 1, multipliers: { dexterity: 1.1, strength: 1.1, willpower: 1.1 } },
-      { upgradeCost: 1, multipliers: { dexterity: 1.12, strength: 1.12, willpower: 1.12 } },
-      { upgradeCost: 1, multipliers: { dexterity: 1.14, strength: 1.14, willpower: 1.14 } },
-      { upgradeCost: 1, multipliers: { dexterity: 1.16, strength: 1.16, willpower: 1.16 } },
-      { upgradeCost: 1, multipliers: { dexterity: 1.18, strength: 1.18, willpower: 1.18 } },
-      { multipliers: { dexterity: 1.2, strength: 1.2, willpower: 1.2 } },
+      { upgradeCost: 1, multipliers: { dexterity: 1.09, strength: 1.09, willpower: 1.09 } },
+      { multipliers: { dexterity: 1.1, strength: 1.1, willpower: 1.1 } },
     ],
   },
   {

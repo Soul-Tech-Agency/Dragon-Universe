@@ -220,7 +220,7 @@ Opção B, `typeId` próprio (`dbe:mental_<chefe>`): exige arquivo BP + RP + ent
 | Ids novos | tag `dbe:mental_replica`; dynamic property `dbe:mental_owner`; cooldowns `mental_training_daily`, `mental:<bossId>` |
 | Save | `mental_training = { v: 1, clears: { "<bossId>": { memory: n, challenge: n, best: ticks } } }`; `progress` (3.1) |
 | UI | formulário `ui.dbe.training_mental.title` (lista com abas, como Missões, seguindo o `CONTRATO.md`): índices 0–9 abas, 10+ um botão por chefe (texto = nome da entidade; `*` no selecionado; ícone `du2/icons/train_mental`); confirmação com a dificuldade |
-| HUD | o mesmo painel com tokens `ment_on:1`, `ment_time:<s>`, `ment_boss_hp:0..10` |
+| HUD | o mesmo painel (modo `train_hud:ment;`); tokens e subtítulo em `redesign/CONTRATO.md` §12.3: `ment_boss_hp:0..10;`, `train_count`, tempo e dificuldade no `train_vals` (substitui os antigos `ment_on`/`ment_time`) |
 | Partículas/sons | reaproveitar névoa de viagem e `common.teleport2` |
 | .lang | `ui.dbe.training.mental.{title,desc,locked,memory,challenge,start,win,lose,timeout,daily_limit,first_clear}` |
 | Config | `CONFIG.MENTAL = { TIME_LIMIT_TICKS: 3600, DAILY_REPEATS: 3, CHALLENGE_LEVEL_MULT: 1.1, MIN_DAMAGE_SHARE: 0.8, LEASH: 32 }` |
