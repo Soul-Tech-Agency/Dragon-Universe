@@ -273,7 +273,8 @@ function verifyReviewedRepair(block, type) {
   return block?.typeId === type && (liquid ? block.isLiquid : block.isSolid && !block.isLiquid);
 }
 
-async function loadedColumnJob(spec, bounds, work) {
+// chunkDone (optional generator): runs in the same job right after the columns of each chunk.
+async function loadedColumnJob(spec, bounds, work, chunkDone) {
   const dimension = world.getDimension(spec.dimensionId);
   for (let cx = Math.floor(bounds.x1 / 16); cx <= Math.floor(bounds.x2 / 16); cx++) {
     for (let cz = Math.floor(bounds.z1 / 16); cz <= Math.floor(bounds.z2 / 16); cz++) {
@@ -283,6 +284,7 @@ async function loadedColumnJob(spec, bounds, work) {
           for (let x = Math.max(cx * 16, bounds.x1); x <= Math.min(cx * 16 + 15, bounds.x2); x++) {
             for (let z = Math.max(cz * 16, bounds.z1); z <= Math.min(cz * 16 + 15, bounds.z2); z++) { work(dimension, x, z); yield; }
           }
+          if (chunkDone) yield* chunkDone(dimension, cx, cz);
         })());
       } finally { releaseLoadedArea(area); }
     }
@@ -300,7 +302,14 @@ async function handleRepair(player, spec, message) {
       const preview = previews.get(player.id);
       if (!preview || preview.spec !== spec || preview.token !== message.slice(6).trim()) throw new Error("No matching preview; run preview again");
       previews.delete(player.id);
-      let repaired = 0;
+      let repaired = 0, markers = 0;
+      // A dimension may restore its generation marker (spec.restoreMarker) on a chunk the reviewed bounds cover whole,
+      // with no excluded or foreign-block column in it: the scan otherwise keeps skipping it after the repair.
+      const { bounds } = preview;
+      const restore = spec.restoreMarker && function* (dimension, cx, cz) {
+        const whole = bounds.x1 <= cx * 16 && cx * 16 + 15 <= bounds.x2 && bounds.z1 <= cz * 16 && cz * 16 + 15 <= bounds.z2;
+        if (whole && !preview.skipped.has(cx + "," + cz) && (yield* spec.restoreMarker(dimension, cx, cz))) markers++;
+      };
       await loadedColumnJob(spec, preview.bounds, (dimension, x, z) => {
         const saved = preview.columns.get(x + "," + z);
         if (!saved) return;
@@ -315,20 +324,21 @@ async function handleRepair(player, spec, message) {
           }
         }
         repaired++;
-      });
-      player.sendMessage("§aTerrain repair completed: " + repaired + " columns. Excluded/protected columns were unchanged.");
+      }, restore);
+      player.sendMessage("§aTerrain repair completed: " + repaired + " columns" + (spec.restoreMarker ? ", " + markers + " chunk generation markers restored" : "") + ". Excluded/protected columns were unchanged.");
       return;
     }
     if (!message.startsWith("preview ")) throw new Error('Use preview {"x1":0,"z1":0,"x2":15,"z2":15,"exclude":[{"x1":2,"z1":2,"x2":5,"z2":5}]} or apply <token>');
     const request = JSON.parse(message.slice(8)), bounds = box(request);
     if (bounds.x2 - bounds.x1 >= 64 || bounds.z2 - bounds.z1 >= 64) throw new Error("Preview is limited to 64 by 64 columns; divide larger repairs into reviewed tiles");
     if (spec.bounds && (!contains(spec.bounds, bounds.x1, bounds.z1) || !contains(spec.bounds, bounds.x2, bounds.z2))) throw new Error("Repair bounds are outside the configured region");
-    const excluded = (request.exclude ?? []).map(box), columns = new Map();
+    const excluded = (request.exclude ?? []).map(box), columns = new Map(), skipped = new Set();
     let protectedColumns = 0, missingBlocks = 0, replacementBlocks = 0;
     await loadedColumnJob(spec, bounds, (dimension, x, z) => {
-      if (excluded.some((area) => contains(area, x, z))) { protectedColumns++; return; }
+      const chunk = Math.floor(x / 16) + "," + Math.floor(z / 16);
+      if (excluded.some((area) => contains(area, x, z))) { protectedColumns++; skipped.add(chunk); return; }
       const snapshot = columnSnapshot(dimension, x, z, spec);
-      if (snapshot.foreign) { protectedColumns++; return; }
+      if (snapshot.foreign) { protectedColumns++; skipped.add(chunk); return; }
       let missing = 0, replacements = 0;
       for (const span of spec.column(x, z)) for (let y = span.from; y <= span.to; y++) {
         const block = dimension.getBlock({ x, y, z });
@@ -339,7 +349,7 @@ async function handleRepair(player, spec, message) {
       if (missing || replacements) { columns.set(x + "," + z, snapshot); missingBlocks += missing; replacementBlocks += replacements; }
     });
     const token = (++sequence).toString(36) + "-" + system.currentTick;
-    previews.set(player.id, { spec, token, bounds, columns });
+    previews.set(player.id, { spec, token, bounds, columns, skipped });
     player.sendMessage("§eRepair PREVIEW ONLY: " + columns.size + " columns / " + missingBlocks + " missing blocks; " +
       (spec.replaceable ? replacementBlocks + " reviewed liquid replacements; " : "") + protectedColumns + " excluded or foreign-block columns. No blocks changed.");
     if (replacementBlocks) player.sendMessage("§cLiquid origin cannot be inferred. Review every proposed replacement on a COPY and exclude player-placed liquids and all build footprints before applying.");

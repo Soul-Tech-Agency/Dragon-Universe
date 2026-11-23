@@ -675,10 +675,18 @@ function scan() {
     if (p.dimension.id !== DIM_ID) continue;
     const { x, y, z } = p.location;
 
-    // fell through not-yet-generated terrain: put the player back on the surface
+    // fell through not-yet-generated terrain: put the player back on the surface. Over a chunk the scan will not
+    // generate (complete without marker, protected, legacy kept) and that has no ground there, the surface would drop
+    // them again forever: they go to the arrival point instead.
     if (y < MIN_Y + 8) {
       try {
-        p.teleport({ x, y: heightAt(Math.floor(x), Math.floor(z)) + 2, z });
+        const fx = Math.floor(x), fz = Math.floor(z), h = heightAt(fx, fz);
+        const owned = world.getDynamicProperty(terrainOwnership(chunkOf(x), chunkOf(z)));
+        const kept = owned === "complete" || owned === "protected" || (owned === "legacy" && !skyRepairPending(chunkOf(x), chunkOf(z)));
+        if (kept && !dim.getBlock({ x: fx, y: h, z: fz })?.isSolid) {
+          const s = findSpawn();
+          p.teleport({ x: s.x + 0.5, y: s.y + 1, z: s.z + 0.5 });
+        } else p.teleport({ x, y: h + 2, z });
       } catch (e) {
         /* ignore */
       }
@@ -701,7 +709,7 @@ function scan() {
         if (owned === "complete") {
           if (!missingMarker.has(k)) {
             missingMarker.add(k);
-            console.warn("[Kaioshin] chunk " + k + " is marked complete but its terrain marker is missing; left as is (use a reviewed dbe:kaioshin_repair preview on a world copy)");
+            console.warn("[Kaioshin] chunk " + k + " is marked complete but its terrain marker is missing; left as is. Operators: on a world copy, /scriptevent dbe:kaioshin_repair preview {\"x1\":" + cx * 16 + ",\"z1\":" + cz * 16 + ",\"x2\":" + (cx * 16 + 15) + ",\"z2\":" + (cz * 16 + 15) + "} (the whole chunk), then apply: it fills the missing terrain and restores the marker");
           }
           continue;
         }
@@ -1063,12 +1071,39 @@ function repairColumn(x, z) {
   return spans;
 }
 
+// After a reviewed repair over a whole chunk: a chunk marked complete whose bedrock sentinel is missing gets its floor
+// markers back once every column holds its terrain (no air in any span of repairColumn). Both sentinels are written,
+// as a decorated chunk: the scan generates nothing more over the reviewed area (no trees over a build kept there).
+function* restoreTerrainMarker(dim, cx, cz) {
+  if (world.getDynamicProperty(terrainOwnership(cx, cz)) !== "complete" || chunkState(dim, cx, cz) !== 0) return false;
+  const x0 = cx * 16, z0 = cz * 16;
+  for (let x = x0; x < x0 + 16; x++) for (let z = z0; z < z0 + 16; z++) {
+    for (const span of repairColumn(x, z)) for (let y = span.from; y <= span.to; y++) {
+      const block = dim.getBlock({ x, y, z });
+      if (!block || block.typeId === AIR) {
+        console.warn("[Kaioshin] chunk " + cx + "," + cz + ": marker not restored, terrain still missing at " + x + "," + y + "," + z);
+        return false;
+      }
+    }
+    yield;
+  }
+  if (world.getDynamicProperty(terrainOwnership(cx, cz)) !== "complete") return false;
+  dim.fillBlocks(new BlockVolume({ x: x0 + 2, y: MIN_Y, z: z0 }, { x: x0 + 15, y: MIN_Y, z: z0 }), "minecraft:bedrock");
+  dim.fillBlocks(new BlockVolume({ x: x0, y: MIN_Y, z: z0 + 1 }, { x: x0 + 15, y: MIN_Y, z: z0 + 15 }), "minecraft:bedrock");
+  dim.setBlockType({ x: x0 + 1, y: MIN_Y, z: z0 }, "minecraft:bedrock");
+  dim.setBlockType({ x: x0, y: MIN_Y, z: z0 }, "minecraft:bedrock");
+  missingMarker.delete(cx + "," + cz);
+  console.warn("[Kaioshin] chunk " + cx + "," + cz + ": terrain marker restored after the reviewed repair");
+  return true;
+}
+
 registerTerrainRepair({
   eventId: "dbe:kaioshin_repair", dimensionId: DIM_ID, minY: MIN_Y, maxY: 319,
   natural: new Set([AIR, STONE, GRASS, DIRT, SAND, WATER, "minecraft:bedrock", ...ROCK, ...ROCK_PINK,
     "minecraft:oak_log", "minecraft:oak_leaves", "minecraft:short_grass", "minecraft:fern", "minecraft:green_terracotta", "minecraft:lime_terracotta", "minecraft:green_concrete", "minecraft:pink_concrete",
     "minecraft:pink_stained_glass", "minecraft:white_stained_glass"]),
   column: repairColumn,
+  restoreMarker: restoreTerrainMarker,
   async lock() {
     if (repairing) throw new Error("Kaioshin repair is already running");
     repairing = true;
