@@ -137,8 +137,8 @@ var hJ = 1,
         this.stopTraining();
       }
     }
-  },
-  hM = class {
+  };
+var hM = class {
     constructor(sG) {
       this.inputPermissions = sG;
       // Native permissions survive reconnects; the transient owners below are rebuilt for this session.
