@@ -1969,6 +1969,9 @@
          "path" : "scripts/core/16_damage.js"
       },
       {
+         "path" : "scripts/core/17_items_balls_fusion.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {
