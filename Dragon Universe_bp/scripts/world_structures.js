@@ -24,6 +24,7 @@ import { acquireLoadedArea, releaseLoadedArea } from "./travel_safety.js";
 import { ActionFormData } from "@minecraft/server-ui";
 import { overworldLandmarkCenters, landmarkSummary } from "./world_landmarks.js";
 import { addNavigatorExtra } from "./navigator_extras.js";
+import { every } from "./core/scheduler.js";
 
 const { world, system } = mc;
 
@@ -336,13 +337,14 @@ try {
 }
 
 world.afterEvents.worldLoad.subscribe(() => {
-  system.runInterval(() => {
+  // O3-7: relógio único (core/scheduler.js), fase 7 (não cai no mesmo tick que world_landmarks, também de 40)
+  every(SCAN_TICKS, "structures.scan", () => {
     try {
       scan();
     } catch (e) {
       console.warn("[Structures] scan error: " + e);
     }
-  }, SCAN_TICKS);
+  }, { phase: 7 });
 
   system.afterEvents.scriptEventReceive.subscribe((ev) => {
     if (ev.id !== "dbe:structures" && ev.id !== "dbe:constructions") return;

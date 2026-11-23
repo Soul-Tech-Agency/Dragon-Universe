@@ -29,10 +29,7 @@
        "default": {
         "type": "panel",
         "size": ["100%", "100%"],
-        "controls": [
-         {"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}},
-         {"row@du2_training.h2": {}}
-        ]
+        "controls": [{"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}}]
        }
       },
       {
@@ -40,8 +37,7 @@
         "type": "panel",
         "size": ["100%", "100%"],
         "controls": [
-         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
-         {"row@du2_training.h2": {}}
+         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}}
         ]
        }
       },
@@ -52,10 +48,12 @@
         "controls": [
          {
           "bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}
-         },
-         {"row@du2_training.h2": {}}
+         }
         ]
        }
+      },
+      {
+       "content": {"type": "panel", "size": ["100%", "100%"], "layer": 1, "controls": [{"row@du2_training.h2": {}}]}
       }
      ],
      "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}],
@@ -94,10 +92,7 @@
        "default": {
         "type": "panel",
         "size": ["100%", "100%"],
-        "controls": [
-         {"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}},
-         {"row@du2_training.h2": {}}
-        ]
+        "controls": [{"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}}]
        }
       },
       {
@@ -105,8 +100,7 @@
         "type": "panel",
         "size": ["100%", "100%"],
         "controls": [
-         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
-         {"row@du2_training.h2": {}}
+         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}}
         ]
        }
       },
@@ -117,10 +111,12 @@
         "controls": [
          {
           "bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}
-         },
-         {"row@du2_training.h2": {}}
+         }
         ]
        }
+      },
+      {
+       "content": {"type": "panel", "size": ["100%", "100%"], "layer": 1, "controls": [{"row@du2_training.h2": {}}]}
       }
      ],
      "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}],

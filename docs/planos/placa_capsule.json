@@ -1,0 +1,1238 @@
+{
+ "descricao": "Letreiro CAPSULE na fachada oeste da cúpula (world_landmarks capsule_corp). Coordenadas locais de cada peça (x,y,z) e globais da construção. Trocar só se o bloco atual for igual a from.",
+ "fonte": "3x5, 1 coluna de espaço",
+ "texto": "CAPSULE",
+ "camadas": [
+  18,
+  22
+ ],
+ "colunas_z": [
+  33,
+  59
+ ],
+ "orientacao": "coluna 0 = norte (z menor), lida da esquerda para a direita por quem está a oeste olhando para leste",
+ "edits": [
+  {
+   "piece": "capsule_corp_1",
+   "x": 57,
+   "y": 18,
+   "z": 33,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    57,
+    18,
+    33
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 58,
+   "y": 18,
+   "z": 33,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    58,
+    18,
+    33
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 58,
+   "y": 19,
+   "z": 33,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    58,
+    19,
+    33
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 59,
+   "y": 19,
+   "z": 33,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    59,
+    19,
+    33
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 59,
+   "y": 20,
+   "z": 33,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    59,
+    20,
+    33
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 60,
+   "y": 20,
+   "z": 33,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    60,
+    20,
+    33
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 60,
+   "y": 21,
+   "z": 33,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    60,
+    21,
+    33
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 61,
+   "y": 21,
+   "z": 33,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    61,
+    21,
+    33
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 61,
+   "y": 22,
+   "z": 33,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    61,
+    22,
+    33
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 62,
+   "y": 22,
+   "z": 33,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    62,
+    22,
+    33
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 56,
+   "y": 18,
+   "z": 34,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    56,
+    18,
+    34
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 57,
+   "y": 18,
+   "z": 34,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    57,
+    18,
+    34
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 60,
+   "y": 22,
+   "z": 34,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    60,
+    22,
+    34
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 61,
+   "y": 22,
+   "z": 34,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    61,
+    22,
+    34
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 55,
+   "y": 18,
+   "z": 35,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    55,
+    18,
+    35
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 57,
+   "y": 19,
+   "z": 35,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    57,
+    19,
+    35
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 57,
+   "y": 20,
+   "z": 35,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    57,
+    20,
+    35
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 59,
+   "y": 22,
+   "z": 35,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    59,
+    22,
+    35
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 60,
+   "y": 22,
+   "z": 35,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    60,
+    22,
+    35
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 55,
+   "y": 18,
+   "z": 36,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    55,
+    18,
+    36
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 58,
+   "y": 21,
+   "z": 36,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    58,
+    21,
+    36
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 54,
+   "y": 18,
+   "z": 37,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    54,
+    18,
+    37
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 54,
+   "y": 19,
+   "z": 37,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    54,
+    19,
+    37
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 55,
+   "y": 19,
+   "z": 37,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    55,
+    19,
+    37
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 55,
+   "y": 20,
+   "z": 37,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    55,
+    20,
+    37
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 56,
+   "y": 20,
+   "z": 37,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    56,
+    20,
+    37
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 56,
+   "y": 21,
+   "z": 37,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    56,
+    21,
+    37
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 57,
+   "y": 21,
+   "z": 37,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    57,
+    21,
+    37
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 58,
+   "y": 22,
+   "z": 37,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    58,
+    22,
+    37
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 54,
+   "y": 18,
+   "z": 38,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    54,
+    18,
+    38
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 54,
+   "y": 19,
+   "z": 38,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    54,
+    19,
+    38
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 56,
+   "y": 22,
+   "z": 38,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    56,
+    22,
+    38
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 52,
+   "y": 18,
+   "z": 39,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    52,
+    18,
+    39
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 53,
+   "y": 18,
+   "z": 39,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    53,
+    18,
+    39
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 53,
+   "y": 19,
+   "z": 39,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    53,
+    19,
+    39
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 54,
+   "y": 19,
+   "z": 39,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    54,
+    19,
+    39
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 55,
+   "y": 20,
+   "z": 39,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    55,
+    20,
+    39
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 54,
+   "y": 20,
+   "z": 40,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    54,
+    20,
+    40
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 55,
+   "y": 22,
+   "z": 40,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    55,
+    22,
+    40
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 51,
+   "y": 18,
+   "z": 41,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    51,
+    18,
+    41
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 55,
+   "y": 22,
+   "z": 41,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    55,
+    22,
+    41
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 52,
+   "y": 20,
+   "z": 42,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    52,
+    20,
+    42
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 53,
+   "y": 20,
+   "z": 42,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    53,
+    20,
+    42
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 54,
+   "y": 22,
+   "z": 42,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    54,
+    22,
+    42
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 51,
+   "y": 18,
+   "z": 43,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    51,
+    18,
+    43
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 52,
+   "y": 19,
+   "z": 43,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    52,
+    19,
+    43
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 53,
+   "y": 20,
+   "z": 43,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    53,
+    20,
+    43
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 52,
+   "y": 20,
+   "z": 44,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    52,
+    20,
+    44
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 53,
+   "y": 22,
+   "z": 44,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    53,
+    22,
+    44
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 50,
+   "y": 18,
+   "z": 45,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    50,
+    18,
+    45
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 51,
+   "y": 20,
+   "z": 45,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    51,
+    20,
+    45
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 51,
+   "y": 21,
+   "z": 45,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    51,
+    21,
+    45
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 49,
+   "y": 18,
+   "z": 46,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    49,
+    18,
+    46
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 50,
+   "y": 18,
+   "z": 46,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    50,
+    18,
+    46
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 50,
+   "y": 20,
+   "z": 46,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    50,
+    20,
+    46
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 51,
+   "y": 20,
+   "z": 46,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    51,
+    20,
+    46
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 52,
+   "y": 22,
+   "z": 46,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    52,
+    22,
+    46
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 53,
+   "y": 22,
+   "z": 46,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    53,
+    22,
+    46
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 49,
+   "y": 18,
+   "z": 47,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    49,
+    18,
+    47
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 50,
+   "y": 19,
+   "z": 47,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    50,
+    19,
+    47
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 50,
+   "y": 20,
+   "z": 47,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    50,
+    20,
+    47
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 51,
+   "y": 20,
+   "z": 47,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    51,
+    20,
+    47
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 52,
+   "y": 21,
+   "z": 47,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    52,
+    21,
+    47
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 52,
+   "y": 22,
+   "z": 47,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    52,
+    22,
+    47
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 49,
+   "y": 18,
+   "z": 48,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    49,
+    18,
+    48
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 51,
+   "y": 20,
+   "z": 48,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    51,
+    20,
+    48
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 52,
+   "y": 22,
+   "z": 48,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    52,
+    22,
+    48
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 51,
+   "y": 21,
+   "z": 49,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    51,
+    21,
+    49
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 51,
+   "y": 22,
+   "z": 49,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    51,
+    22,
+    49
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 48,
+   "y": 18,
+   "z": 50,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    48,
+    18,
+    50
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 49,
+   "y": 18,
+   "z": 50,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    49,
+    18,
+    50
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 48,
+   "y": 18,
+   "z": 51,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    48,
+    18,
+    51
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 49,
+   "y": 18,
+   "z": 52,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    49,
+    18,
+    52
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 48,
+   "y": 18,
+   "z": 53,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    48,
+    18,
+    53
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 48,
+   "y": 18,
+   "z": 54,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    48,
+    18,
+    54
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 49,
+   "y": 19,
+   "z": 55,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    49,
+    19,
+    55
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 50,
+   "y": 20,
+   "z": 55,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    50,
+    20,
+    55
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 50,
+   "y": 21,
+   "z": 55,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    50,
+    21,
+    55
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 51,
+   "y": 22,
+   "z": 55,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    51,
+    22,
+    55
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 48,
+   "y": 18,
+   "z": 56,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    48,
+    18,
+    56
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 48,
+   "y": 18,
+   "z": 57,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    48,
+    18,
+    57
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 49,
+   "y": 18,
+   "z": 57,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    49,
+    18,
+    57
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 49,
+   "y": 19,
+   "z": 57,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    49,
+    19,
+    57
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 49,
+   "y": 20,
+   "z": 57,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    49,
+    20,
+    57
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 50,
+   "y": 20,
+   "z": 57,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    50,
+    20,
+    57
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 50,
+   "y": 21,
+   "z": 57,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    50,
+    21,
+    57
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 50,
+   "y": 22,
+   "z": 57,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    50,
+    22,
+    57
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 51,
+   "y": 22,
+   "z": 57,
+   "from": "minecraft:yellow_wool",
+   "to": "minecraft:blue_wool",
+   "global": [
+    51,
+    22,
+    57
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 48,
+   "y": 18,
+   "z": 58,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    48,
+    18,
+    58
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 49,
+   "y": 19,
+   "z": 58,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    49,
+    19,
+    58
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 50,
+   "y": 21,
+   "z": 58,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    50,
+    21,
+    58
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 48,
+   "y": 18,
+   "z": 59,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    48,
+    18,
+    59
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 50,
+   "y": 20,
+   "z": 59,
+   "from": "minecraft:blue_wool",
+   "to": "minecraft:yellow_wool",
+   "global": [
+    50,
+    20,
+    59
+   ]
+  },
+  {
+   "piece": "capsule_corp_1",
+   "x": 51,
+   "y": 22,
+   "z": 59,
+   "from": "minecraft:yellow_carpet",
+   "to": "minecraft:blue_carpet",
+   "global": [
+    51,
+    22,
+    59
+   ]
+  }
+ ]
+}

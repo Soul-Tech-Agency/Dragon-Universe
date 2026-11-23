@@ -1,6 +1,7 @@
 import { world, system, BlockVolume, CommandPermissionLevel, CustomCommandParamType, CustomCommandStatus } from "@minecraft/server";
 import { acquireLoadedArea, releaseLoadedArea, registerTravelPreparation, movedFromOrigin, isSafeStanding } from "./travel_safety.js";
 import { fillAirColumn, runTerrainJob, emptyChunk, findUnexpectedBlock, registerTerrainRepair, registerTerrainOwnership } from "./terrain_repair.js";
+import { every } from "./core/scheduler.js";
 
 const DIMENSION = "dbe:future_trunks";
 const BOUNDS = { x1: -256, z1: -256, x2: 256, z2: 256 };
@@ -589,7 +590,8 @@ export function initializeFutureTerrain(noiseFunction) {
   registerTravelPreparation(DIMENSION, prepareDestination);
   registerTerrainOwnership(DIMENSION, key);
   registerTerrainRepair({ eventId: "dbe:future_repair", dimensionId: DIMENSION, bounds: BOUNDS, minY: MIN_Y, maxY: MAX_Y, natural, column, lock: lockRepair });
-  world.afterEvents.worldLoad.subscribe(() => system.runInterval(() => {
+  // O3-9: relógio único (core/scheduler.js), fase 10; registrado no mesmo lugar de antes (worldLoad)
+  world.afterEvents.worldLoad.subscribe(() => every(20, "future.terrain", () => {
     if (busy || repairing || cityPreparing) return;
     try {
       const dimension = world.getDimension(DIMENSION);
@@ -606,7 +608,7 @@ export function initializeFutureTerrain(noiseFunction) {
         }
       }
     } catch (error) { console.warn("[Future terrain] scan failed: " + (error?.stack ?? error)); }
-  }, 20));
+  }, { phase: 10 }));
 }
 
 export const __futureTerrain = { topAt, column, terrainJob, ensureChunk, prepareDestination, safeStanding, inBounds };

@@ -625,6 +625,7 @@
 				"du_spiky_a_ascended": "geometry.du_spiky_a_ascended",
 				"du_flare_a": "geometry.du_flare_a",
 				"du_flare_a_ssj": "geometry.du_flare_a_ssj",
+				"du_flare_a_beast": "geometry.du_flare_a_beast",
 				"du_flare_a_ssj3": "geometry.du_flare_a_ssj3",
 				"du_flare_a_ssj4": "geometry.du_flare_a_ssj4",
 				"du_caulifla": "geometry.du_caulifla",
@@ -669,6 +670,7 @@
 				"du_dmz_trunks_ssj": "geometry.du_dmz_trunks_ssj",
 				"du_dmz_vegeta": "geometry.du_dmz_vegeta",
 				"du_dmz_vegeta_ssj3": "geometry.du_dmz_vegeta_ssj3",
+				"du_dmz_vegeta_beast": "geometry.du_dmz_vegeta_beast",
 				"du_dmz_vegeta_ssj4": "geometry.du_dmz_vegeta_ssj4",
 				"halo": "geometry.halo",
 				"ki_manipulation": "geometry.ki_manipulation",
@@ -891,7 +893,9 @@
 				],
 				"animate": [
 					"root",
-					{ "dbe_general": "v.isLive" }
+					{ "dbe_general": "v.isLive" },
+					// Oozaru/Golden nas prévias de UI (inventário, Estatísticas, barbeiro): ~1/3 do tamanho, só fora do mundo
+					{ "oozaru_ui_scale": "v.is_oozaru && v.is_paperdoll" }
 				],
 				"variables": {
 					"variable.fp_melee_spear_use_attachable_rotation_z": "public",
@@ -1048,6 +1052,7 @@
 				"melee_attack_6": "animation.player.melee.attack_6",
 				"muscular_body": "animation.player.muscular",
 				"oozaru_setup": "animation.player.oozaru_setup",
+				"oozaru_ui_scale": "animation.player.oozaru_ui_scale",
 				"sfx_charge_god_loop": "animation.aura.charge_god_loop",
 				"sfx_charge_loop": "animation.aura.charge_loop",
 				"slim_body": "animation.player.slim_body",

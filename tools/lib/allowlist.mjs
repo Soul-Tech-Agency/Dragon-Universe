@@ -48,7 +48,12 @@ export function isVanillaId(id) {
 }
 
 /** Arquivos vanilla do BP citados por caminho. */
-export const VANILLA_BP_FILES = new Set(["loot_tables/empty.json"]);
+export const VANILLA_BP_FILES = new Set([
+  "loot_tables/empty.json",
+  // trader_llama.json e wandering_trader.json (cópias das entidades vanilla) apontam para recursos do jogo base
+  "loot_tables/entities/llama.json",
+  "trading/economy_trades/wandering_trader_trades.json",
+]);
 
 /**
  * NPCs cujo diálogo (com submenu de skills) é registrado direto pelo núcleo, sem entrada em dialogues_data.js.

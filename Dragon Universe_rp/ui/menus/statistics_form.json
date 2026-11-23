@@ -37,15 +37,16 @@
                     "clips_children": true,
                     "controls": [
                         {
-                            "player_renderer@statistics_form.player_preview": {
+                            "player_renderer": {
+                                "type": "custom",
+                                "renderer": "live_player_renderer",
                                 "size": [ 70, 70 ],
-                                "$preview_visible": "((#form_text - 'zaru') = #form_text)"
-                            }
-                        },
-                        {
-                            "oozaru_renderer@statistics_form.player_preview": {
-                                "size": [ 22, 22 ],
-                                "$preview_visible": "(not ((#form_text - 'zaru') = #form_text))"
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "layer": 2,
+                                "property_bag": {
+                                    "#look_at_cursor": true
+                                }
                             }
                         }
                     ]
@@ -67,27 +68,6 @@
                         }
                     ]
                 }
-            }
-        ]
-    },
-
-    "player_preview": {
-        "type": "custom",
-        "renderer": "live_player_renderer",
-        "anchor_from": "center",
-        "anchor_to": "center",
-        "layer": 2,
-        "property_bag": {
-            "#look_at_cursor": true
-        },
-        "bindings": [
-            {
-                "binding_name": "#form_text"
-            },
-            {
-                "binding_type": "view",
-                "source_property_name": "$preview_visible",
-                "target_property_name": "#visible"
             }
         ]
     },

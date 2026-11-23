@@ -29,10 +29,7 @@
        "default": {
         "type": "panel",
         "size": ["100%", "100%"],
-        "controls": [
-         {"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}},
-         {"row@du2_transformations.h1": {}}
-        ]
+        "controls": [{"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}}]
        }
       },
       {
@@ -40,8 +37,7 @@
         "type": "panel",
         "size": ["100%", "100%"],
         "controls": [
-         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
-         {"row@du2_transformations.h1": {}}
+         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}}
         ]
        }
       },
@@ -52,9 +48,16 @@
         "controls": [
          {
           "bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}
-         },
-         {"row@du2_transformations.h1": {}}
+         }
         ]
+       }
+      },
+      {
+       "content": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "layer": 1,
+        "controls": [{"row@du2_transformations.h3": {}}]
        }
       }
      ],
@@ -94,10 +97,7 @@
        "default": {
         "type": "panel",
         "size": ["100%", "100%"],
-        "controls": [
-         {"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}},
-         {"row@du2_transformations.h1": {}}
-        ]
+        "controls": [{"bg": {"type": "image", "texture": "textures/ui/du2/panel_row", "size": ["100%", "100%"]}}]
        }
       },
       {
@@ -105,8 +105,7 @@
         "type": "panel",
         "size": ["100%", "100%"],
         "controls": [
-         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}},
-         {"row@du2_transformations.h1": {}}
+         {"bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_hover", "size": ["100%", "100%"]}}
         ]
        }
       },
@@ -117,9 +116,16 @@
         "controls": [
          {
           "bg": {"type": "image", "texture": "textures/ui/du2/btn_secondary_pressed", "size": ["100%", "100%"]}
-         },
-         {"row@du2_transformations.h1": {}}
+         }
         ]
+       }
+      },
+      {
+       "content": {
+        "type": "panel",
+        "size": ["100%", "100%"],
+        "layer": 1,
+        "controls": [{"row@du2_transformations.h3": {}}]
        }
       }
      ],
@@ -174,7 +180,7 @@
         "size": ["100%", 24],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_transformations.h2": {}}
+         {"row@du2_transformations.h4": {}}
         ]
        }
       },
@@ -188,7 +194,7 @@
            "type": "stack_panel",
            "orientation": "horizontal",
            "size": ["100%", "100%"],
-           "controls": [{"nav@du2.nav_pc": {}}, {"content@du2_transformations.h3": {}}]
+           "controls": [{"nav@du2.nav_pc": {}}, {"content@du2_transformations.h5": {}}]
           }
          }
         ]
@@ -237,7 +243,7 @@
         "size": ["100%", 20],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_transformations.h4": {}}
+         {"row@du2_transformations.h6": {}}
         ]
        }
       },
@@ -251,7 +257,7 @@
            "type": "stack_panel",
            "orientation": "horizontal",
            "size": ["100%", "100%"],
-           "controls": [{"nav@du2.nav_mobile": {}}, {"content@du2_transformations.h5": {}}]
+           "controls": [{"nav@du2.nav_mobile": {}}, {"content@du2_transformations.h7": {}}]
           }
          }
         ]
@@ -263,6 +269,66 @@
   ]
  },
  "h1": {
+  "type": "image",
+  "texture": "",
+  "size": [16, 16],
+  "color": [0.561, 0.627, 0.749],
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture",
+    "binding_name_override": "#texture"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture_file_system",
+    "binding_name_override": "#texture_file_system"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(#form_button_texture = 'textures/ui/du2/icons/lock')",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h2": {
+  "type": "image",
+  "texture": "",
+  "size": [16, 16],
+  "color": [1.0, 1.0, 1.0],
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture",
+    "binding_name_override": "#texture"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture_file_system",
+    "binding_name_override": "#texture_file_system"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((#form_button_texture = '') or (#form_button_texture = 'textures/ui/du2/icons/lock')))",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h3": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -311,23 +377,9 @@
      "controls": [
       {
        "x": {
-        "type": "image",
-        "texture": "",
+        "type": "panel",
         "size": [16, 16],
-        "bindings": [
-         {
-          "binding_type": "collection",
-          "binding_collection_name": "form_buttons",
-          "binding_name": "#form_button_texture",
-          "binding_name_override": "#texture"
-         },
-         {
-          "binding_type": "collection",
-          "binding_collection_name": "form_buttons",
-          "binding_name": "#form_button_texture_file_system",
-          "binding_name_override": "#texture_file_system"
-         }
-        ],
+        "controls": [{"i_lock@du2_transformations.h1": {}}, {"i_other@du2_transformations.h2": {}}],
         "anchor_from": "center",
         "anchor_to": "center"
        }
@@ -338,7 +390,7 @@
    {"pad": {"type": "panel", "size": [5, "100%"]}}
   ]
  },
- "h2": {
+ "h4": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -365,7 +417,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h3": {
+ "h5": {
   "type": "panel",
   "size": ["fill", "100%"],
   "controls": [
@@ -402,7 +454,7 @@
    }
   ]
  },
- "h4": {
+ "h6": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -429,7 +481,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h5": {
+ "h7": {
   "type": "panel",
   "size": ["fill", "100%"],
   "controls": [

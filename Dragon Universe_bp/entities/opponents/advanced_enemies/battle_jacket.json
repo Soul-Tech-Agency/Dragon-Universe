@@ -4,7 +4,7 @@
         "description": {
             "identifier": "dbe:battle_jacket",
             "is_spawnable": false,
-            "is_summonable": false,
+            "is_summonable": true,
             "properties": {
                 "dbe:color_0": { "type": "int", "range": [ 100100096, 355355360 ], "default": 100100100, "client_sync": true },
                 "dbe:color_1": { "type": "int", "range": [ 100100096, 355355360 ], "default": 100100100, "client_sync": true },
