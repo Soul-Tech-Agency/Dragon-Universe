@@ -358,11 +358,19 @@ function stillFree(spec, plan, spot) {
   return spec.dim === "overworld" ? overworldFree(taken, spawnPoint(), c.x, c.z) : farFrom(taken, c.x, c.z);
 }
 
+// One native seed search cannot be split across ticks (at most one runs per tick); its cost is kept for dbe:landmarks.
+const biomeCost = { calls: 0, total: 0, max: 0 };
 function closestBiome(dim, from, biome, options) {
+  const start = Date.now();
   try {
     return dim.calculateClosestBiomeFromSeed(from, biome, options);
   } catch (e) {
     return undefined; // biome unknown in this world type (e.g. flat world), or options not supported
+  } finally {
+    const ms = Date.now() - start;
+    biomeCost.calls++;
+    biomeCost.total += ms;
+    if (ms > biomeCost.max) biomeCost.max = ms;
   }
 }
 
@@ -463,25 +471,40 @@ async function draw(spec, plan, dim, around) {
   return spec.dim === "overworld" ? drawOverworld(spec, plan, dim, around) : drawOnPlanet(spec, plan);
 }
 
+// Planet draws and level checks compute heights (and Frieza replays chunk decoration) for every sample point: up to
+// hundreds of ms in one tick (perf 23/11: 180 ms average, 737 ms max per scan). They run in slices of at most SLICE_MS
+// per tick instead; the points, their order and the answer are the same.
+const SLICE_MS = 2;
+function slicer() {
+  let start = Date.now();
+  return async () => {
+    if (Date.now() - start < SLICE_MS) return;
+    await waitTicks(1);
+    start = Date.now();
+  };
+}
+
 /** Heights of the planets are known without loading anything, so a bad spot is discarded here. */
-function drawOnPlanet(spec, plan) {
+async function drawOnPlanet(spec, plan) {
   const env = ENV[spec.dim];
   const taken = takenCenters(spec, plan);
+  const pause = slicer();
   for (let attempt = 0; attempt < 40; attempt++) {
     const a = Math.random() * Math.PI * 2;
     const d = 300 + Math.random() * 1200;
     const x = Math.round(Math.cos(a) * d);
     const z = Math.round(Math.sin(a) * d);
     if (!farFrom(taken, x, z)) continue;
-    if (planetSurface(spec, env, { x, z })) return { x, z };
+    if (await planetSurface(spec, env, { x, z }, pause)) return { x, z };
   }
   return undefined;
 }
 
-function planetSurface(spec, env, spot) {
+async function planetSurface(spec, env, spot, pause = slicer()) {
   const heights = [], points = [];
   for (let x = spot.x; x <= spot.x + spec.size.x + SAMPLE_STEP - 1; x += SAMPLE_STEP) {
     for (let z = spot.z; z <= spot.z + spec.size.z + SAMPLE_STEP - 1; z += SAMPLE_STEP) {
+      await pause();
       if (!env.clear(x, z)) return undefined;
       const h = env.surface(x, z);
       if (h <= env.sea + 1) return undefined;
@@ -491,7 +514,13 @@ function planetSurface(spec, env, spot) {
   }
   const y = surfaceLevel(spec, heights);
   // env.free is the expensive test (Frieza replays the chunk decoration), so it only runs on terrain that already passed
-  if (y === undefined || (env.free && points.some(([x, z]) => !env.free(x, z)))) return undefined;
+  if (y === undefined) return undefined;
+  if (env.free) {
+    for (const [x, z] of points) {
+      await pause();
+      if (!env.free(x, z)) return undefined;
+    }
+  }
   return y;
 }
 
@@ -650,7 +679,7 @@ async function findBuilds(dim, spec, spot, y) {
 async function chooseLevel(dim, spec, spot, shift) {
   const env = ENV[spec.dim];
   if (!env) return chooseOverworldLevel(dim, spec, spot, shift);
-  const y = planetSurface(spec, env, spot);
+  const y = await planetSurface(spec, env, spot);
   if (y === undefined) return { reason: "planet ground too uneven, wet or reserved" };
   const first = (v) => Math.floor(v / 16);
   const ready = await env.prepare(first(spot.x), first(spot.z), first(spot.x + spec.size.x - 1), first(spot.z + spec.size.z - 1));
@@ -1176,6 +1205,7 @@ export function landmarkSummary() {
 
 function report(player) {
   const plan = loadPlan();
+  if (biomeCost.calls) player.sendMessage("§7[Landmarks] biome searches this session: " + biomeCost.calls + ", average " + (biomeCost.total / biomeCost.calls).toFixed(1) + " ms, max " + biomeCost.max + " ms");
   player.sendMessage("§e[Landmarks] spots:");
   for (const spec of SPECS) {
     const s = plan.spots[spec.key];
