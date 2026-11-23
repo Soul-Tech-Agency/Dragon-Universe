@@ -87,6 +87,27 @@ const CONFIG = {
    */
   TRAINING_HUD_ACTIONBAR: false,
   /**
+   * Treino físico, flexões (planos/TREINOS.md §2.4; decisões 9–12). BLOCK_ON_BOSS_FIGHT é regra provisória (pergunta I).
+   */
+  PHYSICAL: {
+    SERIES: [20, 30, 50],
+    SERIES_MIN_LEVEL: { 50: 30 },
+    MIN_PHASE_TICKS: 8,
+    MAX_CYCLE_TICKS: 60,
+    CUE_JITTER: 10,
+    AFK_TICKS: 100,
+    DAILY_SERIES: 3,
+    COOLDOWN_TICKS: 24000,
+    XP_PER_REP_PCT: 0.004,
+    MULT_CAP: 3,
+    STAMINA_PER_REP: 5,
+    INTERRUPTED_PAY: 0.5,
+    COUNTDOWN_TICKS: 60,
+    RECENT_DAMAGE_TICKS: 200,
+    LEASH: 1.5,
+    BLOCK_ON_BOSS_FIGHT: true,
+  },
+  /**
    * Configurações do sistema de proteção.
    */
   CLAIM: {

@@ -1683,3 +1683,23 @@ ui.dbe.help.text.commands=/dbe:pay <cantidad> <jugador>: envía zeni a otro juga
 ui.dbe.help.text.commands.2=/dbe:group.create crea un grupo. Usa group.invite, group.acceptinvite, group.kickplayer, group.info y group.leave para gestionar a los miembros.
 ui.dbe.help.text.commands.3=Territorio y base: group.claim, group.unclaim, group.claims, group.setbase, group.home y group.friendlyfire (activa o desactiva el fuego amigo).
 ui.dbe.help.text.commands.4=/dbe:updatestats recalcula tus atributos si algún número parece incorrecto.
+
+## Treinos 1.7.20 (Bússola): mensagens das flexões
+ui.dbe.training.physical.early=§eDemasiado pronto: espera la señal.
+ui.dbe.training.physical.lost=§cRitmo perdido: esa flexión no contó.
+ui.dbe.training.physical.none=§eSerie terminada sin flexiones válidas: no se gastó.
+ui.dbe.training.physical.summary=§aSerie completa: %s flexiones válidas, +%s XP.
+ui.dbe.training.physical.interrupted=§eSerie interrumpida: %s flexiones válidas, +%s XP (la mitad).
+ui.dbe.training.physical.blocked.busy=§cHay otro entrenamiento en curso.
+ui.dbe.training.physical.blocked.level=§cEsta serie se desbloquea en un nivel mayor.
+ui.dbe.training.physical.blocked.daily=§cYa hiciste las series de hoy.
+ui.dbe.training.physical.blocked.knocked=§cEstás noqueado.
+ui.dbe.training.physical.blocked.fusion=§cNo puedes entrenar durante una fusión.
+ui.dbe.training.physical.blocked.charging=§cTermina de cargar el ataque primero.
+ui.dbe.training.physical.blocked.flying=§cAterriza antes de entrenar.
+ui.dbe.training.physical.blocked.riding=§cBájate de la montura antes de entrenar.
+ui.dbe.training.physical.blocked.water=§cSal del agua antes de entrenar.
+ui.dbe.training.physical.blocked.ground=§cQuédate en el suelo para entrenar.
+ui.dbe.training.physical.blocked.tournament=§cNo puedes entrenar durante el torneo.
+ui.dbe.training.physical.blocked.damage=§cRecibiste daño hace poco: espera unos segundos.
+ui.dbe.training.physical.blocked.quest=§cTermina la pelea de la misión antes de entrenar.

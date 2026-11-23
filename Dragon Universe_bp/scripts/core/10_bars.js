@@ -184,7 +184,7 @@ var fv = class extends fj {
   }
   currentAuraProperties;
   get auraEnabled() {
-    return this.dbeEntity instanceof late.hN && this.dbeEntity.player.isSneaking
+    return this.dbeEntity instanceof late.hN && this.dbeEntity.player.isSneaking && !this.dbeEntity.physicalTraining?.active
       ? !0
       : this.dbeEntity.skills.isSkillActive("aura_boost");
   }

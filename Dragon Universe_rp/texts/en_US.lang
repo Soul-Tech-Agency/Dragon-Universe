@@ -1683,3 +1683,23 @@ ui.dbe.help.text.commands=/dbe:pay <amount> <player>: sends zeni to another play
 ui.dbe.help.text.commands.2=/dbe:group.create creates a group. Use group.invite, group.acceptinvite, group.kickplayer, group.info and group.leave to manage members.
 ui.dbe.help.text.commands.3=Territory and base: group.claim, group.unclaim, group.claims, group.setbase, group.home and group.friendlyfire (turns friendly fire on or off).
 ui.dbe.help.text.commands.4=/dbe:updatestats recalculates your attributes if a number looks wrong.
+
+## Treinos 1.7.20 (Bússola): mensagens das flexões
+ui.dbe.training.physical.early=§eToo early: wait for the cue.
+ui.dbe.training.physical.lost=§cRhythm lost: that push-up did not count.
+ui.dbe.training.physical.none=§eSeries ended with no valid push-ups: it was not used up.
+ui.dbe.training.physical.summary=§aSeries complete: %s valid push-ups, +%s XP.
+ui.dbe.training.physical.interrupted=§eSeries interrupted: %s valid push-ups, +%s XP (half).
+ui.dbe.training.physical.blocked.busy=§cAnother training is in progress.
+ui.dbe.training.physical.blocked.level=§cThis series unlocks at a higher level.
+ui.dbe.training.physical.blocked.daily=§cToday's series are already done.
+ui.dbe.training.physical.blocked.knocked=§cYou are knocked out.
+ui.dbe.training.physical.blocked.fusion=§cYou cannot train while fused.
+ui.dbe.training.physical.blocked.charging=§cFinish charging the attack first.
+ui.dbe.training.physical.blocked.flying=§cLand before training.
+ui.dbe.training.physical.blocked.riding=§cDismount before training.
+ui.dbe.training.physical.blocked.water=§cGet out of the water before training.
+ui.dbe.training.physical.blocked.ground=§cStand on the ground to train.
+ui.dbe.training.physical.blocked.tournament=§cYou cannot train during the tournament.
+ui.dbe.training.physical.blocked.damage=§cYou were hurt just now: wait a few seconds.
+ui.dbe.training.physical.blocked.quest=§cFinish the quest fight before training.

@@ -243,7 +243,13 @@ var k6 = class {
     }
   }
   async afterItemUse({ source: sG, itemStack: sH }) {
-    let { hasStartedAdventure: sI, isActionBlocked: sK } = hO(sG);
+    let { hasStartedAdventure: sI, isActionBlocked: sK, physicalTraining: duPhysical } = hO(sG);
+    // flexões (TREINOS §2.3): o item de Funções troca de fase (modo alternativo) e o menu abre a tela Treino (Encerrar)
+    if (duPhysical?.active) {
+      if (sH.typeId === "dbe:functions") duPhysical.onFunctionsItem();
+      else if (sH.typeId === "dbe:menu") cj.displayForm(sG, "training");
+      return;
+    }
     if (!sK) {
       if (sI) {
         let sL = k3[sH.typeId];
@@ -264,7 +270,8 @@ var k6 = class {
   afterPlayerHotbarSelectedSlotChange({ newSlotSelected: sG, player: sH, previousSlotSelected: sI }) {
     let radar = aN.getEquippedItem(sH, l.Mainhand);
     radar?.typeId === "dbe:dragon_radar" ? jE.scanDragonBalls(sH) : jE.reset(sH);
-    let { guard: sK } = hO(sH);
+    let { guard: sK, physicalTraining: duPhysical } = hO(sH);
+    if (duPhysical?.active) return; // flexões: o slot 8 é o item do modo alternativo, não a guarda
     sG === 8 && sK.tryGuard(), sI === 8 && sK.breakGuard();
   }
   afterPlayerInventoryItemChange({ itemStack: sG, player: sH, slot: sI }) {

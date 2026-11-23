@@ -24,6 +24,8 @@ var i9 = class {
         sG.cancel = !0;
         return;
       }
+      // último dano recebido (treinos: "sem dano nos últimos 10 s" e interrupção por dano)
+      sO && (sO.lastHurtTick = i7.currentTick);
       if (sP && sL) {
         let sR = i3.getDBEEntity(sL);
         sR &&

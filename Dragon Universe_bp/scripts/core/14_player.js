@@ -12,12 +12,13 @@ import { cA, cj } from "./02_forms_timers.js";
 import { isSafeStanding as duIsSafeStanding, reportTravelFailure as duReportTravelFailure, safeReturnToEarth as duSafeReturnToEarth } from "../travel_safety.js";
 import { c1 } from "../vendor/vanilla_data.js";
 import { hL } from "../training/concentration.js"; // O4.6: a concentração saiu deste arquivo
+import { PhysicalTraining, isPushupMode } from "../training/physical.js";
 var hM = class {
     constructor(sG) {
       this.inputPermissions = sG;
       // Native permissions survive reconnects; the transient owners below are rebuilt for this session.
       // Jump também: o treino de concentração o bloqueia, e um jogador que saiu no meio voltaria sem pular.
-      this.setPermissions([bW.Movement, bW.Camera, bW.Jump].filter((sH) => sH !== void 0), !0);
+      this.setPermissions([bW.Movement, bW.Camera, bW.Jump, bW.Mount].filter((sH) => sH !== void 0), !0);
     }
     blockedPermissions = new Map();
     blockInputPermission(sG, sH) {
@@ -45,6 +46,7 @@ var hM = class {
         (this.tasks = new gR(this)),
         (this.achievements = new gD(this)),
         (this.concentrationTraining = new hL(this)),
+        (this.physicalTraining = new PhysicalTraining(this)),
         (this.inputPermissionManager = new hM(sG.inputPermissions)),
         (this.kiSense = new hA(this)),
         (this.masterManager = new g7(this)),
@@ -61,6 +63,7 @@ var hM = class {
     entity;
     achievements;
     concentrationTraining;
+    physicalTraining;
     kiSense;
     inputPermissionManager;
     level;
@@ -90,7 +93,7 @@ var hM = class {
       let sG = this.getCurrentFusion(),
         sH = sG ? sG.isController === !1 : !1,
         sI = this.player.getGameMode() === bV.Spectator;
-      return this.isKnockedOut || sH || sI;
+      return this.isKnockedOut || sH || sI || !!this.physicalTraining?.active; // flexões: sem ki, transformação nem técnica
     }
     get isArmorVisible() {
       return !!this.player.getProperty("dbe:is_armor_visible");
@@ -162,12 +165,16 @@ var hM = class {
         const properties = new Map();
         let tags = [], saved;
         try {
+          // treinos em andamento terminam antes (o wrapper some no fim do reset; a sessão não pode sobreviver a ele)
+          this.physicalTraining?.active && this.physicalTraining.stop();
+          this.concentrationTraining?.isTraining && this.concentrationTraining.stopTraining();
           tags = this.player.getTags().filter(tag => tag.startsWith("dbe:"));
           saved = JSON.parse(JSON.stringify(this.data.getData()));
           for (const id of sG) {
             const value = this.entity.getProperty(id);
             if (value === undefined) throw new Error("Reset property unavailable: " + id);
-            properties.set(id, value);
+            // a pose da flexão nunca volta num rollback (o "none" do fim da série só é gravado no tick seguinte)
+            properties.set(id, id === "dbe:fly_mode" && isPushupMode(value) ? "none" : value);
           }
           for (let sH of sG) this.entity.resetProperty(sH);
           for (const tag of tags) this.player.removeTag(tag);

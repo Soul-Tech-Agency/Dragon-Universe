@@ -53,7 +53,7 @@ var hJ = 1,
     }
     async claimOrb(sG) {
       if (!this.isTraining || !this.session || this.session.countdown > 0 || !sG.isValid) return;
-      let sK = this.orbs.findIndex((sO) => sO.entity.id === sG.id); // só orb desta sessão (corrige o exploit em grupo)
+      let sK = this.orbs.findIndex((sO) => sO.id === sG.id); // só orb desta sessão (corrige o exploit em grupo)
       if (sK < 0) return;
       let sL = this.orbs[sK],
         sM = sL.color,
@@ -73,7 +73,7 @@ var hJ = 1,
       this.updateHud();
     }
     startTraining() {
-      if (this.isTraining) return;
+      if (this.isTraining || this.dbePlayer.physicalTraining?.active) return;
       let { player: sG } = this.dbePlayer,
         sH = this.config;
       (this.isTraining = !0), (this.score = 0), (this.combo = 0), --this.data.remainingAttempts, this.save();
@@ -157,7 +157,7 @@ var hJ = 1,
     respawnOrb(sG) {
       try {
         let sH = d4("dbe:training_orb", this.dbePlayer.player.dimension, sG.location);
-        sH && (liveOrbIds.delete(sG.entity.id), liveOrbIds.add(sH.id), (sG.entity = sH), (sG.color = void 0));
+        sH && (liveOrbIds.delete(sG.id), liveOrbIds.add(sH.id), (sG.entity = sH), (sG.id = sH.id), (sG.color = void 0));
       } catch {}
     }
     setOrbColor(sG, sH) {
@@ -185,7 +185,7 @@ var hJ = 1,
           sS = bO.add(bO.add(sO, bO.scale(sM, (sR - 1) * sI)), { x: 0, y: (1 - sQ) * sI, z: 0 }),
           sT = d4("dbe:training_orb", sG.dimension, sS);
         if (!sT) throw new Error("orb not spawned at cell " + sP);
-        liveOrbIds.add(sT.id), this.orbs.push({ entity: sT, color: void 0, location: sS }), this.setOrbColor(sP, ORB_OFF);
+        liveOrbIds.add(sT.id), this.orbs.push({ entity: sT, id: sT.id, color: void 0, location: sS }), this.setOrbColor(sP, ORB_OFF);
       }
     }
     spawnOrbParticle(sG, sH, sI) {
@@ -262,8 +262,8 @@ var hJ = 1,
       sG.tryGrantReward(this.dbePlayer), sG.sendRewardMessage(this.dbePlayer);
     }
     removeAllOrbs() {
-      for (let { entity: sG } of this.orbs) {
-        liveOrbIds.delete(sG.id);
+      for (let { entity: sG, id: sH } of this.orbs) {
+        liveOrbIds.delete(sH);
         try {
           sG.isValid && sG.remove();
         } catch {}
