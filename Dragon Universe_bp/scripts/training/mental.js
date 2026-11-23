@@ -128,6 +128,7 @@ export function mentalDamageHook(hurtEntity, hurtDbe, damager, damage, health, c
 function endLater(session, outcome, health) {
   session.ending = outcome;
   system.run(() => {
+    if (session.training.session !== session) return; // um fim agendado não encerra uma sessão nova
     if (health)
       try {
         health.setCurrent(1);
