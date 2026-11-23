@@ -6,7 +6,8 @@ Alguns itens pedem dois jogadores ou um mundo antigo: estão marcados assim.
 
 > Regras ainda provisórias (podem mudar depois deste teste): o combo da concentração só aparece na tela; as flexões não
 > começam com luta de missão em andamento; a réplica do Beerus é uma luta normal (não "sobreviva 3 min"); o mesmo chefe
-> conta 1 vez por dia só quando você vence; o treino mental protege de qualquer golpe que mataria você.
+> conta 1 vez por dia só quando você vence; o treino mental protege de qualquer golpe que mataria você; ir e voltar com o
+> Star Navigator em menos de 10 s chega a pé.
 
 ## 1. Tela Treino
 
@@ -57,13 +58,21 @@ Alguns itens pedem dois jogadores ou um mundo antigo: estão marcados assim.
 
 ## 4. Treino mental
 
-Checklist (a)–(f) da revisão (conferir com o da Sentinela):
-- [ ] (a) Vencer a réplica de Raditz com uma missão de Raditz/Nappa ativa: a missão NÃO avança.
-- [ ] (b) Vencer uma réplica não dá conquista de "derrotar".
-- [ ] (c) A réplica some com brilhos ao perder: não cai item, não dá XP nem zeni de abate.
-- [ ] (d) Perder: a vida fica em 1, você "acorda" no mesmo lugar, sem ir ao Outro Mundo e sem perder nada.
-- [ ] (e) Outro jogador batendo na réplica não tira vida dela (2 jogadores).
-- [ ] (f) Sair do mundo no meio e voltar: a réplica não está mais lá e a névoa roxa sumiu.
+Checklist da Sentinela:
+- [ ] (a) Golpe final na réplica com soco, ki blast, explosão de ki e combo (uma luta para cada): ela some com brilhos, sem
+  deixar item e sem dar o XP de chefe; a névoa roxa sai; o painel some inteiro, inclusive o modo.
+- [ ] (b) Uma luta com a versão de teste que registra o dano na réplica: se aparecer no log "damage on replica ignored"
+  depois de um ataque seu, anote qual ataque foi.
+- [ ] (c) Golpe que mataria você: fica com 1 de vida, não vai ao Outro Mundo, aparece a mensagem de derrota e a névoa sai.
+- [ ] (d) Golpe final dos dois lados ao mesmo tempo (você e a réplica quase sem vida): um resultado só e uma recompensa só.
+- [ ] (e) Painel: o modo aparece certo (Memória ou Desafio) e, abaixo do tempo, não aparece nada.
+- [ ] (f) Flexão agachando: sem fagulhas, sem carga de ki e sem aura.
+
+Também (decisão 14):
+- [ ] Vencer a réplica de Raditz com uma missão de Raditz/Nappa ativa: a missão NÃO avança.
+- [ ] Vencer uma réplica não dá conquista de "derrotar" nem zeni.
+- [ ] Outro jogador batendo na réplica não tira vida dela (2 jogadores).
+- [ ] Sair do mundo no meio e voltar: a réplica não está mais lá e a névoa roxa sumiu.
 
 Resto:
 - [ ] A lista mostra os chefes na ordem da campanha; os não vencidos aparecem com cadeado e "Derrote na campanha".
@@ -81,14 +90,17 @@ Resto:
 
 ## 5. Star Navigator e voo
 
-- [ ] Voando, viajar pelo Star Navigator para Namek, para o espaço e de volta à Terra: o voo desliga na troca e religa sozinho uns instantes depois de chegar.
-- [ ] Chegar sem ki ou transformado em Oozaru: você fica a pé (o voo não religa).
+- [ ] Voando, viajar 5 vezes pelo Star Navigator (Namek, espaço, Terra…): nas 5, o voo desliga na troca e religa sozinho uns instantes depois de chegar.
+- [ ] Chegar sem ki, em Oozaru ou no meio de uma série de flexões: você fica a pé (o voo não religa).
+- [ ] Chegar voando e morrer em menos de 10 s: depois do respawn o voo NÃO religa sozinho.
+- [ ] Ir e voltar em menos de 10 s: chega a pé (esperado nesta versão).
 - [ ] Viajar voando pelo pod e pelo Kaioshin: o voo também religa no destino.
 
 ## 6. Radar do Dragão (versão de teste com a sonda ligada)
 
 - [ ] Parado, sem o radar na mão: `/scriptevent dbe:perf start`, esperar 60 s, `/scriptevent dbe:perf report`: o número de setProperty/s fica perto de 0 (antes era ~1 por jogador).
-- [ ] Com o radar na mão, ele continua apontando para as Esferas e volta ao normal ao guardar.
+- [ ] Com o radar na mão, ele aponta para as Esferas; guardado, volta a zero.
+- [ ] Depois de trocar de dimensão e depois de morrer e renascer, sem o radar na mão, continua em zero.
 
 ## 7. Cidade do Futuro (mundo novo)
 
