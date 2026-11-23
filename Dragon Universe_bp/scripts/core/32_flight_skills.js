@@ -59,18 +59,21 @@ var rP = class extends cH {
   }
   // Star Navigator / qualquer troca de dimensão com o voo ligado: a montaria não atravessa, então a troca desliga o voo
   // (afterPlayerDimensionChange) e ele religa sozinho no destino, quando a viagem terminou, o chunk carregou e o jogador
-  // pode voar (vivo, com ki, fora do Oozaru e do criativo, sem montaria, sem ação bloqueada). Desiste em
-  // RESUME_WINDOW_TICKS, se o jogador trocar de dimensão de novo ou se o voo já tiver sido religado.
+  // pode voar (com ki, fora do Oozaru e do criativo, sem montaria, sem ação bloqueada). Desiste em
+  // RESUME_WINDOW_TICKS, se o jogador trocar de dimensão de novo, se o voo já tiver sido religado, ou se ele morrer
+  // (ou estiver indo para o Outro Mundo) na janela. Um religamento novo cancela o anterior (nunca dois de uma vez).
   static RESUME_WINDOW_TICKS = 200;
   resumeAfterDimensionChange(dimensionId) {
+    this.resumeRunId !== void 0 && rO.clearRun(this.resumeRunId);
     let player = this.dbeEntity.player,
       until = rO.currentTick + rP.RESUME_WINDOW_TICKS,
       id = rO.runInterval(() => {
-        let stop = () => rO.clearRun(id);
+        let stop = () => (rO.clearRun(id), this.resumeRunId === id && (this.resumeRunId = void 0));
         try {
           if (!player.isValid || player.dimension.id !== dimensionId || this.isEnabled || rO.currentTick > until) return stop();
+          // morreu na janela (ou vai para o Outro Mundo): não religa
+          if ((player.getComponent("minecraft:health")?.currentValue ?? 0) <= 0 || player.hasTag("dbe:join_other_world")) return stop();
           if (duIsTravelPending(player)) return;
-          if ((player.getComponent("minecraft:health")?.currentValue ?? 0) <= 0) return; // morto: espera o respawn
           let { ki: sG, transformations: sH } = this.dbeEntity;
           if (
             player.getGameMode() === rN.Creative ||
@@ -86,6 +89,7 @@ var rP = class extends cH {
           stop(), console.warn("[Flight] resume after dimension change: " + error);
         }
       }, 5);
+    this.resumeRunId = id;
   }
   async enable() {
     if (!this.startRiding()) return;
@@ -97,6 +101,15 @@ var rP = class extends cH {
   }
   onTick() {
     if (this.isLoaded && this.dbeEntity instanceof hN) {
+      // troca de dimensão vista por aqui (a ordem com o afterPlayerDimensionChange não é garantida): com o voo ligado,
+      // desliga e agenda o religamento no destino; se o evento veio antes, o voo já está desligado e nada acontece
+      let dimNow = this.dbeEntity.player.dimension.id;
+      if (this.lastDimensionId !== void 0 && this.lastDimensionId !== dimNow && this.isEnabled) {
+        this.lastDimensionId = dimNow;
+        this.disable(), this.resumeAfterDimensionChange(dimNow);
+        return;
+      }
+      this.lastDimensionId = dimNow;
       if (this.flyEntity && !this.flyEntity.isValid) {
         this.disable();
         return;
