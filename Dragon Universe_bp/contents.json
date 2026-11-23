@@ -2020,6 +2020,9 @@
          "path" : "scripts/core/33_server_modes.js"
       },
       {
+         "path" : "scripts/core/34_registries.js"
+      },
+      {
          "path" : "scripts/index.js"
       },
       {

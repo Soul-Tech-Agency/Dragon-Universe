@@ -187,19 +187,7 @@ import { CONFIG as s4 } from "./config/config.js";
 import { system as s5, world as s6 } from "@minecraft/server";
 import "./core/33_server_modes.js"; // O4: movido do index.js
 import { system as sA } from "@minecraft/server";
-var sB = [],
-  sC = [],
-  sD = [],
-  sE = [],
-  sF = [];
-sA.run(() => {
-  sA.sendScriptEvent("dbe:dialogue_registry", JSON.stringify(sB)),
-    sA.sendScriptEvent("dbe:entity_registry", JSON.stringify(sC)),
-    sA.sendScriptEvent("dbe:modifier_registry", JSON.stringify(sD)),
-    sA.sendScriptEvent("dbe:quest_registry", JSON.stringify(sE)),
-    sA.sendScriptEvent("dbe:shop_registry", JSON.stringify(sF));
-});
-
+import "./core/34_registries.js"; // O4: movido do index.js
 /* ---- True Oni Rage: eating the Demonic Apple grants the oni_blessing modifier ---- */
 import { world as __oniWorld } from "@minecraft/server";
 __oniWorld.afterEvents.itemCompleteUse.subscribe((__oniEv) => {
