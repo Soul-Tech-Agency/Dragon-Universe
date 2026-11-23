@@ -645,6 +645,7 @@ function canRetry(key) {
 // ---------------------------------------------------------------- per-player scan
 
 const inKaioshin = new Map(); // player id -> was in Kaioshin at last scan
+const missingMarker = new Set(); // "cx,cz" of complete chunks without their marker, reported once per session
 
 function scan() {
   const players = world.getPlayers();
@@ -694,6 +695,16 @@ function scan() {
       const owned = world.getDynamicProperty(terrainOwnership(cx, cz));
       if (owned === "protected" || (owned === "legacy" && !skyRepairPending(cx, cz))) continue;
       if (chunkState(dim, cx, cz) === 0) {
+        // "complete" without its bedrock sentinel (world copy, /fill, a crash that saved the property but not the chunk):
+        // ownedTerrainJob returns at once, and the rescan after every job asked for this same chunk again, forever.
+        // Nothing is written over it (the terrain may or may not be there): it is skipped and reported once.
+        if (owned === "complete") {
+          if (!missingMarker.has(k)) {
+            missingMarker.add(k);
+            console.warn("[Kaioshin] chunk " + k + " is marked complete but its terrain marker is missing; left as is (use a reviewed dbe:kaioshin_repair preview on a world copy)");
+          }
+          continue;
+        }
         runExclusive(ownedTerrainJob(dim, cx, cz), k, false, { dim, cx, cz });
         return;
       }
