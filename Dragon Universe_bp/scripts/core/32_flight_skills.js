@@ -10,6 +10,7 @@ import { ex } from "./08_fusion_regions.js";
 import { iV } from "./17_items_balls_fusion.js";
 import { skills_data as rL } from "../data/skills_data.js";
 import { hj } from "./13_ki_attack_hud_level.js";
+import { isTravelPending as duIsTravelPending } from "../travel_safety.js";
 import { cT } from "./04_tournament_dims.js";
 var rP = class extends cH {
   flyEntity;
@@ -55,6 +56,36 @@ var rP = class extends cH {
       this.stopRiding(),
       this.forgetFlyCache(),
       this.setFlyModeProperty("none");
+  }
+  // Star Navigator / qualquer troca de dimensão com o voo ligado: a montaria não atravessa, então a troca desliga o voo
+  // (afterPlayerDimensionChange) e ele religa sozinho no destino, quando a viagem terminou, o chunk carregou e o jogador
+  // pode voar (vivo, com ki, fora do Oozaru e do criativo, sem montaria, sem ação bloqueada). Desiste em
+  // RESUME_WINDOW_TICKS, se o jogador trocar de dimensão de novo ou se o voo já tiver sido religado.
+  static RESUME_WINDOW_TICKS = 200;
+  resumeAfterDimensionChange(dimensionId) {
+    let player = this.dbeEntity.player,
+      until = rO.currentTick + rP.RESUME_WINDOW_TICKS,
+      id = rO.runInterval(() => {
+        let stop = () => rO.clearRun(id);
+        try {
+          if (!player.isValid || player.dimension.id !== dimensionId || this.isEnabled || rO.currentTick > until) return stop();
+          if (duIsTravelPending(player)) return;
+          if ((player.getComponent("minecraft:health")?.currentValue ?? 0) <= 0) return; // morto: espera o respawn
+          let { ki: sG, transformations: sH } = this.dbeEntity;
+          if (
+            player.getGameMode() === rN.Creative ||
+            sG.currentValue <= 0 ||
+            sH.currentTransformation.isOozaru ||
+            this.dbeEntity.isActionBlocked ||
+            player.getComponent("minecraft:riding")?.entityRidingOn
+          )
+            return stop();
+          if (!player.dimension.isChunkLoaded(player.location)) return;
+          stop(), this.enable();
+        } catch (error) {
+          stop(), console.warn("[Flight] resume after dimension change: " + error);
+        }
+      }, 5);
   }
   async enable() {
     if (!this.startRiding()) return;

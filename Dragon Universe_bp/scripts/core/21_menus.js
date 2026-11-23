@@ -266,7 +266,8 @@ var k6 = class {
   afterPlayerDimensionChange({ fromDimension: sG, player: sH, toDimension: sI }) {
     jE.reset(sH);
     let flight = i0.get(sH.id)?.skills.getToggleSkill("fly");
-    flight?.isEnabled && flight.disable();
+    // o voo desliga na troca (a montaria não atravessa) e religa sozinho no destino (roteiro: Star Navigator voando)
+    flight?.isEnabled && (flight.disable(), flight.resumeAfterDimensionChange?.(sI.id));
     eO(sG).updateEntityRegions(sH), eO(sI).updateEntityRegions(sH);
   }
   afterPlayerHotbarSelectedSlotChange({ newSlotSelected: sG, player: sH, previousSlotSelected: sI }) {
