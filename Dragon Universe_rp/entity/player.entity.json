@@ -899,8 +899,9 @@
 				"animate": [
 					"root",
 					{ "dbe_general": "v.isLive" },
-					// Oozaru/Golden nas prévias de UI (inventário, Estatísticas, barbeiro): ~1/3 do tamanho, só fora do mundo
-					{ "oozaru_ui_scale": "v.is_oozaru && v.is_paperdoll" }
+					// Oozaru/Golden nas prévias de UI (inventário, Estatísticas, barbeiro): ~1/3 do tamanho, só fora do mundo.
+					// q.is_in_ui = modelo desenhado na UI. Só v.is_paperdoll não basta: no teste de 23/11 as prévias vieram montadas pelo dbe_general (v.isLive), sem a escala
+					{ "oozaru_ui_scale": "v.is_oozaru && (v.is_paperdoll || q.is_in_ui)" }
 				],
 				"variables": {
 					"variable.fp_melee_spear_use_attachable_rotation_z": "public",
