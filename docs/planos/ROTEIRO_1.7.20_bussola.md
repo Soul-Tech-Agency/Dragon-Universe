@@ -111,6 +111,15 @@ Resto:
 - [ ] Segunda viagem ao Futuro: rápida, sem esperar a cidade de novo.
 - [ ] Mundo antigo que já tinha a cidade (mundo antigo): nada muda.
 
-## 8. Geral
+## 8. Troca de raça
+
+- [ ] Majin → Saiyajin (pelo desejo do Shenlong ou `/dbe:setrace saiyan`): Absorção e Poder de Cura somem da tela de
+  Habilidades e da barra lateral; o Punho Amigável continua, no mesmo nível.
+- [ ] Namekuseijin → Majin: o Poder de Cura continua no mesmo nível e a Absorção aparece.
+- [ ] Trocar para a mesma raça: nenhuma habilidade some e nenhuma volta ao nível 1.
+- [ ] Personagem novo (e depois do reset no Outro Mundo): recebe as habilidades padrão da raça escolhida.
+- [ ] Personagem que já trocou de raça antes desta versão: as habilidades antigas continuam (não há migração).
+
+## 9. Geral
 
 - [ ] 10 minutos de jogo sem erro novo no Content Log.
