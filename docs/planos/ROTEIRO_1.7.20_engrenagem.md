@@ -29,9 +29,14 @@ Cobre os commits `a58f48c` (valores dos slots, check de propriedades), `d87708f`
 - [ ] "Pontos de habilidade" mostra o número (também com 0).
 - [ ] Nenhum quadrado vazio na lista.
 - [ ] Não aparecem "pts;…" nem uma linha "Transformações" dentro da lista.
-- [ ] As habilidades que dá para melhorar aparecem com o nome e o "+". A que está no máximo aparece com o ícone dourado.
-- [ ] Clicar numa habilidade melhora **ela**. Nada abre a Ajuda.
-- [ ] Sem habilidade para melhorar, aparece só o aviso, sem linhas vazias.
+- [ ] Aparecem **todas** as habilidades que o personagem tem, nesta ordem:
+  - primeiro, as que dá para subir, com nível, custo e o "+";
+  - depois, as no máximo, com "Maximizado" e o ícone dourado;
+  - por último, as de nível único (ex.: Esfera de Ki, Kamehameha), com "Aprendida" e um ✓ azul, sem custo e sem "+".
+- [ ] Clicar numa habilidade que sobe melhora **ela** e gasta os pontos.
+- [ ] Clicar numa linha "Aprendida" ou "Maximizado" só reabre a tela: não gasta ponto e não abre a Ajuda.
+- [ ] Personagem novo (só com habilidades de nível único) vê a lista com elas, e não o aviso de "nenhuma habilidade".
+- [ ] O aviso de vazio só aparece se o personagem não tiver nenhuma habilidade.
 - [ ] O botão Transformações (embaixo) abre Transformações.
 
 ## 3. Notícias
