@@ -39,9 +39,14 @@ Cobre os commits `a58f48c` (valores dos slots, check de propriedades), `d87708f`
 - [ ] "Pontos de habilidade" mostra o número (também com 0).
 - [ ] Nenhum quadrado vazio na lista.
 - [ ] Não aparecem "pts;…" nem uma linha "Transformações" dentro da lista.
-- [ ] As habilidades que dá para melhorar aparecem com o nome e o "+". A que está no máximo aparece com o ícone dourado.
-- [ ] Clicar numa habilidade melhora **ela**. Nada abre a Ajuda.
-- [ ] Sem habilidade para melhorar, aparece só o aviso, sem linhas vazias.
+- [ ] Aparecem **todas** as habilidades que o personagem tem, nesta ordem:
+  - primeiro, as que dá para subir, com nível, custo e o "+";
+  - depois, as no máximo, com "Maximizado" e o ícone dourado;
+  - por último, as de nível único (ex.: Esfera de Ki, Kamehameha), com "Aprendida" e um ✓ azul, sem custo e sem "+".
+- [ ] Clicar numa habilidade que sobe melhora **ela** e gasta os pontos.
+- [ ] Clicar numa linha "Aprendida" ou "Maximizado" só reabre a tela: não gasta ponto e não abre a Ajuda.
+- [ ] Personagem novo (só com habilidades de nível único) vê a lista com elas, e não o aviso de "nenhuma habilidade".
+- [ ] O aviso de vazio só aparece se o personagem não tiver nenhuma habilidade.
 - [ ] O botão Transformações (embaixo) abre Transformações.
 
 ### 3. Notícias
@@ -325,7 +330,7 @@ Os itens marcados com 📜 se conferem no ContentLog. Use um mundo novo, salvo q
 - [ ] Ficar perto de marcos ainda não construídos no Overworld: nenhuma linha `world_landmarks.js` passa de ~2 ms/tick
 
 ## Observações para ler o resultado
-- **Habilidades:** a tela lista só as habilidades que têm níveis para subir, como Voo, Pulo, Punho de Ki, Proteção de Ki, Sentir Ki, Desbloqueio de Potencial, Kaioken e Limitador. Aura, Ki Blast, Kamehameha e outras de nível único não aparecem. Se você **já sabe voar**, o Voo tem que aparecer na lista. Se aparecer "nenhuma habilidade disponível" com o voo aprendido, é bug: mande o print.
+- **Habilidades:** a tela mostra todas as suas habilidades. Primeiro vêm as que sobem de nível, depois as que estão no máximo e por fim as de nível único ("Aprendida", com ✓). Com o voo aprendido, o Voo aparece no topo com o custo. Quem trocou de raça pode continuar vendo habilidades da raça antiga (por exemplo, Absorção): isso já acontecia antes e só ficou visível agora. Avise se incomodar.
 - **Vilas de Namek:** a linha nova do log só aparece numa vila **nunca visitada** (mundo novo ou vila nova).
 - **Guardas:** num mundo antigo, o primeiro registro pode dizer `0 new` se os guardas já estavam lá. Isso está certo.
 - **/reload (só no pacote de depuração):** compare o número de **execuções** da linha `relógio` numa janela igual antes e depois do `/reload`. Se dobrar, o relógio duplicou. Os "ticks despachados" não mostram isso.

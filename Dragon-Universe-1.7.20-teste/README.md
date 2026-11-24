@@ -4,10 +4,10 @@
 
 | Item | Valor |
 |---|---|
-| Arquivo normal | `Dragon-Universe-1.7.20.mcaddon` (21.952.372 bytes, 3271 arquivos): **use este para jogar e testar** |
+| Arquivo normal | `Dragon-Universe-1.7.20.mcaddon` (21.952.719 bytes, 3271 arquivos): **use este para jogar e testar** |
 | Arquivo de depuração | `Dragon-Universe-1.7.20-depuracao.mcaddon`: igual ao normal, mas com a sonda de desempenho (`DEBUG_PERF`) e o log de dano do treino mental (`DEBUG_DAMAGE`) ligados. Use **só** para os itens 📊 e o item (b) do treino mental |
-| SHA-256 | em `Dragon-Universe-1.7.20.sha256` (normal `2292acd4…3fea77`) |
-| Fonte | commit `6aec792` (branch `integration/1.7.20`) |
+| SHA-256 | em `Dragon-Universe-1.7.20.sha256` (normal `0f39bdb6…c5c6`) |
+| Fonte | commit `9079a15` (branch `integration/1.7.20`) |
 | Alvo | Minecraft Bedrock 26.60, PC (Windows) e Android |
 | Versão dos packs | BP e RP `[1,7,20]`, `min_engine_version` `[1,26,50]`, UUIDs iguais aos da 1.7.11 |
 
@@ -29,6 +29,7 @@ Os dois arquivos têm a mesma versão. **Instale um de cada vez**: remova um ant
 
 **Novidades da 1.7.20**
 - Tela Treino nova, com 4 treinos: Sombra, Concentração, **Flexões** (treino físico em séries) e **Treino mental** (réplicas dos chefes que você já venceu, nos modos Memória e Desafio).
+- **Habilidades:** a tela mostra todas as habilidades que você tem. As de nível único (Aura, Ki Blast, Kamehameha, Punho Amigável…) aparecem como "Aprendida", sem custo (decisão de 24/11).
 - Concentração refeita com a grade de orbes 3×3.
 - Registro dos chefes vencidos (usado pelo treino mental).
 - Parte do código dividida e reorganizada (sem mudança de comportamento, conferido por comparação).
@@ -44,7 +45,6 @@ Os dois arquivos têm a mesma versão. **Instale um de cada vez**: remova um ant
 ## Riscos aceitos
 - Continuam os da 1.7.19: terreno de planetas e do Kaioshin mais lento, base do Freeza em até ~18 s e 1ª viagem ao Futuro com espera de alguns minutos.
 - Ir e voltar pelo Star Navigator em menos de 10 s chega a pé.
-- A tela de Habilidades só lista habilidades que sobem de nível (Voo, Pulo, Punho de Ki, Kaioken etc.). Aura, Ki Blast e outras de nível único não aparecem. Mudar isso é uma decisão para a 1.7.21.
 
 ## Ainda não resolvido / a confirmar no teste
 - **Cápsula 991 difícil de dirigir:** o código é idêntico ao da 1.7.17. Para saber se piorou, compare a mesma rampa na 1.7.17 e na 1.7.20.
