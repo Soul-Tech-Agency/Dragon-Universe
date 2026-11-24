@@ -211,13 +211,18 @@ var hM = class {
     setRace(sG) {
       let sH = fR.get(sG)?.getData();
       if (sH) {
+        // troca de raça (decisão do usuário, 24/11): as habilidades padrão da raça antiga que a nova não tem saem
+        // (removeSkill desliga a toggle antes); as padrão da nova só entram se faltarem, sem zerar o nível.
+        let oldDefaults = this._race?.defaultSkills ?? [],
+          newDefaults = sH.defaultSkills ?? [];
+        for (let id of oldDefaults) newDefaults.includes(id) || this.skills.removeSkill(id);
         (this._race = new fS(sH)),
           this.attributes.modifiers.removeAllModifiers(),
           this.attributes.modifiers.applyDefaultModifiers(),
           this.attributes.modifiers.applyRacialModifiers(),
           this.transformations.clearTransformations(),
           this.skills.disableToggleSkills();
-        for (let sI of this.race.defaultSkills) this.skills.addSkill(sI);
+        for (let sI of this.race.defaultSkills) this.skills.hasSkill(sI) || this.skills.addSkill(sI);
         this.trySetProperty("dbe:race", this.race.id), (this.playerCustomization.raceIndex = fR.getIndex(this.race.id) ?? 0);
       } else throw new fP(sG);
     }
