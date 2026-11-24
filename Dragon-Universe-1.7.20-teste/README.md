@@ -4,10 +4,10 @@
 
 | Item | Valor |
 |---|---|
-| Arquivo normal | `Dragon-Universe-1.7.20.mcaddon` (21.952.719 bytes, 3271 arquivos): **use este para jogar e testar** |
+| Arquivo normal | `Dragon-Universe-1.7.20.mcaddon` (21.953.320 bytes, 3271 arquivos): **use este para jogar e testar** |
 | Arquivo de depuração | `Dragon-Universe-1.7.20-depuracao.mcaddon`: igual ao normal, mas com a sonda de desempenho (`DEBUG_PERF`) e o log de dano do treino mental (`DEBUG_DAMAGE`) ligados. Use **só** para os itens 📊 e o item (b) do treino mental |
-| SHA-256 | em `Dragon-Universe-1.7.20.sha256` (normal `0f39bdb6…c5c6`) |
-| Fonte | commit `9079a15` (branch `integration/1.7.20`) |
+| SHA-256 | em `Dragon-Universe-1.7.20.sha256` (normal `5089a65e…6dde9`) |
+| Fonte | commit `414a710` (branch `integration/1.7.20`) |
 | Alvo | Minecraft Bedrock 26.60, PC (Windows) e Android |
 | Versão dos packs | BP e RP `[1,7,20]`, `min_engine_version` `[1,26,50]`, UUIDs iguais aos da 1.7.11 |
 
@@ -30,6 +30,7 @@ Os dois arquivos têm a mesma versão. **Instale um de cada vez**: remova um ant
 **Novidades da 1.7.20**
 - Tela Treino nova, com 4 treinos: Sombra, Concentração, **Flexões** (treino físico em séries) e **Treino mental** (réplicas dos chefes que você já venceu, nos modos Memória e Desafio).
 - **Habilidades:** a tela mostra todas as habilidades que você tem. As de nível único (Aura, Ki Blast, Kamehameha, Punho Amigável…) aparecem como "Aprendida", sem custo (decisão de 24/11).
+- **Troca de raça:** as habilidades padrão da raça antiga saem e as que você já tem não voltam ao nível 1. Personagens antigos que não são Majin perdem a Absorção ao entrar no mundo. O Poder de Cura fica com todos, porque o Senhor Kaioh vendia essa habilidade até a 1.7.0 (decisão de 24/11).
 - Concentração refeita com a grade de orbes 3×3.
 - Registro dos chefes vencidos (usado pelo treino mental).
 - Parte do código dividida e reorganizada (sem mudança de comportamento, conferido por comparação).
@@ -44,6 +45,7 @@ Os dois arquivos têm a mesma versão. **Instale um de cada vez**: remova um ant
 
 ## Riscos aceitos
 - Continuam os da 1.7.19: terreno de planetas e do Kaioshin mais lento, base do Freeza em até ~18 s e 1ª viagem ao Futuro com espera de alguns minutos.
+- Trocando de raça no meio do jogo, um ícone velho pode sobrar na barra lateral até sair e entrar de novo (correção na próxima versão).
 - Ir e voltar pelo Star Navigator em menos de 10 s chega a pé.
 
 ## Ainda não resolvido / a confirmar no teste

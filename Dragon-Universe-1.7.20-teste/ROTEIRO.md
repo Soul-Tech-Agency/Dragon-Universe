@@ -107,7 +107,7 @@ Cobre os commits `a58f48c` (valores dos slots, check de propriedades), `d87708f`
 - [ ] No celular, cada seção acima foi conferida (layout próprio, toque na linha inteira).
 - [ ] Celular fraco: rolar a lista de réplicas e a de Missões sem travar.
 
-## Parte 2. Treinos, voo, radar e cidade do Futuro
+## Parte 2. Treinos, voo, radar, cidade do Futuro e troca de raça
 Treinos (concentração, flexões e treino mental), tela Treino, voo no Star Navigator, radar e cidade do Futuro.
 Marque cada item depois de ver no jogo. Quando algo falhar, anote o que aconteceu e, se der, mande um print.
 Alguns itens pedem dois jogadores ou um mundo antigo: estão marcados assim.
@@ -219,7 +219,18 @@ Resto:
 - [ ] Segunda viagem ao Futuro: rápida, sem esperar a cidade de novo.
 - [ ] Mundo antigo que já tinha a cidade (mundo antigo): nada muda.
 
-### 8. Geral
+### 8. Troca de raça
+
+- [ ] Majin → Saiyajin (pelo desejo do Shenlong ou `/dbe:setrace saiyan`): Absorção e Poder de Cura somem da tela de
+  Habilidades e da barra lateral; o Punho Amigável continua, no mesmo nível.
+- [ ] Namekuseijin → Majin: o Poder de Cura continua no mesmo nível e a Absorção aparece.
+- [ ] Trocar para a mesma raça: nenhuma habilidade some e nenhuma volta ao nível 1.
+- [ ] Personagem novo (e depois do reset no Outro Mundo): recebe as habilidades padrão da raça escolhida.
+- [ ] Personagem antigo que era Majin e trocou de raça antes desta versão (mundo antigo): ao entrar, a Absorção some
+  (aparece no Content Log uma linha "[Race] … removed skills of a previous race: absorption"); o Poder de Cura continua.
+  Sair e entrar de novo: nada muda e a linha não aparece de novo.
+
+### 9. Geral
 
 - [ ] 10 minutos de jogo sem erro novo no Content Log.
 
@@ -330,7 +341,7 @@ Os itens marcados com 📜 se conferem no ContentLog. Use um mundo novo, salvo q
 - [ ] Ficar perto de marcos ainda não construídos no Overworld: nenhuma linha `world_landmarks.js` passa de ~2 ms/tick
 
 ## Observações para ler o resultado
-- **Habilidades:** a tela mostra todas as suas habilidades. Primeiro vêm as que sobem de nível, depois as que estão no máximo e por fim as de nível único ("Aprendida", com ✓). Com o voo aprendido, o Voo aparece no topo com o custo. Quem trocou de raça pode continuar vendo habilidades da raça antiga (por exemplo, Absorção): isso já acontecia antes e só ficou visível agora. Avise se incomodar.
+- **Habilidades:** a tela mostra todas as suas habilidades. Primeiro vêm as que sobem de nível, depois as que estão no máximo e por fim as de nível único ("Aprendida", com ✓). Com o voo aprendido, o Voo aparece no topo com o custo. Na troca de raça, as habilidades padrão da raça antiga saem. Em personagens antigos, a Absorção sai de quem não é Majin. O Poder de Cura fica com todos, porque o Senhor Kaioh vendia essa habilidade até a 1.7.0. Trocando de raça no meio do jogo, pode sobrar um ícone velho na barra lateral até você sair e entrar de novo: avise se acontecer.
 - **Vilas de Namek:** a linha nova do log só aparece numa vila **nunca visitada** (mundo novo ou vila nova).
 - **Guardas:** num mundo antigo, o primeiro registro pode dizer `0 new` se os guardas já estavam lá. Isso está certo.
 - **/reload (só no pacote de depuração):** compare o número de **execuções** da linha `relógio` numa janela igual antes e depois do `/reload`. Se dobrar, o relógio duplicou. Os "ticks despachados" não mostram isso.
