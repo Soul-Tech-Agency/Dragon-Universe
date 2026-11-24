@@ -219,7 +219,11 @@ QUEST_TINTS = [("lock", "weak"), ("quest_done", "green"), ("quest_main", "gold")
 ACH_TINTS = [("ach_done", "green"), ("ach_battle_power", "gold"), ("ach_defeat", "red"), ("ach_item", "orange"),
              ("ach_skill", "purple"), ("ach_requirement", "cyan")]
 LOCK_TINTS = [("lock", "weak")]
-SKILL_TINTS = [("skill_max", "gold")]
+SKILL_TINTS = [("skill_max", "gold"), ("check", "cyan")]
+# linha de habilidade sem "+": no máximo (ícone skill_max) ou de nível único, só leitura (ícone check, 1.7.20). O
+# contains() cobre o script sem iconPatch (a chave vem no texto do botão).
+NO_PLUS = ("(" + contains("maximized_skill") + " or " + contains("learned_skill") + " or "
+           + tex_is("skill_max") + " or " + tex_is("check") + ")")
 
 
 ACTIVE = has_prefix("*")
@@ -1123,10 +1127,9 @@ def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1, key_ic
         if icon:
             row += [pad(4), centered(16, tinted_icon([16, 16], LOCK_TINTS))]
         if plus:
-            # no máximo: ícone skill_max do script (CONTRATO.md §10.5) ou, com script antigo, a chave no texto
+            # sem "+" (NO_PLUS): no máximo ou só leitura; no lugar, o ícone skill_max ou check
             tex_b = {"binding_type": "collection", "binding_collection_name": COL, "binding_name": "#form_button_texture"}
-            maxed = ("(" + contains("maximized_skill") + " or "
-                     + tex_is("skill_max") + ")")
+            maxed = NO_PLUS
             row += [pad(4), c("plus", P([20, "100%"], [
                 c("b", P([20, h - 6], [c("i", img(I + "plus", [8, 8], "gold"))],
                          bindings=[coll_text(), tex_b, view("(not " + maxed + ")")])),
@@ -1137,8 +1140,7 @@ def list_item(h, gap=2, icon=False, plus=False, extra_hide=None, lines=1, key_ic
 
     def plus_visible():
         tex_b = {"binding_type": "collection", "binding_collection_name": COL, "binding_name": "#form_button_texture"}
-        maxed = ("(" + contains("maximized_skill") + " or "
-                 + tex_is("skill_max") + ")")
+        maxed = NO_PLUS
         return [coll_text(), tex_b, view("(not " + maxed + ")")]
 
     def face(tex, plus_tex):

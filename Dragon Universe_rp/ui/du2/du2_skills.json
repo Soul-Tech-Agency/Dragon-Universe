@@ -90,7 +90,9 @@
         ]
        }
       },
-      {"content@du2_skills.h9": {}}
+      {
+       "content": {"type": "panel", "size": ["100%", "100%"], "layer": 1, "controls": [{"row@du2_skills.h10": {}}]}
+      }
      ],
      "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}],
      "anchor_from": "top_left",
@@ -137,7 +139,7 @@
            "size": ["100%", "100%"],
            "controls": [
             {"fill": {"type": "panel", "size": ["fill", "100%"]}},
-            {"plus": {"type": "panel", "size": [20, "100%"], "controls": [{"b@du2_skills.h10": {}}]}},
+            {"plus": {"type": "panel", "size": [20, "100%"], "controls": [{"b@du2_skills.h11": {}}]}},
             {"pad": {"type": "panel", "size": [5, "100%"]}}
            ]
           }
@@ -158,7 +160,7 @@
            "size": ["100%", "100%"],
            "controls": [
             {"fill": {"type": "panel", "size": ["fill", "100%"]}},
-            {"plus": {"type": "panel", "size": [20, "100%"], "controls": [{"b@du2_skills.h11": {}}]}},
+            {"plus": {"type": "panel", "size": [20, "100%"], "controls": [{"b@du2_skills.h12": {}}]}},
             {"pad": {"type": "panel", "size": [5, "100%"]}}
            ]
           }
@@ -181,7 +183,7 @@
            "size": ["100%", "100%"],
            "controls": [
             {"fill": {"type": "panel", "size": ["fill", "100%"]}},
-            {"plus": {"type": "panel", "size": [20, "100%"], "controls": [{"b@du2_skills.h12": {}}]}},
+            {"plus": {"type": "panel", "size": [20, "100%"], "controls": [{"b@du2_skills.h13": {}}]}},
             {"pad": {"type": "panel", "size": [5, "100%"]}}
            ]
           }
@@ -189,7 +191,9 @@
         ]
        }
       },
-      {"content@du2_skills.h14": {}}
+      {
+       "content": {"type": "panel", "size": ["100%", "100%"], "layer": 1, "controls": [{"row@du2_skills.h15": {}}]}
+      }
      ],
      "bindings": [{"binding_type": "collection_details", "binding_collection_name": "form_buttons"}],
      "anchor_from": "top_left",
@@ -225,7 +229,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_skills.h15": {}}]
+     "controls": [{"row@du2_skills.h16": {}}]
     }
    },
    {
@@ -273,7 +277,7 @@
         "size": ["100%", 24],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_skills.h16": {}}
+         {"row@du2_skills.h17": {}}
         ]
        }
       },
@@ -300,7 +304,7 @@
                  "size": ["100% - 12px", "100% - 10px"],
                  "anchor_from": "center",
                  "anchor_to": "center",
-                 "controls": [{"col@du2_skills.h23": {}}]
+                 "controls": [{"col@du2_skills.h24": {}}]
                 }
                }
               ]
@@ -341,7 +345,7 @@
        "target_property_name": "#visible"
       }
      ],
-     "controls": [{"row@du2_skills.h15": {}}]
+     "controls": [{"row@du2_skills.h16": {}}]
     }
    },
    {
@@ -389,7 +393,7 @@
         "size": ["100%", 20],
         "controls": [
          {"bg": {"type": "image", "texture": "textures/ui/du2/title_bar", "size": ["100%", "100%"]}},
-         {"row@du2_skills.h24": {}}
+         {"row@du2_skills.h25": {}}
         ]
        }
       },
@@ -416,7 +420,7 @@
                  "size": ["100% - 8px", "100% - 6px"],
                  "anchor_from": "center",
                  "anchor_to": "center",
-                 "controls": [{"col@du2_skills.h25": {}}]
+                 "controls": [{"col@du2_skills.h26": {}}]
                 }
                }
               ]
@@ -449,7 +453,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
+    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (not ((('§r' + #form_button_text) - 'learned_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max') or (#form_button_texture = 'textures/ui/du2/icons/check')))",
     "target_property_name": "#visible"
    }
   ],
@@ -471,7 +475,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
+    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (not ((('§r' + #form_button_text) - 'learned_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max') or (#form_button_texture = 'textures/ui/du2/icons/check')))",
     "target_property_name": "#visible"
    }
   ],
@@ -493,7 +497,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
+    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (not ((('§r' + #form_button_text) - 'learned_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max') or (#form_button_texture = 'textures/ui/du2/icons/check')))",
     "target_property_name": "#visible"
    }
   ],
@@ -577,7 +581,7 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
+    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (not ((('§r' + #form_button_text) - 'learned_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max') or (#form_button_texture = 'textures/ui/du2/icons/check')))",
     "target_property_name": "#visible"
    }
   ],
@@ -621,6 +625,36 @@
   "type": "image",
   "texture": "",
   "size": [12, 12],
+  "color": [0.137, 0.843, 1.0],
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture",
+    "binding_name_override": "#texture"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture_file_system",
+    "binding_name_override": "#texture_file_system"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(#form_button_texture = 'textures/ui/du2/icons/check')",
+    "target_property_name": "#visible"
+   }
+  ]
+ },
+ "h9": {
+  "type": "image",
+  "texture": "",
+  "size": [12, 12],
   "color": [1.0, 1.0, 1.0],
   "bindings": [
    {
@@ -642,75 +676,39 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((#form_button_texture = '') or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
+    "source_property_name": "(not ((#form_button_texture = '') or (#form_button_texture = 'textures/ui/du2/icons/skill_max') or (#form_button_texture = 'textures/ui/du2/icons/check')))",
     "target_property_name": "#visible"
-   }
-  ]
- },
- "h9": {
-  "type": "panel",
-  "size": ["100%", "100%"],
-  "layer": 1,
-  "controls": [
-   {
-    "row": {
-     "type": "stack_panel",
-     "orientation": "horizontal",
-     "size": ["100%", "100%"],
-     "controls": [
-      {"pad": {"type": "panel", "size": [6, "100%"]}},
-      {
-       "t": {
-        "type": "panel",
-        "size": ["fill", "100%"],
-        "clips_children": true,
-        "controls": [{"l@du2_skills.h5": {}}]
-       }
-      },
-      {"pad": {"type": "panel", "size": [4, "100%"]}},
-      {
-       "plus": {
-        "type": "panel",
-        "size": [20, "100%"],
-        "controls": [
-         {"b@du2_skills.h6": {}},
-         {
-          "max": {
-           "type": "panel",
-           "size": [12, 12],
-           "controls": [{"i_skill_max@du2_skills.h7": {}}, {"i_other@du2_skills.h8": {}}]
-          }
-         }
-        ]
-       }
-      },
-      {"pad": {"type": "panel", "size": [5, "100%"]}}
-     ]
-    }
    }
   ]
  },
  "h10": {
-  "type": "panel",
-  "size": [20, 16],
-  "bindings": [
+  "type": "stack_panel",
+  "orientation": "horizontal",
+  "size": ["100%", "100%"],
+  "controls": [
+   {"pad": {"type": "panel", "size": [6, "100%"]}},
    {
-    "binding_type": "collection",
-    "binding_collection_name": "form_buttons",
-    "binding_name": "#form_button_text"
+    "t": {"type": "panel", "size": ["fill", "100%"], "clips_children": true, "controls": [{"l@du2_skills.h5": {}}]}
    },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
    {
-    "binding_type": "collection",
-    "binding_collection_name": "form_buttons",
-    "binding_name": "#form_button_texture"
+    "plus": {
+     "type": "panel",
+     "size": [20, "100%"],
+     "controls": [
+      {"b@du2_skills.h6": {}},
+      {
+       "max": {
+        "type": "panel",
+        "size": [12, 12],
+        "controls": [{"i_skill_max@du2_skills.h7": {}}, {"i_check@du2_skills.h8": {}}, {"i_other@du2_skills.h9": {}}]
+       }
+      }
+     ]
+    }
    },
-   {
-    "binding_type": "view",
-    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
-    "target_property_name": "#visible"
-   }
-  ],
-  "controls": [{"bg": {"type": "image", "texture": "textures/ui/du2/btn_plus", "size": ["100%", "100%"]}}]
+   {"pad": {"type": "panel", "size": [5, "100%"]}}
+  ]
  },
  "h11": {
   "type": "panel",
@@ -728,11 +726,11 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
+    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (not ((('§r' + #form_button_text) - 'learned_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max') or (#form_button_texture = 'textures/ui/du2/icons/check')))",
     "target_property_name": "#visible"
    }
   ],
-  "controls": [{"bg": {"type": "image", "texture": "textures/ui/du2/btn_plus_hover", "size": ["100%", "100%"]}}]
+  "controls": [{"bg": {"type": "image", "texture": "textures/ui/du2/btn_plus", "size": ["100%", "100%"]}}]
  },
  "h12": {
   "type": "panel",
@@ -750,11 +748,11 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
+    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (not ((('§r' + #form_button_text) - 'learned_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max') or (#form_button_texture = 'textures/ui/du2/icons/check')))",
     "target_property_name": "#visible"
    }
   ],
-  "controls": [{"bg": {"type": "image", "texture": "textures/ui/du2/btn_plus_pressed", "size": ["100%", "100%"]}}]
+  "controls": [{"bg": {"type": "image", "texture": "textures/ui/du2/btn_plus_hover", "size": ["100%", "100%"]}}]
  },
  "h13": {
   "type": "panel",
@@ -772,7 +770,29 @@
    },
    {
     "binding_type": "view",
-    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max')))",
+    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (not ((('§r' + #form_button_text) - 'learned_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max') or (#form_button_texture = 'textures/ui/du2/icons/check')))",
+    "target_property_name": "#visible"
+   }
+  ],
+  "controls": [{"bg": {"type": "image", "texture": "textures/ui/du2/btn_plus_pressed", "size": ["100%", "100%"]}}]
+ },
+ "h14": {
+  "type": "panel",
+  "size": [20, 16],
+  "bindings": [
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_text"
+   },
+   {
+    "binding_type": "collection",
+    "binding_collection_name": "form_buttons",
+    "binding_name": "#form_button_texture"
+   },
+   {
+    "binding_type": "view",
+    "source_property_name": "(not ((not ((('§r' + #form_button_text) - 'maximized_skill') = ('§r' + #form_button_text))) or (not ((('§r' + #form_button_text) - 'learned_skill') = ('§r' + #form_button_text))) or (#form_button_texture = 'textures/ui/du2/icons/skill_max') or (#form_button_texture = 'textures/ui/du2/icons/check')))",
     "target_property_name": "#visible"
    }
   ],
@@ -782,50 +802,36 @@
    }
   ]
  },
- "h14": {
-  "type": "panel",
+ "h15": {
+  "type": "stack_panel",
+  "orientation": "horizontal",
   "size": ["100%", "100%"],
-  "layer": 1,
   "controls": [
+   {"pad": {"type": "panel", "size": [6, "100%"]}},
    {
-    "row": {
-     "type": "stack_panel",
-     "orientation": "horizontal",
-     "size": ["100%", "100%"],
+    "t": {"type": "panel", "size": ["fill", "100%"], "clips_children": true, "controls": [{"l@du2_skills.h5": {}}]}
+   },
+   {"pad": {"type": "panel", "size": [4, "100%"]}},
+   {
+    "plus": {
+     "type": "panel",
+     "size": [20, "100%"],
      "controls": [
-      {"pad": {"type": "panel", "size": [6, "100%"]}},
+      {"b@du2_skills.h14": {}},
       {
-       "t": {
+       "max": {
         "type": "panel",
-        "size": ["fill", "100%"],
-        "clips_children": true,
-        "controls": [{"l@du2_skills.h5": {}}]
+        "size": [12, 12],
+        "controls": [{"i_skill_max@du2_skills.h7": {}}, {"i_check@du2_skills.h8": {}}, {"i_other@du2_skills.h9": {}}]
        }
-      },
-      {"pad": {"type": "panel", "size": [4, "100%"]}},
-      {
-       "plus": {
-        "type": "panel",
-        "size": [20, "100%"],
-        "controls": [
-         {"b@du2_skills.h13": {}},
-         {
-          "max": {
-           "type": "panel",
-           "size": [12, 12],
-           "controls": [{"i_skill_max@du2_skills.h7": {}}, {"i_other@du2_skills.h8": {}}]
-          }
-         }
-        ]
-       }
-      },
-      {"pad": {"type": "panel", "size": [5, "100%"]}}
+      }
      ]
     }
-   }
+   },
+   {"pad": {"type": "panel", "size": [5, "100%"]}}
   ]
  },
- "h15": {
+ "h16": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", 14],
@@ -900,7 +906,7 @@
    }
   ]
  },
- "h16": {
+ "h17": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -927,7 +933,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h17": {
+ "h18": {
   "type": "label",
   "text": "#du2_text",
   "size": ["100%", 10],
@@ -955,7 +961,7 @@
   "anchor_from": "center",
   "anchor_to": "center"
  },
- "h18": {
+ "h19": {
   "type": "panel",
   "size": ["100%", 10],
   "anchor_from": "center",
@@ -986,10 +992,10 @@
      "anchor_to": "center"
     }
    },
-   {"on@du2_skills.h17": {}}
+   {"on@du2_skills.h18": {}}
   ]
  },
- "h19": {
+ "h20": {
   "type": "panel",
   "size": ["100%", "100%"],
   "controls": [
@@ -1026,7 +1032,7 @@
         "type": "panel",
         "size": [100, "100%"],
         "clips_children": true,
-        "controls": [{"l@du2_skills.h18": {}}]
+        "controls": [{"l@du2_skills.h19": {}}]
        }
       }
      ]
@@ -1034,7 +1040,7 @@
    }
   ]
  },
- "h20": {
+ "h21": {
   "type": "panel",
   "size": ["100%", "100%"],
   "controls": [
@@ -1071,7 +1077,7 @@
         "type": "panel",
         "size": [100, "100%"],
         "clips_children": true,
-        "controls": [{"l@du2_skills.h18": {}}]
+        "controls": [{"l@du2_skills.h19": {}}]
        }
       }
      ]
@@ -1079,7 +1085,7 @@
    }
   ]
  },
- "h21": {
+ "h22": {
   "type": "panel",
   "size": ["100%", "100%"],
   "controls": [
@@ -1116,7 +1122,7 @@
         "type": "panel",
         "size": [100, "100%"],
         "clips_children": true,
-        "controls": [{"l@du2_skills.h18": {}}]
+        "controls": [{"l@du2_skills.h19": {}}]
        }
       }
      ]
@@ -1124,14 +1130,14 @@
    }
   ]
  },
- "h22@common.button": {
+ "h23@common.button": {
   "size": [130, 22],
   "collection_index": 10,
   "$pressed_button_name": "button.form_button_click",
   "default_control": "default",
   "hover_control": "hover",
   "pressed_control": "pressed",
-  "controls": [{"default@du2_skills.h19": {}}, {"hover@du2_skills.h20": {}}, {"pressed@du2_skills.h21": {}}],
+  "controls": [{"default@du2_skills.h20": {}}, {"hover@du2_skills.h21": {}}, {"pressed@du2_skills.h22": {}}],
   "bindings": [
    {"binding_type": "collection_details", "binding_collection_name": "form_buttons"},
    {
@@ -1146,7 +1152,7 @@
    }
   ]
  },
- "h23": {
+ "h24": {
   "type": "stack_panel",
   "orientation": "vertical",
   "size": ["100%", "100%"],
@@ -1185,7 +1191,7 @@
         "type": "collection_panel",
         "size": [130, 22],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_skills.h22": {}}]
+        "controls": [{"b@du2_skills.h23": {}}]
        }
       }
      ]
@@ -1193,7 +1199,7 @@
    }
   ]
  },
- "h24": {
+ "h25": {
   "type": "stack_panel",
   "orientation": "horizontal",
   "size": ["100%", "100%"],
@@ -1220,7 +1226,7 @@
    {"pad": {"type": "panel", "size": [3, "100%"]}}
   ]
  },
- "h25": {
+ "h26": {
   "type": "stack_panel",
   "orientation": "vertical",
   "size": ["100%", "100%"],
@@ -1259,7 +1265,7 @@
         "type": "collection_panel",
         "size": [130, 22],
         "collection_name": "form_buttons",
-        "controls": [{"b@du2_skills.h22": {}}]
+        "controls": [{"b@du2_skills.h23": {}}]
        }
       }
      ]
