@@ -14,6 +14,10 @@ import { c1 } from "../vendor/vanilla_data.js";
 import { hL } from "../training/concentration.js"; // O4.6: a concentração saiu deste arquivo
 import { PhysicalTraining, isPushupMode } from "../training/physical.js";
 import { MentalTraining } from "../training/mental.js";
+// Habilidades que só vêm como padrão de raça (sem treinador, loja, missão ou desejo). A limpeza de personagens antigos
+// (decisão do usuário, 24/11) só remove estas. healing_power fica de fora: até a 1.7.0 o Senhor Kaioh vendia para
+// qualquer raça. /dbe:learn ainda ensina absorption, mas só para Majin (canLearnSkill).
+const duRaceOnlySkills = ["absorption"];
 var hM = class {
     constructor(sG) {
       this.inputPermissions = sG;
@@ -431,9 +435,21 @@ var hM = class {
       if (this.getCurrentFusion()?.isController === !1)
         this.inputPermissionManager.blockInputPermission("fusion", [bW.Movement]);
     }
+    // Personagens que trocaram de raça antes da 1.7.20 ficaram com as habilidades padrão da raça antiga. Idempotente:
+    // roda em todo join e só age se a habilidade está lá e não é padrão da raça atual. removeSkill desliga a toggle antes.
+    removeLegacyRaceSkills() {
+      let race = this._race;
+      if (!race) return;
+      let removed = [];
+      for (let id of duRaceOnlySkills)
+        !race.defaultSkills.includes(id) && this.skills.hasSkill(id) && (this.skills.removeSkill(id), removed.push(id));
+      removed.length &&
+        console.warn("[Race] " + this.player.name + " (" + race.id + "): removed skills of a previous race: " + removed.join(", "));
+    }
     initialize() {
       this.restoreInputPermissions();
       super.initialize(),
+        this.removeLegacyRaceSkills(),
         this.playerCustomization.init(),
         g1.validatePlayerAccess(this),
         bX.runTimeout(async () => {

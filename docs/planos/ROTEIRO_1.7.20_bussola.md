@@ -118,7 +118,9 @@ Resto:
 - [ ] Namekuseijin → Majin: o Poder de Cura continua no mesmo nível e a Absorção aparece.
 - [ ] Trocar para a mesma raça: nenhuma habilidade some e nenhuma volta ao nível 1.
 - [ ] Personagem novo (e depois do reset no Outro Mundo): recebe as habilidades padrão da raça escolhida.
-- [ ] Personagem que já trocou de raça antes desta versão: as habilidades antigas continuam (não há migração).
+- [ ] Personagem antigo que era Majin e trocou de raça antes desta versão (mundo antigo): ao entrar, a Absorção some
+  (aparece no Content Log uma linha "[Race] … removed skills of a previous race: absorption"); o Poder de Cura continua.
+  Sair e entrar de novo: nada muda e a linha não aparece de novo.
 
 ## 9. Geral
 
